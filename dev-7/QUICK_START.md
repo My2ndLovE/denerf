@@ -3,9 +3,12 @@
 ## What You Have
 
 A working prototype with:
-- 3D glass morphism torus knot that animates on scroll
+- **Smooth vertex-based morphing** - 3D object gradually transforms through 4 different shapes
+- **Fluid transitions** - Vertices interpolate smoothly with cubic easing
 - Smooth scrolling experience with Lenis
-- 4 sections: Hero, Transform, Elevate, Innovate
+- 4 sections with unique 3D forms: Torus Knot → Sphere → Octahedron → Torus
+- Glass morphism material with refractions and transparency
+- Continuous animations throughout entire scroll
 - Minimalist luxury design aesthetic
 
 ## View the Prototype
@@ -16,10 +19,12 @@ The development server is running at:
 
 ## What to Try
 
-1. **Scroll slowly** to see the 3D object rotate, scale, and move
-2. **Notice the smooth scrolling** - no janky movements
-3. **Watch the glass effect** on the 3D object (refractions and transparency)
-4. **Observe the floating animation** - subtle up/down movement
+1. **Scroll slowly** to watch the object smoothly morph between 4 different shapes
+2. **Notice the fluid vertex transitions** - no sudden jumps, just smooth transformations
+3. **Watch each vertex move** - thousands of points interpolate individually
+4. **Observe the easing** - transitions start slow, speed up, then slow down again
+5. **See the glass effect** maintained across all morphing shapes
+6. **Continuous animations** - rotations, scaling, and position changes throughout
 
 ## Key Files to Customize
 

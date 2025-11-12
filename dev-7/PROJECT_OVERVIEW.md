@@ -4,11 +4,17 @@ A high-performance web prototype featuring scroll-driven 3D animations, inspired
 
 ## Features
 
+- **Smooth Vertex Morphing**: 3D object smoothly transforms through 4 different geometric shapes
+  - Torus Knot (Hero) → Sphere (Section 1) → Octahedron (Section 2) → Torus (Section 3)
+  - Vertex-based interpolation with cubic easing
+  - Fluid, organic transitions without sudden jumps
 - **Smooth Scroll**: Implemented with Lenis for buttery-smooth scrolling experience
+- **Continuous Animations**: Object animates throughout entire scroll journey (0-100%)
 - **3D Scene**: React Three Fiber with glass morphism material effect
 - **Scroll Animations**: GSAP ScrollTrigger for synchronized 3D transformations
+- **Dynamic Movement**: Circular motion patterns and scale changes based on scroll position
 - **Minimalist Design**: Clean typography and generous whitespace
-- **Performance Optimized**: Code splitting, lazy loading, and optimized 3D rendering
+- **Performance Optimized**: Pre-computed geometries, efficient interpolation, code splitting
 
 ## Tech Stack
 
@@ -73,10 +79,16 @@ Each section is:
 
 ## Animation Flow
 
-1. **Hero (0% scroll)**: 3D object gently floats and rotates
-2. **Section 1 (25% scroll)**: Object starts rotating along Y-axis
-3. **Section 2 (50% scroll)**: Object scales up and continues rotation
-4. **Section 3 (75-100% scroll)**: Object moves upward and reaches final state
+1. **Hero (0-25% scroll)**: Torus Knot shape - Complex, intertwined geometry with gentle floating
+2. **Section 1 (25-50% scroll)**: Morphs into Sphere - Perfect spherical harmony emerges
+3. **Section 2 (50-75% scroll)**: Transforms to Octahedron - Crystalline, diamond-like structure
+4. **Section 3 (75-100% scroll)**: Completes as Torus - Infinite ring symbolizing continuity
+
+**Throughout the entire scroll**:
+- Continuous Y-axis rotation (4 full spins across the page)
+- Dynamic scaling using sine wave (breathing effect)
+- Circular X/Y position movement
+- Glass morphism material remains constant across all shapes
 
 ## Running the Project
 

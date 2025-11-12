@@ -8,7 +8,7 @@ export default function Hero() {
           Creative Portfolio
         </h1>
         <p className="text-lg md:text-xl text-gray-600 font-light tracking-wide mb-8 animate-fade-in-delay">
-          Scroll to explore innovative design solutions
+          Scroll to watch the morphing journey unfold
         </p>
         <div className="flex items-center justify-center gap-2 text-sm text-gray-400 animate-bounce">
           <span>↓</span>

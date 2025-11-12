@@ -1,0 +1,54 @@
+[
+  {
+    "id": "web-apps",
+    "icon": "🎨",
+    "title": "Custom Web Apps",
+    "description": "Blazing-fast web applications built with .NET, Azure, and Blazor. Because your users deserve better than slow.",
+    "tech": [".NET Core", "Blazor", "Azure", "ABP Framework"],
+    "features": [
+      "Server-side rendering for speed",
+      "Real-time updates with SignalR",
+      "Cloud-native architecture",
+      "Enterprise-grade security"
+    ]
+  },
+  {
+    "id": "ai-integration",
+    "icon": "🤖",
+    "title": "AI Integration",
+    "description": "Integrate cutting-edge AI into your products. GPT-4, Claude, custom models - we make AI actually useful.",
+    "tech": ["OpenAI", "Claude", "Azure AI", "RAG Systems"],
+    "features": [
+      "Custom AI chatbots",
+      "Document Q&A systems",
+      "AI-powered automation",
+      "Semantic search"
+    ]
+  },
+  {
+    "id": "cloud-solutions",
+    "icon": "⚡",
+    "title": "Cloud Solutions",
+    "description": "Serverless architectures that scale automatically and cost less. Pay for what you use, not what you might use.",
+    "tech": ["Azure Functions", "Serverless", "Microservices", "API Design"],
+    "features": [
+      "Auto-scaling infrastructure",
+      "99.9% uptime SLA",
+      "Cost optimization",
+      "Global CDN delivery"
+    ]
+  },
+  {
+    "id": "mobile-apps",
+    "icon": "📱",
+    "title": "Mobile Apps",
+    "description": "Native Android apps built with Kotlin. Smooth, fast, and users actually want to use them.",
+    "tech": ["Android", "Kotlin", "Jetpack Compose", "Material Design"],
+    "features": [
+      "Modern Material Design",
+      "Offline-first architecture",
+      "Push notifications",
+      "Secure local storage"
+    ]
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "ai-video-studio",
+    "title": "AI Video Studio",
+    "tagline": "Transform images into cinematic videos",
+    "description": "Enterprise video generation platform processing 1000+ videos daily using cutting-edge AI technology.",
+    "challenge": "The challenge: Process thousands of videos daily without melting the servers. 🔥",
+    "solution": "Our solution: Azure Functions + smart caching. Now it handles 1000+ videos/day like a boss.",
+    "image": "/images/projects/ai-video-studio.jpg",
+    "imageWebp": "/images/projects/ai-video-studio.webp",
+    "link": "https://example.com/ai-video-studio",
+    "tech": ["Blazor Server", "Azure Functions", "Runway ML", "FFmpeg"],
+    "stats": {
+      "videos": "1000+/day",
+      "uptime": "99.9%",
+      "speed": "<30s"
+    }
+  },
+  {
+    "id": "wine-vault",
+    "title": "WineVault",
+    "tagline": "Smart wine collection management",
+    "description": "Hobby wine tracker with barcode scanning and AI-powered label extraction for effortless collection management.",
+    "challenge": "How do you scan wine labels and extract all the details automatically?",
+    "solution": "Azure Vision AI + custom OCR pipeline. Scan a bottle, get all the data. Magic! ✨",
+    "image": "/images/projects/wine-vault.jpg",
+    "imageWebp": "/images/projects/wine-vault.webp",
+    "link": "https://example.com/wine-vault",
+    "tech": [".NET Core", "ABP Framework", "Blazor", "Azure Vision"],
+    "stats": {
+      "scans": "500+",
+      "accuracy": "95%"
+    }
+  },
+  {
+    "id": "poker-hub",
+    "title": "PokerHub",
+    "tagline": "Real-time multiplayer poker",
+    "description": "Virtual poker room with sub-50ms latency for seamless multiplayer gaming experience.",
+    "challenge": "Real-time poker requires sub-50ms latency. That's... really fast.",
+    "solution": "SignalR + Redis for lightning-fast real-time updates. Players can't even tell they're online!",
+    "image": "/images/projects/poker-hub.jpg",
+    "imageWebp": "/images/projects/poker-hub.webp",
+    "link": "https://example.com/poker-hub",
+    "tech": ["SignalR", "ABP Framework", "Blazor Server", "Redis"],
+    "stats": {
+      "latency": "<50ms",
+      "players": "10/table"
+    }
+  },
+  {
+    "id": "flow-master",
+    "title": "FlowMaster",
+    "tagline": "Intelligent workflow automation",
+    "description": "Visual workflow builder with AI-powered decision making to automate complex business processes.",
+    "challenge": "Business processes are messy. How do you make automation actually... smart?",
+    "solution": "Visual workflow builder + OpenAI for intelligent decision making. Saved clients 80% of manual work!",
+    "image": "/images/projects/flow-master.jpg",
+    "imageWebp": "/images/projects/flow-master.webp",
+    "link": "https://example.com/flow-master",
+    "tech": ["Azure Logic Apps", "Power Automate", "OpenAI"],
+    "stats": {
+      "workflows": "50+",
+      "time_saved": "80%"
+    }
+  }
+]

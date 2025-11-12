@@ -1,0 +1,436 @@
+{
+  "startNode": "hero-start",
+  "nodes": {
+    "hero-start": {
+      "id": "hero-start",
+      "section": "hero",
+      "messages": [
+        {
+          "id": "hero-msg-1",
+          "text": "Hey there! 👋 Welcome to our little corner of the internet!",
+          "delay": 0,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "hero-msg-2",
+          "text": "I'm your AI guide, and I'm here to show you around. Quick question - what brings you here today?",
+          "delay": 1500,
+          "avatarState": "listening"
+        }
+      ],
+      "options": [
+        {
+          "id": "opt-app-idea",
+          "icon": "🚀",
+          "label": "I have an app idea",
+          "keywords": ["app", "build", "create", "idea", "product", "application"],
+          "responseNodeId": "hero-app-response"
+        },
+        {
+          "id": "opt-automate",
+          "icon": "🤖",
+          "label": "I want to automate work",
+          "keywords": ["automate", "automation", "workflow", "process", "efficient", "auto"],
+          "responseNodeId": "hero-automate-response"
+        },
+        {
+          "id": "opt-solution",
+          "icon": "💡",
+          "label": "I need a tech solution",
+          "keywords": ["solution", "problem", "fix", "help", "tech", "technical"],
+          "responseNodeId": "hero-solution-response"
+        },
+        {
+          "id": "opt-browse",
+          "icon": "👀",
+          "label": "Just browsing",
+          "keywords": ["browse", "looking", "curious", "explore", "checking"],
+          "responseNodeId": "hero-browse-response"
+        }
+      ],
+      "allowTextInput": true,
+      "isEntryPoint": true
+    },
+    "hero-app-response": {
+      "id": "hero-app-response",
+      "section": "hero",
+      "messages": [
+        {
+          "id": "hero-app-msg-1",
+          "text": "Ooh, exciting! 🎉 Building apps is literally our favorite thing.",
+          "delay": 500,
+          "avatarState": "celebrating"
+        },
+        {
+          "id": "hero-app-msg-2",
+          "text": "We've helped launch 20+ products from napkin sketch to production. Let me show you how we work...",
+          "delay": 2000,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false,
+      "action": {
+        "type": "scrollToSection",
+        "payload": {
+          "section": "about"
+        }
+      }
+    },
+    "hero-automate-response": {
+      "id": "hero-automate-response",
+      "section": "hero",
+      "messages": [
+        {
+          "id": "hero-auto-msg-1",
+          "text": "Now we're talking! 🤖 Automation is like giving yourself superpowers.",
+          "delay": 500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "hero-auto-msg-2",
+          "text": "We've automated everything from video processing to complex workflows. Let's see what we can do for you...",
+          "delay": 2000,
+          "avatarState": "thinking"
+        }
+      ],
+      "allowTextInput": false,
+      "action": {
+        "type": "scrollToSection",
+        "payload": {
+          "section": "about"
+        }
+      }
+    },
+    "hero-solution-response": {
+      "id": "hero-solution-response",
+      "section": "hero",
+      "messages": [
+        {
+          "id": "hero-sol-msg-1",
+          "text": "Perfect! 💡 Solving problems is what gets us out of bed in the morning.",
+          "delay": 500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "hero-sol-msg-2",
+          "text": "From AI integration to cloud solutions, we've tackled some tricky challenges. Let me give you the tour...",
+          "delay": 2000,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false,
+      "action": {
+        "type": "scrollToSection",
+        "payload": {
+          "section": "about"
+        }
+      }
+    },
+    "hero-browse-response": {
+      "id": "hero-browse-response",
+      "section": "hero",
+      "messages": [
+        {
+          "id": "hero-browse-msg-1",
+          "text": "No pressure! 👀 Feel free to look around.",
+          "delay": 500,
+          "avatarState": "idle"
+        },
+        {
+          "id": "hero-browse-msg-2",
+          "text": "I'll show you the highlights. Who knows, maybe you'll find something interesting...",
+          "delay": 2000,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false,
+      "action": {
+        "type": "scrollToSection",
+        "payload": {
+          "section": "about"
+        }
+      }
+    },
+    "about-entry": {
+      "id": "about-entry",
+      "section": "about",
+      "messages": [
+        {
+          "id": "about-msg-1",
+          "text": "So here's the deal: We started in 2020 because we were tired of boring, cookie-cutter apps.",
+          "delay": 300,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "about-msg-2",
+          "text": "We believe every app should be fast, beautiful, AND solve real problems. Is that too much to ask? 😄",
+          "delay": 2500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "about-msg-3",
+          "text": "Check out our journey below! We've come a long way from that first laptop and too much coffee.",
+          "delay": 5000,
+          "avatarState": "idle"
+        }
+      ],
+      "allowTextInput": false,
+      "isEntryPoint": true
+    },
+    "services-entry": {
+      "id": "services-entry",
+      "section": "services",
+      "messages": [
+        {
+          "id": "services-msg-1",
+          "text": "Alright, let's talk about what we actually DO. 🛠️",
+          "delay": 300,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "services-msg-2",
+          "text": "We've organized our services into neat little cards. Hover over them! (Or tap, if you're on mobile)",
+          "delay": 2000,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "services-msg-3",
+          "text": "Want to see some real examples? 👀",
+          "delay": 4000,
+          "avatarState": "listening"
+        }
+      ],
+      "options": [
+        {
+          "id": "opt-see-projects",
+          "icon": "🎨",
+          "label": "Show me your work!",
+          "keywords": ["yes", "sure", "show", "work", "projects", "portfolio"],
+          "responseNodeId": "services-to-portfolio"
+        },
+        {
+          "id": "opt-learn-more",
+          "icon": "💬",
+          "label": "Tell me more about services",
+          "keywords": ["more", "details", "explain", "services"],
+          "responseNodeId": "services-details"
+        }
+      ],
+      "allowTextInput": true,
+      "isEntryPoint": true
+    },
+    "services-to-portfolio": {
+      "id": "services-to-portfolio",
+      "section": "services",
+      "messages": [
+        {
+          "id": "services-port-msg-1",
+          "text": "Now we're talking! Let's check out the portfolio. This is the good stuff! 🎨",
+          "delay": 500,
+          "avatarState": "celebrating"
+        }
+      ],
+      "allowTextInput": false,
+      "action": {
+        "type": "scrollToSection",
+        "payload": {
+          "section": "portfolio"
+        }
+      }
+    },
+    "services-details": {
+      "id": "services-details",
+      "section": "services",
+      "messages": [
+        {
+          "id": "services-det-msg-1",
+          "text": "Great question! Each card shows a different specialty of ours.",
+          "delay": 500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "services-det-msg-2",
+          "text": "From custom web apps to AI integration, cloud solutions to mobile apps - we've got you covered!",
+          "delay": 2500,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false
+    },
+    "portfolio-entry": {
+      "id": "portfolio-entry",
+      "section": "portfolio",
+      "messages": [
+        {
+          "id": "portfolio-msg-1",
+          "text": "Okay, time for the good stuff - our actual work! 🎨",
+          "delay": 300,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "portfolio-msg-2",
+          "text": "Scroll through these projects. I'll tell you about each one as it comes into view!",
+          "delay": 2000,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false,
+      "isEntryPoint": true
+    },
+    "contact-entry": {
+      "id": "contact-entry",
+      "section": "contact",
+      "messages": [
+        {
+          "id": "contact-msg-1",
+          "text": "Alright, moment of truth! 🎯",
+          "delay": 300,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "contact-msg-2",
+          "text": "You've seen what we can do. Now the question is: What do you want to build?",
+          "delay": 2000,
+          "avatarState": "listening"
+        }
+      ],
+      "options": [
+        {
+          "id": "opt-schedule",
+          "icon": "📅",
+          "label": "Schedule a free consultation",
+          "keywords": ["schedule", "call", "meet", "consultation", "talk"],
+          "responseNodeId": "contact-schedule"
+        },
+        {
+          "id": "opt-tell-project",
+          "icon": "💬",
+          "label": "Tell me about my project",
+          "keywords": ["project", "tell", "about", "discuss"],
+          "responseNodeId": "contact-project"
+        },
+        {
+          "id": "opt-estimate",
+          "icon": "💰",
+          "label": "Get a rough estimate",
+          "keywords": ["estimate", "price", "cost", "quote", "budget"],
+          "responseNodeId": "contact-estimate"
+        },
+        {
+          "id": "opt-think",
+          "icon": "🤔",
+          "label": "I need more time to think",
+          "keywords": ["think", "later", "time", "consider"],
+          "responseNodeId": "contact-think"
+        }
+      ],
+      "allowTextInput": true,
+      "isEntryPoint": true
+    },
+    "contact-schedule": {
+      "id": "contact-schedule",
+      "section": "contact",
+      "messages": [
+        {
+          "id": "contact-sched-msg-1",
+          "text": "Awesome! 📅 Use the form below to tell us a bit about yourself and your project.",
+          "delay": 500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "contact-sched-msg-2",
+          "text": "We'll get back to you within 24 hours to schedule a call. Usually faster, but you know... underpromise, overdeliver. 😉",
+          "delay": 2500,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false
+    },
+    "contact-project": {
+      "id": "contact-project",
+      "section": "contact",
+      "messages": [
+        {
+          "id": "contact-proj-msg-1",
+          "text": "Perfect! 💬 We'd love to hear about it!",
+          "delay": 500,
+          "avatarState": "listening"
+        },
+        {
+          "id": "contact-proj-msg-2",
+          "text": "Fill out the form below and tell us everything. Don't worry about being too detailed - we love details!",
+          "delay": 2000,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false
+    },
+    "contact-estimate": {
+      "id": "contact-estimate",
+      "section": "contact",
+      "messages": [
+        {
+          "id": "contact-est-msg-1",
+          "text": "Smart question! 💰 Every project is different, but we can give you a ballpark.",
+          "delay": 500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "contact-est-msg-2",
+          "text": "Tell us about your project in the form below, and we'll send you a rough estimate within 24 hours!",
+          "delay": 2500,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false
+    },
+    "contact-think": {
+      "id": "contact-think",
+      "section": "contact",
+      "messages": [
+        {
+          "id": "contact-think-msg-1",
+          "text": "No worries at all! 🤔 Take your time.",
+          "delay": 500,
+          "avatarState": "idle"
+        },
+        {
+          "id": "contact-think-msg-2",
+          "text": "When you're ready, the form is right below. We'll be here! Thanks for stopping by! 👋",
+          "delay": 2000,
+          "avatarState": "speaking"
+        }
+      ],
+      "allowTextInput": false
+    },
+    "contact-success": {
+      "id": "contact-success",
+      "section": "contact",
+      "messages": [
+        {
+          "id": "contact-success-msg-1",
+          "text": "Got it! 🎉",
+          "delay": 0,
+          "avatarState": "celebrating"
+        },
+        {
+          "id": "contact-success-msg-2",
+          "text": "We'll get back to you within 24 hours. Usually faster, but you know... underpromise, overdeliver. 😉",
+          "delay": 1500,
+          "avatarState": "speaking"
+        },
+        {
+          "id": "contact-success-msg-3",
+          "text": "Thanks for stopping by! This was fun. See you soon! 👋",
+          "delay": 3500,
+          "avatarState": "celebrating"
+        }
+      ],
+      "allowTextInput": false,
+      "action": {
+        "type": "celebrate",
+        "payload": {}
+      }
+    }
+  }
+}

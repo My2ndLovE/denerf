@@ -1,0 +1,70 @@
+---
+import { Card } from '@/components/ui/Card';
+import { Tag } from '@/components/ui/Tag';
+import projectsData from '@/data/projects.json';
+---
+
+<section id="portfolio" class="portfolio-section min-h-screen px-4 py-20 md:py-32">
+  <div class="container mx-auto max-w-6xl">
+    <!-- Section Title -->
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-6">
+      Our Work
+    </h2>
+    <p class="text-lg md:text-xl text-center text-text-primary/80 mb-12 max-w-2xl mx-auto">
+      Real projects, real results. Here's what we've built.
+    </p>
+
+    <!-- Projects Grid (Mobile: Vertical, Desktop: Can add horizontal scroll later) -->
+    <div class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {projectsData.map((project) => (
+        <Card className="project-card overflow-hidden hover:scale-[1.02] transition-transform">
+          <!-- Project Image Placeholder -->
+          <div class="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+            <div class="text-center p-6">
+              <div class="text-4xl mb-2">🎨</div>
+              <div class="text-sm text-text-primary/60">Project Screenshot</div>
+            </div>
+          </div>
+
+          <!-- Project Info -->
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2">{project.title}</h3>
+            <p class="text-primary mb-3">{project.tagline}</p>
+            <p class="text-text-primary/80 mb-4">{project.description}</p>
+
+            <!-- Tech Tags -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tech.map((tech) => (
+                <Tag>{tech}</Tag>
+              ))}
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              {Object.entries(project.stats).map(([key, value]) => (
+                <div class="text-center p-2 bg-glass rounded-lg">
+                  <div class="text-sm font-bold text-primary">{value}</div>
+                  <div class="text-xs text-text-primary/60">
+                    {key.replace('_', ' ')}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Link -->
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="glass-button w-full text-center block"
+              >
+                View Project →
+              </a>
+            )}
+          </div>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>

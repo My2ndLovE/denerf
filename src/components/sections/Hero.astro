@@ -1,0 +1,55 @@
+---
+import { HolographicAvatar } from '@/components/ai-avatar';
+import { ChatInterface } from '@/components/chat';
+---
+
+<section id="hero" class="hero-section min-h-screen flex flex-col items-center justify-center px-4 py-12 relative">
+  <!-- Holographic Avatar -->
+  <div class="avatar-container mb-8 md:mb-12">
+    <HolographicAvatar client:load size="large" />
+  </div>
+
+  <!-- Chat Interface -->
+  <div class="chat-container w-full max-w-2xl">
+    <ChatInterface client:load />
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="text-primary"
+    >
+      <path
+        d="M12 5v14M12 19l-7-7M12 19l7-7"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 212, 255, 0.1) 0%,
+      transparent 70%
+    );
+  }
+
+  .scroll-indicator {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+
+  .scroll-indicator:hover {
+    opacity: 1;
+  }
+</style>

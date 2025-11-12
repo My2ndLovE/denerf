@@ -1,0 +1,32 @@
+---
+import SEO from './SEO.astro';
+import '@/styles/global.css';
+import '@/styles/glassmorphism.css';
+import '@/styles/hologram.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <SEO title={title} description={description} />
+  </head>
+  <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">
+      Skip to main content
+    </a>
+
+    <!-- Main content -->
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>

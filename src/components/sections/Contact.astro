@@ -1,0 +1,132 @@
+---
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
+import { Button } from '@/components/ui/Button';
+---
+
+<section id="contact" class="contact-section min-h-screen px-4 py-20 md:py-32">
+  <div class="container mx-auto max-w-3xl">
+    <!-- Section Title -->
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-6">
+      Let's Build Something
+    </h2>
+    <p class="text-lg md:text-xl text-center text-text-primary/80 mb-12">
+      Have a project in mind? Let's talk about it!
+    </p>
+
+    <!-- Contact Form -->
+    <div class="glass-container p-6 md:p-8">
+      <form
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        class="space-y-6"
+        id="contact-form"
+      >
+        <!-- Honeypot (hidden from users, catches bots) -->
+        <input type="text" name="_gotcha" style="display:none" />
+
+        <!-- Name -->
+        <Input
+          type="text"
+          name="name"
+          label="Name"
+          placeholder="Your name"
+          required
+          client:load
+        />
+
+        <!-- Email -->
+        <Input
+          type="email"
+          name="email"
+          label="Email"
+          placeholder="your@email.com"
+          required
+          client:load
+        />
+
+        <!-- Company (optional) -->
+        <Input
+          type="text"
+          name="company"
+          label="Company (optional)"
+          placeholder="Your company"
+          client:load
+        />
+
+        <!-- Message -->
+        <Textarea
+          name="message"
+          label="Tell us about your project"
+          placeholder="I want to build..."
+          required
+          client:load
+        />
+
+        <!-- Submit Button -->
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          class="w-full"
+          client:load
+        >
+          Send Message
+        </Button>
+      </form>
+
+      <!-- Success Message (hidden by default, shown via JS) -->
+      <div id="success-message" class="hidden mt-6 p-4 bg-primary/20 border border-primary rounded-lg">
+        <p class="text-center">
+          🎉 Thanks! We'll get back to you within 24 hours.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMessage = document.getElementById('success-message');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Prevent double submissions
+      const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      if (submitButton.disabled) return;
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          form.classList.add('hidden');
+          successMessage?.classList.remove('hidden');
+
+          // Trigger celebration in conversation engine
+          if (typeof window !== 'undefined' && (window as any).conversationEngine) {
+            (window as any).conversationEngine.transitionToSection('contact-success');
+          }
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        alert('Oops! Something went wrong. Please try again.');
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+      }
+    });
+  }
+</script>

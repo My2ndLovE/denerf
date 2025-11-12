@@ -1,0 +1,168 @@
+/* Holographic Avatar Effects */
+
+@layer components {
+  /* Holographic Container */
+  .holographic-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  .holographic-avatar.paused * {
+    animation-play-state: paused !important;
+  }
+
+  /* Avatar States */
+  .holographic-avatar--idle {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .holographic-avatar--listening .avatar-glow {
+    animation: glow-pulse 1.5s ease-in-out infinite;
+  }
+
+  .holographic-avatar--thinking .avatar-particles {
+    animation-duration: 1s;
+  }
+
+  .holographic-avatar--speaking .avatar-glow {
+    animation: glow-pulse 0.8s ease-in-out infinite;
+  }
+
+  .holographic-avatar--celebrating {
+    animation: celebrate 0.6s ease-in-out;
+  }
+
+  .holographic-avatar--error .avatar-glow {
+    filter: hue-rotate(280deg);
+  }
+
+  /* Silhouette */
+  .avatar-silhouette {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Scan Lines */
+  .avatar-scan-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .scan-line {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 212, 255, 0.8) 50%,
+      transparent 100%
+    );
+    animation: scan 2s linear infinite;
+    will-change: transform;
+  }
+
+  .scan-line--secondary {
+    animation-delay: 1s;
+    opacity: 0.5;
+  }
+
+  /* Glow Effect */
+  .avatar-glow {
+    position: absolute;
+    inset: -10%;
+    border-radius: inherit;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow:
+      0 0 20px rgba(0, 212, 255, 0.6),
+      0 0 40px rgba(0, 212, 255, 0.4),
+      0 0 60px rgba(0, 212, 255, 0.2),
+      inset 0 0 20px rgba(139, 92, 246, 0.3);
+    filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5));
+  }
+
+  /* Glitch Effect */
+  .avatar-glitch {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .avatar-glitch.active {
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  }
+
+  /* Particle Container */
+  .avatar-particles {
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* CSS Particle (for mobile) */
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: particle-float 3s ease-in-out infinite;
+  }
+
+  .particle:nth-child(2n) {
+    background: var(--secondary);
+    animation-duration: 4s;
+  }
+
+  @keyframes particle-float {
+    0%, 100% {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    50% {
+      transform: translate(var(--x, 20px), var(--y, -30px));
+      opacity: 1;
+    }
+    90% {
+      opacity: 0.6;
+    }
+  }
+
+  /* Celebrate Animation */
+  @keyframes celebrate {
+    0%, 100% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(-5deg) scale(1.1);
+    }
+    75% {
+      transform: rotate(5deg) scale(1.1);
+    }
+  }
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  .holographic-avatar,
+  .scan-line,
+  .avatar-glow,
+  .particle {
+    animation: none !important;
+  }
+}

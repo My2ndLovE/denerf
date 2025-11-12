@@ -1,0 +1,61 @@
+{
+  "name": "Your Company Name",
+  "tagline": "Building the future, one app at a time",
+  "founded": "2020",
+  "story": "We started in 2020 because we were tired of boring, cookie-cutter apps. We believe every app should be fast, beautiful, AND solve real problems. Is that too much to ask? 😄",
+  "mission": "To create software that people actually enjoy using. Crazy concept, we know.",
+  "timeline": [
+    {
+      "year": "2020",
+      "title": "The Beginning",
+      "description": "Started with a laptop and too much coffee"
+    },
+    {
+      "year": "2021",
+      "title": "First Enterprise Client",
+      "description": "Built our first large-scale platform"
+    },
+    {
+      "year": "2022",
+      "title": "AI Integration",
+      "description": "Added AI capabilities to our stack"
+    },
+    {
+      "year": "2023",
+      "title": "Cloud-Native",
+      "description": "Went all-in on serverless architecture"
+    },
+    {
+      "year": "2024",
+      "title": "20+ Projects",
+      "description": "Helped launch 20+ products to production"
+    },
+    {
+      "year": "2025",
+      "title": "Going Global",
+      "description": "Expanding to international markets"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Projects Launched",
+      "value": "20+",
+      "icon": "🚀"
+    },
+    {
+      "label": "Uptime",
+      "value": "99.9%",
+      "icon": "⚡"
+    },
+    {
+      "label": "Coffee Consumed",
+      "value": "∞",
+      "icon": "☕"
+    },
+    {
+      "label": "Happy Clients",
+      "value": "15+",
+      "icon": "😊"
+    }
+  ]
+}

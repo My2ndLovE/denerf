@@ -1,0 +1,64 @@
+---
+import { Card } from '@/components/ui/Card';
+import { Tag } from '@/components/ui/Tag';
+import servicesData from '@/data/services.json';
+---
+
+<section id="services" class="services-section min-h-screen px-4 py-20 md:py-32">
+  <div class="container mx-auto max-w-6xl">
+    <!-- Section Title -->
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-6">
+      What We Do
+    </h2>
+    <p class="text-lg md:text-xl text-center text-text-primary/80 mb-12 max-w-2xl mx-auto">
+      We specialize in building modern, scalable solutions that solve real problems.
+    </p>
+
+    <!-- Services Grid -->
+    <div class="services-grid grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {servicesData.map((service) => (
+        <Card className="p-6 md:p-8 hover:scale-[1.02] transition-transform cursor-pointer">
+          <!-- Icon & Title -->
+          <div class="flex items-start gap-4 mb-4">
+            <div class="text-5xl">{service.icon}</div>
+            <div>
+              <h3 class="text-xl md:text-2xl font-bold mb-2">{service.title}</h3>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-text-primary/80 mb-4">{service.description}</p>
+
+          <!-- Tech Tags -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            {service.tech.map((tech) => (
+              <Tag>{tech}</Tag>
+            ))}
+          </div>
+
+          <!-- Features -->
+          <ul class="space-y-2">
+            {service.features.map((feature) => (
+              <li class="flex items-start gap-2">
+                <svg
+                  class="w-5 h-5 text-primary flex-shrink-0 mt-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span class="text-sm">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>

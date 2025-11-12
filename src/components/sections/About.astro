@@ -1,0 +1,53 @@
+---
+import { Card } from '@/components/ui/Card';
+import companyData from '@/data/company.json';
+---
+
+<section id="about" class="about-section min-h-screen px-4 py-20 md:py-32">
+  <div class="container mx-auto max-w-6xl">
+    <!-- Section Title -->
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-6 md:mb-12">
+      About Us
+    </h2>
+
+    <!-- Company Story -->
+    <div class="glass-card p-6 md:p-8 mb-12 max-w-3xl mx-auto">
+      <p class="text-lg md:text-xl text-text-primary leading-relaxed">
+        {companyData.story}
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline mb-16">
+      <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Our Journey</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {companyData.timeline.map((item) => (
+          <Card className="p-4 text-center hover:scale-105 transition-transform">
+            <div class="text-2xl font-bold text-primary mb-2">{item.year}</div>
+            <div class="text-sm font-semibold mb-1">{item.title}</div>
+            <div class="text-xs text-text-primary/70">{item.description}</div>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      {companyData.stats.map((stat) => (
+        <Card className="p-6 text-center">
+          <div class="text-4xl mb-2">{stat.icon}</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary mb-2">
+            {stat.value}
+          </div>
+          <div class="text-sm text-text-primary/80">{stat.label}</div>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    position: relative;
+  }
+</style>

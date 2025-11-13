@@ -14,14 +14,30 @@ export default function ScrollScene() {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
-    // Create scroll trigger that tracks the entire document
+    // Create scroll trigger that tracks from the very top
     const trigger = ScrollTrigger.create({
       trigger: 'body',
       start: 'top top',
       end: 'bottom bottom',
       scrub: 1,
       onUpdate: (self) => {
-        setScrollProgress(self.progress)
+        // Calculate progress accounting for Hero section
+        const heroHeight = window.innerHeight // 100vh
+        const currentScroll = window.scrollY
+
+        // If in entire Hero section (100%), show sphere (scrollProgress = 0)
+        if (currentScroll < heroHeight) {
+          setScrollProgress(0)
+        } else {
+          // After Hero, map the remaining scroll to 0-1 range
+          const totalScrollableHeight = document.body.scrollHeight - window.innerHeight
+          const scrollAfterHero = currentScroll - heroHeight
+          const maxScrollAfterHero = totalScrollableHeight - heroHeight
+
+          // Calculate progress from 0 to 1 for content after hero
+          const progress = Math.max(0, Math.min(1, scrollAfterHero / maxScrollAfterHero))
+          setScrollProgress(progress)
+        }
       },
     })
 

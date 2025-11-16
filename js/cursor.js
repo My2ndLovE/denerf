@@ -1,0 +1,94 @@
+// ========================================
+// Custom Cursor
+// ========================================
+
+class CustomCursor {
+  constructor() {
+    this.cursor = document.querySelector('.cursor');
+    this.dot = document.querySelector('.cursor-dot');
+    this.outline = document.querySelector('.cursor-outline');
+
+    this.cursorPos = { x: 0, y: 0 };
+    this.dotPos = { x: 0, y: 0 };
+    this.outlinePos = { x: 0, y: 0 };
+
+    this.init();
+  }
+
+  init() {
+    // Check if cursor elements exist
+    if (!this.cursor || !this.dot || !this.outline) return;
+
+    // Hide default cursor on desktop
+    if (window.innerWidth > 768) {
+      document.body.style.cursor = 'none';
+    }
+
+    this.addEventListeners();
+    this.animate();
+  }
+
+  addEventListeners() {
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+      this.cursorPos.x = e.clientX;
+      this.cursorPos.y = e.clientY;
+    });
+
+    // Hover effects on interactive elements
+    const interactiveElements = document.querySelectorAll(
+      'a, button, .btn, .work-item, .service-card, input, textarea'
+    );
+
+    interactiveElements.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        this.cursor.classList.add('hover');
+      });
+
+      el.addEventListener('mouseleave', () => {
+        this.cursor.classList.remove('hover');
+      });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        document.body.style.cursor = 'none';
+        this.cursor.style.display = 'block';
+      } else {
+        document.body.style.cursor = 'auto';
+        this.cursor.style.display = 'none';
+      }
+    });
+  }
+
+  animate() {
+    // Smooth cursor following with lerp (linear interpolation)
+    const dotSpeed = 0.3;
+    const outlineSpeed = 0.15;
+
+    this.dotPos.x += (this.cursorPos.x - this.dotPos.x) * dotSpeed;
+    this.dotPos.y += (this.cursorPos.y - this.dotPos.y) * dotSpeed;
+
+    this.outlinePos.x += (this.cursorPos.x - this.outlinePos.x) * outlineSpeed;
+    this.outlinePos.y += (this.cursorPos.y - this.outlinePos.y) * outlineSpeed;
+
+    // Apply positions
+    this.dot.style.left = `${this.dotPos.x}px`;
+    this.dot.style.top = `${this.dotPos.y}px`;
+
+    this.outline.style.left = `${this.outlinePos.x}px`;
+    this.outline.style.top = `${this.outlinePos.y}px`;
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+// Initialize when DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new CustomCursor();
+  });
+} else {
+  new CustomCursor();
+}

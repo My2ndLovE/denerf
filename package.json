@@ -1,0 +1,25 @@
+{
+  "name": "creative-portfolio",
+  "version": "1.0.0",
+  "description": "Creative animated portfolio website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve -l 3000",
+    "start": "npx serve -l 3000"
+  },
+  "keywords": [
+    "portfolio",
+    "animation",
+    "creative",
+    "3d"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

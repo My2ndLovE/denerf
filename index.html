@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio | Your Name</title>
+    <meta name="description" content="Award-winning creative portfolio showcasing innovative design and development">
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">CREATIVE</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Background -->
+    <section class="hero" id="hero">
+        <canvas class="hero-canvas" id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="hero-title-line">
+                        <span class="word">Creative</span>
+                    </span>
+                    <span class="hero-title-line">
+                        <span class="word">Design</span>
+                    </span>
+                    <span class="hero-title-line">
+                        <span class="word gradient-text">Studio</span>
+                    </span>
+                </h1>
+                <p class="hero-subtitle">
+                    Crafting immersive digital experiences that push boundaries
+                </p>
+                <div class="hero-cta">
+                    <a href="#work" class="btn btn-primary">
+                        <span class="btn-text">View Work</span>
+                        <span class="btn-glow"></span>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <span class="btn-text">Get In Touch</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Who We Are</span>
+                <h2 class="section-title">
+                    <span class="title-line">We craft digital</span>
+                    <span class="title-line">experiences that</span>
+                    <span class="title-line gradient-text">leave a mark</span>
+                </h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead">
+                        A creative studio specializing in award-winning web experiences,
+                        3D design, and interactive storytelling.
+                    </p>
+                    <p>
+                        We combine cutting-edge technology with artistic vision to create
+                        websites that don't just look beautiful—they feel alive. From
+                        immersive 3D environments to scroll-driven narratives, we push
+                        the boundaries of what's possible on the web.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="150">0</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="25">0</span>
+                        <span class="stat-label">Awards Won</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="100">0</span>
+                        <span class="stat-label">Happy Clients</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">What We Do</span>
+                <h2 class="section-title">
+                    <span class="title-line">Services</span>
+                </h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-glow"></div>
+                        <span class="icon">✦</span>
+                    </div>
+                    <h3 class="service-title">3D Web Experiences</h3>
+                    <p class="service-description">
+                        Immersive Three.js environments and interactive 3D product showcases
+                        that captivate and engage.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-glow"></div>
+                        <span class="icon">⚡</span>
+                    </div>
+                    <h3 class="service-title">Motion Design</h3>
+                    <p class="service-description">
+                        Sophisticated GSAP animations, scroll-triggered effects, and
+                        kinetic typography that brings brands to life.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-glow"></div>
+                        <span class="icon">◆</span>
+                    </div>
+                    <h3 class="service-title">Creative Development</h3>
+                    <p class="service-description">
+                        Custom web applications with pixel-perfect design and
+                        award-winning user experiences.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-glow"></div>
+                        <span class="icon">●</span>
+                    </div>
+                    <h3 class="service-title">Brand Identity</h3>
+                    <p class="service-description">
+                        Complete visual systems from logo to digital presence,
+                        creating cohesive brand universes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="work" id="work">
+        <div class="container-fluid">
+            <div class="section-header">
+                <span class="section-label">Selected Work</span>
+                <h2 class="section-title">
+                    <span class="title-line">Portfolio</span>
+                </h2>
+            </div>
+            <div class="work-grid">
+                <div class="work-item">
+                    <div class="work-image">
+                        <div class="work-image-inner">
+                            <div class="placeholder-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <span class="placeholder-text">Project 01</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <span class="work-category">3D / Interactive</span>
+                        <h3 class="work-title">Immersive Brand Experience</h3>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-image">
+                        <div class="work-image-inner">
+                            <div class="placeholder-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <span class="placeholder-text">Project 02</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <span class="work-category">E-commerce</span>
+                        <h3 class="work-title">Next-Gen Shopping Platform</h3>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-image">
+                        <div class="work-image-inner">
+                            <div class="placeholder-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                <span class="placeholder-text">Project 03</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <span class="work-category">Motion / Branding</span>
+                        <h3 class="work-title">Kinetic Brand Identity</h3>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-image">
+                        <div class="work-image-inner">
+                            <div class="placeholder-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                                <span class="placeholder-text">Project 04</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <span class="work-category">Web App</span>
+                        <h3 class="work-title">SaaS Dashboard Redesign</h3>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-image">
+                        <div class="work-image-inner">
+                            <div class="placeholder-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                <span class="placeholder-text">Project 05</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <span class="work-category">3D Product</span>
+                        <h3 class="work-title">Interactive Product Launch</h3>
+                    </div>
+                </div>
+                <div class="work-item">
+                    <div class="work-image">
+                        <div class="work-image-inner">
+                            <div class="placeholder-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                                <span class="placeholder-text">Project 06</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-info">
+                        <span class="work-category">Experimental</span>
+                        <h3 class="work-title">WebGL Art Installation</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-text">
+                    <span class="section-label">Get In Touch</span>
+                    <h2 class="section-title">
+                        <span class="title-line">Let's create</span>
+                        <span class="title-line">something</span>
+                        <span class="title-line gradient-text">extraordinary</span>
+                    </h2>
+                    <p class="contact-description">
+                        Ready to push boundaries and create an unforgettable digital experience?
+                        Let's talk about your next project.
+                    </p>
+                    <div class="contact-info">
+                        <a href="mailto:hello@creative.studio" class="contact-link">hello@creative.studio</a>
+                        <div class="social-links">
+                            <a href="#" class="social-link">Twitter</a>
+                            <a href="#" class="social-link">Instagram</a>
+                            <a href="#" class="social-link">Dribbble</a>
+                            <a href="#" class="social-link">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-input" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-glow"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Creative Studio. Crafted with passion.</p>
+                <p class="footer-credits">Built with Three.js, GSAP & creativity</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/hero-3d.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

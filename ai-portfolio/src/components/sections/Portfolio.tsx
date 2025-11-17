@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ExternalLink, Github } from 'lucide-react'
 import Card3D from '@/components/ui/Card3D'
-import { PROJECTS } from '@/lib/constants'
+import { PROJECTS, SITE_CONFIG } from '@/lib/constants'
 
 export default function Portfolio() {
   const ref = useRef(null)
@@ -141,7 +141,7 @@ export default function Portfolio() {
           className="mt-12 text-center"
         >
           <motion.a
-            href="https://github.com/yourusername"
+            href={SITE_CONFIG.github}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}

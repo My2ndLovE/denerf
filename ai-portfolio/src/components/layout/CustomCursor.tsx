@@ -19,7 +19,14 @@ export default function CustomCursor() {
     checkMobile()
     window.addEventListener('resize', checkMobile)
 
-    if (isMobile) return
+    if (isMobile) {
+      // Restore default cursor on mobile
+      document.body.style.cursor = 'auto'
+      return
+    } else {
+      // Hide cursor on desktop (CSS handles this)
+      document.body.style.cursor = 'none'
+    }
 
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX)
@@ -29,11 +36,33 @@ export default function CustomCursor() {
     const handleMouseEnter = () => setIsHovering(true)
     const handleMouseLeave = () => setIsHovering(false)
 
-    // Add event listeners to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, [role="button"]')
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnter)
-      el.addEventListener('mouseleave', handleMouseLeave)
+    // Function to add listeners to interactive elements
+    const addListenersToElements = () => {
+      const interactiveElements = document.querySelectorAll('a, button, [role="button"], input, textarea')
+      interactiveElements.forEach((el) => {
+        el.addEventListener('mouseenter', handleMouseEnter)
+        el.addEventListener('mouseleave', handleMouseLeave)
+      })
+      return interactiveElements
+    }
+
+    // Initial setup
+    let interactiveElements = addListenersToElements()
+
+    // Watch for DOM changes and add listeners to new elements
+    const observer = new MutationObserver(() => {
+      // Remove old listeners
+      interactiveElements.forEach((el) => {
+        el.removeEventListener('mouseenter', handleMouseEnter)
+        el.removeEventListener('mouseleave', handleMouseLeave)
+      })
+      // Re-add to all elements (including new ones)
+      interactiveElements = addListenersToElements()
+    })
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
     })
 
     window.addEventListener('mousemove', moveCursor)
@@ -41,6 +70,8 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', moveCursor)
       window.removeEventListener('resize', checkMobile)
+      document.body.style.cursor = 'auto'
+      observer.disconnect()
       interactiveElements.forEach((el) => {
         el.removeEventListener('mouseenter', handleMouseEnter)
         el.removeEventListener('mouseleave', handleMouseLeave)

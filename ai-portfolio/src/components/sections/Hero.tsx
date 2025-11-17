@@ -5,6 +5,7 @@ import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
 import { Suspense } from 'react'
 import { motion } from 'framer-motion'
 import NeuralNetwork from '@/components/3d/NeuralNetwork'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import { SITE_CONFIG } from '@/lib/constants'
 import { ChevronDown } from 'lucide-react'
 
@@ -20,20 +21,22 @@ export default function Hero() {
     <section id="home" className="relative h-screen w-full overflow-hidden bg-cyber-darker">
       {/* Three.js Canvas - Neural Network Background */}
       <div className="absolute inset-0">
-        <Canvas>
-          <PerspectiveCamera makeDefault position={[0, 0, 18]} />
-          <Suspense fallback={null}>
-            <NeuralNetwork />
-          </Suspense>
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate
-            autoRotateSpeed={0.3}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-        </Canvas>
+        <ErrorBoundary>
+          <Canvas>
+            <PerspectiveCamera makeDefault position={[0, 0, 18]} />
+            <Suspense fallback={null}>
+              <NeuralNetwork />
+            </Suspense>
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              autoRotate
+              autoRotateSpeed={0.3}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={Math.PI / 2}
+            />
+          </Canvas>
+        </ErrorBoundary>
       </div>
 
       {/* Gradient Overlay for depth */}

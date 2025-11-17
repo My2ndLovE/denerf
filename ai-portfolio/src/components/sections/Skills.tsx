@@ -5,6 +5,7 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Suspense, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import OrbitalSkills from '@/components/3d/OrbitalSkills'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import { SKILLS } from '@/lib/constants'
 
 export default function Skills() {
@@ -55,20 +56,22 @@ export default function Skills() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* 3D Orbital Visualization */}
           <div className="relative h-[500px] rounded-2xl border border-cyber-cyan/20 bg-cyber-dark/50 backdrop-blur-sm lg:h-[600px]">
-            <Canvas>
-              <PerspectiveCamera makeDefault position={[0, 2, 8]} />
-              <Suspense fallback={null}>
-                <OrbitalSkills />
-              </Suspense>
-              <OrbitControls
-                enableZoom={true}
-                enablePan={false}
-                minDistance={5}
-                maxDistance={15}
-                autoRotate
-                autoRotateSpeed={0.5}
-              />
-            </Canvas>
+            <ErrorBoundary>
+              <Canvas>
+                <PerspectiveCamera makeDefault position={[0, 2, 8]} />
+                <Suspense fallback={null}>
+                  <OrbitalSkills />
+                </Suspense>
+                <OrbitControls
+                  enableZoom={true}
+                  enablePan={false}
+                  minDistance={5}
+                  maxDistance={15}
+                  autoRotate
+                  autoRotateSpeed={0.5}
+                />
+              </Canvas>
+            </ErrorBoundary>
 
             {/* Overlay hint */}
             <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 text-center">

@@ -24,6 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="font-sans">
+        <a
+          href="#home"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-lg focus:bg-cyber-cyan focus:px-4 focus:py-2 focus:text-cyber-dark focus:outline-none focus:ring-2 focus:ring-cyber-cyan"
+        >
+          Skip to content
+        </a>
         <CustomCursor />
         <SmoothScroll>
           {children}

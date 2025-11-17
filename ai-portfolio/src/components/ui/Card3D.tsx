@@ -11,6 +11,7 @@ interface Card3DProps {
 export default function Card3D({ children, className = '' }: Card3DProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
+  const rafId = useRef<number | null>(null)
 
   const x = useSpring(0, { stiffness: 300, damping: 30 })
   const y = useSpring(0, { stiffness: 300, damping: 30 })
@@ -21,15 +22,24 @@ export default function Card3D({ children, className = '' }: Card3DProps) {
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return
 
-    const rect = ref.current.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
+    // Throttle with requestAnimationFrame
+    if (rafId.current) return
 
-    const posX = (e.clientX - centerX) / (rect.width / 2)
-    const posY = (e.clientY - centerY) / (rect.height / 2)
+    rafId.current = requestAnimationFrame(() => {
+      if (!ref.current) return
 
-    x.set(posX)
-    y.set(posY)
+      const rect = ref.current.getBoundingClientRect()
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
+
+      const posX = (e.clientX - centerX) / (rect.width / 2)
+      const posY = (e.clientY - centerY) / (rect.height / 2)
+
+      x.set(posX)
+      y.set(posY)
+
+      rafId.current = null
+    })
   }
 
   const handleMouseLeave = () => {

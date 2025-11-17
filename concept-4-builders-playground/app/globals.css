@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comic+Neue:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 100%);
+  color: #333;
+  font-family: 'Fredoka', sans-serif;
+  overflow-x: hidden;
+}
+
+.bounce-build {
+  animation: bounce-build 2s ease-in-out infinite;
+}
+
+@keyframes bounce-build {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.construction-stripe {
+  background: repeating-linear-gradient(
+    45deg,
+    #FFD700,
+    #FFD700 10px,
+    #333 10px,
+    #333 20px
+  );
+  animation: stripe-move 1s linear infinite;
+}
+
+@keyframes stripe-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 28px 28px; }
+}
+
+.float-worker {
+  animation: float-worker 3s ease-in-out infinite;
+}
+
+@keyframes float-worker {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-5px) translateX(5px); }
+  50% { transform: translateY(-10px) translateX(0); }
+  75% { transform: translateY(-5px) translateX(-5px); }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E0F6FF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FFD700 0%, #FF8C00 100%);
+  border-radius: 5px;
+}

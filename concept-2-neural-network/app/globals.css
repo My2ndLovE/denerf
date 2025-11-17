@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050510;
+  color: #fff;
+  overflow-x: hidden;
+  font-family: 'Space Mono', monospace;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A1F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00F0FF 0%, #B024FF 100%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00FFAA 0%, #FF2E97 100%);
+}
+
+.neural-glow {
+  text-shadow:
+    0 0 10px rgba(0, 240, 255, 0.8),
+    0 0 20px rgba(0, 240, 255, 0.6),
+    0 0 30px rgba(176, 36, 255, 0.4);
+  animation: pulse-neural 2s ease-in-out infinite;
+}
+
+@keyframes pulse-neural {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(0, 240, 255, 0.8),
+      0 0 20px rgba(0, 240, 255, 0.6),
+      0 0 30px rgba(176, 36, 255, 0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(0, 240, 255, 1),
+      0 0 30px rgba(0, 240, 255, 0.8),
+      0 0 40px rgba(176, 36, 255, 0.6);
+  }
+}
+
+.neural-gradient {
+  background: linear-gradient(135deg, #00F0FF 0%, #B024FF 50%, #FF2E97 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.synapse-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00F0FF, transparent);
+  animation: pulse-flow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-flow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+}
+
+.neuron-pulse {
+  animation: neuron-beat 1.5s ease-in-out infinite;
+}
+
+@keyframes neuron-beat {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+.electric-trail {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #00F0FF, transparent);
+  box-shadow: 0 0 10px #00F0FF, 0 0 20px #B024FF;
+}

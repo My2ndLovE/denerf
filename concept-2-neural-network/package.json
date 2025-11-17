@@ -1,0 +1,35 @@
+{
+  "name": "neural-network",
+  "version": "1.0.0",
+  "description": "Neural Network - Living AI Visualization Landing Page",
+  "scripts": {
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start -p 3002",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "three": "^0.168.0",
+    "@react-three/fiber": "^8.17.0",
+    "@react-three/drei": "^9.114.0",
+    "@react-three/postprocessing": "^2.16.0",
+    "gsap": "^3.12.5",
+    "framer-motion": "^11.5.0",
+    "d3": "^7.9.0",
+    "postprocessing": "^6.36.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.168.0",
+    "@types/d3": "^7.4.3",
+    "typescript": "^5.5.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4"
+  }
+}

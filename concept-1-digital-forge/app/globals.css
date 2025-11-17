@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FFD700" d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"/></svg>'), auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF6B35 0%, #FFA500 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFA500 0%, #FFD700 100%);
+}
+
+.glow-text {
+  text-shadow:
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 165, 0, 0.6),
+    0 0 30px rgba(255, 107, 53, 0.4);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(255, 215, 0, 0.8),
+      0 0 20px rgba(255, 165, 0, 0.6),
+      0 0 30px rgba(255, 107, 53, 0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(255, 215, 0, 1),
+      0 0 30px rgba(255, 165, 0, 0.8),
+      0 0 40px rgba(255, 107, 53, 0.6);
+  }
+}
+
+.fire-gradient {
+  background: linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.spark {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #FFD700;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500;
+}

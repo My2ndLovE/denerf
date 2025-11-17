@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0D0208;
+  color: #00FF41;
+  font-family: 'Courier New', monospace;
+  overflow-x: hidden;
+}
+
+.matrix-glow {
+  text-shadow:
+    0 0 10px #00FF41,
+    0 0 20px #00FF41,
+    0 0 30px #39FF14;
+  animation: matrix-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes matrix-pulse {
+  0%, 100% { text-shadow: 0 0 10px #00FF41, 0 0 20px #00FF41; }
+  50% { text-shadow: 0 0 20px #00FF41, 0 0 30px #39FF14, 0 0 40px #39FF14; }
+}
+
+.crt-effect {
+  position: relative;
+}
+
+.crt-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 65, 0.03) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 255, 65, 0.03) 3px
+  );
+  pointer-events: none;
+  animation: crt-flicker 0.15s infinite;
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  50% { opacity: 0.94; }
+  100% { opacity: 0.97; }
+}
+
+.glitch {
+  position: relative;
+  animation: glitch-anim 3s infinite;
+}
+
+@keyframes glitch-anim {
+  0%, 90%, 100% { transform: translate(0); }
+  91% { transform: translate(-2px, 2px); }
+  92% { transform: translate(2px, -2px); }
+  93% { transform: translate(-2px, 2px); }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0208;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00FF41;
+  box-shadow: 0 0 10px #00FF41;
+}

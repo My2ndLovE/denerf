@@ -1,4 +1,4 @@
-// LIQUID MORPH - Main canvas liquid background
+// LIQUID MORPH - Optimized liquid background
 
 class LiquidMorph {
     constructor() {
@@ -7,106 +7,152 @@ class LiquidMorph {
 
         this.ctx = this.canvas.getContext('2d');
         this.blobs = [];
-        this.blobCount = 5;
         this.mouse = { x: 0, y: 0 };
+        this.rafId = null;
+        this.lastTime = 0;
+
+        // Mobile optimization
+        this.isMobile = window.innerWidth < 768;
+        this.blobCount = this.isMobile ? 2 : 3; // Reduced from 5
+        this.fps = this.isMobile ? 24 : 60; // Lower FPS on mobile
+        this.frameInterval = 1000 / this.fps;
 
         this.init();
     }
 
     init() {
         this.resize();
-        window.addEventListener('resize', () => this.resize());
-        window.addEventListener('mousemove', (e) => {
+
+        this.resizeHandler = () => {
+            this.resize();
+            this.isMobile = window.innerWidth < 768;
+        };
+
+        this.mouseMoveHandler = (e) => {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
-        });
+        };
+
+        window.addEventListener('resize', this.resizeHandler);
+
+        // Only track mouse on desktop
+        if (!this.isMobile) {
+            window.addEventListener('mousemove', this.mouseMoveHandler);
+        }
 
         this.createBlobs();
         this.animate();
     }
 
     resize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        const rect = this.canvas.getBoundingClientRect();
+
+        // Lower resolution on mobile for better performance
+        const scale = this.isMobile ? 0.75 : 1;
+        this.canvas.width = rect.width * scale;
+        this.canvas.height = rect.height * scale;
+
+        this.width = rect.width;
+        this.height = rect.height;
+
+        if (scale !== 1) {
+            this.ctx.scale(scale, scale);
+        }
     }
 
     createBlobs() {
         const colors = [
-            { r: 255, g: 107, b: 53, a: 0.2 },  // Orange primary
-            { r: 255, g: 140, b: 66, a: 0.15 }, // Orange light
-            { r: 255, g: 210, b: 63, a: 0.1 },  // Yellow accent
-            { r: 255, g: 229, b: 93, a: 0.08 }, // Yellow light
-            { r: 255, g: 150, b: 50, a: 0.12 }  // Orange mid
+            { r: 255, g: 107, b: 53, a: 0.15 },  // Orange primary
+            { r: 255, g: 210, b: 63, a: 0.1 },   // Yellow accent
+            { r: 255, g: 150, b: 50, a: 0.12 }   // Orange mid
         ];
 
+        this.blobs = [];
+
         for (let i = 0; i < this.blobCount; i++) {
-            this.blobs.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                radius: 100 + Math.random() * 200,
+            const blob = {
+                x: Math.random() * this.width,
+                y: Math.random() * this.height,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                radius: this.isMobile ? 80 + Math.random() * 100 : 100 + Math.random() * 150,
                 points: [],
-                pointCount: 8,
-                morphSpeed: 0.01 + Math.random() * 0.01,
+                pointCount: 6, // Reduced from 8
+                morphSpeed: 0.005 + Math.random() * 0.005,
                 color: colors[i % colors.length]
-            });
+            };
 
             // Initialize morph points
-            const blob = this.blobs[i];
             for (let j = 0; j < blob.pointCount; j++) {
                 const angle = (j / blob.pointCount) * Math.PI * 2;
                 blob.points.push({
                     angle: angle,
                     radius: blob.radius,
                     targetRadius: blob.radius,
-                    variation: 20 + Math.random() * 40
+                    variation: 15 + Math.random() * 25
                 });
             }
+
+            this.blobs.push(blob);
         }
     }
 
-    animate() {
-        requestAnimationFrame(() => this.animate());
+    animate(currentTime = 0) {
+        this.rafId = requestAnimationFrame((time) => this.animate(time));
 
-        this.ctx.fillStyle = 'rgba(26, 15, 10, 0.1)';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        // FPS throttling
+        const deltaTime = currentTime - this.lastTime;
+        if (deltaTime < this.frameInterval) return;
 
-        const time = Date.now() * 0.001;
+        this.lastTime = currentTime - (deltaTime % this.frameInterval);
+
+        // Fade background instead of full clear (better performance)
+        this.ctx.fillStyle = 'rgba(26, 15, 10, 0.05)';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        const time = currentTime * 0.001;
 
         for (const blob of this.blobs) {
             // Update position
             blob.x += blob.vx;
             blob.y += blob.vy;
 
-            // Mouse attraction
-            const dx = this.mouse.x - blob.x;
-            const dy = this.mouse.y - blob.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            // Mouse attraction (desktop only)
+            if (!this.isMobile) {
+                const dx = this.mouse.x - blob.x;
+                const dy = this.mouse.y - blob.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < 300) {
-                const force = (300 - distance) / 300 * 0.02;
-                blob.vx += (dx / distance) * force;
-                blob.vy += (dy / distance) * force;
+                if (distance < 200) {
+                    const force = (200 - distance) / 200 * 0.015;
+                    blob.vx += (dx / distance) * force;
+                    blob.vy += (dy / distance) * force;
+                }
             }
 
             // Velocity damping
             blob.vx *= 0.99;
             blob.vy *= 0.99;
 
-            // Boundaries
-            if (blob.x < 0 || blob.x > this.canvas.width) blob.vx *= -1;
-            if (blob.y < 0 || blob.y > this.canvas.height) blob.vy *= -1;
+            // Boundaries with bounce
+            if (blob.x < 0 || blob.x > this.width) {
+                blob.vx *= -1;
+                blob.x = Math.max(0, Math.min(this.width, blob.x));
+            }
+            if (blob.y < 0 || blob.y > this.height) {
+                blob.vy *= -1;
+                blob.y = Math.max(0, Math.min(this.height, blob.y));
+            }
 
             // Update morph points
             for (let i = 0; i < blob.points.length; i++) {
                 const point = blob.points[i];
                 const variation = Math.sin(time * blob.morphSpeed * 10 + i) * point.variation;
                 point.targetRadius = blob.radius + variation;
-                point.radius += (point.targetRadius - point.radius) * 0.1;
+                point.radius += (point.targetRadius - point.radius) * 0.08;
             }
 
-            // Draw blob
+            // Draw blob (simplified rendering)
             this.ctx.beginPath();
 
             for (let i = 0; i < blob.points.length; i++) {
@@ -118,9 +164,9 @@ class LiquidMorph {
                 const nextX = blob.x + Math.cos(nextPoint.angle) * nextPoint.radius;
                 const nextY = blob.y + Math.sin(nextPoint.angle) * nextPoint.radius;
 
-                // Control point for smooth curves
-                const cpX = (x + nextX) / 2 + Math.sin(time + i) * 20;
-                const cpY = (y + nextY) / 2 + Math.cos(time + i) * 20;
+                // Simplified control point
+                const cpX = (x + nextX) / 2;
+                const cpY = (y + nextY) / 2;
 
                 if (i === 0) {
                     this.ctx.moveTo(x, y);
@@ -131,41 +177,55 @@ class LiquidMorph {
 
             this.ctx.closePath();
 
-            // Gradient fill
-            const gradient = this.ctx.createRadialGradient(
-                blob.x, blob.y, 0,
-                blob.x, blob.y, blob.radius
-            );
-            gradient.addColorStop(0, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${blob.color.a * 1.5})`);
-            gradient.addColorStop(0.5, `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${blob.color.a})`);
-            gradient.addColorStop(1, 'transparent');
-
-            this.ctx.fillStyle = gradient;
+            // Simplified fill (no gradient for better performance)
+            const alpha = blob.color.a;
+            this.ctx.fillStyle = `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${alpha})`;
             this.ctx.fill();
 
-            // Glow effect
-            this.ctx.shadowBlur = 50;
-            this.ctx.shadowColor = `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, 0.5)`;
-            this.ctx.strokeStyle = `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, 0.3)`;
-            this.ctx.lineWidth = 2;
-            this.ctx.stroke();
-            this.ctx.shadowBlur = 0;
+            // Simplified stroke (no shadow blur)
+            if (!this.isMobile) {
+                this.ctx.strokeStyle = `rgba(${blob.color.r}, ${blob.color.g}, ${blob.color.b}, ${alpha * 0.5})`;
+                this.ctx.lineWidth = 1;
+                this.ctx.stroke();
+            }
         }
     }
 
     explode() {
         for (const blob of this.blobs) {
-            blob.vx = (Math.random() - 0.5) * 5;
-            blob.vy = (Math.random() - 0.5) * 5;
+            blob.vx = (Math.random() - 0.5) * 3;
+            blob.vy = (Math.random() - 0.5) * 3;
 
             for (const point of blob.points) {
-                point.variation = 50 + Math.random() * 100;
+                point.variation = 40 + Math.random() * 60;
             }
         }
     }
+
+    destroy() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+        }
+
+        window.removeEventListener('resize', this.resizeHandler);
+        window.removeEventListener('mousemove', this.mouseMoveHandler);
+
+        this.blobs = [];
+    }
 }
 
-// Initialize
-if (document.getElementById('liquid-canvas')) {
-    window.liquidMorph = new LiquidMorph();
+// Initialize with error handling
+try {
+    if (document.getElementById('liquid-canvas')) {
+        window.liquidMorph = new LiquidMorph();
+    }
+} catch (error) {
+    console.error('Liquid morph initialization failed:', error);
 }
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.liquidMorph && window.liquidMorph.destroy) {
+        window.liquidMorph.destroy();
+    }
+});

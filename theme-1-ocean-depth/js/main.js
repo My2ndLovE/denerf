@@ -1,350 +1,444 @@
 // MAIN CONTROLLER - Theme 1: Ocean Depth
+// Optimized with mobile support and performance fixes
 
-// GSAP Setup
-gsap.registerPlugin(ScrollTrigger);
+class OceanDepthController {
+    constructor() {
+        this.currentSection = 0;
+        this.isMobile = window.innerWidth < 768;
+        this.isTablet = window.innerWidth < 1024;
+        this.scrollTriggers = [];
+        this.animations = [];
+        this.rafId = null;
 
-// State
-let currentSection = 0;
-const sections = document.querySelectorAll('.section');
-const indicators = document.querySelectorAll('.indicator');
+        this.init();
+    }
 
-// Section titles for 3D text morphing
-const sectionTitles = [
-    'AI-POWERED\nCREATION',
-    'OUR STORY',
-    'WHAT WE DO',
-    'OUR WORK',
-    "LET'S TALK"
-];
-
-// Init on load
-window.addEventListener('DOMContentLoaded', () => {
-    initScrollAnimations();
-    initInteractions();
-    initPortfolioSlider();
-    initForm();
-    setupSectionIndicators();
-});
-
-// Scroll Animations
-function initScrollAnimations() {
-    // Scroll progress bar
-    ScrollTrigger.create({
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        onUpdate: (self) => {
-            const progress = self.progress * 100;
-            document.querySelector('.progress-bar').style.setProperty('--progress', progress + '%');
+    init() {
+        // Wait for DOM and GSAP
+        if (typeof gsap === 'undefined') {
+            console.error('GSAP not loaded');
+            return;
         }
-    });
 
-    // Section-based animations
-    sections.forEach((section, index) => {
-        ScrollTrigger.create({
-            trigger: section,
-            start: 'top center',
-            end: 'bottom center',
-            onEnter: () => updateSection(index),
-            onEnterBack: () => updateSection(index)
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Detect mobile/tablet
+        this.setupResponsive();
+
+        // Initialize components
+        this.setupScrollAnimations();
+        this.setupInteractions();
+        this.setupPortfolio();
+        this.setupForm();
+        this.setupNavigation();
+
+        // Start animation loop safely
+        this.startAnimationLoop();
+
+        console.log('Ocean Depth Theme - Initialized');
+    }
+
+    setupResponsive() {
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                this.isMobile = window.innerWidth < 768;
+                this.isTablet = window.innerWidth < 1024;
+                this.refreshScrollTrigger();
+            }, 250);
+        });
+    }
+
+    setupScrollAnimations() {
+        const sections = document.querySelectorAll('.section');
+        if (!sections.length) return;
+
+        // Progress bar
+        const progressBar = document.querySelector('.progress-bar');
+        if (progressBar) {
+            const progressST = ScrollTrigger.create({
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
+                onUpdate: (self) => {
+                    const progress = self.progress * 100;
+                    progressBar.style.width = `${progress}%`;
+                }
+            });
+            this.scrollTriggers.push(progressST);
+        }
+
+        // Section reveals
+        sections.forEach((section, index) => {
+            const st = ScrollTrigger.create({
+                trigger: section,
+                start: 'top 60%',
+                end: 'bottom 40%',
+                onEnter: () => this.onSectionEnter(index),
+                onEnterBack: () => this.onSectionEnter(index)
+            });
+            this.scrollTriggers.push(st);
+
+            // Reveal animations for elements
+            const reveals = section.querySelectorAll('[data-reveal]');
+            reveals.forEach((el, i) => {
+                const revealAnim = gsap.from(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none',
+                        once: true
+                    },
+                    y: this.isMobile ? 30 : 50,
+                    opacity: 0,
+                    duration: this.isMobile ? 0.6 : 1,
+                    delay: i * 0.1,
+                    ease: 'power3.out'
+                });
+                this.animations.push(revealAnim);
+            });
         });
 
-        // Reveal animations
-        const reveals = section.querySelectorAll('[data-reveal]');
-        reveals.forEach((el, i) => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
+        // Stats counter
+        const statElements = document.querySelectorAll('[data-count]');
+        statElements.forEach(el => {
+            const target = parseInt(el.dataset.count);
+            if (isNaN(target)) return;
+
+            const statST = ScrollTrigger.create({
+                trigger: el,
+                start: 'top 80%',
+                onEnter: () => {
+                    gsap.to(el, {
+                        textContent: target,
+                        duration: 2,
+                        snap: { textContent: 1 },
+                        ease: 'power2.out',
+                        onUpdate: function() {
+                            el.textContent = Math.ceil(this.targets()[0].textContent) + '+';
+                        }
+                    });
                 },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                delay: i * 0.1,
-                ease: 'power3.out'
+                once: true
             });
+            this.scrollTriggers.push(statST);
         });
-    });
+    }
 
-    // Stats counter animation
-    document.querySelectorAll('[data-count]').forEach(el => {
-        const target = parseInt(el.dataset.count);
-        ScrollTrigger.create({
-            trigger: el,
-            start: 'top 80%',
-            onEnter: () => {
-                gsap.to(el, {
-                    textContent: target,
-                    duration: 2,
-                    snap: { textContent: 1 },
-                    ease: 'power2.out',
-                    onUpdate: function() {
-                        el.textContent = Math.ceil(this.targets()[0].textContent) + '+';
+    onSectionEnter(index) {
+        this.currentSection = index;
+
+        // Update navigation dots
+        const indicators = document.querySelectorAll('.indicator');
+        indicators.forEach((ind, i) => {
+            ind.classList.toggle('active', i === index);
+        });
+
+        // Update 3D text if available (with error handling)
+        try {
+            if (window.text3D && typeof window.text3D.morphToText === 'function') {
+                const titles = [
+                    'DENERF',
+                    'ABOUT',
+                    'SERVICES',
+                    'PORTFOLIO',
+                    'CONTACT'
+                ];
+                if (titles[index]) {
+                    window.text3D.morphToText(titles[index]);
+                }
+            }
+        } catch (e) {
+            console.warn('3D text morph failed:', e.message);
+        }
+    }
+
+    setupInteractions() {
+        // Card hover effects (desktop only)
+        if (!this.isMobile) {
+            const hoverCards = document.querySelectorAll('[data-particle-hover]');
+            hoverCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                    const glow = card.querySelector('.card-glow');
+                    if (glow) {
+                        glow.style.setProperty('--mouse-x', `${x}%`);
+                        glow.style.setProperty('--mouse-y', `${y}%`);
                     }
                 });
-            },
-            once: true
-        });
-    });
-}
-
-// Update active section
-function updateSection(index) {
-    currentSection = index;
-
-    // Update indicators
-    indicators.forEach((ind, i) => {
-        ind.classList.toggle('active', i === index);
-    });
-
-    // Morph 3D text if exists
-    if (window.text3D && index > 0) {
-        window.text3D.morphToText(sectionTitles[index]);
-    }
-}
-
-// Setup section indicators
-function setupSectionIndicators() {
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            scrollToSection(index);
-        });
-    });
-}
-
-// Scroll to section
-function scrollToSection(index) {
-    if (sections[index]) {
-        sections[index].scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-}
-
-// Interactive elements
-function initInteractions() {
-    // Card hover glow effect
-    document.querySelectorAll('[data-particle-hover]').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-            const glow = card.querySelector('.card-glow');
-            if (glow) {
-                glow.style.setProperty('--mouse-x', x + '%');
-                glow.style.setProperty('--mouse-y', y + '%');
-            }
-        });
-    });
-
-    // 3D tilt effect for service cards
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * 5;
-            const rotateY = ((x - centerX) / centerX) * -5;
-
-            gsap.to(card, {
-                rotateX: rotateX,
-                rotateY: rotateY,
-                duration: 0.3,
-                ease: 'power2.out'
             });
-        });
 
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-                rotateX: 0,
-                rotateY: 0,
-                duration: 0.5,
-                ease: 'elastic.out(1, 0.5)'
+            // 3D tilt effect
+            const tiltCards = document.querySelectorAll('[data-tilt]');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * 5;
+                    const rotateY = ((x - centerX) / centerX) * -5;
+
+                    gsap.to(card, {
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        duration: 0.5,
+                        ease: 'elastic.out(1, 0.5)'
+                    });
+                });
             });
-        });
-    });
+        }
 
-    // Button particle effects on hover
-    document.querySelectorAll('.btn-primary').forEach(btn => {
-        btn.addEventListener('mouseenter', () => {
-            if (window.particleSystem) {
+        // Button effects
+        const buttons = document.querySelectorAll('.btn-primary');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Ripple effect
+                const ripple = document.createElement('span');
                 const rect = btn.getBoundingClientRect();
-                window.particleSystem.explode(
-                    rect.left + rect.width / 2,
-                    rect.top + rect.height / 2
-                );
-            }
-        });
-    });
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
 
-    // Input focus animations
-    document.querySelectorAll('[data-particle-input]').forEach(input => {
-        input.addEventListener('focus', () => {
-            gsap.to(input, {
-                scale: 1.02,
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-        });
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    pointer-events: none;
+                `;
+                btn.style.position = 'relative';
+                btn.style.overflow = 'hidden';
+                btn.appendChild(ripple);
 
-        input.addEventListener('blur', () => {
-            gsap.to(input, {
-                scale: 1,
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-        });
-    });
-}
-
-// Portfolio slider
-let currentProject = 0;
-const projectSlides = document.querySelectorAll('.project-slide');
-
-function initPortfolioSlider() {
-    updateProjectCounter();
-}
-
-function nextProject() {
-    if (currentProject < projectSlides.length - 1) {
-        currentProject++;
-        updateProject();
-    }
-}
-
-function prevProject() {
-    if (currentProject > 0) {
-        currentProject--;
-        updateProject();
-    }
-}
-
-function updateProject() {
-    projectSlides.forEach((slide, index) => {
-        if (index === currentProject) {
-            slide.classList.add('active');
-            gsap.from(slide, {
-                x: 100,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power3.out'
-            });
-        } else {
-            slide.classList.remove('active');
-        }
-    });
-
-    updateProjectCounter();
-
-    // Morph blob
-    const activeMockup = projectSlides[currentProject].querySelector('[data-morph]');
-    if (activeMockup && activeMockup.blobMorph) {
-        activeMockup.blobMorph.morph();
-    }
-}
-
-function updateProjectCounter() {
-    const current = document.querySelector('.current');
-    if (current) {
-        current.textContent = String(currentProject + 1).padStart(2, '0');
-    }
-}
-
-// Form handling
-function initForm() {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const btn = form.querySelector('.btn-primary');
-        const originalText = btn.querySelector('span').textContent;
-
-        // Animate button
-        btn.querySelector('span').textContent = 'Sending...';
-        btn.disabled = true;
-
-        // Simulate send
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Success animation
-        btn.querySelector('span').textContent = '✓ Sent!';
-
-        gsap.to(form, {
-            scale: 0.95,
-            opacity: 0.5,
-            duration: 0.5,
-            ease: 'power2.in',
-            onComplete: () => {
-                form.reset();
-                gsap.to(form, {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.5,
+                gsap.to(ripple, {
+                    scale: 2,
+                    opacity: 0,
+                    duration: 0.6,
                     ease: 'power2.out',
-                    onComplete: () => {
-                        btn.querySelector('span').textContent = originalText;
-                        btn.disabled = false;
-                    }
+                    onComplete: () => ripple.remove()
                 });
+            });
+        });
+    }
+
+    setupPortfolio() {
+        this.currentProject = 0;
+        const slides = document.querySelectorAll('.project-slide');
+
+        if (!slides.length) return;
+
+        // Show first project
+        if (slides[0]) {
+            slides[0].classList.add('active');
+        }
+
+        // Navigation buttons
+        const nextBtn = document.querySelector('[data-portfolio-next]');
+        const prevBtn = document.querySelector('[data-portfolio-prev]');
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.nextProject());
+        }
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.prevProject());
+        }
+
+        this.updateProjectCounter();
+    }
+
+    nextProject() {
+        const slides = document.querySelectorAll('.project-slide');
+        if (this.currentProject < slides.length - 1) {
+            this.currentProject++;
+            this.updateProject();
+        }
+    }
+
+    prevProject() {
+        if (this.currentProject > 0) {
+            this.currentProject--;
+            this.updateProject();
+        }
+    }
+
+    updateProject() {
+        const slides = document.querySelectorAll('.project-slide');
+
+        slides.forEach((slide, index) => {
+            if (index === this.currentProject) {
+                slide.classList.add('active');
+                gsap.fromTo(slide,
+                    { x: 100, opacity: 0 },
+                    { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+                );
+            } else {
+                slide.classList.remove('active');
             }
         });
 
-        // Particle explosion
-        if (window.particleSystem) {
-            const rect = btn.getBoundingClientRect();
-            window.particleSystem.explode(
-                rect.left + rect.width / 2,
-                rect.top + rect.height / 2
-            );
+        this.updateProjectCounter();
+    }
+
+    updateProjectCounter() {
+        const current = document.querySelector('.current');
+        const total = document.querySelector('.total');
+        const slides = document.querySelectorAll('.project-slide');
+
+        if (current) {
+            current.textContent = String(this.currentProject + 1).padStart(2, '0');
         }
-    });
-}
-
-// Mouse trail effect (optional enhancement)
-if (window.innerWidth > 1024) {
-    let trailDots = [];
-    const maxTrailDots = 20;
-
-    document.addEventListener('mousemove', (e) => {
-        if (trailDots.length >= maxTrailDots) {
-            const oldDot = trailDots.shift();
-            oldDot.remove();
+        if (total) {
+            total.textContent = String(slides.length).padStart(2, '0');
         }
+    }
 
-        const dot = document.createElement('div');
-        dot.style.cssText = `
-            position: fixed;
-            left: ${e.clientX}px;
-            top: ${e.clientY}px;
-            width: 4px;
-            height: 4px;
-            background: rgba(77, 184, 168, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-        `;
+    setupForm() {
+        const form = document.getElementById('contact-form');
+        if (!form) return;
 
-        document.body.appendChild(dot);
-        trailDots.push(dot);
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        gsap.to(dot, {
-            scale: 0,
-            opacity: 0,
-            duration: 1,
-            ease: 'power2.out',
-            onComplete: () => dot.remove()
+            const btn = form.querySelector('.btn-primary');
+            const btnText = btn ? btn.querySelector('span') : null;
+
+            if (!btn || !btnText) return;
+
+            const originalText = btnText.textContent;
+
+            // Disable and update button
+            btn.disabled = true;
+            btnText.textContent = 'Sending...';
+
+            try {
+                // Simulate send (replace with actual API call)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Success
+                btnText.textContent = 'Sent Successfully!';
+
+                // Reset form after delay
+                setTimeout(() => {
+                    form.reset();
+                    btnText.textContent = originalText;
+                    btn.disabled = false;
+                }, 2000);
+
+            } catch (error) {
+                btnText.textContent = 'Error. Try again.';
+                btn.disabled = false;
+                console.error('Form submit error:', error);
+            }
         });
-    });
+
+        // Input animations
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                gsap.to(input, {
+                    scale: 1.02,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+
+            input.addEventListener('blur', () => {
+                gsap.to(input, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+    }
+
+    setupNavigation() {
+        const indicators = document.querySelectorAll('.indicator');
+        const sections = document.querySelectorAll('.section');
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                if (sections[index]) {
+                    sections[index].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+
+    startAnimationLoop() {
+        // Optimize animation loop
+        let lastTime = 0;
+        const fps = this.isMobile ? 30 : 60;
+        const interval = 1000 / fps;
+
+        const loop = (currentTime) => {
+            this.rafId = requestAnimationFrame(loop);
+
+            const deltaTime = currentTime - lastTime;
+
+            if (deltaTime >= interval) {
+                lastTime = currentTime - (deltaTime % interval);
+
+                // Update animations if needed
+                // This is where you can add custom animation updates
+            }
+        };
+
+        this.rafId = requestAnimationFrame(loop);
+    }
+
+    refreshScrollTrigger() {
+        ScrollTrigger.refresh();
+    }
+
+    destroy() {
+        // Cleanup
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+        }
+
+        this.scrollTriggers.forEach(st => st.kill());
+        this.animations.forEach(anim => anim.kill());
+
+        this.scrollTriggers = [];
+        this.animations = [];
+    }
 }
 
-console.log('🌊 Theme 1: Ocean Depth - Loaded with 3D effects!');
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.oceanDepth = new OceanDepthController();
+    });
+} else {
+    window.oceanDepth = new OceanDepthController();
+}
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.oceanDepth) {
+        window.oceanDepth.destroy();
+    }
+});

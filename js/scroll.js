@@ -153,19 +153,23 @@ class ScrollAnimations {
     statNumbers.forEach(stat => {
       const target = parseInt(stat.getAttribute('data-target'));
 
-      gsap.to(stat, {
+      // Create a counter object to animate
+      const counter = { value: 0 };
+
+      gsap.to(counter, {
         scrollTrigger: {
           trigger: stat,
           start: 'top 85%',
           end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none reverse',
+          onEnter: () => stat.classList.add('counting'),
+          onLeaveBack: () => stat.classList.remove('counting')
         },
-        innerText: target,
+        value: target,
         duration: 2,
-        snap: { innerText: 1 },
         ease: 'power2.out',
         onUpdate: function() {
-          stat.innerText = Math.ceil(stat.innerText) + '+';
+          stat.innerText = Math.ceil(counter.value) + '+';
         }
       });
     });

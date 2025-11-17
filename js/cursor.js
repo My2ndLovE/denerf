@@ -11,13 +11,18 @@ class CustomCursor {
     this.cursorPos = { x: 0, y: 0 };
     this.dotPos = { x: 0, y: 0 };
     this.outlinePos = { x: 0, y: 0 };
+    this.animationId = null;
+    this.isAnimating = true;
 
     this.init();
   }
 
   init() {
     // Check if cursor elements exist
-    if (!this.cursor || !this.dot || !this.outline) return;
+    if (!this.cursor || !this.dot || !this.outline) {
+      console.warn('Cursor elements not found');
+      return;
+    }
 
     // Hide default cursor on desktop
     if (window.innerWidth > 768) {
@@ -63,6 +68,8 @@ class CustomCursor {
   }
 
   animate() {
+    if (!this.isAnimating) return;
+
     // Smooth cursor following with lerp (linear interpolation)
     const dotSpeed = 0.3;
     const outlineSpeed = 0.15;
@@ -74,21 +81,39 @@ class CustomCursor {
     this.outlinePos.y += (this.cursorPos.y - this.outlinePos.y) * outlineSpeed;
 
     // Apply positions
-    this.dot.style.left = `${this.dotPos.x}px`;
-    this.dot.style.top = `${this.dotPos.y}px`;
+    if (this.dot && this.outline) {
+      this.dot.style.left = `${this.dotPos.x}px`;
+      this.dot.style.top = `${this.dotPos.y}px`;
 
-    this.outline.style.left = `${this.outlinePos.x}px`;
-    this.outline.style.top = `${this.outlinePos.y}px`;
+      this.outline.style.left = `${this.outlinePos.x}px`;
+      this.outline.style.top = `${this.outlinePos.y}px`;
+    }
 
-    requestAnimationFrame(() => this.animate());
+    this.animationId = requestAnimationFrame(() => this.animate());
+  }
+
+  pause() {
+    this.isAnimating = false;
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+    }
+  }
+
+  resume() {
+    if (!this.isAnimating) {
+      this.isAnimating = true;
+      this.animate();
+    }
   }
 }
 
 // Initialize when DOM is loaded
+window.cursorInstance = null;
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    new CustomCursor();
+    window.cursorInstance = new CustomCursor();
   });
 } else {
-  new CustomCursor();
+  window.cursorInstance = new CustomCursor();
 }

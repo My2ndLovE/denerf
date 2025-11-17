@@ -6,6 +6,18 @@
     <title>Creative Portfolio | Your Name</title>
     <meta name="description" content="Award-winning creative portfolio showcasing innovative design and development">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Creative Portfolio | Your Name">
+    <meta property="og:description" content="Award-winning creative portfolio showcasing innovative design and development">
+    <meta property="og:url" content="https://yoursite.com">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0a0f">
+
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +30,11 @@
     <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor">
         <div class="cursor-dot"></div>
@@ -32,15 +49,15 @@
             </a>
             <ul class="nav-menu">
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#work" class="nav-link">Work</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="nav-toggle">
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -298,15 +315,18 @@
                     </div>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form class="contact-form">
+                    <form class="contact-form" aria-label="Contact form">
                         <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Your Name" required>
+                            <label for="contact-name" class="visually-hidden">Your Name</label>
+                            <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your Name" required aria-required="true">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" placeholder="Your Email" required>
+                            <label for="contact-email" class="visually-hidden">Your Email</label>
+                            <input type="email" id="contact-email" name="email" class="form-input" placeholder="Your Email" required aria-required="true">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-input" rows="5" placeholder="Your Message" required></textarea>
+                            <label for="contact-message" class="visually-hidden">Your Message</label>
+                            <textarea id="contact-message" name="message" class="form-input" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">
                             <span class="btn-text">Send Message</span>

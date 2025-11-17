@@ -11,6 +11,18 @@ class Hero3D {
     this.particles = null;
     this.mouse = { x: 0, y: 0 };
     this.targetMouse = { x: 0, y: 0 };
+    this.animationId = null;
+    this.isAnimating = true;
+
+    if (!this.canvas) {
+      console.warn('Hero canvas not found');
+      return;
+    }
+
+    if (typeof THREE === 'undefined') {
+      console.error('THREE.js not loaded');
+      return;
+    }
 
     this.init();
     this.addEventListeners();
@@ -128,7 +140,9 @@ class Hero3D {
   }
 
   animate() {
-    requestAnimationFrame(() => this.animate());
+    if (!this.isAnimating) return;
+
+    this.animationId = requestAnimationFrame(() => this.animate());
 
     // Smooth mouse following
     this.mouse.x += (this.targetMouse.x - this.mouse.x) * 0.05;
@@ -145,15 +159,44 @@ class Hero3D {
     }
 
     // Render
-    this.renderer.render(this.scene, this.camera);
+    if (this.renderer && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+    }
+  }
+
+  pause() {
+    this.isAnimating = false;
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+    }
+  }
+
+  resume() {
+    if (!this.isAnimating) {
+      this.isAnimating = true;
+      this.animate();
+    }
+  }
+
+  destroy() {
+    this.pause();
+    if (this.renderer) {
+      this.renderer.dispose();
+    }
+    if (this.particles) {
+      this.particles.geometry.dispose();
+      this.particles.material.dispose();
+    }
   }
 }
 
 // Initialize when DOM is loaded
+window.hero3DInstance = null;
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    new Hero3D();
+    window.hero3DInstance = new Hero3D();
   });
 } else {
-  new Hero3D();
+  window.hero3DInstance = new Hero3D();
 }

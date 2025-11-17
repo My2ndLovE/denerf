@@ -21,10 +21,12 @@ class PortfolioSite {
   }
 
   initNavigation() {
-    // Add scroll effect to navigation
-    let lastScroll = 0;
+    if (!this.nav) return;
 
-    window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+
+    // Combined scroll handler with throttle for better performance
+    const handleScroll = throttle(() => {
       const currentScroll = window.pageYOffset;
 
       // Add background when scrolled
@@ -34,27 +36,21 @@ class PortfolioSite {
         this.nav.classList.remove('scrolled');
       }
 
-      lastScroll = currentScroll;
-    });
-
-    // Active link on scroll
-    const sections = document.querySelectorAll('section[id]');
-
-    window.addEventListener('scroll', () => {
-      const scrollY = window.pageYOffset;
-
+      // Active link on scroll
       sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
         const sectionId = section.getAttribute('id');
         const correspondingLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
 
-        if (correspondingLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        if (correspondingLink && currentScroll > sectionTop && currentScroll <= sectionTop + sectionHeight) {
           this.navLinks.forEach(link => link.classList.remove('active'));
           correspondingLink.classList.add('active');
         }
       });
-    });
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
   }
 
   initSmoothScroll() {
@@ -110,13 +106,17 @@ class PortfolioSite {
   initMobileMenu() {
     if (!this.navToggle || !this.navMenu) return;
 
-    this.navToggle.addEventListener('click', () => {
-      this.navToggle.classList.toggle('active');
+    this.navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = this.navToggle.classList.toggle('active');
       this.navMenu.classList.toggle('active');
+
+      // Update aria-expanded
+      this.navToggle.setAttribute('aria-expanded', isActive);
 
       // Animate toggle icon
       const spans = this.navToggle.querySelectorAll('span');
-      if (this.navToggle.classList.contains('active')) {
+      if (isActive) {
         spans[0].style.transform = 'rotate(45deg) translateY(8px)';
         spans[1].style.opacity = '0';
         spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
@@ -129,9 +129,15 @@ class PortfolioSite {
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-      if (!this.nav.contains(e.target)) {
+      if (this.navToggle.classList.contains('active') && !this.nav.contains(e.target)) {
         this.navMenu.classList.remove('active');
         this.navToggle.classList.remove('active');
+        this.navToggle.setAttribute('aria-expanded', 'false');
+
+        const spans = this.navToggle.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
       }
     });
   }
@@ -207,16 +213,17 @@ class PortfolioSite {
 // Utility Functions
 // ========================================
 
-// Throttle function for performance
+// Throttle function for performance (proper implementation)
 function throttle(func, wait) {
-  let timeout;
+  let waiting = false;
   return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    if (!waiting) {
+      func.apply(this, args);
+      waiting = true;
+      setTimeout(() => {
+        waiting = false;
+      }, wait);
+    }
   };
 }
 
@@ -254,9 +261,15 @@ if (document.readyState === 'loading') {
 // Performance Optimizations
 // ========================================
 
-// Preload critical images
+// Hide loading screen when everything is loaded
 window.addEventListener('load', () => {
-  // Add any image preloading here if needed
+  const loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+    // Small delay for smooth transition
+    setTimeout(() => {
+      loadingScreen.classList.add('hidden');
+    }, 500);
+  }
   console.log('🎨 Portfolio loaded successfully!');
 });
 
@@ -264,9 +277,11 @@ window.addEventListener('load', () => {
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     // Pause heavy animations when tab is not visible
-    console.log('Tab hidden - pausing animations');
+    if (window.hero3DInstance) window.hero3DInstance.pause();
+    if (window.cursorInstance) window.cursorInstance.pause();
   } else {
     // Resume animations when tab is visible
-    console.log('Tab visible - resuming animations');
+    if (window.hero3DInstance) window.hero3DInstance.resume();
+    if (window.cursorInstance) window.cursorInstance.resume();
   }
 });

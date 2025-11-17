@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denerf - Theme Preview & Selection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: #999;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .theme-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-preview {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .theme-info {
+            padding: 2rem;
+        }
+
+        .theme-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-description {
+            color: #999;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .theme-colors {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9375rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #999;
+            border: 2px solid #333;
+        }
+
+        .btn-secondary:hover {
+            border-color: #666;
+            color: #fff;
+        }
+
+        /* Theme-specific border colors */
+        .theme-card.ocean { border-color: #4db8a8; }
+        .theme-card.monochrome { border-color: #e63946; }
+        .theme-card.sunset { border-color: #ff6b35; }
+        .theme-card.matrix { border-color: #00ff41; }
+
+        .footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid #333;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 0.9375rem;
+        }
+
+        @media (max-width: 1200px) {
+            .themes-grid {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 2rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .theme-preview {
+                height: 300px;
+            }
+
+            .themes-grid {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>DENERF</h1>
+        <p>Choose your perfect portfolio theme. Each one is fully functional, creative, and ready to deploy on Cloudflare Pages.</p>
+    </div>
+
+    <div class="themes-grid">
+
+        <!-- Theme 1: Ocean Depth -->
+        <div class="theme-card ocean">
+            <div class="theme-preview">
+                <iframe src="theme-1-ocean-depth/index.html" title="Ocean Depth Preview"></iframe>
+            </div>
+            <div class="theme-info">
+                <h2 class="theme-name">Theme 1: Ocean Depth</h2>
+                <p class="theme-description">
+                    Professional design inspired by deep ocean gradients. Features layered depth-shift typography and liquid swipe portfolio transitions.
+                </p>
+                <div class="theme-colors">
+                    <div class="color-dot" style="background: #0f2027;"></div>
+                    <div class="color-dot" style="background: #2c5364;"></div>
+                    <div class="color-dot" style="background: #4db8a8;"></div>
+                    <div class="color-dot" style="background: #3498db;"></div>
+                </div>
+                <div class="theme-actions">
+                    <a href="theme-1-ocean-depth/index.html" class="btn btn-primary" target="_blank">View Full Theme</a>
+                    <a href="theme-1-ocean-depth/README.md" class="btn btn-secondary" target="_blank">Documentation</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 2: Monochrome Elite -->
+        <div class="theme-card monochrome">
+            <div class="theme-preview">
+                <iframe src="theme-2-monochrome-elite/index.html" title="Monochrome Elite Preview"></iframe>
+            </div>
+            <div class="theme-info">
+                <h2 class="theme-name">Theme 2: Monochrome Elite</h2>
+                <p class="theme-description">
+                    High-end minimalist design with a bold red accent. Clean, professional, and ultra-modern with grid-based layouts.
+                </p>
+                <div class="theme-colors">
+                    <div class="color-dot" style="background: #0d0d0d;"></div>
+                    <div class="color-dot" style="background: #1a1a1a;"></div>
+                    <div class="color-dot" style="background: #e63946;"></div>
+                    <div class="color-dot" style="background: #ffffff;"></div>
+                </div>
+                <div class="theme-actions">
+                    <a href="theme-2-monochrome-elite/index.html" class="btn btn-primary" target="_blank">View Full Theme</a>
+                    <a href="theme-2-monochrome-elite/" class="btn btn-secondary" target="_blank">Explore Files</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 3: Warm Sunset -->
+        <div class="theme-card sunset">
+            <div class="theme-preview">
+                <iframe src="theme-3-warm-sunset/index.html" title="Warm Sunset Preview"></iframe>
+            </div>
+            <div class="theme-info">
+                <h2 class="theme-name">Theme 3: Warm Sunset</h2>
+                <p class="theme-description">
+                    Warm, inviting design with earthy tones. Perfect for creative agencies with its friendly, approachable aesthetic and smooth animations.
+                </p>
+                <div class="theme-colors">
+                    <div class="color-dot" style="background: #faf9f6;"></div>
+                    <div class="color-dot" style="background: #ff6b35;"></div>
+                    <div class="color-dot" style="background: #ffd23f;"></div>
+                    <div class="color-dot" style="background: #ee4540;"></div>
+                </div>
+                <div class="theme-actions">
+                    <a href="theme-3-warm-sunset/index.html" class="btn btn-primary" target="_blank">View Full Theme</a>
+                    <a href="theme-3-warm-sunset/" class="btn btn-secondary" target="_blank">Explore Files</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 4: Glitch Matrix -->
+        <div class="theme-card matrix">
+            <div class="theme-preview">
+                <iframe src="theme-4-glitch-matrix/index.html" title="Glitch Matrix Preview"></iframe>
+            </div>
+            <div class="theme-info">
+                <h2 class="theme-name">Theme 4: Glitch Matrix</h2>
+                <p class="theme-description">
+                    Cyberpunk-inspired design with matrix green and glitch effects. Bold, edgy, and perfect for tech-forward brands and developers.
+                </p>
+                <div class="theme-colors">
+                    <div class="color-dot" style="background: #000000;"></div>
+                    <div class="color-dot" style="background: #00ff41;"></div>
+                    <div class="color-dot" style="background: #ff0080;"></div>
+                    <div class="color-dot" style="background: #00d9ff;"></div>
+                </div>
+                <div class="theme-actions">
+                    <a href="theme-4-glitch-matrix/index.html" class="btn btn-primary" target="_blank">View Full Theme</a>
+                    <a href="theme-4-glitch-matrix/" class="btn btn-secondary" target="_blank">Explore Files</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Denerf. AI-Powered Development Studio.</p>
+        <p style="margin-top: 0.5rem; color: #444;">Built with ❤️ and AI • Ready for Cloudflare Pages</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "denerf-portfolio",
+  "version": "1.0.0",
+  "description": "Denerf - AI-Powered Development Studio Portfolio. 4 stunning themes with kinetic typography and creative animations.",
+  "author": "Denerf",
+  "license": "MIT",
+  "keywords": [
+    "portfolio",
+    "website",
+    "gsap",
+    "animations",
+    "kinetic-typography",
+    "cloudflare-pages",
+    "static-site"
+  ],
+  "scripts": {
+    "preview": "open preview.html",
+    "theme-1": "open theme-1-ocean-depth/index.html",
+    "theme-2": "open theme-2-monochrome-elite/index.html",
+    "theme-3": "open theme-3-warm-sunset/index.html",
+    "theme-4": "open theme-4-glitch-matrix/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/My2ndLovE/denerf.git"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

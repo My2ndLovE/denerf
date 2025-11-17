@@ -1,0 +1,534 @@
+/* ================================================
+   ANIMATIONS.CSS - Theme 1: Ocean Depth
+   Kinetic Typography & Interactive Animations
+   ================================================ */
+
+/* ================================================
+   LAYERED TYPOGRAPHY ANIMATIONS
+   ================================================ */
+
+@keyframes layerFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
+}
+
+@keyframes layerSeparate {
+    0% {
+        transform: translate(0, 0) rotateX(0deg);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(var(--tx, 0), var(--ty, 0)) rotateX(var(--rx, 0deg));
+        opacity: 0;
+    }
+}
+
+@keyframes layerConverge {
+    0% {
+        transform: translate(var(--tx, 0), var(--ty, 0)) rotateX(var(--rx, 0deg));
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(0, 0) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+/* Letter-level animations */
+.letter {
+    display: inline-block;
+    will-change: transform, opacity;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.6s ease;
+}
+
+.letter.transitioning {
+    animation: letterMorph 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes letterMorph {
+    0% {
+        transform: translateY(0) rotateZ(0deg) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(-30px) rotateZ(10deg) scale(0.9);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-60px) rotateZ(0deg) scale(0.7);
+        opacity: 0;
+    }
+    75% {
+        transform: translateY(-30px) rotateZ(-10deg) scale(0.9);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0) rotateZ(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ================================================
+   LIQUID SWIPE TRANSITIONS
+   ================================================ */
+
+.liquid-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.liquid-blob {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: var(--gradient-2);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.liquid-blob.active {
+    animation: liquidExpand 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes liquidExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0.9;
+    }
+}
+
+@keyframes liquidContract {
+    0% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+}
+
+/* ================================================
+   SCROLL-BASED PARALLAX
+   ================================================ */
+
+.parallax-element {
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+.parallax-slow {
+    transform: translateY(calc(var(--scroll-progress, 0) * 50px));
+}
+
+.parallax-medium {
+    transform: translateY(calc(var(--scroll-progress, 0) * 100px));
+}
+
+.parallax-fast {
+    transform: translateY(calc(var(--scroll-progress, 0) * 150px));
+}
+
+/* ================================================
+   GRADIENT ANIMATIONS
+   ================================================ */
+
+.animated-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.gradient-rotate {
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-rotate::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        var(--accent-teal) 25%,
+        transparent 50%,
+        var(--accent-blue) 75%,
+        transparent 100%
+    );
+    animation: rotateGradient 8s linear infinite;
+}
+
+@keyframes rotateGradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================================================
+   HOVER EFFECTS
+   ================================================ */
+
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.magnetic:hover {
+    transform: scale(1.05);
+}
+
+.magnetic.pulling {
+    transform: translate(var(--pull-x, 0), var(--pull-y, 0)) scale(1.05);
+}
+
+/* Ripple effect */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(77, 184, 168, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.ripple:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* ================================================
+   TEXT EFFECTS
+   ================================================ */
+
+.text-glow {
+    text-shadow: 0 0 20px rgba(77, 184, 168, 0.5),
+                 0 0 40px rgba(77, 184, 168, 0.3),
+                 0 0 60px rgba(77, 184, 168, 0.1);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(77, 184, 168, 0.5),
+                     0 0 40px rgba(77, 184, 168, 0.3),
+                     0 0 60px rgba(77, 184, 168, 0.1);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(77, 184, 168, 0.8),
+                     0 0 60px rgba(77, 184, 168, 0.5),
+                     0 0 90px rgba(77, 184, 168, 0.2);
+    }
+}
+
+.text-shimmer {
+    background: linear-gradient(
+        90deg,
+        var(--text-primary) 0%,
+        var(--accent-teal) 50%,
+        var(--text-primary) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ================================================
+   SECTION TRANSITIONS
+   ================================================ */
+
+.section-fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.section-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-slide-in-left {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section-slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.section-slide-in-right {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section-slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ================================================
+   LOADING ANIMATIONS
+   ================================================ */
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(77, 184, 168, 0.2);
+    border-top-color: var(--accent-teal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+/* ================================================
+   FLOATING ELEMENTS
+   ================================================ */
+
+.float-up {
+    animation: floatUp 3s ease-in-out infinite;
+}
+
+@keyframes floatUp {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.float-gentle {
+    animation: floatGentle 4s ease-in-out infinite;
+}
+
+@keyframes floatGentle {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-10px) translateX(5px);
+    }
+    50% {
+        transform: translateY(0) translateX(10px);
+    }
+    75% {
+        transform: translateY(-10px) translateX(5px);
+    }
+}
+
+/* ================================================
+   PARTICLE EFFECTS
+   ================================================ */
+
+@keyframes particleFade {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1);
+    }
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-teal);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFade 2s ease-out forwards;
+}
+
+/* ================================================
+   REVEAL ANIMATIONS
+   ================================================ */
+
+.reveal-clip {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-clip.revealed {
+    clip-path: inset(0 0 0 0);
+}
+
+.reveal-scale {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.8s ease;
+}
+
+.reveal-scale.revealed {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* ================================================
+   STAGGER ANIMATIONS
+   ================================================ */
+
+.stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.stagger-item.animate {
+    animation: staggerFadeIn 0.6s ease forwards;
+}
+
+@keyframes staggerFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* ================================================
+   3D TRANSFORMS
+   ================================================ */
+
+.transform-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.flip-card {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    backface-visibility: hidden;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* ================================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================================ */
+
+.will-animate {
+    will-change: transform, opacity;
+}
+
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ================================================
+   REDUCED MOTION
+   ================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .kinetic-header .layer {
+        animation: none !important;
+    }
+
+    .scroll-arrow::after {
+        animation: none !important;
+    }
+}

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denerf | Neural Network - AI Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <!-- Neural Network Canvas -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- 3D Carousel Canvas -->
+    <canvas id="carousel-canvas"></canvas>
+
+    <!-- Particle Burst Canvas -->
+    <canvas id="burst-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav-dots">
+        <div class="dot active" data-section="0"></div>
+        <div class="dot" data-section="1"></div>
+        <div class="dot" data-section="2"></div>
+        <div class="dot" data-section="3"></div>
+        <div class="dot" data-section="4"></div>
+    </nav>
+
+    <main id="content">
+
+        <!-- HERO -->
+        <section class="section hero" data-section="0">
+            <div class="container">
+                <div id="network-title" class="network-title"></div>
+                <p class="subtitle">AI-Powered Development Studio</p>
+                <p class="description">
+                    Harnessing cutting-edge AI to build faster, smarter, and better.<br>
+                    We transform ideas into reality across any technology stack.
+                </p>
+                <div class="cta-group">
+                    <button class="btn btn-primary" onclick="scrollToSection(3)">View Projects</button>
+                    <button class="btn btn-outline" onclick="scrollToSection(4)">Contact Us</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="section about" data-section="1">
+            <div class="container">
+                <h2 class="section-heading">OUR STORY</h2>
+
+                <div class="content-grid">
+                    <div class="text-content">
+                        <p class="lead">
+                            At <strong>Denerf</strong>, we leverage artificial intelligence to revolutionize
+                            software development. Our AI-enhanced workflow enables us to build faster,
+                            adapt instantly, and deliver exceptional quality.
+                        </p>
+                        <p>
+                            We work with any technology stack—React, Vue, Python, Go, Rust—using AI
+                            to optimize every stage of development from architecture to deployment.
+                        </p>
+                    </div>
+
+                    <div class="capabilities">
+                        <div class="cap-item" data-node>
+                            <div class="cap-icon">⚡</div>
+                            <h3>10x Faster</h3>
+                            <p>AI-accelerated development cycles</p>
+                        </div>
+                        <div class="cap-item" data-node>
+                            <div class="cap-icon">🎯</div>
+                            <h3>Any Stack</h3>
+                            <p>Technology agnostic approach</p>
+                        </div>
+                        <div class="cap-item" data-node>
+                            <div class="cap-icon">🧠</div>
+                            <h3>AI-Optimized</h3>
+                            <p>Smart architecture & performance</p>
+                        </div>
+                        <div class="cap-item" data-node>
+                            <div class="cap-icon">✨</div>
+                            <h3>Quality Assured</h3>
+                            <p>ML-powered testing & QA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value" data-count="100">0</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Tech Stacks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" data-count="10">0</div>
+                        <div class="stat-label">Times Faster</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" data-count="98">0</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="section services" data-section="2">
+            <div class="container">
+                <h2 class="section-heading">WHAT WE DO</h2>
+
+                <div class="services-grid">
+                    <div class="service" data-node-card>
+                        <div class="service-header">
+                            <span class="service-icon">🌐</span>
+                            <h3>Web Development</h3>
+                        </div>
+                        <p>AI-powered web applications with cutting-edge frameworks and optimal performance.</p>
+                        <div class="service-tags">
+                            <span>React</span><span>Vue</span><span>Next.js</span>
+                        </div>
+                    </div>
+
+                    <div class="service" data-node-card>
+                        <div class="service-header">
+                            <span class="service-icon">📱</span>
+                            <h3>Mobile Apps</h3>
+                        </div>
+                        <p>Cross-platform mobile experiences with native performance and feel.</p>
+                        <div class="service-tags">
+                            <span>React Native</span><span>Flutter</span><span>Swift</span>
+                        </div>
+                    </div>
+
+                    <div class="service" data-node-card>
+                        <div class="service-header">
+                            <span class="service-icon">🤖</span>
+                            <h3>AI Integration</h3>
+                        </div>
+                        <p>Custom AI solutions from chatbots to predictive analytics.</p>
+                        <div class="service-tags">
+                            <span>OpenAI</span><span>TensorFlow</span><span>PyTorch</span>
+                        </div>
+                    </div>
+
+                    <div class="service" data-node-card>
+                        <div class="service-header">
+                            <span class="service-icon">⚡</span>
+                            <h3>Rapid Prototyping</h3>
+                        </div>
+                        <p>Functional prototypes in days, perfect for validation and demos.</p>
+                        <div class="service-tags">
+                            <span>MVP</span><span>Prototype</span><span>POC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO (3D Carousel) -->
+        <section class="section portfolio" data-section="3">
+            <div class="container">
+                <h2 class="section-heading">OUR WORK</h2>
+
+                <div id="carousel-3d" class="carousel-container">
+                    <!-- 3D Carousel will be rendered here via Canvas -->
+                    <div class="carousel-info">
+                        <h3 id="project-title">NeuralCommerce</h3>
+                        <p id="project-category">E-Commerce Platform</p>
+                        <p id="project-description">
+                            AI-powered e-commerce with intelligent recommendations and automated inventory.
+                        </p>
+                        <div id="project-results">
+                            <div class="result"><strong>40%</strong> conversion</div>
+                            <div class="result"><strong>60%</strong> faster</div>
+                            <div class="result"><strong>10K+</strong> users</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="prevCarouselProject()">←</button>
+                    <span class="carousel-counter"><span id="carousel-current">1</span> / 3</span>
+                    <button class="carousel-btn" onclick="nextCarouselProject()">→</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section contact" data-section="4">
+            <div class="container">
+                <h2 class="section-heading">LET'S TALK</h2>
+
+                <div class="contact-grid">
+                    <form id="contact-form" class="form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Project Type</label>
+                            <select>
+                                <option>Web Application</option>
+                                <option>Mobile App</option>
+                                <option>AI Integration</option>
+                                <option>Prototype</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <span class="info-icon">✉️</span>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:hello@denerf.com">hello@denerf.com</a>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">🌍</span>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Remote-First (Global)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">⚡</span>
+                            <div>
+                                <h4>Response</h4>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>DENERF</h3>
+                    <p>AI-Powered Development Studio</p>
+                </div>
+                <p>© 2024 Denerf. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script src="js/network-visualization.js"></script>
+    <script src="js/3d-carousel.js"></script>
+    <script src="js/particle-burst.js"></script>
+    <script src="js/network-title.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denerf - AI-Powered Development | Glitch Matrix</title>
+    <meta name="description" content="Transform your ideas into reality with AI-powered development. Denerf leverages cutting-edge AI to build anything, in any tech stack.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Three.js for WebGL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Glitch Overlay -->
+    <div class="glitch-overlay"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <!-- Canvas Layers -->
+    <canvas id="webgl-shader-canvas"></canvas>
+    <canvas id="matrix-rain-canvas"></canvas>
+    <canvas id="glitch-canvas"></canvas>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots">
+        <button class="nav-dot active" aria-label="Hero"><span></span></button>
+        <button class="nav-dot" aria-label="About"><span></span></button>
+        <button class="nav-dot" aria-label="Services"><span></span></button>
+        <button class="nav-dot" aria-label="Portfolio"><span></span></button>
+        <button class="nav-dot" aria-label="Contact"><span></span></button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section hero-section">
+        <div id="glitch-text-container"></div>
+
+        <div class="hero-content">
+            <h1 class="hero-title glitch" data-text="DENERF">
+                <span>DENERF</span>
+                <span>DENERF</span>
+                <span>DENERF</span>
+            </h1>
+            <p class="tagline terminal-text">&gt; AI-Powered Development <span class="cursor-blink">_</span></p>
+            <p class="subtitle terminal-text">&gt; Build Anything, Anywhere</p>
+            <a href="#contact" class="cta-button glitch-button">
+                <span>Initialize Project</span>
+            </a>
+        </div>
+
+        <div class="scan-line"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title glitch-title" data-text="&gt; ABOUT_US.exe">
+                <span>&gt; ABOUT_US.exe</span>
+            </h2>
+
+            <div class="about-grid">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">denerf@ai-dev:~$</span>
+                    </div>
+                    <div class="terminal-body">
+                        <p class="terminal-line">&gt; <span class="typing-text">cat about.txt</span></p>
+                        <p class="terminal-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+                        <p class="terminal-line">At Denerf, we harness the full potential of artificial intelligence to transform your ideas into reality.</p>
+                        <p class="terminal-line"></p>
+                        <p class="terminal-line">Our AI-driven approach enables us to build applications in any technology stack, adapt to any requirement, and deliver solutions that exceed expectations.</p>
+                        <p class="terminal-line"></p>
+                        <p class="terminal-line">Whether you need a modern web application, mobile solution, or complex enterprise system, our AI-augmented development process ensures rapid delivery without compromising on quality.</p>
+                        <p class="terminal-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+                    </div>
+                </div>
+
+                <div class="stats-matrix">
+                    <div class="stat-block">
+                        <div class="stat-number stat-projects">127</div>
+                        <div class="stat-label">Projects Executed</div>
+                        <div class="stat-bar"><div class="stat-fill"></div></div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-number stat-clients">89</div>
+                        <div class="stat-label">Clients Connected</div>
+                        <div class="stat-bar"><div class="stat-fill"></div></div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-number stat-accuracy">99.8%</div>
+                        <div class="stat-label">System Accuracy</div>
+                        <div class="stat-bar"><div class="stat-fill"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services-section">
+        <div class="container">
+            <h2 class="section-title glitch-title" data-text="&gt; SERVICES.dll">
+                <span>&gt; SERVICES.dll</span>
+            </h2>
+
+            <div class="services-grid">
+                <div class="service-box" data-glitch-card>
+                    <div class="service-header">
+                        <span class="service-icon">🤖</span>
+                        <span class="service-status">[ACTIVE]</span>
+                    </div>
+                    <h3>AI-Powered Development</h3>
+                    <p>Leverage cutting-edge AI to build applications faster, smarter, and more efficiently than traditional methods.</p>
+                    <div class="hex-grid"></div>
+                </div>
+
+                <div class="service-box" data-glitch-card>
+                    <div class="service-header">
+                        <span class="service-icon">⚡</span>
+                        <span class="service-status">[ACTIVE]</span>
+                    </div>
+                    <h3>Full-Stack Solutions</h3>
+                    <p>From frontend to backend, mobile to web, we build complete solutions using any technology stack required.</p>
+                    <div class="hex-grid"></div>
+                </div>
+
+                <div class="service-box" data-glitch-card>
+                    <div class="service-header">
+                        <span class="service-icon">🎨</span>
+                        <span class="service-status">[ACTIVE]</span>
+                    </div>
+                    <h3>Creative Design</h3>
+                    <p>AI-assisted design processes that combine human creativity with machine precision for stunning results.</p>
+                    <div class="hex-grid"></div>
+                </div>
+
+                <div class="service-box" data-glitch-card>
+                    <div class="service-header">
+                        <span class="service-icon">🚀</span>
+                        <span class="service-status">[ACTIVE]</span>
+                    </div>
+                    <h3>Rapid Prototyping</h3>
+                    <p>Turn your ideas into working prototypes in days, not months, with our AI-accelerated development workflow.</p>
+                    <div class="hex-grid"></div>
+                </div>
+
+                <div class="service-box" data-glitch-card>
+                    <div class="service-header">
+                        <span class="service-icon">🔧</span>
+                        <span class="service-status">[ACTIVE]</span>
+                    </div>
+                    <h3>Custom Solutions</h3>
+                    <p>Every project is unique. We tailor our AI tools and processes to fit your specific needs and requirements.</p>
+                    <div class="hex-grid"></div>
+                </div>
+
+                <div class="service-box" data-glitch-card>
+                    <div class="service-header">
+                        <span class="service-icon">📈</span>
+                        <span class="service-status">[ACTIVE]</span>
+                    </div>
+                    <h3>Scalable Architecture</h3>
+                    <p>Build for today, scale for tomorrow. Our solutions grow with your business, powered by intelligent automation.</p>
+                    <div class="hex-grid"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio-section">
+        <div class="container">
+            <h2 class="section-title glitch-title" data-text="&gt; PROJECTS.db">
+                <span>&gt; PROJECTS.db</span>
+            </h2>
+
+            <div class="project-grid">
+                <div class="project-item" data-project>
+                    <div class="project-glitch-wrapper">
+                        <div class="project-visual" data-webgl-project></div>
+                    </div>
+                    <div class="project-terminal">
+                        <p class="project-prompt">&gt; query --project="ecommerce"</p>
+                        <h3>E-Commerce Platform</h3>
+                        <p>AI-powered product recommendations and dynamic pricing engine</p>
+                        <div class="project-tags">
+                            <span>[React]</span>
+                            <span>[Node.js]</span>
+                            <span>[TensorFlow]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-project>
+                    <div class="project-glitch-wrapper">
+                        <div class="project-visual" data-webgl-project></div>
+                    </div>
+                    <div class="project-terminal">
+                        <p class="project-prompt">&gt; query --project="healthcare"</p>
+                        <h3>Healthcare Dashboard</h3>
+                        <p>Real-time patient monitoring with AI-driven diagnostics</p>
+                        <div class="project-tags">
+                            <span>[Vue.js]</span>
+                            <span>[Python]</span>
+                            <span>[ML Models]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-project>
+                    <div class="project-glitch-wrapper">
+                        <div class="project-visual" data-webgl-project></div>
+                    </div>
+                    <div class="project-terminal">
+                        <p class="project-prompt">&gt; query --project="fintech"</p>
+                        <h3>Fintech Application</h3>
+                        <p>Intelligent investment advisor with predictive analytics</p>
+                        <div class="project-tags">
+                            <span>[Next.js]</span>
+                            <span>[GraphQL]</span>
+                            <span>[AI Analytics]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-project>
+                    <div class="project-glitch-wrapper">
+                        <div class="project-visual" data-webgl-project></div>
+                    </div>
+                    <div class="project-terminal">
+                        <p class="project-prompt">&gt; query --project="social"</p>
+                        <h3>Social Media Platform</h3>
+                        <p>Content moderation and personalized feed with ML algorithms</p>
+                        <div class="project-tags">
+                            <span>[Angular]</span>
+                            <span>[MongoDB]</span>
+                            <span>[NLP]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title glitch-title" data-text="&gt; CONTACT.sh">
+                <span>&gt; CONTACT.sh</span>
+            </h2>
+
+            <div class="contact-grid">
+                <div class="contact-info-matrix">
+                    <h3 class="terminal-text">&gt; Initialize Connection</h3>
+                    <p>Ready to transform your idea into reality? Our AI-powered development team is here to help you build anything, in any technology stack.</p>
+
+                    <div class="connection-status">
+                        <div class="status-line">
+                            <span class="status-label">EMAIL:</span>
+                            <span class="status-value">hello@denerf.ai</span>
+                        </div>
+                        <div class="status-line">
+                            <span class="status-label">STATUS:</span>
+                            <span class="status-value status-online">● ONLINE 24/7</span>
+                        </div>
+                        <div class="status-line">
+                            <span class="status-label">LOCATION:</span>
+                            <span class="status-value">REMOTE-FIRST, GLOBAL</span>
+                        </div>
+                        <div class="status-line">
+                            <span class="status-label">RESPONSE:</span>
+                            <span class="status-value">&lt; 2 HOURS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="terminal-form">
+                    <div class="form-line">
+                        <span class="form-prompt">&gt;</span>
+                        <input type="text" name="name" placeholder="Enter your name..." required>
+                    </div>
+                    <div class="form-line">
+                        <span class="form-prompt">&gt;</span>
+                        <input type="email" name="email" placeholder="Enter your email..." required>
+                    </div>
+                    <div class="form-line">
+                        <span class="form-prompt">&gt;</span>
+                        <input type="text" name="subject" placeholder="Enter subject..." required>
+                    </div>
+                    <div class="form-line">
+                        <span class="form-prompt">&gt;</span>
+                        <textarea name="message" placeholder="Enter your message..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <span>Execute Transmission</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&gt; &copy; 2025 Denerf. Built with AI-powered creativity. System uptime: 99.9%</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/webgl-shader.js"></script>
+    <script src="js/matrix-rain.js"></script>
+    <script src="js/glitch-effect.js"></script>
+    <script src="js/terminal-typing.js"></script>
+    <script src="js/webgl-projects.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

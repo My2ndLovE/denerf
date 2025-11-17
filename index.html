@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denerf - Theme Selection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0f0a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ff41, #ff006e, #00d9ff, #ffd60a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #8892b0;
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .theme-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .theme-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--color-1), var(--color-2));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-10px);
+            border-color: transparent;
+        }
+
+        .theme-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .theme-card.theme-1 {
+            --color-1: #4db8a8;
+            --color-2: #3498db;
+        }
+
+        .theme-card.theme-2 {
+            --color-1: #e63946;
+            --color-2: #ffffff;
+        }
+
+        .theme-card.theme-3 {
+            --color-1: #ff6b35;
+            --color-2: #ffd23f;
+        }
+
+        .theme-card.theme-4 {
+            --color-1: #00ff41;
+            --color-2: #ff006e;
+        }
+
+        .theme-preview {
+            width: 100%;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(10, 14, 39, 1), transparent);
+        }
+
+        .theme-info {
+            padding: 2rem;
+        }
+
+        .theme-number {
+            font-size: 0.9rem;
+            color: var(--color-1);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .theme-description {
+            color: #8892b0;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .theme-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--color-1);
+        }
+
+        .theme-link {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--color-1);
+            color: var(--color-1);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-1);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .theme-link:hover {
+            color: #0a0e27;
+        }
+
+        .theme-link:hover::before {
+            left: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 1200px) {
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .theme-preview {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DENERF</h1>
+            <p class="subtitle">AI-Powered Development Portfolio</p>
+            <p class="description">
+                Choose from 4 stunning creative themes, each showcasing unique 3D effects,
+                interactive animations, and cutting-edge web technologies. Built with AI-powered creativity.
+            </p>
+        </header>
+
+        <div class="themes-grid">
+            <!-- Theme 1: Ocean Depth -->
+            <div class="theme-card theme-1">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #0a1929 0%, #1a3a52 100%);">
+                    <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4db8a8;stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:#3498db;stop-opacity:0.1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50%" cy="30%" r="100" fill="url(#grad1)" opacity="0.6">
+                            <animate attributeName="r" values="100;120;100" dur="4s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="70%" cy="60%" r="80" fill="url(#grad1)" opacity="0.4">
+                            <animate attributeName="r" values="80;100;80" dur="5s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-number">Theme 01</div>
+                    <h2 class="theme-name">Ocean Depth</h2>
+                    <p class="theme-description">
+                        Dive into the depths with Three.js 3D particle typography, floating geometric shapes,
+                        interactive water ripples, and organic blob morphing. A mesmerizing underwater experience.
+                    </p>
+                    <div class="theme-features">
+                        <span class="feature-tag">Three.js 3D</span>
+                        <span class="feature-tag">Particle System</span>
+                        <span class="feature-tag">Water Ripples</span>
+                        <span class="feature-tag">Blob Morphing</span>
+                    </div>
+                    <a href="theme-1-ocean-depth/index.html" class="theme-link">View Theme</a>
+                </div>
+            </div>
+
+            <!-- Theme 2: Neural Network -->
+            <div class="theme-card theme-2">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);">
+                    <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                        <circle cx="30%" cy="20%" r="3" fill="#e63946">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="70%" cy="40%" r="3" fill="#e63946">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="50%" cy="70%" r="3" fill="#ffffff">
+                            <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <line x1="30%" y1="20%" x2="70%" y2="40%" stroke="#e63946" stroke-width="1" opacity="0.3"/>
+                        <line x1="70%" y1="40%" x2="50%" y2="70%" stroke="#e63946" stroke-width="1" opacity="0.3"/>
+                    </svg>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-number">Theme 02</div>
+                    <h2 class="theme-name">Neural Network</h2>
+                    <p class="theme-description">
+                        Connect with intelligence through a 60-node neural network visualization,
+                        3D rotating carousel, particle burst effects, and dynamic data packets flowing through connections.
+                    </p>
+                    <div class="theme-features">
+                        <span class="feature-tag">Neural Network</span>
+                        <span class="feature-tag">3D Carousel</span>
+                        <span class="feature-tag">Particle Burst</span>
+                        <span class="feature-tag">Physics Engine</span>
+                    </div>
+                    <a href="theme-2-neural-network/index.html" class="theme-link">View Theme</a>
+                </div>
+            </div>
+
+            <!-- Theme 3: Liquid Canvas -->
+            <div class="theme-card theme-3">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #1a0f0a 0%, #2d1810 100%);">
+                    <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                        <defs>
+                            <radialGradient id="grad3">
+                                <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.4" />
+                                <stop offset="100%" style="stop-color:#ffd23f;stop-opacity:0.1" />
+                            </radialGradient>
+                        </defs>
+                        <ellipse cx="40%" cy="50%" rx="120" ry="100" fill="url(#grad3)">
+                            <animate attributeName="rx" values="120;140;120" dur="3s" repeatCount="indefinite"/>
+                            <animate attributeName="ry" values="100;120;100" dur="4s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </svg>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-number">Theme 03</div>
+                    <h2 class="theme-name">Liquid Canvas</h2>
+                    <p class="theme-description">
+                        Flow through physics-based blob morphing, liquid swipe transitions,
+                        particle flow systems, and interactive liquid text effects. Warm sunset aesthetics.
+                    </p>
+                    <div class="theme-features">
+                        <span class="feature-tag">Liquid Physics</span>
+                        <span class="feature-tag">Blob Morphing</span>
+                        <span class="feature-tag">Swipe Transitions</span>
+                        <span class="feature-tag">Particle Flow</span>
+                    </div>
+                    <a href="theme-3-liquid-canvas/index.html" class="theme-link">View Theme</a>
+                </div>
+            </div>
+
+            <!-- Theme 4: Glitch Matrix -->
+            <div class="theme-card theme-4">
+                <div class="theme-preview" style="background: linear-gradient(135deg, #0a0e27 0%, #050714 100%);">
+                    <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                        <text x="10%" y="20%" font-family="monospace" font-size="12" fill="#00ff41" opacity="0.5">
+                            <animate attributeName="y" values="20%;25%;20%" dur="2s" repeatCount="indefinite"/>
+                            01010101
+                        </text>
+                        <text x="60%" y="40%" font-family="monospace" font-size="12" fill="#ff006e" opacity="0.5">
+                            <animate attributeName="y" values="40%;45%;40%" dur="2.5s" repeatCount="indefinite"/>
+                            11001100
+                        </text>
+                        <text x="30%" y="70%" font-family="monospace" font-size="12" fill="#00d9ff" opacity="0.5">
+                            <animate attributeName="y" values="70%;75%;70%" dur="3s" repeatCount="indefinite"/>
+                            10101010
+                        </text>
+                        <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#00ff41" stroke-width="2" opacity="0.2">
+                            <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite"/>
+                        </line>
+                    </svg>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-number">Theme 04</div>
+                    <h2 class="theme-name">Glitch Matrix</h2>
+                    <p class="theme-description">
+                        Enter the matrix with WebGL custom shaders, falling matrix rain,
+                        glitch distortions, terminal-style typography, and cyberpunk aesthetics. Full system override.
+                    </p>
+                    <div class="theme-features">
+                        <span class="feature-tag">WebGL Shaders</span>
+                        <span class="feature-tag">Matrix Rain</span>
+                        <span class="feature-tag">Glitch FX</span>
+                        <span class="feature-tag">Terminal UI</span>
+                    </div>
+                    <a href="theme-4-glitch-matrix/index.html" class="theme-link">View Theme</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Denerf. Built with AI-powered creativity. All themes are fully responsive and optimized.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add subtle parallax effect to theme cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.theme-card');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenterX = rect.left + rect.width / 2;
+                const cardCenterY = rect.top + rect.height / 2;
+
+                const deltaX = (e.clientX - cardCenterX) / 50;
+                const deltaY = (e.clientY - cardCenterY) / 50;
+
+                card.style.transform = `translateY(-10px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
+            });
+        });
+
+        // Console art
+        console.log('%c██████╗ ███████╗███╗   ██╗███████╗██████╗ ███████╗', 'color: #00ff41; font-weight: bold;');
+        console.log('%c██╔══██╗██╔════╝████╗  ██║██╔════╝██╔══██╗██╔════╝', 'color: #00ff41; font-weight: bold;');
+        console.log('%c██║  ██║█████╗  ██╔██╗ ██║█████╗  ██████╔╝█████╗  ', 'color: #00ff41; font-weight: bold;');
+        console.log('%c██║  ██║██╔══╝  ██║╚██╗██║██╔══╝  ██╔══██╗██╔══╝  ', 'color: #00ff41; font-weight: bold;');
+        console.log('%c██████╔╝███████╗██║ ╚████║███████╗██║  ██║██║     ', 'color: #00ff41; font-weight: bold;');
+        console.log('%c╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝     ', 'color: #00ff41; font-weight: bold;');
+        console.log('%cAI-Powered Development | 4 Creative Themes', 'color: #ff006e; font-size: 14px;');
+    </script>
+</body>
+</html>

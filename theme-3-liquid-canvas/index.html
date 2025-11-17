@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denerf - AI-Powered Development | Liquid Canvas</title>
+    <meta name="description" content="Transform your ideas into reality with AI-powered development. Denerf leverages cutting-edge AI to build anything, in any tech stack.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <!-- Canvas Layers -->
+    <canvas id="liquid-canvas"></canvas>
+    <canvas id="blob-canvas"></canvas>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots">
+        <button class="nav-dot active" aria-label="Hero"></button>
+        <button class="nav-dot" aria-label="About"></button>
+        <button class="nav-dot" aria-label="Services"></button>
+        <button class="nav-dot" aria-label="Portfolio"></button>
+        <button class="nav-dot" aria-label="Contact"></button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section hero-section">
+        <div id="liquid-text-container" class="liquid-text-container"></div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">DENERF</h1>
+            <p class="tagline">AI-Powered Development | Build Anything, Anywhere</p>
+            <a href="#contact" class="cta-button">Start Your Project</a>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title" data-text="About Us">About Us</h2>
+
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Powered by AI, Built for You</h3>
+                    <p>At Denerf, we harness the full potential of artificial intelligence to transform your ideas into reality. Our AI-driven approach enables us to build applications in any technology stack, adapt to any requirement, and deliver solutions that exceed expectations.</p>
+
+                    <p>Whether you need a modern web application, mobile solution, or complex enterprise system, our AI-augmented development process ensures rapid delivery without compromising on quality.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number stat-projects">0+</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number stat-clients">0+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number stat-speed">10x</div>
+                            <div class="stat-label">Faster Development</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blob-morph-container" data-liquid-blob></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services-section">
+        <div class="container">
+            <h2 class="section-title" data-text="What We Do">What We Do</h2>
+
+            <div class="services-grid">
+                <div class="service-card" data-liquid-card>
+                    <div class="service-icon">🤖</div>
+                    <h3>AI-Powered Development</h3>
+                    <p>Leverage cutting-edge AI to build applications faster, smarter, and more efficiently than traditional methods.</p>
+                    <div class="service-hover-blob"></div>
+                </div>
+
+                <div class="service-card" data-liquid-card>
+                    <div class="service-icon">⚡</div>
+                    <h3>Full-Stack Solutions</h3>
+                    <p>From frontend to backend, mobile to web, we build complete solutions using any technology stack required.</p>
+                    <div class="service-hover-blob"></div>
+                </div>
+
+                <div class="service-card" data-liquid-card>
+                    <div class="service-icon">🎨</div>
+                    <h3>Creative Design</h3>
+                    <p>AI-assisted design processes that combine human creativity with machine precision for stunning results.</p>
+                    <div class="service-hover-blob"></div>
+                </div>
+
+                <div class="service-card" data-liquid-card>
+                    <div class="service-icon">🚀</div>
+                    <h3>Rapid Prototyping</h3>
+                    <p>Turn your ideas into working prototypes in days, not months, with our AI-accelerated development workflow.</p>
+                    <div class="service-hover-blob"></div>
+                </div>
+
+                <div class="service-card" data-liquid-card>
+                    <div class="service-icon">🔧</div>
+                    <h3>Custom Solutions</h3>
+                    <p>Every project is unique. We tailor our AI tools and processes to fit your specific needs and requirements.</p>
+                    <div class="service-hover-blob"></div>
+                </div>
+
+                <div class="service-card" data-liquid-card>
+                    <div class="service-icon">📈</div>
+                    <h3>Scalable Architecture</h3>
+                    <p>Build for today, scale for tomorrow. Our solutions grow with your business, powered by intelligent automation.</p>
+                    <div class="service-hover-blob"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio-section">
+        <div class="container">
+            <h2 class="section-title" data-text="Our Work">Our Work</h2>
+
+            <div class="portfolio-swiper">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" id="portfolio-wrapper">
+                        <div class="swiper-slide" data-swipe-card>
+                            <div class="project-card">
+                                <div class="project-visual" data-project-blob></div>
+                                <div class="project-info">
+                                    <h3>E-Commerce Platform</h3>
+                                    <p>AI-powered product recommendations and dynamic pricing engine</p>
+                                    <div class="project-tags">
+                                        <span>React</span>
+                                        <span>Node.js</span>
+                                        <span>TensorFlow</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide" data-swipe-card>
+                            <div class="project-card">
+                                <div class="project-visual" data-project-blob></div>
+                                <div class="project-info">
+                                    <h3>Healthcare Dashboard</h3>
+                                    <p>Real-time patient monitoring with AI-driven diagnostics</p>
+                                    <div class="project-tags">
+                                        <span>Vue.js</span>
+                                        <span>Python</span>
+                                        <span>ML Models</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide" data-swipe-card>
+                            <div class="project-card">
+                                <div class="project-visual" data-project-blob></div>
+                                <div class="project-info">
+                                    <h3>Fintech Application</h3>
+                                    <p>Intelligent investment advisor with predictive analytics</p>
+                                    <div class="project-tags">
+                                        <span>Next.js</span>
+                                        <span>GraphQL</span>
+                                        <span>AI Analytics</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide" data-swipe-card>
+                            <div class="project-card">
+                                <div class="project-visual" data-project-blob></div>
+                                <div class="project-info">
+                                    <h3>Social Media Platform</h3>
+                                    <p>Content moderation and personalized feed with ML algorithms</p>
+                                    <div class="project-tags">
+                                        <span>Angular</span>
+                                        <span>MongoDB</span>
+                                        <span>NLP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-controls">
+                    <button class="swiper-btn swiper-prev">←</button>
+                    <div class="swiper-pagination"></div>
+                    <button class="swiper-btn swiper-next">→</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title" data-text="Get In Touch">Get In Touch</h2>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's Build Something Amazing</h3>
+                    <p>Ready to transform your idea into reality? Our AI-powered development team is here to help you build anything, in any technology stack.</p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">📧</div>
+                            <div>
+                                <div class="method-label">Email</div>
+                                <div class="method-value">hello@denerf.ai</div>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon">💬</div>
+                            <div>
+                                <div class="method-label">Live Chat</div>
+                                <div class="method-value">Available 24/7</div>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon">🌍</div>
+                            <div>
+                                <div class="method-label">Location</div>
+                                <div class="method-value">Remote-First, Global</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Tell us about your project" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Denerf. Built with AI-powered creativity.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/liquid-morph.js"></script>
+    <script src="js/blob-physics.js"></script>
+    <script src="js/particle-flow.js"></script>
+    <script src="js/liquid-swipe.js"></script>
+    <script src="js/liquid-text.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

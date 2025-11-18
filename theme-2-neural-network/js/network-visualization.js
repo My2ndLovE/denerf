@@ -172,7 +172,7 @@ class NeuralNetwork {
             this.ctx.beginPath();
             this.ctx.moveTo(conn.from.x, conn.from.y);
             this.ctx.lineTo(conn.to.x, conn.to.y);
-            this.ctx.strokeStyle = `rgba(230, 57, 70, ${alpha})`;
+            this.ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
             this.ctx.lineWidth = conn.strength * 2;
             this.ctx.stroke();
 
@@ -186,7 +186,7 @@ class NeuralNetwork {
 
                 this.ctx.beginPath();
                 this.ctx.arc(x, y, 3, 0, Math.PI * 2);
-                this.ctx.fillStyle = 'rgba(230, 57, 70, 0.8)';
+                this.ctx.fillStyle = 'rgba(139, 92, 246, 0.8)';
                 this.ctx.fill();
             }
         }
@@ -200,7 +200,7 @@ class NeuralNetwork {
             if (node.active && !this.isMobile) {
                 this.ctx.beginPath();
                 this.ctx.arc(node.x, node.y, radius * 3, 0, Math.PI * 2);
-                this.ctx.fillStyle = `rgba(230, 57, 70, ${0.1 * node.brightness})`;
+                this.ctx.fillStyle = `rgba(139, 92, 246, ${0.1 * node.brightness})`;
                 this.ctx.fill();
             }
 

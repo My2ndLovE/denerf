@@ -198,7 +198,7 @@ class ThemeController {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: #e63946;
+                background: #8b5cf6;
                 color: white;
                 padding: 2rem 3rem;
                 border-radius: 8px;
@@ -234,7 +234,7 @@ class ThemeController {
         const inputs = form.querySelectorAll('input, textarea');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
-                this.parentElement.style.borderColor = '#e63946';
+                this.parentElement.style.borderColor = '#8b5cf6';
             });
 
             input.addEventListener('blur', function() {
@@ -426,14 +426,14 @@ class MouseTrail {
             this.ctx.globalAlpha = point.life * 0.2;
             this.ctx.beginPath();
             this.ctx.arc(point.x, point.y, size * 2, 0, Math.PI * 2);
-            this.ctx.fillStyle = '#e63946';
+            this.ctx.fillStyle = '#8b5cf6';
             this.ctx.fill();
 
             // Draw center
             this.ctx.globalAlpha = point.life * 0.5;
             this.ctx.beginPath();
             this.ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
-            this.ctx.fillStyle = '#e63946';
+            this.ctx.fillStyle = '#8b5cf6';
             this.ctx.fill();
         }
 
@@ -494,8 +494,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupServiceCardEffects();
 
     // Console welcome message
-    console.log('%cDenerf - Neural Network Theme', 'color: #e63946; font-size: 20px; font-weight: bold;');
-    console.log('%cBuilt with AI-powered creativity', 'color: #ffffff; font-size: 14px;');
+    console.log('%cDenerf - Neural Network Theme', 'color: #8b5cf6; font-size: 20px; font-weight: bold; text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);');
+    console.log('%cBuilt with AI-powered creativity', 'color: #06b6d4; font-size: 14px;');
 });
 
 // Smooth scroll for all internal links

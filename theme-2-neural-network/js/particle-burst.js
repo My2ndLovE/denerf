@@ -111,7 +111,7 @@ class ParticleBurst {
             if (!this.isMobile && p.life > 0.5) {
                 this.ctx.beginPath();
                 this.ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-                this.ctx.fillStyle = `rgba(230, 57, 70, ${p.life * 0.1})`;
+                this.ctx.fillStyle = `rgba(139, 92, 246, ${p.life * 0.1})`;
                 this.ctx.fill();
             }
         }

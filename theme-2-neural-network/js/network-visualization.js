@@ -1,4 +1,4 @@
-// NEURAL NETWORK VISUALIZATION - Connected nodes with physics
+// NEURAL NETWORK VISUALIZATION - Optimized connected nodes with physics
 
 class NeuralNetwork {
     constructor() {
@@ -8,8 +8,16 @@ class NeuralNetwork {
         this.ctx = this.canvas.getContext('2d');
         this.nodes = [];
         this.connections = [];
-        this.nodeCount = 60;
         this.mouse = { x: 0, y: 0 };
+        this.rafId = null;
+        this.lastTime = 0;
+        this.connectionUpdateInterval = null;
+
+        // Mobile optimization
+        this.isMobile = window.innerWidth < 768;
+        this.nodeCount = this.isMobile ? 30 : 60;
+        this.fps = this.isMobile ? 24 : 60;
+        this.frameInterval = 1000 / this.fps;
 
         this.resize();
         this.createNetwork();
@@ -22,6 +30,8 @@ class NeuralNetwork {
     }
 
     createNetwork() {
+        this.nodes = [];
+
         // Create nodes
         for (let i = 0; i < this.nodeCount; i++) {
             this.nodes.push({
@@ -29,9 +39,10 @@ class NeuralNetwork {
                 y: Math.random() * this.canvas.height,
                 vx: (Math.random() - 0.5) * 0.3,
                 vy: (Math.random() - 0.5) * 0.3,
-                radius: Math.random() * 3 + 2,
+                radius: Math.random() * 2 + 2,
                 active: false,
-                pulsePhase: Math.random() * Math.PI * 2
+                pulsePhase: Math.random() * Math.PI * 2,
+                brightness: 0.6 + Math.random() * 0.4
             });
         }
 
@@ -41,63 +52,97 @@ class NeuralNetwork {
 
     updateConnections() {
         this.connections = [];
-        const maxDistance = 150;
+        const maxDistance = this.isMobile ? 120 : 150;
+        const maxConnectionsPerNode = this.isMobile ? 3 : 5;
 
         for (let i = 0; i < this.nodes.length; i++) {
-            for (let j = i + 1; j < this.nodes.length; j++) {
+            let connections = 0;
+
+            for (let j = i + 1; j < this.nodes.length && connections < maxConnectionsPerNode; j++) {
                 const dx = this.nodes[i].x - this.nodes[j].x;
                 const dy = this.nodes[i].y - this.nodes[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const distSq = dx * dx + dy * dy;
+                const maxDistSq = maxDistance * maxDistance;
 
-                if (distance < maxDistance) {
+                if (distSq < maxDistSq) {
+                    const distance = Math.sqrt(distSq);
                     this.connections.push({
                         from: this.nodes[i],
                         to: this.nodes[j],
                         distance: distance,
-                        strength: 1 - (distance / maxDistance)
+                        strength: 1 - (distance / maxDistance),
+                        packetProgress: Math.random()
                     });
+                    connections++;
                 }
             }
         }
     }
 
     init() {
-        window.addEventListener('resize', () => this.resize());
-        window.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
+        this.resizeHandler = () => {
+            this.resize();
+            this.isMobile = window.innerWidth < 768;
+            this.nodeCount = this.isMobile ? 30 : 60;
+            this.fps = this.isMobile ? 24 : 60;
+            this.frameInterval = 1000 / this.fps;
+        };
 
-            // Activate nearby nodes
-            for (const node of this.nodes) {
-                const dx = this.mouse.x - node.x;
-                const dy = this.mouse.y - node.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                node.active = distance < 100;
-            }
-        });
+        window.addEventListener('resize', this.resizeHandler);
+
+        // Only track mouse on desktop
+        if (!this.isMobile) {
+            this.mouseMoveHandler = (e) => {
+                this.mouse.x = e.clientX;
+                this.mouse.y = e.clientY;
+
+                // Activate nearby nodes
+                for (const node of this.nodes) {
+                    const dx = this.mouse.x - node.x;
+                    const dy = this.mouse.y - node.y;
+                    const distSq = dx * dx + dy * dy;
+                    node.active = distSq < 10000; // 100^2
+                }
+            };
+            window.addEventListener('mousemove', this.mouseMoveHandler);
+        }
 
         this.animate();
 
-        // Periodic connection updates
-        setInterval(() => this.updateConnections(), 2000);
+        // Periodic connection updates (less frequent on mobile)
+        this.connectionUpdateInterval = setInterval(
+            () => this.updateConnections(),
+            this.isMobile ? 4000 : 2000
+        );
     }
 
-    animate() {
-        requestAnimationFrame(() => this.animate());
+    animate(currentTime = 0) {
+        this.rafId = requestAnimationFrame((time) => this.animate(time));
+
+        // FPS throttling
+        const deltaTime = currentTime - this.lastTime;
+        if (deltaTime < this.frameInterval) return;
+
+        this.lastTime = currentTime - (deltaTime % this.frameInterval);
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        const time = currentTime * 0.001;
+
         // Update nodes
         for (const node of this.nodes) {
-            // Mouse repulsion
-            const dx = this.mouse.x - node.x;
-            const dy = this.mouse.y - node.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            // Mouse repulsion (desktop only)
+            if (!this.isMobile) {
+                const dx = this.mouse.x - node.x;
+                const dy = this.mouse.y - node.y;
+                const distSq = dx * dx + dy * dy;
 
-            if (distance < 150) {
-                const force = (150 - distance) / 150;
-                node.vx -= (dx / distance) * force * 0.2;
-                node.vy -= (dy / distance) * force * 0.2;
+                if (distSq < 22500) { // 150^2
+                    const distance = Math.sqrt(distSq);
+                    const force = (150 - distance) / 150;
+                    node.vx -= (dx / distance) * force * 0.2;
+                    node.vy -= (dy / distance) * force * 0.2;
+                }
             }
 
             // Update position
@@ -120,33 +165,28 @@ class NeuralNetwork {
             node.pulsePhase += 0.05;
         }
 
-        // Draw connections
+        // Draw connections (simplified rendering)
         for (const conn of this.connections) {
-            const gradient = this.ctx.createLinearGradient(
-                conn.from.x, conn.from.y,
-                conn.to.x, conn.to.y
-            );
-
-            const alpha = conn.strength * (conn.from.active || conn.to.active ? 0.6 : 0.2);
-            gradient.addColorStop(0, `rgba(230, 57, 70, ${alpha})`);
-            gradient.addColorStop(1, `rgba(230, 57, 70, ${alpha * 0.5})`);
+            const alpha = conn.strength * (conn.from.active || conn.to.active ? 0.6 : 0.2) * conn.from.brightness;
 
             this.ctx.beginPath();
             this.ctx.moveTo(conn.from.x, conn.from.y);
             this.ctx.lineTo(conn.to.x, conn.to.y);
-            this.ctx.strokeStyle = gradient;
+            this.ctx.strokeStyle = `rgba(230, 57, 70, ${alpha})`;
             this.ctx.lineWidth = conn.strength * 2;
             this.ctx.stroke();
 
-            // Draw data packets moving along connections
-            if (Math.random() < 0.01) {
-                const t = Math.random();
-                const x = conn.from.x + (conn.to.x - conn.from.x) * t;
-                const y = conn.from.y + (conn.to.y - conn.from.y) * t;
+            // Draw data packets moving along connections (reduced frequency)
+            if (!this.isMobile && Math.random() < 0.005) {
+                conn.packetProgress += 0.05;
+                if (conn.packetProgress > 1) conn.packetProgress = 0;
+
+                const x = conn.from.x + (conn.to.x - conn.from.x) * conn.packetProgress;
+                const y = conn.from.y + (conn.to.y - conn.from.y) * conn.packetProgress;
 
                 this.ctx.beginPath();
                 this.ctx.arc(x, y, 3, 0, Math.PI * 2);
-                this.ctx.fillStyle = `rgba(230, 57, 70, 0.8)`;
+                this.ctx.fillStyle = 'rgba(230, 57, 70, 0.8)';
                 this.ctx.fill();
             }
         }
@@ -156,18 +196,11 @@ class NeuralNetwork {
             const pulse = Math.sin(node.pulsePhase) * 0.5 + 0.5;
             const radius = node.radius + (node.active ? 3 : pulse * 2);
 
-            // Outer glow
-            if (node.active) {
-                const gradient = this.ctx.createRadialGradient(
-                    node.x, node.y, 0,
-                    node.x, node.y, radius * 3
-                );
-                gradient.addColorStop(0, 'rgba(230, 57, 70, 0.3)');
-                gradient.addColorStop(1, 'transparent');
-
+            // Outer glow (only when active, no gradient)
+            if (node.active && !this.isMobile) {
                 this.ctx.beginPath();
                 this.ctx.arc(node.x, node.y, radius * 3, 0, Math.PI * 2);
-                this.ctx.fillStyle = gradient;
+                this.ctx.fillStyle = `rgba(230, 57, 70, ${0.1 * node.brightness})`;
                 this.ctx.fill();
             }
 
@@ -185,11 +218,20 @@ class NeuralNetwork {
         }
     }
 
+    pulse() {
+        // Pulse all nodes
+        for (const node of this.nodes) {
+            node.pulsePhase = 0;
+        }
+    }
+
     createBurst(x, y) {
         // Create explosion of nodes at position
-        for (let i = 0; i < 10; i++) {
-            const angle = (i / 10) * Math.PI * 2;
-            const speed = 3 + Math.random() * 2;
+        const burstCount = this.isMobile ? 5 : 10;
+
+        for (let i = 0; i < burstCount; i++) {
+            const angle = (i / burstCount) * Math.PI * 2;
+            const speed = 2 + Math.random() * 2;
             this.nodes.push({
                 x: x,
                 y: y,
@@ -198,7 +240,8 @@ class NeuralNetwork {
                 radius: 3,
                 active: true,
                 pulsePhase: 0,
-                lifetime: 60
+                lifetime: 60,
+                brightness: 1
             });
         }
 
@@ -208,9 +251,39 @@ class NeuralNetwork {
             this.updateConnections();
         }, 2000);
     }
+
+    destroy() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+        }
+
+        if (this.connectionUpdateInterval) {
+            clearInterval(this.connectionUpdateInterval);
+        }
+
+        window.removeEventListener('resize', this.resizeHandler);
+
+        if (!this.isMobile) {
+            window.removeEventListener('mousemove', this.mouseMoveHandler);
+        }
+
+        this.nodes = [];
+        this.connections = [];
+    }
 }
 
-// Initialize
-if (document.getElementById('network-canvas')) {
-    window.neuralNetwork = new NeuralNetwork();
+// Initialize with error handling
+try {
+    if (document.getElementById('network-canvas')) {
+        window.neuralNetwork = new NeuralNetwork();
+    }
+} catch (error) {
+    console.error('Neural network initialization failed:', error);
 }
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.neuralNetwork && window.neuralNetwork.destroy) {
+        window.neuralNetwork.destroy();
+    }
+});

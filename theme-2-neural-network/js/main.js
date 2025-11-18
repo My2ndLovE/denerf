@@ -344,7 +344,7 @@ class ThemeController {
     }
 }
 
-// Mouse trail effect
+// Mouse trail effect - Optimized
 class MouseTrail {
     constructor() {
         this.trail = [];
@@ -360,11 +360,30 @@ class MouseTrail {
         `;
         document.body.appendChild(this.canvas);
 
-        this.resize();
-        window.addEventListener('resize', () => this.resize());
-        window.addEventListener('mousemove', (e) => this.addPoint(e.clientX, e.clientY));
+        this.rafId = null;
+        this.lastTime = 0;
 
-        this.animate();
+        // Mobile optimization - disable on mobile
+        this.isMobile = window.innerWidth < 768;
+
+        if (!this.isMobile) {
+            this.fps = 60;
+            this.frameInterval = 1000 / this.fps;
+
+            this.resize();
+
+            this.resizeHandler = () => {
+                this.resize();
+                this.isMobile = window.innerWidth < 768;
+            };
+
+            this.mouseMoveHandler = (e) => this.addPoint(e.clientX, e.clientY);
+
+            window.addEventListener('resize', this.resizeHandler);
+            window.addEventListener('mousemove', this.mouseMoveHandler);
+
+            this.animate();
+        }
     }
 
     resize() {
@@ -379,12 +398,18 @@ class MouseTrail {
         }
     }
 
-    animate() {
-        requestAnimationFrame(() => this.animate());
+    animate(currentTime = 0) {
+        this.rafId = requestAnimationFrame((time) => this.animate(time));
+
+        // FPS throttling
+        const deltaTime = currentTime - this.lastTime;
+        if (deltaTime < this.frameInterval) return;
+
+        this.lastTime = currentTime - (deltaTime % this.frameInterval);
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Update and draw trail
+        // Update and draw trail (simplified, no gradient)
         for (let i = 0; i < this.trail.length; i++) {
             const point = this.trail[i];
             point.life -= 0.05;
@@ -396,13 +421,40 @@ class MouseTrail {
             }
 
             const size = 3 * point.life;
-            const gradient = this.ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, size * 2);
-            gradient.addColorStop(0, `rgba(230, 57, 70, ${point.life * 0.5})`);
-            gradient.addColorStop(1, 'transparent');
 
-            this.ctx.fillStyle = gradient;
-            this.ctx.fillRect(point.x - size * 2, point.y - size * 2, size * 4, size * 4);
+            // Draw outer glow
+            this.ctx.globalAlpha = point.life * 0.2;
+            this.ctx.beginPath();
+            this.ctx.arc(point.x, point.y, size * 2, 0, Math.PI * 2);
+            this.ctx.fillStyle = '#e63946';
+            this.ctx.fill();
+
+            // Draw center
+            this.ctx.globalAlpha = point.life * 0.5;
+            this.ctx.beginPath();
+            this.ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
+            this.ctx.fillStyle = '#e63946';
+            this.ctx.fill();
         }
+
+        this.ctx.globalAlpha = 1;
+    }
+
+    destroy() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+        }
+
+        if (!this.isMobile) {
+            window.removeEventListener('resize', this.resizeHandler);
+            window.removeEventListener('mousemove', this.mouseMoveHandler);
+        }
+
+        if (this.canvas && this.canvas.parentNode) {
+            this.canvas.parentNode.removeChild(this.canvas);
+        }
+
+        this.trail = [];
     }
 }
 
@@ -442,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupServiceCardEffects();
 
     // Console welcome message
-    console.log('%c🎨 Denerf - Neural Network Theme', 'color: #e63946; font-size: 20px; font-weight: bold;');
+    console.log('%cDenerf - Neural Network Theme', 'color: #e63946; font-size: 20px; font-weight: bold;');
     console.log('%cBuilt with AI-powered creativity', 'color: #ffffff; font-size: 14px;');
 });
 

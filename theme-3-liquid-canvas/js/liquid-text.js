@@ -1,4 +1,4 @@
-// LIQUID TEXT - Liquid morphing text effect for hero
+// LIQUID TEXT - Optimized liquid morphing text effect
 
 class LiquidText {
     constructor() {
@@ -11,28 +11,62 @@ class LiquidText {
 
         this.drops = [];
         this.text = 'DENERF';
-        this.fontSize = 180;
         this.mouse = { x: 0, y: 0 };
+        this.rafId = null;
+        this.lastTime = 0;
+
+        // Mobile optimization
+        this.isMobile = window.innerWidth < 768;
+        this.fontSize = this.isMobile ? 100 : 180;
+        this.fps = this.isMobile ? 24 : 60;
+        this.frameInterval = 1000 / this.fps;
 
         this.init();
     }
 
     init() {
         this.resize();
-        window.addEventListener('resize', () => this.resize());
-        window.addEventListener('mousemove', (e) => {
-            const rect = this.canvas.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
-        });
+
+        this.resizeHandler = () => {
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => {
+                this.resize();
+                this.isMobile = window.innerWidth < 768;
+                this.fontSize = this.isMobile ? 100 : 180;
+            }, 250);
+        };
+
+        window.addEventListener('resize', this.resizeHandler);
+
+        // Only track mouse on desktop
+        if (!this.isMobile) {
+            this.mouseMoveHandler = (e) => {
+                const rect = this.canvas.getBoundingClientRect();
+                this.mouse.x = e.clientX - rect.left;
+                this.mouse.y = e.clientY - rect.top;
+            };
+            window.addEventListener('mousemove', this.mouseMoveHandler);
+        }
 
         this.createLiquidText();
         this.animate();
     }
 
     resize() {
-        this.canvas.width = this.container.clientWidth;
-        this.canvas.height = this.container.clientHeight;
+        const rect = this.container.getBoundingClientRect();
+
+        // Lower resolution on mobile
+        const scale = this.isMobile ? 0.7 : 1;
+        this.canvas.width = rect.width * scale;
+        this.canvas.height = rect.height * scale;
+
+        if (scale !== 1) {
+            this.ctx.scale(scale, scale);
+        }
+
+        this.width = rect.width;
+        this.height = rect.height;
+
         this.createLiquidText();
     }
 
@@ -42,8 +76,8 @@ class LiquidText {
         // Create temporary canvas for text
         const tempCanvas = document.createElement('canvas');
         const tempCtx = tempCanvas.getContext('2d');
-        tempCanvas.width = this.canvas.width;
-        tempCanvas.height = this.canvas.height;
+        tempCanvas.width = this.width;
+        tempCanvas.height = this.height;
 
         tempCtx.font = `bold ${this.fontSize}px 'Playfair Display', serif`;
         tempCtx.textAlign = 'center';
@@ -51,9 +85,10 @@ class LiquidText {
         tempCtx.fillStyle = 'white';
         tempCtx.fillText(this.text, tempCanvas.width / 2, tempCanvas.height / 2);
 
-        // Sample pixels to create liquid drops
+        // Sample pixels to create liquid drops (reduced spacing)
+        const spacing = this.isMobile ? 15 : 10; // Reduced from 6
+
         const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-        const spacing = 6;
 
         for (let y = 0; y < tempCanvas.height; y += spacing) {
             for (let x = 0; x < tempCanvas.width; x += spacing) {
@@ -72,7 +107,8 @@ class LiquidText {
                         mass: 0.8 + Math.random() * 0.4,
                         damping: 0.85 + Math.random() * 0.1,
                         springStrength: 0.03 + Math.random() * 0.02,
-                        color: this.getRandomColor()
+                        color: this.getRandomColor(),
+                        connections: 0 // Track connections
                     });
                 }
             }
@@ -89,26 +125,42 @@ class LiquidText {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    animate() {
-        requestAnimationFrame(() => this.animate());
+    animate(currentTime = 0) {
+        this.rafId = requestAnimationFrame((time) => this.animate(time));
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        // FPS throttling
+        const deltaTime = currentTime - this.lastTime;
+        if (deltaTime < this.frameInterval) return;
 
-        const time = Date.now() * 0.001;
+        this.lastTime = currentTime - (deltaTime % this.frameInterval);
+
+        this.ctx.clearRect(0, 0, this.width, this.height);
+
+        const time = currentTime * 0.001;
+
+        // Reset connection counts
+        for (const drop of this.drops) {
+            drop.connections = 0;
+        }
 
         // Update drops
+        const maxInteractions = this.isMobile ? 1 : 2; // Limit inter-drop physics
+
         for (let i = 0; i < this.drops.length; i++) {
             const drop = this.drops[i];
 
-            // Mouse interaction
-            const dx = this.mouse.x - drop.x;
-            const dy = this.mouse.y - drop.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            // Mouse interaction (desktop only)
+            if (!this.isMobile) {
+                const dx = this.mouse.x - drop.x;
+                const dy = this.mouse.y - drop.y;
+                const distSq = dx * dx + dy * dy;
 
-            if (distance < 120) {
-                const force = (120 - distance) / 120 * 0.8;
-                drop.vx -= (dx / distance) * force / drop.mass;
-                drop.vy -= (dy / distance) * force / drop.mass;
+                if (distSq < 14400) { // 120^2
+                    const distance = Math.sqrt(distSq);
+                    const force = (120 - distance) / 120 * 0.8;
+                    drop.vx -= (dx / distance) * force / drop.mass;
+                    drop.vy -= (dy / distance) * force / drop.mass;
+                }
             }
 
             // Spring back to target position
@@ -126,23 +178,18 @@ class LiquidText {
             // Gravity simulation
             drop.vy += 0.05;
 
-            // Update position
-            drop.x += drop.vx;
-            drop.y += drop.vy;
-
-            // Damping
-            drop.vx *= drop.damping;
-            drop.vy *= drop.damping;
-
-            // Inter-drop attraction/repulsion
+            // Inter-drop repulsion (limited for performance)
+            let interactions = 0;
             for (let j = i + 1; j < this.drops.length; j++) {
+                if (interactions >= maxInteractions) break;
+
                 const other = this.drops[j];
                 const dx = other.x - drop.x;
                 const dy = other.y - drop.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const distSq = dx * dx + dy * dy;
 
-                if (distance < 15 && distance > 0) {
-                    // Repulsion
+                if (distSq < 225 && distSq > 0) { // 15^2
+                    const distance = Math.sqrt(distSq);
                     const force = (15 - distance) / 15 * 0.1;
                     const fx = (dx / distance) * force;
                     const fy = (dy / distance) * force;
@@ -151,48 +198,54 @@ class LiquidText {
                     drop.vy -= fy / drop.mass;
                     other.vx += fx / other.mass;
                     other.vy += fy / other.mass;
+
+                    interactions++;
                 }
             }
 
-            // Draw drop
+            // Update position
+            drop.x += drop.vx;
+            drop.y += drop.vy;
+
+            // Damping
+            drop.vx *= drop.damping;
+            drop.vy *= drop.damping;
+
+            // Draw drop (simplified, no gradient)
             const opacity = 0.7 + Math.sin(time * 2 + i * 0.5) * 0.3;
 
-            // Main drop
             this.ctx.beginPath();
             this.ctx.arc(drop.x, drop.y, drop.size, 0, Math.PI * 2);
             this.ctx.fillStyle = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${opacity})`;
             this.ctx.fill();
 
-            // Glow effect
-            const gradient = this.ctx.createRadialGradient(
-                drop.x, drop.y, 0,
-                drop.x, drop.y, drop.size * 3
-            );
-            gradient.addColorStop(0, `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${opacity * 0.5})`);
-            gradient.addColorStop(1, 'transparent');
-            this.ctx.fillStyle = gradient;
-            this.ctx.fillRect(
-                drop.x - drop.size * 3,
-                drop.y - drop.size * 3,
-                drop.size * 6,
-                drop.size * 6
-            );
+            // Draw connections between nearby drops (limited)
+            const maxConnections = this.isMobile ? 0 : 2; // No connections on mobile
 
-            // Draw connections between nearby drops
-            for (let j = i + 1; j < this.drops.length; j++) {
-                const other = this.drops[j];
-                const dx = other.x - drop.x;
-                const dy = other.y - drop.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+            if (drop.connections < maxConnections) {
+                for (let j = i + 1; j < this.drops.length; j++) {
+                    if (drop.connections >= maxConnections) break;
 
-                if (distance < 25) {
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(drop.x, drop.y);
-                    this.ctx.lineTo(other.x, other.y);
-                    const lineOpacity = (1 - distance / 25) * 0.2;
-                    this.ctx.strokeStyle = `rgba(255, 107, 53, ${lineOpacity})`;
-                    this.ctx.lineWidth = 1;
-                    this.ctx.stroke();
+                    const other = this.drops[j];
+                    if (other.connections >= maxConnections) continue;
+
+                    const dx = other.x - drop.x;
+                    const dy = other.y - drop.y;
+                    const distSq = dx * dx + dy * dy;
+
+                    if (distSq < 625) { // 25^2
+                        const distance = Math.sqrt(distSq);
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(drop.x, drop.y);
+                        this.ctx.lineTo(other.x, other.y);
+                        const lineOpacity = (1 - distance / 25) * 0.2;
+                        this.ctx.strokeStyle = `rgba(255, 107, 53, ${lineOpacity})`;
+                        this.ctx.lineWidth = 1;
+                        this.ctx.stroke();
+
+                        drop.connections++;
+                        other.connections++;
+                    }
                 }
             }
         }
@@ -217,9 +270,35 @@ class LiquidText {
             drop.vy = 0;
         }
     }
+
+    destroy() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+        }
+
+        window.removeEventListener('resize', this.resizeHandler);
+
+        if (!this.isMobile) {
+            window.removeEventListener('mousemove', this.mouseMoveHandler);
+        }
+
+        clearTimeout(this.resizeTimeout);
+        this.drops = [];
+    }
 }
 
-// Initialize
-if (document.getElementById('liquid-text-container')) {
-    window.liquidText = new LiquidText();
+// Initialize with error handling
+try {
+    if (document.getElementById('liquid-text-container')) {
+        window.liquidText = new LiquidText();
+    }
+} catch (error) {
+    console.error('Liquid text initialization failed:', error);
 }
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.liquidText && window.liquidText.destroy) {
+        window.liquidText.destroy();
+    }
+});

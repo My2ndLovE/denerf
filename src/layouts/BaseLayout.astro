@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'denerf - Crafting Digital Experiences',
+  description = 'We build web experiences that feel alive. From concept to code, we create software that makes users feel something.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload Critical Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">
+      Skip to content
+    </a>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform origin-left scale-x-0 z-50"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Scroll Progress Script -->
+    <script>
+      // Scroll progress indicator
+      const updateScrollProgress = () => {
+        const scrollProgress = document.getElementById('scroll-progress');
+        if (!scrollProgress) return;
+
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.scrollY;
+        const progress = scrolled / documentHeight;
+
+        scrollProgress.style.transform = `scaleX(${progress})`;
+      };
+
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+      updateScrollProgress(); // Initial call
+
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px',
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements with animate-on-scroll class
+      document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        animatedElements.forEach((el) => observer.observe(el));
+      });
+    </script>
+  </body>
+</html>

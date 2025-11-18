@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ParticleHero from '../components/interactive/ParticleHero';
+import Philosophy from '../components/sections/Philosophy.astro';
+import Portfolio from '../components/sections/Portfolio.astro';
+import TechStack from '../components/sections/TechStack.astro';
+import CTA from '../components/sections/CTA.astro';
+---
+
+<BaseLayout>
+  <!-- Hero Section with Particle Effect -->
+  <ParticleHero client:load />
+
+  <!-- Philosophy Section -->
+  <Philosophy />
+
+  <!-- Portfolio Section -->
+  <Portfolio />
+
+  <!-- Tech Stack Section -->
+  <TechStack />
+
+  <!-- CTA Section -->
+  <CTA />
+</BaseLayout>

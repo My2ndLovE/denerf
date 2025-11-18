@@ -1,0 +1,96 @@
+---
+const principles = [
+  {
+    title: 'We prototype in 48 hours',
+    subtitle: 'Speed reveals problems. Talking hides them.',
+    description: 'Ideas are cheap. Execution is everything. We believe in showing, not telling. Within two days of kickoff, you will see your concept come to life.',
+    visual: '⚡',
+  },
+  {
+    title: 'Performance is empathy',
+    subtitle: 'Every millisecond respects your users time.',
+    description: 'A slow website says we do not care about you. We obsess over load times, animations, and interactions because speed is kindness.',
+    visual: '🎯',
+  },
+  {
+    title: 'Delight hides in the details',
+    subtitle: 'The best experiences feel magical, not complicated.',
+    description: 'The difference between good and great? Micro-interactions. Thoughtful transitions. Unexpected moments that make users smile.',
+    visual: '✨',
+  },
+  {
+    title: 'Code is craft, not commodity',
+    subtitle: 'We write code humans will read, not just machines.',
+    description: 'Clean architecture. Self-documenting code. Comments that explain why, not what. Your future self will thank us.',
+    visual: '🎨',
+  },
+];
+---
+
+<section id="philosophy" class="section bg-gradient-to-b from-base to-surface">
+  <div class="container max-w-6xl">
+    <h2 class="text-section mb-16 text-center animate-on-scroll">
+      How We <span class="gradient-text">Think</span>
+    </h2>
+
+    <!-- Desktop: Horizontal Scroll, Mobile: Vertical Stack -->
+    <div class="md:overflow-x-auto md:overflow-y-hidden md:snap-x md:snap-mandatory md:scroll-smooth hide-scrollbar">
+      <div class="flex flex-col md:flex-row md:gap-8 gap-12">
+        {principles.map((principle, index) => (
+          <div
+            class="flex-shrink-0 md:w-[85vw] md:max-w-4xl md:snap-center animate-on-scroll"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            <div class="card bg-surface/50 backdrop-blur-sm border border-primary/10 h-full">
+              {/* Visual */}
+              <div class="text-6xl mb-6">{principle.visual}</div>
+
+              {/* Title */}
+              <h3 class="text-3xl md:text-4xl font-bold mb-3 text-accent">
+                {principle.title}
+              </h3>
+
+              {/* Subtitle */}
+              <p class="text-lg md:text-xl text-primary mb-4 font-semibold italic">
+                "{principle.subtitle}"
+              </p>
+
+              {/* Description */}
+              <p class="text-base md:text-lg text-text-muted leading-relaxed">
+                {principle.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Progress Dots (Desktop) -->
+    <div class="hidden md:flex justify-center gap-2 mt-8">
+      {principles.map((_, index) => (
+        <div
+          class="w-2 h-2 rounded-full bg-primary/30 hover:bg-primary transition-colors cursor-pointer"
+          data-index={index}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Smooth momentum scroll for desktop */
+  @media (min-width: 768px) {
+    .hide-scrollbar {
+      scroll-behavior: smooth;
+    }
+  }
+</style>

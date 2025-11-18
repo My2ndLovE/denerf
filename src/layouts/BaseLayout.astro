@@ -7,22 +7,24 @@ interface Props {
   description?: string;
   image?: string;
   canonical?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Denerf | Creative Development Agency - Building the Future',
   description = 'We build digital experiences that perform. No fluff. Just craft. Award-worthy web applications with cutting-edge technology.',
   image = '/og-image.jpg',
-  canonical = Astro.url.pathname
+  canonical = Astro.url.pathname,
+  noindex = false,
 } = Astro.props;
 
-const siteUrl = 'https://denerf.com'; // Update with actual domain
-const fullUrl = `${siteUrl}${canonical}`;
-const ogImage = `${siteUrl}${image}`;
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://denerf.com';
+const fullUrl = new URL(canonical, siteUrl).href;
+const ogImage = new URL(image, siteUrl).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,6 +35,7 @@ const ogImage = `${siteUrl}${image}`;
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={fullUrl} />
 
     <!-- Open Graph / Facebook -->
@@ -43,13 +46,15 @@ const ogImage = `${siteUrl}${image}`;
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Denerf" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={fullUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@denerf" />
 
     <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -76,24 +81,52 @@ const ogImage = `${siteUrl}${image}`;
       }
     })} />
 
-    <!-- View Transitions -->
-    <ViewTransitions />
+    <!-- View Transitions with fallback -->
+    <ViewTransitions fallback="swap" />
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/favicon.svg" />
   </head>
   <body>
     <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-cyan focus:text-brand-black">
+    <a href="#main-content" class="skip-link" aria-label="Skip to main content">
       Skip to main content
     </a>
 
-    <main id="main-content">
+    <main id="main-content" role="main">
       <slot />
     </main>
 
-    <!-- Screen reader only utilities -->
+    <!-- Screen reader announcements -->
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="sr-announcements"></div>
+
+    <!-- Styles -->
     <style is:global>
+      /* Skip link */
+      .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 0;
+        z-index: 9999;
+        padding: 1rem 1.5rem;
+        background: var(--color-brand-cyan);
+        color: var(--color-brand-black);
+        font-family: var(--font-display);
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 0 0 0.5rem 0;
+        transition: top 0.2s ease;
+      }
+
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* Screen reader only */
       .sr-only {
         position: absolute;
         width: 1px;
@@ -106,5 +139,11 @@ const ogImage = `${siteUrl}${image}`;
         border-width: 0;
       }
     </style>
+
+    <!-- Global error handler -->
+    <script is:inline>
+      window.addEventListener('error', (e) => console.error('Error:', e.error));
+      window.addEventListener('unhandledrejection', (e) => console.error('Unhandled rejection:', e.reason));
+    </script>
   </body>
 </html>

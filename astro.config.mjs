@@ -3,6 +3,7 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://denerf.com',
   integrations: [
     tailwind({
       applyBaseStyles: false, // We'll handle base styles ourselves
@@ -10,6 +11,7 @@ export default defineConfig({
   ],
   output: 'static',
   compressHTML: true,
+  scopedStyleStrategy: 'where',
   build: {
     inlineStylesheets: 'auto',
   },

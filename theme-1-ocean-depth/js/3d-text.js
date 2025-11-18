@@ -172,11 +172,17 @@ class Text3D {
         this.lastTime = currentTime - (deltaTime % this.frameInterval);
 
         if (this.textMesh && this.originalPositions) {
-            // Gentle floating animation
-            this.textMesh.rotation.y += 0.001;
+            const time = currentTime * 0.001;
+
+            // Smooth continuous rotation (slower, more elegant)
+            this.textMesh.rotation.y = Math.sin(time * 0.2) * 0.3;
+            this.textMesh.rotation.x = Math.cos(time * 0.15) * 0.15;
+
+            // Gentle floating up/down
+            this.textMesh.position.y = Math.sin(time * 0.5) * 5;
+            this.textMesh.position.z = Math.cos(time * 0.3) * 3;
 
             // Pulse effect based on ORIGINAL positions (fix for drift bug)
-            const time = currentTime * 0.001;
             const positions = this.textMesh.geometry.attributes.position.array;
 
             for (let i = 0; i < positions.length; i += 3) {

@@ -307,12 +307,23 @@ class OceanDepthController {
         slides.forEach((slide, index) => {
             if (index === this.currentProject) {
                 slide.classList.add('active');
+                slide.style.display = 'block';
                 gsap.fromTo(slide,
                     { x: 100, opacity: 0 },
                     { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out', overwrite: true }
                 );
             } else {
                 slide.classList.remove('active');
+                gsap.to(slide, {
+                    opacity: 0,
+                    duration: 0.3,
+                    overwrite: true,
+                    onComplete: () => {
+                        if (index !== this.currentProject) {
+                            slide.style.display = 'none';
+                        }
+                    }
+                });
             }
         });
 

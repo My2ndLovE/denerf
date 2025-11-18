@@ -4,10 +4,10 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://denerf.com', // Update with actual domain
+  site: 'https://denerf.com',
   integrations: [
     tailwind({
-      applyBaseStyles: false, // We'll use custom base styles
+      applyBaseStyles: false,
     }),
     sitemap(),
   ],
@@ -20,22 +20,21 @@ export default defineConfig({
       cssMinify: 'lightningcss',
       rollupOptions: {
         output: {
-          manualChunks: {
-            'animation': ['gsap'],
+          manualChunks(id) {
+            // Separate vendor chunks for better caching
+            if (id.includes('node_modules')) {
+              if (id.includes('gsap')) {
+                return 'vendor-gsap';
+              }
+              return 'vendor';
+            }
           },
         },
       },
-    },
-    ssr: {
-      noExternal: ['gsap'],
     },
   },
   image: {
     domains: [],
     remotePatterns: [],
-  },
-  experimental: {
-    clientPrerender: true,
-    directRenderScript: true,
   },
 });

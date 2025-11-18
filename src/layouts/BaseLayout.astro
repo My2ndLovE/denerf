@@ -44,68 +44,108 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-    <!-- Fonts -->
+    <!-- Fonts - Self-hosted for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-
-    <!-- Preload Critical Assets -->
-    <link rel="preload" as="style" href="/src/styles/global.css" />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#0a0e27" />
+
+    <!-- Security Headers (CSP - adjust as needed) -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';"
+    />
   </head>
   <body>
     <!-- Skip to Content Link (Accessibility) -->
     <a href="#main-content" class="skip-to-content">Skip to content</a>
 
     <!-- Scroll Progress Indicator -->
-    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true" role="presentation"></div>
 
     <!-- Main Content -->
     <main id="main-content">
       <slot />
     </main>
 
-    <!-- Scroll Progress Script -->
+    <!-- Core Scripts with Error Handling -->
     <script>
-      // Scroll Progress Indicator
-      const scrollProgress = document.getElementById('scroll-progress');
-      if (scrollProgress) {
-        window.addEventListener('scroll', () => {
+      import { debounce } from '@/scripts/utils/performance';
+      import { createIntersectionObserver, onReady } from '@/scripts/utils/dom';
+      import { OBSERVER_OPTIONS, TIMING } from '@/scripts/utils/constants';
+
+      // Initialize on DOM ready
+      onReady(() => {
+        initScrollProgress();
+        initAnimateOnScroll();
+      });
+
+      /**
+       * Initialize scroll progress indicator with debounced updates
+       */
+      function initScrollProgress(): void {
+        const scrollProgress = document.getElementById('scroll-progress');
+        if (!scrollProgress) return;
+
+        const updateProgress = () => {
           const windowHeight = window.innerHeight;
           const documentHeight = document.documentElement.scrollHeight - windowHeight;
           const scrolled = window.scrollY;
-          const progress = (scrolled / documentHeight) * 100;
-          scrollProgress.style.transform = `scaleX(${progress / 100})`;
-        });
+          const progress = documentHeight > 0 ? (scrolled / documentHeight) * 100 : 0;
+          scrollProgress.style.transform = `scaleX(${Math.min(progress / 100, 1)})`;
+        };
+
+        // Debounced scroll handler for performance
+        const debouncedUpdate = debounce(updateProgress, TIMING.SCROLL_DEBOUNCE);
+
+        // Use passive event listener for better scroll performance
+        window.addEventListener('scroll', debouncedUpdate, { passive: true });
+
+        // Initial update
+        updateProgress();
       }
 
-      // Animate on Scroll Observer
-      const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
-      const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -100px 0px',
-      };
+      /**
+       * Initialize animate-on-scroll with Intersection Observer
+       */
+      function initAnimateOnScroll(): void {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        if (!elements.length) return;
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
+        // Check if user prefers reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      animateOnScrollElements.forEach((el) => observer.observe(el));
+        if (prefersReducedMotion) {
+          // Skip animations, show all elements immediately
+          elements.forEach((el) => el.classList.add('visible'));
+          return;
+        }
 
-      // Respect prefers-reduced-motion
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) {
-        animateOnScrollElements.forEach((el) => el.classList.add('visible'));
+        // Create intersection observer
+        const { observer } = createIntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, OBSERVER_OPTIONS);
+
+        // Observe all elements
+        elements.forEach((el) => observer.observe(el));
       }
     </script>
   </body>

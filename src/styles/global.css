@@ -1,19 +1,42 @@
 /* ========================================
    GLOBAL STYLES - Denerf Landing Page
+   Optimized and bug-free version
    ======================================== */
 
 @import 'tailwindcss';
+@import './tokens/colors.css';
 
 /* ========================================
-   FONTS
+   CSS CUSTOM PROPERTIES
    ======================================== */
 
-/* Space Grotesk Variable Font */
-@font-face {
-  font-family: 'Space Grotesk Variable';
-  src: url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-  font-display: swap;
-  font-weight: 300 700;
+:root {
+  /* Fonts */
+  --font-display: 'Space Grotesk', 'Space Grotesk Variable', sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Timing Functions */
+  --transition-instant: 0.1s;
+  --transition-fast: 0.3s;
+  --transition-normal: 0.6s;
+  --transition-slow: 1s;
+
+  /* Easing Functions */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-Index Layers */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+  --z-max: 100;
 }
 
 /* ========================================
@@ -36,6 +59,7 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Respect user motion preferences - !important needed to override component styles */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -100,11 +124,18 @@ p {
 }
 
 a {
-  @apply text-primary no-underline transition-colors duration-300;
+  @apply text-primary no-underline;
+  transition: color var(--transition-fast) ease;
 }
 
 a:hover {
   @apply text-secondary;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 code {
@@ -128,6 +159,11 @@ code {
   @apply text-4xl md:text-5xl font-display font-bold mb-8 text-center;
 }
 
+.section-subtitle {
+  @apply text-lg md:text-xl text-text-muted text-center mx-auto;
+  max-width: 48rem;
+}
+
 /* ========================================
    ANIMATIONS
    ======================================== */
@@ -135,7 +171,8 @@ code {
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity var(--transition-normal) ease-out,
+              transform var(--transition-normal) ease-out;
 }
 
 .animate-on-scroll.visible {
@@ -145,7 +182,7 @@ code {
 
 /* Magnetic Button Effect */
 .magnetic {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s var(--ease-bounce);
 }
 
 /* Glow Effect */
@@ -160,7 +197,7 @@ code {
   background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
   border-radius: inherit;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-fast) ease;
   z-index: -1;
   filter: blur(8px);
 }
@@ -170,41 +207,40 @@ code {
 }
 
 /* ========================================
-   CUSTOM CURSOR (Optional)
+   FORMS
    ======================================== */
 
-.custom-cursor {
-  cursor: none;
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-primary);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease-out;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-.cursor-outline {
-  width: 32px;
-  height: 32px;
-  border: 2px solid var(--color-primary);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.1s ease-out;
+.error input,
+.error textarea,
+.error select {
+  border-color: var(--color-error, #ef4444);
+}
+
+.field-error {
+  @apply text-sm mt-1;
+  color: var(--color-error, #ef4444);
 }
 
 /* ========================================
    ACCESSIBILITY
    ======================================== */
 
+/* Screen Reader Only */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -217,14 +253,31 @@ code {
   border-width: 0;
 }
 
+/* Skip to Content Link */
 .skip-to-content {
-  @apply absolute left-4 top-4 z-50 bg-primary text-base px-4 py-2 rounded;
+  @apply absolute left-4 top-4 bg-primary text-base px-4 py-2 rounded;
+  z-index: var(--z-max);
   transform: translateY(-200%);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-fast) ease;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-base);
 }
 
 .skip-to-content:focus {
   transform: translateY(0);
+}
+
+/* Focus Visible Styles */
+*:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline-offset: 4px;
 }
 
 /* ========================================
@@ -232,7 +285,23 @@ code {
    ======================================== */
 
 .skeleton {
-  @apply bg-surface-elevated animate-pulse rounded;
+  @apply bg-surface-elevated rounded;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading {
+  cursor: wait;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -248,7 +317,8 @@ code {
   background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
   transform-origin: left;
   transform: scaleX(0);
-  z-index: 100;
+  z-index: var(--z-max);
+  will-change: transform;
 }
 
 /* ========================================
@@ -263,4 +333,95 @@ code {
 ::-moz-selection {
   background-color: var(--color-primary);
   color: var(--color-base);
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR (Optional)
+   ======================================== */
+
+/* For Webkit browsers */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-elevated);
+  border-radius: 6px;
+  border: 2px solid var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-elevated) var(--color-surface);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  img {
+    page-break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  .skip-to-content,
+  .scroll-progress {
+    display: none;
+  }
 }

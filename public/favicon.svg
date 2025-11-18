@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bf40ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Neural network inspired icon -->
+  <rect width="128" height="128" fill="#0a0a0a"/>
+
+  <!-- Nodes -->
+  <circle cx="32" cy="32" r="8" fill="url(#gradient)" opacity="0.8"/>
+  <circle cx="96" cy="32" r="8" fill="url(#gradient)" opacity="0.8"/>
+  <circle cx="64" cy="64" r="12" fill="url(#gradient)"/>
+  <circle cx="32" cy="96" r="8" fill="url(#gradient)" opacity="0.8"/>
+  <circle cx="96" cy="96" r="8" fill="url(#gradient)" opacity="0.8"/>
+
+  <!-- Connections -->
+  <line x1="32" y1="32" x2="64" y2="64" stroke="#00f5ff" stroke-width="2" opacity="0.5"/>
+  <line x1="96" y1="32" x2="64" y2="64" stroke="#00f5ff" stroke-width="2" opacity="0.5"/>
+  <line x1="64" y1="64" x2="32" y2="96" stroke="#bf40ff" stroke-width="2" opacity="0.5"/>
+  <line x1="64" y1="64" x2="96" y2="96" stroke="#bf40ff" stroke-width="2" opacity="0.5"/>
+
+  <!-- Center glow -->
+  <circle cx="64" cy="64" r="16" fill="none" stroke="url(#gradient)" stroke-width="1" opacity="0.3"/>
+</svg>

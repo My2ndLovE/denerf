@@ -1,0 +1,295 @@
+---
+// Hero Section: The Awakening - Neural Genesis
+---
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Neural Network Canvas Background -->
+  <canvas id="neural-canvas" class="absolute inset-0 w-full h-full"></canvas>
+
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-void/50 to-void pointer-events-none"></div>
+
+  <!-- Hero Content -->
+  <div class="container-custom relative z-10 text-center">
+    <!-- Company Name (Animated) -->
+    <h1 class="hero-title text-hero font-bold mb-6 opacity-0">
+      <span class="text-gradient">DeNeRF</span>
+    </h1>
+
+    <!-- Main Headline -->
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 opacity-0 translate-y-8" id="hero-headline">
+      Building Tomorrow<br />
+      <span class="text-gradient">With AI</span>
+    </h2>
+
+    <!-- Sub-headline -->
+    <p class="text-xl md:text-2xl text-text-secondary max-w-3xl mx-auto mb-12 opacity-0 translate-y-8" id="hero-subheadline">
+      We code at the speed of thought.<br />
+      <span class="text-primary">Human creativity + AI precision</span> = Impossible projects, delivered.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 translate-y-8" id="hero-cta">
+      <a href="#contact" class="btn-primary">
+        Start Your AI Project
+      </a>
+      <a href="#work" class="btn-secondary">
+        Explore Our Work
+      </a>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0" id="scroll-indicator">
+      <div class="flex flex-col items-center gap-2 text-primary animate-bounce">
+        <span class="text-sm">Discover How</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import * as THREE from 'three';
+  import { gsap } from 'gsap';
+
+  // Neural Network Visualization
+  class NeuralNetwork {
+    private scene: THREE.Scene;
+    private camera: THREE.PerspectiveCamera;
+    private renderer: THREE.WebGLRenderer;
+    private particles: THREE.Points;
+    private connections: THREE.LineSegments;
+    private nodes: { position: THREE.Vector3; velocity: THREE.Vector3 }[] = [];
+
+    constructor(canvas: HTMLCanvasElement) {
+      // Scene setup
+      this.scene = new THREE.Scene();
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      this.camera.position.z = 5;
+
+      // Renderer setup
+      this.renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+      });
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Create particles (nodes)
+      this.particles = this.createParticles();
+      this.scene.add(this.particles);
+
+      // Create connections (edges)
+      this.connections = this.createConnections();
+      this.scene.add(this.connections);
+
+      // Handle resize
+      window.addEventListener('resize', () => this.onResize());
+
+      // Start animation
+      this.animate();
+    }
+
+    private createParticles(): THREE.Points {
+      const particleCount = window.innerWidth < 768 ? 50 : 100;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+
+        // Random position
+        const x = (Math.random() - 0.5) * 10;
+        const y = (Math.random() - 0.5) * 10;
+        const z = (Math.random() - 0.5) * 10;
+
+        positions[i3] = x;
+        positions[i3 + 1] = y;
+        positions[i3 + 2] = z;
+
+        // Store node data for connections
+        this.nodes.push({
+          position: new THREE.Vector3(x, y, z),
+          velocity: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.01,
+            (Math.random() - 0.5) * 0.01,
+            (Math.random() - 0.5) * 0.01
+          ),
+        });
+
+        // Color (cyan to purple gradient)
+        const t = i / particleCount;
+        colors[i3] = t; // R
+        colors[i3 + 1] = 0.96; // G
+        colors[i3 + 2] = 1; // B
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.05,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending,
+      });
+
+      return new THREE.Points(geometry, material);
+    }
+
+    private createConnections(): THREE.LineSegments {
+      const geometry = new THREE.BufferGeometry();
+      const material = new THREE.LineBasicMaterial({
+        color: 0x00f5ff,
+        transparent: true,
+        opacity: 0.2,
+        blending: THREE.AdditiveBlending,
+      });
+
+      return new THREE.LineSegments(geometry, material);
+    }
+
+    private updateConnections(): void {
+      const positions: number[] = [];
+      const maxDistance = 2.0;
+
+      // Create connections between nearby nodes
+      for (let i = 0; i < this.nodes.length; i++) {
+        for (let j = i + 1; j < this.nodes.length; j++) {
+          const distance = this.nodes[i].position.distanceTo(this.nodes[j].position);
+
+          if (distance < maxDistance) {
+            positions.push(
+              this.nodes[i].position.x,
+              this.nodes[i].position.y,
+              this.nodes[i].position.z,
+              this.nodes[j].position.x,
+              this.nodes[j].position.y,
+              this.nodes[j].position.z
+            );
+          }
+        }
+      }
+
+      const positionsArray = new Float32Array(positions);
+      this.connections.geometry.setAttribute('position', new THREE.BufferAttribute(positionsArray, 3));
+    }
+
+    private animate = (): void => {
+      requestAnimationFrame(this.animate);
+
+      // Update particle positions
+      const positions = this.particles.geometry.attributes.position.array as Float32Array;
+
+      this.nodes.forEach((node, i) => {
+        // Apply velocity
+        node.position.add(node.velocity);
+
+        // Bounce off boundaries
+        if (Math.abs(node.position.x) > 5) node.velocity.x *= -1;
+        if (Math.abs(node.position.y) > 5) node.velocity.y *= -1;
+        if (Math.abs(node.position.z) > 5) node.velocity.z *= -1;
+
+        // Update positions array
+        const i3 = i * 3;
+        positions[i3] = node.position.x;
+        positions[i3 + 1] = node.position.y;
+        positions[i3 + 2] = node.position.z;
+      });
+
+      this.particles.geometry.attributes.position.needsUpdate = true;
+
+      // Update connections
+      this.updateConnections();
+
+      // Rotate scene slowly
+      this.scene.rotation.y += 0.001;
+      this.scene.rotation.x += 0.0005;
+
+      this.renderer.render(this.scene, this.camera);
+    };
+
+    private onResize(): void {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+  }
+
+  // Initialize neural network
+  const canvas = document.getElementById('neural-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    new NeuralNetwork(canvas);
+  }
+
+  // Animate hero content
+  const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  timeline
+    .to('.hero-title', {
+      opacity: 1,
+      duration: 1.5,
+      delay: 0.5,
+    })
+    .to('#hero-headline', {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+    }, '-=0.5')
+    .to('#hero-subheadline', {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+    }, '-=0.7')
+    .to('#hero-cta', {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+    }, '-=0.7')
+    .to('#scroll-indicator', {
+      opacity: 0.7,
+      duration: 1,
+    }, '-=0.5');
+
+  // Mouse parallax effect on hero content
+  document.addEventListener('mousemove', (e) => {
+    const { clientX, clientY } = e;
+    const xPercent = (clientX / window.innerWidth - 0.5) * 2;
+    const yPercent = (clientY / window.innerHeight - 0.5) * 2;
+
+    gsap.to('.hero-title', {
+      x: xPercent * 20,
+      y: yPercent * 20,
+      duration: 0.5,
+    });
+
+    gsap.to('#hero-headline', {
+      x: xPercent * 15,
+      y: yPercent * 15,
+      duration: 0.5,
+    });
+
+    gsap.to('#hero-subheadline', {
+      x: xPercent * 10,
+      y: yPercent * 10,
+      duration: 0.5,
+    });
+  });
+</script>
+
+<style>
+  .hero-title {
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 4rem;
+    }
+  }
+</style>

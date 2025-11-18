@@ -1,0 +1,313 @@
+---
+// Section 4: The Intelligence - AI Arsenal
+const aiTools = [
+  {
+    name: 'Claude',
+    category: 'Development',
+    description: 'Strategic partner for architecture and complex problems',
+    useCase: 'Designed entire backend architecture in 2 hours',
+    frequency: 'Daily',
+    size: 'large',
+    color: 'primary',
+  },
+  {
+    name: 'GPT-4',
+    category: 'Development',
+    description: 'Rapid prototyping and code generation',
+    useCase: 'Generated 50 API endpoints with tests in minutes',
+    frequency: 'Daily',
+    size: 'large',
+    color: 'primary',
+  },
+  {
+    name: 'GitHub Copilot',
+    category: 'Development',
+    description: 'Pair programming that never sleeps',
+    useCase: 'Autocompletes 40% of our code',
+    frequency: 'Daily',
+    size: 'medium',
+    color: 'primary',
+  },
+  {
+    name: 'Cursor AI',
+    category: 'Development',
+    description: 'AI-native development environment',
+    useCase: 'Refactored 10,000 lines of code in 1 hour',
+    frequency: 'Daily',
+    size: 'medium',
+    color: 'primary',
+  },
+  {
+    name: 'Midjourney',
+    category: 'Design',
+    description: 'Concept exploration and visual ideation',
+    useCase: 'Generated 100 logo variations in 1 hour',
+    frequency: 'Weekly',
+    size: 'medium',
+    color: 'accent',
+  },
+  {
+    name: 'Stable Diffusion',
+    category: 'Design',
+    description: 'Custom asset generation',
+    useCase: 'Created entire icon library',
+    frequency: 'Project-specific',
+    size: 'small',
+    color: 'accent',
+  },
+  {
+    name: 'Runway ML',
+    category: 'Design',
+    description: 'Video and motion graphics',
+    useCase: 'Animated product demos automatically',
+    frequency: 'Monthly',
+    size: 'small',
+    color: 'accent',
+  },
+  {
+    name: 'Custom ML Models',
+    category: 'Operations',
+    description: 'Specialized automation',
+    useCase: 'Predicts project timelines with 90% accuracy',
+    frequency: 'Project-specific',
+    size: 'small',
+    color: 'success',
+  },
+];
+---
+
+<section id="ai-stack" class="section-padding relative overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 neural-grid opacity-50"></div>
+
+  <div class="container-custom relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Our <span class="text-gradient">AI Arsenal</span>
+      </h2>
+      <p class="text-xl text-text-secondary max-w-3xl mx-auto mb-4">
+        These aren't just tools. They're team members.<br />
+        Each AI brings unique capabilities. Together, they're unstoppable.
+      </p>
+    </div>
+
+    <!-- AI Tools Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {aiTools.map((tool, index) => (
+        <div
+          class="ai-tool-card card-hover group cursor-pointer opacity-0 translate-y-8"
+          data-tool={tool.name}
+          style={`transition-delay: ${index * 100}ms`}
+        >
+          <!-- Tool Header -->
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div
+                class={`w-12 h-12 rounded-full bg-${tool.color}/20 flex items-center justify-center relative`}
+              >
+                <div
+                  class={`absolute inset-0 rounded-full bg-${tool.color}/30 animate-pulse-glow`}
+                ></div>
+                <svg
+                  class={`w-6 h-6 text-${tool.color} relative z-10`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-text-primary group-hover:text-gradient transition-all duration-300">
+                  {tool.name}
+                </h3>
+                <span class="text-xs text-text-tertiary">{tool.category}</span>
+              </div>
+            </div>
+
+            <span class={`px-2 py-1 text-xs rounded-full bg-${tool.color}/20 text-${tool.color}`}>
+              {tool.frequency}
+            </span>
+          </div>
+
+          <!-- Tool Description -->
+          <p class="text-sm text-text-secondary mb-4">
+            {tool.description}
+          </p>
+
+          <!-- Use Case -->
+          <div class="p-3 rounded-lg bg-elevated border border-elevated group-hover:border-primary/30 transition-all duration-300">
+            <div class="flex items-start gap-2">
+              <svg
+                class="w-4 h-4 text-success mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span class="text-xs text-text-secondary">{tool.useCase}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- AI Workflow Visualization -->
+    <div class="bg-surface/50 rounded-2xl p-8 border border-elevated animate-on-scroll">
+      <h3 class="text-2xl font-bold mb-6 text-center">
+        Integrated <span class="text-gradient">AI Workflow</span>
+      </h3>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 relative">
+            <div class="absolute inset-0 rounded-full bg-primary/30 animate-pulse-glow"></div>
+            <span class="text-2xl font-bold text-primary relative z-10">1</span>
+          </div>
+          <h4 class="text-lg font-semibold mb-2">Ideation</h4>
+          <p class="text-sm text-text-secondary">
+            Claude + GPT-4 brainstorm architecture and approaches
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+          <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4 relative">
+            <div class="absolute inset-0 rounded-full bg-accent/30 animate-pulse-glow"></div>
+            <span class="text-2xl font-bold text-accent relative z-10">2</span>
+          </div>
+          <h4 class="text-lg font-semibold mb-2">Design</h4>
+          <p class="text-sm text-text-secondary">
+            Midjourney generates concepts, Stable Diffusion creates assets
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+          <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6 mt-6">
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-4 relative">
+            <div class="absolute inset-0 rounded-full bg-success/30 animate-pulse-glow"></div>
+            <span class="text-2xl font-bold text-success relative z-10">3</span>
+          </div>
+          <h4 class="text-lg font-semibold mb-2">Development</h4>
+          <p class="text-sm text-text-secondary">
+            Copilot + Cursor accelerate coding, Claude reviews architecture
+          </p>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden md:flex items-center justify-center">
+          <svg class="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-warning/20 flex items-center justify-center mx-auto mb-4 relative">
+            <div class="absolute inset-0 rounded-full bg-warning/30 animate-pulse-glow"></div>
+            <span class="text-2xl font-bold text-warning relative z-10">4</span>
+          </div>
+          <h4 class="text-lg font-semibold mb-2">Optimization</h4>
+          <p class="text-sm text-text-secondary">
+            AI tests, optimizes, and documents everything automatically
+          </p>
+        </div>
+
+        <!-- Checkmark -->
+        <div class="hidden md:flex items-center justify-center">
+          <svg class="w-12 h-12 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-12 animate-on-scroll">
+      <p class="text-lg text-text-secondary mb-6">
+        Want to see our AI stack in action?
+      </p>
+      <a href="#contact" class="btn-primary inline-block">
+        Start Your Project →
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate AI tool cards on scroll
+  const toolCards = document.querySelectorAll('.ai-tool-card');
+
+  toolCards.forEach((card) => {
+    ScrollTrigger.create({
+      trigger: card,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out',
+        });
+      },
+      once: true,
+    });
+
+    // Hover effect
+    card.addEventListener('mouseenter', () => {
+      gsap.to(card, {
+        y: -8,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        y: 0,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+  });
+</script>
+
+<style>
+  .ai-tool-card {
+    will-change: transform, opacity;
+  }
+</style>

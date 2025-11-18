@@ -1,0 +1,292 @@
+---
+// Section 3: The Proof - Portfolio Showcase
+const projects = [
+  {
+    id: 1,
+    title: 'AI-Powered E-Commerce Platform',
+    description: 'Full-stack platform with AI-generated product descriptions and intelligent customer service',
+    industry: 'Retail',
+    aiTools: ['GPT-4', 'Claude'],
+    impact: '60% faster development, 40% higher conversion',
+    image: '/projects/ecommerce.jpg',
+    tags: ['E-Commerce', 'AI-Generated Content', 'Full-Stack'],
+  },
+  {
+    id: 2,
+    title: 'Real-Time Data Visualization Dashboard',
+    description: 'Interactive dashboard with AI-powered insights and predictive analytics',
+    industry: 'FinTech',
+    aiTools: ['Midjourney', 'Claude', 'Custom ML'],
+    impact: '3 months → 3 weeks',
+    image: '/projects/dashboard.jpg',
+    tags: ['FinTech', 'Data Viz', 'Real-Time'],
+  },
+  {
+    id: 3,
+    title: 'Generative Design System',
+    description: '100+ components generated and documented with AI assistance',
+    industry: 'SaaS',
+    aiTools: ['Stable Diffusion', 'GPT-4'],
+    impact: '100+ components in 1 month',
+    image: '/projects/design-system.jpg',
+    tags: ['Design System', 'SaaS', 'Components'],
+  },
+  {
+    id: 4,
+    title: 'AI-Native Mobile App',
+    description: 'Productivity app built with AI-assisted architecture and development',
+    industry: 'Productivity',
+    aiTools: ['Claude', 'GitHub Copilot'],
+    impact: 'Launched in 6 weeks',
+    image: '/projects/mobile-app.jpg',
+    tags: ['Mobile', 'iOS', 'Android'],
+  },
+  {
+    id: 5,
+    title: 'Automated Testing Suite',
+    description: 'Comprehensive testing framework with AI-generated test cases',
+    industry: 'Enterprise',
+    aiTools: ['GPT-4'],
+    impact: '95% code coverage automatically',
+    image: '/projects/testing.jpg',
+    tags: ['Testing', 'Enterprise', 'Automation'],
+  },
+  {
+    id: 6,
+    title: 'Interactive 3D Product Configurator',
+    description: 'Real-time 3D product visualization with AI-optimized performance',
+    industry: 'Manufacturing',
+    aiTools: ['Three.js', 'AI Optimization'],
+    impact: '50% increase in engagement',
+    image: '/projects/3d-configurator.jpg',
+    tags: ['3D', 'WebGL', 'Interactive'],
+  },
+  {
+    id: 7,
+    title: 'Neural Network Visualization Tool',
+    description: 'Educational platform for understanding AI and neural networks',
+    industry: 'Education',
+    aiTools: ['Custom ML', 'D3.js'],
+    impact: '10,000+ students using',
+    image: '/projects/neural-viz.jpg',
+    tags: ['Education', 'ML', 'Visualization'],
+  },
+  {
+    id: 8,
+    title: 'AI-Powered Content Platform',
+    description: 'Content management system with AI-assisted writing and editing',
+    industry: 'Media',
+    aiTools: ['GPT-4', 'Claude'],
+    impact: '5x content output',
+    image: '/projects/content-platform.jpg',
+    tags: ['Media', 'Content', 'CMS'],
+  },
+];
+---
+
+<section id="work" class="section-padding relative overflow-hidden bg-surface">
+  <!-- Background -->
+  <div class="absolute inset-0 neural-grid opacity-30"></div>
+
+  <div class="container-custom relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-12 animate-on-scroll">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Built With <span class="text-gradient">AI</span>.<br />
+        Approved By Humans.
+      </h2>
+      <p class="text-xl text-text-secondary max-w-3xl mx-auto mb-8">
+        Real projects. Real impact. Real innovation powered by AI.
+      </p>
+
+      <!-- Filter Tags -->
+      <div class="flex flex-wrap justify-center gap-3" id="filter-tags">
+        <button class="px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary hover:text-void transition-all duration-300 filter-tag active" data-filter="all">
+          All
+        </button>
+        <button class="px-4 py-2 rounded-full border border-elevated text-text-secondary hover:border-primary hover:text-primary transition-all duration-300 filter-tag" data-filter="E-Commerce">
+          E-Commerce
+        </button>
+        <button class="px-4 py-2 rounded-full border border-elevated text-text-secondary hover:border-primary hover:text-primary transition-all duration-300 filter-tag" data-filter="FinTech">
+          FinTech
+        </button>
+        <button class="px-4 py-2 rounded-full border border-elevated text-text-secondary hover:border-primary hover:text-primary transition-all duration-300 filter-tag" data-filter="SaaS">
+          SaaS
+        </button>
+        <button class="px-4 py-2 rounded-full border border-elevated text-text-secondary hover:border-primary hover:text-primary transition-all duration-300 filter-tag" data-filter="Mobile">
+          Mobile
+        </button>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+      {projects.map((project, index) => (
+        <div
+          class="project-card card-hover group opacity-0 translate-y-8"
+          data-industry={project.industry}
+          data-tags={project.tags.join(',')}
+          style={`transition-delay: ${index * 100}ms`}
+        >
+          <!-- Project Image Placeholder -->
+          <div class="aspect-video bg-elevated rounded-lg mb-4 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+              <svg class="w-16 h-16 text-primary/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            {/* Image will be added later */}
+          </div>
+
+          <!-- Project Info -->
+          <div class="space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="text-xl font-bold text-text-primary group-hover:text-gradient transition-all duration-300">
+                {project.title}
+              </h3>
+              <span class="px-2 py-1 text-xs rounded-full bg-primary/20 text-primary flex-shrink-0">
+                {project.industry}
+              </span>
+            </div>
+
+            <p class="text-sm text-text-secondary">
+              {project.description}
+            </p>
+
+            <!-- AI Tools -->
+            <div class="flex flex-wrap gap-2">
+              {project.aiTools.map((tool) => (
+                <span class="px-2 py-1 text-xs rounded-full bg-accent/20 text-accent">
+                  {tool}
+                </span>
+              ))}
+            </div>
+
+            <!-- Impact -->
+            <div class="pt-3 border-t border-elevated">
+              <div class="flex items-center gap-2 text-success">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                <span class="text-sm font-semibold">{project.impact}</span>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <button class="w-full py-2 mt-4 border border-primary text-primary rounded-lg hover:bg-primary hover:text-void transition-all duration-300 text-sm font-semibold">
+              View Case Study →
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-16 animate-on-scroll">
+      <p class="text-lg text-text-secondary mb-6">
+        Ready to see what AI can do for your project?
+      </p>
+      <a href="#contact" class="btn-primary inline-block">
+        Start Your AI Project →
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate project cards on scroll
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectCards.forEach((card) => {
+    ScrollTrigger.create({
+      trigger: card,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out',
+        });
+      },
+      once: true,
+    });
+  });
+
+  // Filter functionality
+  const filterTags = document.querySelectorAll('.filter-tag');
+  const allProjects = document.querySelectorAll('.project-card');
+
+  filterTags.forEach((tag) => {
+    tag.addEventListener('click', () => {
+      const filter = tag.getAttribute('data-filter');
+
+      // Update active state
+      filterTags.forEach((t) => t.classList.remove('active', 'bg-primary', 'text-void'));
+      tag.classList.add('active', 'bg-primary', 'text-void');
+
+      // Filter projects
+      allProjects.forEach((project) => {
+        const industry = project.getAttribute('data-industry');
+        const tags = project.getAttribute('data-tags');
+
+        if (filter === 'all') {
+          gsap.to(project, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            display: 'block',
+          });
+        } else if (industry?.includes(filter) || tags?.includes(filter)) {
+          gsap.to(project, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            display: 'block',
+          });
+        } else {
+          gsap.to(project, {
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.3,
+            display: 'none',
+          });
+        }
+      });
+    });
+  });
+
+  // Hover effect with GSAP
+  allProjects.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      gsap.to(card, {
+        y: -8,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        y: 0,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    });
+  });
+</script>
+
+<style>
+  .filter-tag.active {
+    @apply bg-primary text-void border-primary;
+  }
+
+  .project-card {
+    will-change: transform, opacity;
+  }
+</style>

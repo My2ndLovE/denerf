@@ -1,0 +1,120 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'DeNeRF | AI-Powered Software Development',
+  description = 'We build software 10x faster with AI. Full-stack development augmented by Claude, GPT-4, and custom AI models. Ship impossible projects.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/og-image.jpg" />
+
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "DeNeRF",
+        "description": "AI-powered software development company",
+        "url": "https://denerf.ai",
+        "logo": "https://denerf.ai/logo.svg"
+      }
+    </script>
+  </head>
+  <body class="overflow-x-hidden">
+    <!-- Custom Cursor (will be added via JavaScript) -->
+    <div id="custom-cursor" class="fixed w-4 h-4 pointer-events-none z-50 hidden lg:block">
+      <div class="w-full h-full rounded-full bg-primary mix-blend-difference"></div>
+    </div>
+
+    <slot />
+
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+
+    <!-- GSAP -->
+    <script>
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Custom cursor
+      const cursor = document.getElementById('custom-cursor');
+      if (cursor && window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('mousemove', (e) => {
+          gsap.to(cursor, {
+            x: e.clientX - 8,
+            y: e.clientY - 8,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        document.querySelectorAll('a, button').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            gsap.to(cursor.firstElementChild, {
+              scale: 2,
+              duration: 0.3,
+            });
+          });
+          el.addEventListener('mouseleave', () => {
+            gsap.to(cursor.firstElementChild, {
+              scale: 1,
+              duration: 0.3,
+            });
+          });
+        });
+      }
+
+      // Animate elements on scroll
+      const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+
+        elements.forEach((el) => {
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 80%',
+            onEnter: () => el.classList.add('visible'),
+            once: true,
+          });
+        });
+      };
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', animateOnScroll);
+    </script>
+  </body>
+</html>

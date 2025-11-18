@@ -1,0 +1,207 @@
+---
+// Services Component - Interactive Bento Grid with Physics
+const services = [
+  {
+    title: 'Web Development',
+    icon: '🌐',
+    description: 'Blazing-fast, scalable web applications built with cutting-edge tech',
+    code: 'const app = await build({ framework: "modern" });',
+    gradient: 'from-primary-accent/20 to-transparent',
+    size: 'md:col-span-2 md:row-span-2',
+  },
+  {
+    title: 'Mobile Apps',
+    icon: '📱',
+    description: 'Native and cross-platform apps that users love',
+    code: 'deploy({ platform: ["iOS", "Android"] });',
+    gradient: 'from-primary-magenta/20 to-transparent',
+    size: 'md:col-span-1',
+  },
+  {
+    title: 'AI Solutions',
+    icon: '🤖',
+    description: 'Intelligent systems powered by machine learning',
+    code: 'model.train({ data, epochs: 100 });',
+    gradient: 'from-primary-accent/20 to-transparent',
+    size: 'md:col-span-1',
+  },
+  {
+    title: 'Cloud Architecture',
+    icon: '☁️',
+    description: 'Scalable infrastructure that grows with your business',
+    code: 'scale({ instances: "auto", region: "global" });',
+    gradient: 'from-primary-magenta/20 to-transparent',
+    size: 'md:col-span-1 md:row-span-2',
+  },
+  {
+    title: 'DevOps',
+    icon: '⚙️',
+    description: 'Automated pipelines for continuous delivery',
+    code: 'pipeline.deploy({ automated: true });',
+    gradient: 'from-primary-accent/20 to-transparent',
+    size: 'md:col-span-2',
+  },
+  {
+    title: 'Consulting',
+    icon: '💡',
+    description: 'Strategic guidance for your tech roadmap',
+    code: 'strategize({ goal: "innovation" });',
+    gradient: 'from-primary-magenta/20 to-transparent',
+    size: 'md:col-span-1',
+  },
+];
+---
+
+<section id="services" class="relative py-32 px-6 sm:px-8 lg:px-12 overflow-hidden">
+  <!-- Background Elements -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-primary-accent/5 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-magenta/5 rounded-full blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="mb-20 reveal">
+      <p class="font-mono text-primary-accent text-sm mb-4 terminal-text">Our Expertise</p>
+      <h2 class="text-5xl md:text-7xl font-bold mb-6">
+        <span class="text-white">Services That</span>
+        <span class="block text-primary-accent neon-glow">Scale & Deliver</span>
+      </h2>
+      <p class="text-xl text-primary-text/70 max-w-2xl">
+        Full-stack solutions engineered for performance, designed for impact
+      </p>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]">
+      {services.map((service, index) => (
+        <div
+          class={`service-card group relative ${service.size} p-8 border-2 border-primary-text/10 bg-gradient-to-br ${service.gradient} backdrop-blur-sm overflow-hidden reveal cursor-pointer transition-all duration-300 hover:border-primary-accent/50 hover:shadow-2xl hover:shadow-primary-accent/10`}
+          data-index={index}
+          style={`animation-delay: ${index * 0.1}s;`}
+        >
+          <!-- Card Background Pattern -->
+          <div class="absolute inset-0 opacity-5">
+            <div class="w-full h-full" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, currentColor 10px, currentColor 20px);"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="relative z-10 h-full flex flex-col">
+            <!-- Icon -->
+            <div class="text-6xl mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+              {service.icon}
+            </div>
+
+            <!-- Title -->
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-primary-accent transition-colors">
+              {service.title}
+            </h3>
+
+            <!-- Description -->
+            <p class="text-primary-text/70 mb-6 flex-grow">
+              {service.description}
+            </p>
+
+            <!-- Code Snippet (reveals on hover) -->
+            <div class="code-reveal opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+              <pre class="font-mono text-xs text-primary-accent/80 bg-primary-bg/50 p-3 rounded border border-primary-accent/30 overflow-hidden">
+                <code>{service.code}</code>
+              </pre>
+            </div>
+
+            <!-- Hover Glow Effect -->
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-accent/0 to-primary-accent/0 group-hover:from-primary-accent/10 group-hover:to-transparent transition-all duration-300 pointer-events-none"></div>
+          </div>
+
+          <!-- Corner Accent -->
+          <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-primary-accent/20 group-hover:border-primary-accent transition-colors"></div>
+          <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-primary-magenta/20 group-hover:border-primary-magenta transition-colors"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Process Timeline -->
+    <div class="mt-32 reveal">
+      <h3 class="text-3xl md:text-5xl font-bold text-center mb-16 text-white">
+        Our <span class="text-primary-accent">Process</span>
+      </h3>
+
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-accent via-primary-magenta to-primary-accent hidden md:block"></div>
+
+        <!-- Timeline Steps -->
+        <div class="space-y-16">
+          {[
+            { step: '01', title: 'Discovery', desc: 'We dive deep into your vision and requirements' },
+            { step: '02', title: 'Design', desc: 'Crafting intuitive, beautiful user experiences' },
+            { step: '03', title: 'Develop', desc: 'Building with best practices and cutting-edge tech' },
+            { step: '04', title: 'Deploy', desc: 'Seamless launch with ongoing support' },
+          ].map((item, index) => (
+            <div class={`relative grid md:grid-cols-2 gap-8 items-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+              <div class={`${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:col-start-2 md:pl-12'} reveal`}>
+                <div class="inline-block font-mono text-6xl font-bold text-primary-accent/20 mb-2">{item.step}</div>
+                <h4 class="text-3xl font-bold text-white mb-3">{item.title}</h4>
+                <p class="text-primary-text/70 text-lg">{item.desc}</p>
+              </div>
+
+              <!-- Timeline Dot -->
+              <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-primary-accent border-4 border-primary-bg hidden md:block"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Physics-based card interactions
+  const cards = document.querySelectorAll('.service-card');
+
+  cards.forEach((card) => {
+    let bounds: DOMRect;
+
+    card.addEventListener('mouseenter', () => {
+      bounds = card.getBoundingClientRect();
+    });
+
+    card.addEventListener('mousemove', (e: Event) => {
+      const mouseEvent = e as MouseEvent;
+      const mouseX = mouseEvent.clientX;
+      const mouseY = mouseEvent.clientY;
+
+      if (bounds) {
+        const leftX = mouseX - bounds.left;
+        const topY = mouseY - bounds.top;
+        const center = {
+          x: leftX - bounds.width / 2,
+          y: topY - bounds.height / 2,
+        };
+        const distance = Math.sqrt(center.x ** 2 + center.y ** 2);
+
+        const cardElement = card as HTMLElement;
+        cardElement.style.transform = `
+          perspective(1000px)
+          rotateX(${center.y / 10}deg)
+          rotateY(${-center.x / 10}deg)
+          translateZ(10px)
+        `;
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      const cardElement = card as HTMLElement;
+      cardElement.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+    });
+  });
+</script>
+
+<style>
+  .service-card {
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+  }
+
+  .code-reveal {
+    transform-style: preserve-3d;
+  }
+</style>

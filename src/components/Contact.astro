@@ -1,0 +1,366 @@
+---
+// Contact Component - Terminal-style form with Matrix effects
+---
+
+<section id="contact" class="relative py-32 px-6 sm:px-8 lg:px-12 overflow-hidden">
+  <!-- Matrix Rain Background (on success) -->
+  <canvas id="matrix-canvas" class="absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-1000"></canvas>
+
+  <!-- Background Grid -->
+  <div class="absolute inset-0 grid-bg opacity-30"></div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: Info -->
+      <div class="reveal">
+        <p class="font-mono text-primary-magenta text-sm mb-4 terminal-text">Get In Touch</p>
+        <h2 class="text-5xl md:text-7xl font-bold mb-8">
+          <span class="text-white">Let's Build</span>
+          <span class="block text-primary-accent neon-glow">Something Epic</span>
+        </h2>
+
+        <p class="text-xl text-primary-text/70 mb-12 leading-relaxed">
+          Ready to transform your vision into reality? Drop us a message and let's start building the future together.
+        </p>
+
+        <!-- Contact Info -->
+        <div class="space-y-6">
+          <div class="flex items-start gap-4 group cursor-pointer">
+            <div class="w-12 h-12 border-2 border-primary-accent/50 flex items-center justify-center group-hover:border-primary-accent group-hover:bg-primary-accent/10 transition-all">
+              <svg class="w-6 h-6 text-primary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="text-primary-text/50 text-sm font-mono mb-1">Email</div>
+              <div class="text-white font-semibold group-hover:text-primary-accent transition-colors">hello@denerf.dev</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 group cursor-pointer">
+            <div class="w-12 h-12 border-2 border-primary-accent/50 flex items-center justify-center group-hover:border-primary-accent group-hover:bg-primary-accent/10 transition-all">
+              <svg class="w-6 h-6 text-primary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="text-primary-text/50 text-sm font-mono mb-1">Location</div>
+              <div class="text-white font-semibold group-hover:text-primary-accent transition-colors">Global • Remote</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 group cursor-pointer">
+            <div class="w-12 h-12 border-2 border-primary-accent/50 flex items-center justify-center group-hover:border-primary-accent group-hover:bg-primary-accent/10 transition-all">
+              <svg class="w-6 h-6 text-primary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="text-primary-text/50 text-sm font-mono mb-1">Response Time</div>
+              <div class="text-white font-semibold group-hover:text-primary-accent transition-colors">Within 24 hours</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex gap-4 mt-12">
+          {['github', 'linkedin', 'twitter', 'dribbble'].map((social) => (
+            <a
+              href={`#${social}`}
+              class="w-12 h-12 border-2 border-primary-text/20 hover:border-primary-accent text-primary-text/50 hover:text-primary-accent flex items-center justify-center transition-all hover:scale-110 hover:bg-primary-accent/10"
+              aria-label={social}
+            >
+              <span class="text-xl font-bold">{social[0].toUpperCase()}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Terminal Form -->
+      <div class="reveal">
+        <div class="relative border-2 border-primary-accent/30 bg-primary-bg/50 backdrop-blur-sm overflow-hidden">
+          <!-- Terminal Header -->
+          <div class="flex items-center gap-2 px-6 py-4 bg-primary-panel border-b border-primary-accent/30">
+            <div class="flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <span class="ml-4 font-mono text-sm text-primary-accent">contact_form.sh</span>
+          </div>
+
+          <!-- Form -->
+          <form id="contact-form" class="p-8 space-y-6">
+            <!-- Name Input -->
+            <div class="terminal-input-group">
+              <label class="font-mono text-sm text-primary-accent mb-2 block">
+                >_ enter_name:
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                class="w-full bg-transparent border-2 border-primary-text/20 focus:border-primary-accent px-4 py-3 text-white font-mono outline-none transition-all"
+                placeholder="John Doe"
+              />
+            </div>
+
+            <!-- Email Input -->
+            <div class="terminal-input-group">
+              <label class="font-mono text-sm text-primary-accent mb-2 block">
+                >_ enter_email:
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                class="w-full bg-transparent border-2 border-primary-text/20 focus:border-primary-accent px-4 py-3 text-white font-mono outline-none transition-all"
+                placeholder="john@example.com"
+              />
+            </div>
+
+            <!-- Project Type -->
+            <div class="terminal-input-group">
+              <label class="font-mono text-sm text-primary-accent mb-2 block">
+                >_ select_project_type:
+              </label>
+              <select
+                name="project_type"
+                required
+                class="w-full bg-primary-panel border-2 border-primary-text/20 focus:border-primary-accent px-4 py-3 text-white font-mono outline-none transition-all cursor-pointer"
+              >
+                <option value="">-- SELECT --</option>
+                <option value="web">Web Application</option>
+                <option value="mobile">Mobile App</option>
+                <option value="ai">AI/ML Solution</option>
+                <option value="cloud">Cloud Infrastructure</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Message -->
+            <div class="terminal-input-group">
+              <label class="font-mono text-sm text-primary-accent mb-2 block">
+                >_ enter_message:
+              </label>
+              <textarea
+                name="message"
+                required
+                rows="5"
+                class="w-full bg-transparent border-2 border-primary-text/20 focus:border-primary-accent px-4 py-3 text-white font-mono outline-none transition-all resize-none"
+                placeholder="Tell us about your project..."
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="holographic-button group relative w-full py-4 border-2 border-primary-accent text-primary-accent font-mono font-bold text-lg overflow-hidden transition-all duration-300 hover:text-primary-bg"
+            >
+              <span class="relative z-10 flex items-center justify-center gap-2">
+                <span id="button-text">EXECUTE_SEND()</span>
+                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </span>
+
+              <!-- Animated background -->
+              <div class="absolute inset-0 bg-primary-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+
+              <!-- Holographic border animation -->
+              <div class="holographic-border absolute inset-0 opacity-0 group-hover:opacity-100">
+                <div class="absolute inset-0 border-2 border-primary-accent animate-pulse"></div>
+              </div>
+            </button>
+
+            <!-- Success Message -->
+            <div id="success-message" class="hidden">
+              <div class="border-2 border-green-500 bg-green-500/10 p-4 font-mono text-sm text-green-500">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-2xl">✓</span>
+                  <span class="font-bold">SUCCESS</span>
+                </div>
+                <div class="text-xs">Message transmitted successfully. We'll respond within 24 hours.</div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Corner Decorations -->
+          <div class="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-primary-accent/30 pointer-events-none"></div>
+          <div class="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-primary-magenta/30 pointer-events-none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="relative py-12 px-6 sm:px-8 lg:px-12 border-t border-primary-text/10 bg-primary-panel/30">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+      <!-- Brand -->
+      <div>
+        <div class="text-3xl font-bold text-primary-accent neon-glow mb-4">DENERF</div>
+        <p class="text-primary-text/60 font-mono text-sm">
+          Building tomorrow's software, today.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-mono text-primary-accent text-sm mb-4">NAVIGATE</h4>
+        <ul class="space-y-2 font-mono text-sm">
+          <li><a href="#services" class="text-primary-text/60 hover:text-primary-accent transition-colors">Services</a></li>
+          <li><a href="#work" class="text-primary-text/60 hover:text-primary-accent transition-colors">Work</a></li>
+          <li><a href="#tech" class="text-primary-text/60 hover:text-primary-accent transition-colors">Tech Stack</a></li>
+          <li><a href="#contact" class="text-primary-text/60 hover:text-primary-accent transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h4 class="font-mono text-primary-accent text-sm mb-4">LEGAL</h4>
+        <ul class="space-y-2 font-mono text-sm">
+          <li><a href="#" class="text-primary-text/60 hover:text-primary-accent transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="text-primary-text/60 hover:text-primary-accent transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-primary-text/10 text-center">
+      <p class="font-mono text-sm text-primary-text/50">
+        © 2024 DENERF. All rights reserved. Built with
+        <span class="text-primary-accent">❤</span> and
+        <span class="text-primary-accent">code</span>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMessage = document.getElementById('success-message');
+  const buttonText = document.getElementById('button-text');
+  const matrixCanvas = document.getElementById('matrix-canvas') as HTMLCanvasElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Animate button
+    if (buttonText) {
+      buttonText.textContent = 'SENDING...';
+    }
+
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    // Show success
+    form.classList.add('hidden');
+    successMessage?.classList.remove('hidden');
+
+    // Trigger matrix rain effect
+    triggerMatrixRain();
+
+    // Reset form after delay
+    setTimeout(() => {
+      form.reset();
+      form.classList.remove('hidden');
+      successMessage?.classList.add('hidden');
+      if (buttonText) {
+        buttonText.textContent = 'EXECUTE_SEND()';
+      }
+    }, 5000);
+  });
+
+  // Matrix Rain Effect
+  function triggerMatrixRain() {
+    if (!matrixCanvas) return;
+
+    matrixCanvas.style.opacity = '1';
+    const ctx = matrixCanvas.getContext('2d');
+    if (!ctx) return;
+
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+
+    const chars = '01アイウエオカキクケコサシスセソタチツテト';
+    const fontSize = 14;
+    const columns = matrixCanvas.width / fontSize;
+    const drops: number[] = [];
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
+
+    let frameCount = 0;
+    const maxFrames = 200;
+
+    function draw() {
+      if (!ctx || frameCount >= maxFrames) {
+        if (matrixCanvas) matrixCanvas.style.opacity = '0';
+        return;
+      }
+
+      ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+      ctx.fillStyle = '#00FF88';
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+
+      frameCount++;
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  }
+</script>
+
+<style>
+  .holographic-button {
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .holographic-button::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #00FF88, #FF0099, #00FF88);
+    background-size: 200% 200%;
+    animation: holographic-gradient 3s ease infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+    filter: blur(10px);
+  }
+
+  .holographic-button:hover::before {
+    opacity: 0.5;
+  }
+
+  @keyframes holographic-gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  }
+</style>

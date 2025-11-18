@@ -1,0 +1,147 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="software development, web development, mobile apps, AI, cloud solutions" />
+    <meta name="author" content="Denerf" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="overflow-x-hidden">
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="fixed w-6 h-6 pointer-events-none z-50 mix-blend-difference">
+      <div class="w-full h-full rounded-full border-2 border-primary-accent transition-transform duration-150"></div>
+    </div>
+    <div id="cursor-trail" class="fixed w-2 h-2 pointer-events-none z-40">
+      <div class="w-full h-full rounded-full bg-primary-accent/50"></div>
+    </div>
+
+    <!-- Main Content -->
+    <slot />
+
+    <!-- GSAP ScrollTrigger -->
+    <script>
+      import gsap from 'gsap';
+      import ScrollTrigger from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Custom cursor effect
+      const cursor = document.getElementById('custom-cursor');
+      const cursorTrail = document.getElementById('cursor-trail');
+      let mouseX = 0;
+      let mouseY = 0;
+      let cursorX = 0;
+      let cursorY = 0;
+      let trailX = 0;
+      let trailY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // Smooth cursor follow
+      function animateCursor() {
+        // Main cursor follows closely
+        cursorX += (mouseX - cursorX) * 0.2;
+        cursorY += (mouseY - cursorY) * 0.2;
+
+        // Trail follows with delay
+        trailX += (mouseX - trailX) * 0.1;
+        trailY += (mouseY - trailY) * 0.1;
+
+        if (cursor) {
+          cursor.style.transform = `translate(${cursorX - 12}px, ${cursorY - 12}px)`;
+        }
+
+        if (cursorTrail) {
+          cursorTrail.style.transform = `translate(${trailX - 4}px, ${trailY - 4}px)`;
+        }
+
+        requestAnimationFrame(animateCursor);
+      }
+
+      animateCursor();
+
+      // Cursor interactions with clickable elements
+      const clickables = document.querySelectorAll('a, button, [role="button"]');
+      clickables.forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          cursor?.querySelector('div')?.classList.add('scale-150', 'bg-primary-accent/20');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor?.querySelector('div')?.classList.remove('scale-150', 'bg-primary-accent/20');
+        });
+      });
+
+      // Hide cursor when leaving window
+      document.addEventListener('mouseleave', () => {
+        if (cursor) cursor.style.opacity = '0';
+        if (cursorTrail) cursorTrail.style.opacity = '0';
+      });
+
+      document.addEventListener('mouseenter', () => {
+        if (cursor) cursor.style.opacity = '1';
+        if (cursorTrail) cursorTrail.style.opacity = '1';
+      });
+
+      // Smooth scroll reveal animations
+      gsap.utils.toArray('.reveal').forEach((element: any) => {
+        gsap.from(element, {
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 80%',
+            end: 'top 20%',
+            toggleActions: 'play none none reverse',
+          },
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out',
+        });
+      });
+
+      // Parallax effect for floating elements
+      gsap.utils.toArray('.parallax').forEach((element: any) => {
+        gsap.to(element, {
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+          y: -100,
+          ease: 'none',
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FluidBackground from '../components/ai/FluidBackground.astro';
+import HeroAI from '../components/sections/HeroAI.astro';
+import ProcessVisualization from '../components/sections/ProcessVisualization.astro';
+import PortfolioGrid from '../components/sections/PortfolioGrid.astro';
+import AIStackShowcase from '../components/sections/AIStackShowcase.astro';
+import FutureInvitation from '../components/sections/FutureInvitation.astro';
+
+const title = "DeNeRF - AI-Augmented Development Studio";
+const description = "We build software 10x faster with AI. Full-stack development augmented by Claude, GPT-4, and custom AI models. Ship impossible projects.";
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Fluid simulation background -->
+  <FluidBackground />
+
+  <!-- Main content -->
+  <main class="relative z-10">
+    <!-- Hero Section -->
+    <HeroAI />
+
+    <!-- Process/Philosophy Section -->
+    <ProcessVisualization />
+
+    <!-- Portfolio Section -->
+    <PortfolioGrid />
+
+    <!-- AI Stack Section -->
+    <AIStackShowcase />
+
+    <!-- CTA Section -->
+    <FutureInvitation />
+
+    <!-- Footer -->
+    <footer class="section border-t border-elevated">
+      <div class="container-custom">
+        <div class="grid md:grid-cols-3 gap-12">
+          <!-- Company info -->
+          <div>
+            <h3 class="text-2xl font-bold gradient-text mb-4">DeNeRF</h3>
+            <p class="text-gray-400">
+              Building tomorrow's software with today's AI.
+            </p>
+          </div>
+
+          <!-- Links -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4 text-primary">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="#portfolio" class="text-gray-400 hover:text-primary transition-colors">Portfolio</a></li>
+              <li><a href="#process" class="text-gray-400 hover:text-primary transition-colors">Process</a></li>
+              <li><a href="#ai-stack" class="text-gray-400 hover:text-primary transition-colors">AI Stack</a></li>
+              <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Social -->
+          <div>
+            <h4 class="text-lg font-semibold mb-4 text-primary">Connect</h4>
+            <div class="flex gap-4">
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors text-2xl" aria-label="Twitter">𝕏</a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors text-2xl" aria-label="LinkedIn">in</a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors text-2xl" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-12 pt-8 border-t border-elevated text-center text-gray-400">
+          <p>&copy; {new Date().getFullYear()} DeNeRF. Built with AI. Designed by humans.</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Smooth scroll behavior -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href')!);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,357 @@
+---
+// CTA Section - "The Smart Form"
+---
+
+<section id="contact" class="section relative">
+  <div class="container-custom">
+    <div class="max-w-4xl mx-auto">
+      <!-- Section header -->
+      <div class="text-center mb-12">
+        <h2 class="text-5xl md:text-6xl font-bold mb-6 gradient-text">
+          Let's Build the Impossible
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-300">
+          Tell us your vision. Get an AI-powered project roadmap within 24 hours.
+        </p>
+      </div>
+
+      <!-- Smart form -->
+      <form id="contact-form" class="glass rounded-3xl p-8 md:p-12 space-y-8">
+        <!-- Step indicator -->
+        <div class="flex justify-between mb-8">
+          <div class="step-indicator active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-label">About You</div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-indicator" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-label">Your Project</div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-indicator" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-label">Details</div>
+          </div>
+        </div>
+
+        <!-- Step 1: About You -->
+        <div class="form-step active" data-step="1">
+          <div class="space-y-6">
+            <div>
+              <label for="name" class="block text-lg font-medium mb-2 text-primary">
+                What should we call you?
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="form-input"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div>
+              <label for="email" class="block text-lg font-medium mb-2 text-primary">
+                Where should we send your project roadmap?
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="form-input"
+                placeholder="your@email.com"
+              />
+              <p class="mt-2 text-sm text-gray-400">We'll respond within 24 hours, usually faster.</p>
+            </div>
+
+            <button type="button" class="btn-primary w-full" onclick="nextStep(2)">
+              Continue →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Your Project -->
+        <div class="form-step" data-step="2">
+          <div class="space-y-6">
+            <div>
+              <label for="project-description" class="block text-lg font-medium mb-2 text-primary">
+                Tell us your impossible idea
+              </label>
+              <textarea
+                id="project-description"
+                name="project-description"
+                required
+                rows="6"
+                class="form-input resize-none"
+                placeholder="Describe what you want to build. The crazier, the better. AI makes the impossible possible."
+              ></textarea>
+              <p class="mt-2 text-sm text-gray-400">
+                Be specific. Include goals, challenges, and any AI features you're considering.
+              </p>
+            </div>
+
+            <div class="flex gap-4">
+              <button type="button" class="btn-outline flex-1" onclick="prevStep(1)">
+                ← Back
+              </button>
+              <button type="button" class="btn-primary flex-1" onclick="nextStep(3)">
+                Continue →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Details -->
+        <div class="form-step" data-step="3">
+          <div class="space-y-6">
+            <div>
+              <label for="timeline" class="block text-lg font-medium mb-2 text-primary">
+                When do you need this?
+              </label>
+              <select id="timeline" name="timeline" required class="form-input">
+                <option value="">Select timeline</option>
+                <option value="asap">ASAP (1-2 weeks)</option>
+                <option value="1-3-months">1-3 months</option>
+                <option value="3-6-months">3-6 months</option>
+                <option value="exploring">Just exploring</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="budget" class="block text-lg font-medium mb-2 text-primary">
+                Budget range (optional)
+              </label>
+              <select id="budget" name="budget" class="form-input">
+                <option value="">Prefer not to say</option>
+                <option value="under-10k">Under $10k</option>
+                <option value="10k-50k">$10k - $50k</option>
+                <option value="50k-100k">$50k - $100k</option>
+                <option value="100k-plus">$100k+</option>
+              </select>
+              <p class="mt-2 text-sm text-gray-400">
+                Helps us prioritize and provide accurate estimates.
+              </p>
+            </div>
+
+            <div>
+              <label for="ai-tools" class="block text-lg font-medium mb-2 text-primary">
+                Do you currently use any AI tools?
+              </label>
+              <input
+                type="text"
+                id="ai-tools"
+                name="ai-tools"
+                class="form-input"
+                placeholder="e.g., ChatGPT, Midjourney, or None"
+              />
+            </div>
+
+            <div class="flex gap-4">
+              <button type="button" class="btn-outline flex-1" onclick="prevStep(2)">
+                ← Back
+              </button>
+              <button type="submit" class="btn-primary flex-1" id="submit-btn">
+                Send My Project →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy note -->
+        <p class="text-sm text-gray-400 text-center mt-8">
+          🔒 Your idea is safe. We sign NDAs. Always.
+        </p>
+      </form>
+
+      <!-- Success state (hidden initially) -->
+      <div id="success-message" class="hidden glass rounded-3xl p-12 text-center">
+        <div class="text-8xl mb-6">🎉</div>
+        <h3 class="text-4xl font-bold mb-4 gradient-text">Got It!</h3>
+        <p class="text-xl text-gray-300 mb-6">
+          We're analyzing your project with our AI tools right now.
+        </p>
+        <p class="text-lg text-gray-400">
+          Expect a detailed response within <span class="text-primary font-bold">24 hours</span>.
+          Usually much faster.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  let currentStep = 1;
+
+  function nextStep(step) {
+    // Validate current step
+    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    const inputs = currentStepEl.querySelectorAll('input[required], textarea[required], select[required]');
+    let valid = true;
+
+    inputs.forEach(input => {
+      if (!input.value.trim()) {
+        valid = false;
+        input.classList.add('border-error');
+        setTimeout(() => input.classList.remove('border-error'), 2000);
+      }
+    });
+
+    if (!valid) return;
+
+    // Hide current step
+    document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.step-indicator').forEach(el => el.classList.remove('active'));
+
+    // Show next step
+    document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+    document.querySelector(`.step-indicator[data-step="${step}"]`).classList.add('active');
+
+    currentStep = step;
+  }
+
+  function prevStep(step) {
+    document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.step-indicator').forEach(el => el.classList.remove('active'));
+
+    document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+    document.querySelector(`.step-indicator[data-step="${step}"]`).classList.add('active');
+
+    currentStep = step;
+  }
+
+  // Form submission
+  const form = document.getElementById('contact-form');
+  const successMessage = document.getElementById('success-message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    // Simulate submission (in production, would send to API)
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Show success message
+    form.classList.add('hidden');
+    successMessage.classList.remove('hidden');
+
+    // Particle explosion effect
+    createParticleExplosion();
+  });
+
+  function createParticleExplosion() {
+    const container = document.getElementById('contact');
+    const colors = ['#00f5ff', '#bf40ff', '#ff6b6b', '#ffd700'];
+
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.left = '50%';
+      particle.style.top = '50%';
+      particle.style.width = '10px';
+      particle.style.height = '10px';
+      particle.style.borderRadius = '50%';
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.pointerEvents = 'none';
+      particle.style.zIndex = '9999';
+
+      const angle = (Math.PI * 2 * i) / 50;
+      const velocity = 5 + Math.random() * 5;
+      const vx = Math.cos(angle) * velocity;
+      const vy = Math.sin(angle) * velocity;
+
+      container.appendChild(particle);
+
+      let x = 0, y = 0, opacity = 1;
+
+      const animate = () => {
+        x += vx;
+        y += vy;
+        opacity -= 0.02;
+
+        particle.style.transform = `translate(${x}px, ${y}px)`;
+        particle.style.opacity = opacity;
+
+        if (opacity > 0) {
+          requestAnimationFrame(animate);
+        } else {
+          particle.remove();
+        }
+      };
+
+      animate();
+    }
+  }
+</script>
+
+<style>
+  .form-input {
+    @apply w-full bg-surface border-2 border-elevated rounded-xl px-6 py-4 text-lg transition-all duration-300;
+    @apply focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary-dim;
+  }
+
+  .form-input.border-error {
+    @apply border-error;
+  }
+
+  .form-step {
+    display: none;
+  }
+
+  .form-step.active {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .step-indicator {
+    @apply flex flex-col items-center gap-2 flex-1;
+  }
+
+  .step-number {
+    @apply w-12 h-12 rounded-full border-2 border-elevated flex items-center justify-center font-bold transition-all duration-300;
+  }
+
+  .step-indicator.active .step-number {
+    @apply bg-primary text-void border-primary;
+  }
+
+  .step-label {
+    @apply text-sm text-gray-400;
+  }
+
+  .step-indicator.active .step-label {
+    @apply text-primary font-medium;
+  }
+
+  .step-divider {
+    @apply h-0.5 bg-elevated self-center flex-1 mx-2 mt-6;
+  }
+
+  @media (max-width: 640px) {
+    .step-label {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .form-step.active {
+      animation: none;
+    }
+  }
+</style>

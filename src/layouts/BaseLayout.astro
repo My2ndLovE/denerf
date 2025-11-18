@@ -1,0 +1,76 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "DeNeRF - AI-Augmented Development Studio",
+  description = "We build software 10x faster with AI. Full-stack development augmented by Claude, GPT-4, and custom AI models. Ship impossible projects."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>{title}</title>
+
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body>
+    <!-- Noise overlay for cinematic grain -->
+    <div class="noise-overlay"></div>
+
+    <!-- Main content -->
+    <slot />
+
+    <!-- Performance monitor (dev only) -->
+    <script>
+      if (import.meta.env.DEV) {
+        let lastTime = performance.now();
+        let frames = 0;
+        let fps = 60;
+
+        function checkFPS() {
+          const currentTime = performance.now();
+          frames++;
+
+          if (currentTime >= lastTime + 1000) {
+            fps = Math.round((frames * 1000) / (currentTime - lastTime));
+            frames = 0;
+            lastTime = currentTime;
+
+            if (fps < 50) {
+              console.warn(`FPS dropped to ${fps}`);
+            }
+          }
+
+          requestAnimationFrame(checkFPS);
+        }
+
+        checkFPS();
+      }
+    </script>
+  </body>
+</html>

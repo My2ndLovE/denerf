@@ -1,0 +1,112 @@
+---
+// Hero Section - "Liquid Intelligence"
+import ParticleLayer from '../ai/ParticleLayer.astro';
+---
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-void/50 to-void pointer-events-none"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 container-custom px-6 text-center">
+    <!-- Company name with glitch effect -->
+    <div class="mb-8">
+      <h1 class="text-hero md:text-8xl font-bold mb-4 relative inline-block">
+        <span class="gradient-text" data-text="DeNeRF">DeNeRF</span>
+      </h1>
+    </div>
+
+    <!-- Tagline -->
+    <h2 class="text-3xl md:text-5xl font-medium mb-6 text-glow">
+      Code That Thinks Ahead
+    </h2>
+
+    <!-- Sub-heading -->
+    <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+      AI-augmented development. Human-directed creativity. Impossibly fast results.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+      <a href="#contact" class="btn-primary text-lg">
+        Build Your Impossible Idea
+      </a>
+      <a href="#portfolio" class="btn-outline text-lg">
+        See What We've Built
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2">
+      <div class="w-6 h-10 border-2 border-primary rounded-full flex justify-center p-2">
+        <div class="w-1 h-3 bg-primary rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating particles -->
+  <ParticleLayer />
+</section>
+
+<script>
+  // Add parallax effect on scroll
+  const hero = document.getElementById('hero');
+
+  window.addEventListener('scroll', () => {
+    if (!hero) return;
+
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * 0.5;
+
+    hero.style.transform = `translate3d(0, ${rate}px, 0)`;
+  });
+
+  // Glitch effect for hero text
+  const heroText = document.querySelector('[data-text]') as HTMLElement;
+
+  if (heroText) {
+    setInterval(() => {
+      heroText.style.textShadow = `
+        ${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 0 rgba(0, 245, 255, 0.7),
+        ${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 0 rgba(191, 64, 255, 0.7)
+      `;
+
+      setTimeout(() => {
+        heroText.style.textShadow = '';
+      }, 50);
+    }, 3000);
+  }
+</script>
+
+<style>
+  /* Glitch effect */
+  [data-text] {
+    position: relative;
+    animation: glitch 5s infinite;
+  }
+
+  @keyframes glitch {
+    0%, 90%, 100% {
+      transform: translate(0);
+    }
+    92% {
+      transform: translate(-2px, 2px);
+    }
+    94% {
+      transform: translate(2px, -2px);
+    }
+    96% {
+      transform: translate(-2px, -2px);
+    }
+    98% {
+      transform: translate(2px, 2px);
+    }
+  }
+
+  /* Prevent glitch on reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    [data-text] {
+      animation: none;
+    }
+  }
+</style>

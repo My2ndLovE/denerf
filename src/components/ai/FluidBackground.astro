@@ -1,0 +1,50 @@
+---
+// Fluid background component with WebGL
+---
+
+<canvas id="fluid-canvas" class="fixed inset-0 w-full h-full -z-10"></canvas>
+
+<script>
+  import { FluidSimulation } from '../../scripts/ai/fluid-simulation';
+  import { adaptivePerformance } from '../../scripts/ai/adaptive';
+
+  const canvas = document.getElementById('fluid-canvas') as HTMLCanvasElement;
+
+  async function initFluid() {
+    // Detect device capability
+    await adaptivePerformance.detectCapability();
+    const quality = adaptivePerformance.getQualitySettings();
+
+    if (quality.enableFluidSimulation && canvas) {
+      const fluid = new FluidSimulation(canvas);
+      fluid.start();
+
+      // Cleanup on page unload
+      window.addEventListener('beforeunload', () => {
+        fluid.destroy();
+      });
+    } else {
+      // Fallback: Simple gradient background
+      canvas.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)';
+    }
+  }
+
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFluid);
+  } else {
+    initFluid();
+  }
+</script>
+
+<style>
+  #fluid-canvas {
+    pointer-events: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #fluid-canvas {
+      display: none;
+    }
+  }
+</style>

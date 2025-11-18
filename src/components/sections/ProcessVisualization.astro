@@ -1,0 +1,186 @@
+---
+// Process/Philosophy Section - "Interactive Canvas Playground"
+---
+
+<section id="process" class="section relative neural-grid">
+  <div class="container-custom">
+    <!-- Section header -->
+    <div class="text-center mb-24">
+      <h2 class="text-5xl md:text-6xl font-bold mb-6 gradient-text">
+        AI Amplifies. Humans Direct.
+      </h2>
+      <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+        Watch how AI transforms ideas into code in real-time. Try it yourself.
+      </p>
+    </div>
+
+    <!-- Interactive playground -->
+    <div class="max-w-5xl mx-auto glass rounded-3xl p-8 md:p-12">
+      <div class="mb-8">
+        <label for="prompt-input" class="block text-lg font-medium mb-4 text-primary">
+          Describe what you want to build:
+        </label>
+        <input
+          id="prompt-input"
+          type="text"
+          placeholder="e.g., A dashboard that shows real-time analytics..."
+          class="w-full bg-surface border-2 border-primary-dim rounded-xl px-6 py-4 text-lg focus:border-primary focus:outline-none transition-colors"
+        />
+      </div>
+
+      <!-- Visualization area -->
+      <div id="visualization-area" class="relative h-96 bg-surface rounded-xl overflow-hidden border-2 border-elevated">
+        <canvas id="process-canvas" class="absolute inset-0 w-full h-full"></canvas>
+
+        <!-- Overlay text -->
+        <div id="process-overlay" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <p class="text-gray-500 text-xl">Start typing to see the magic...</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-6 mt-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-primary mb-2" id="stat-speed">10x</div>
+          <div class="text-sm text-gray-400">Faster Development</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-accent mb-2" id="stat-iterations">50+</div>
+          <div class="text-sm text-gray-400">Iterations Per Hour</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-coral mb-2" id="stat-quality">98%</div>
+          <div class="text-sm text-gray-400">Code Quality Score</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process steps -->
+    <div class="grid md:grid-cols-3 gap-8 mt-24">
+      <div class="card text-center">
+        <div class="text-6xl mb-6">🧠</div>
+        <h3 class="text-2xl font-bold mb-4 text-primary">Human Creativity</h3>
+        <p class="text-gray-300">
+          You bring the vision, strategy, and creative direction. AI can't replace human insight.
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div class="text-6xl mb-6">⚡</div>
+        <h3 class="text-2xl font-bold mb-4 text-accent">AI Acceleration</h3>
+        <p class="text-gray-300">
+          AI generates code, explores variations, catches bugs, and handles repetitive tasks instantly.
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div class="text-6xl mb-6">🚀</div>
+        <h3 class="text-2xl font-bold mb-4 text-golden">Impossible Results</h3>
+        <p class="text-gray-300">
+          What used to take weeks now takes hours. Ship faster without compromising quality.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const input = document.getElementById('prompt-input') as HTMLInputElement;
+  const canvas = document.getElementById('process-canvas') as HTMLCanvasElement;
+  const overlay = document.getElementById('process-overlay') as HTMLElement;
+  const ctx = canvas.getContext('2d');
+
+  if (!ctx) throw new Error('Canvas context not available');
+
+  // Set canvas size
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * (window.devicePixelRatio || 1);
+    canvas.height = rect.height * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Generative visualization based on input
+  let animationFrame: number | null = null;
+  let nodes: Array<{ x: number; y: number; vx: number; vy: number; size: number; }> = [];
+
+  function generateNodes(text: string) {
+    const count = Math.min(text.length, 50);
+    nodes = [];
+
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2,
+        size: Math.random() * 4 + 2,
+      });
+    }
+  }
+
+  function animate() {
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Update and draw nodes
+    nodes.forEach((node, i) => {
+      node.x += node.vx;
+      node.y += node.vy;
+
+      // Bounce off edges
+      if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+      if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+      // Draw node
+      ctx.fillStyle = `rgba(0, 245, 255, 0.8)`;
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw connections
+      nodes.forEach((other, j) => {
+        if (i === j) return;
+        const dx = other.x - node.x;
+        const dy = other.y - node.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 100) {
+          ctx.strokeStyle = `rgba(191, 64, 255, ${(1 - dist / 100) * 0.3})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(other.x, other.y);
+          ctx.stroke();
+        }
+      });
+    });
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+
+  input.addEventListener('input', (e) => {
+    const text = (e.target as HTMLInputElement).value;
+
+    if (text.length > 0) {
+      overlay.style.opacity = '0';
+      generateNodes(text);
+
+      if (animationFrame === null) {
+        animate();
+      }
+    } else {
+      overlay.style.opacity = '1';
+      nodes = [];
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  });
+</script>

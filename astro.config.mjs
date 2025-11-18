@@ -1,0 +1,24 @@
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+
+export default defineConfig({
+  integrations: [tailwind()],
+  output: 'static',
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'three': ['three'],
+            'gsap': ['gsap'],
+          },
+        },
+      },
+    },
+  },
+});

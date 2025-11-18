@@ -1,0 +1,51 @@
+---
+// Particle layer component
+---
+
+<canvas id="particle-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+<script>
+  import { ParticleSystem } from '../../scripts/animations/particles';
+  import { adaptivePerformance } from '../../scripts/ai/adaptive';
+
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+
+  async function initParticles() {
+    // Wait for capability detection
+    await adaptivePerformance.detectCapability();
+    const particleCount = adaptivePerformance.getParticleCount();
+
+    if (particleCount > 0 && canvas) {
+      const particles = new ParticleSystem(canvas, particleCount);
+      particles.start();
+
+      // Add some initial particles
+      for (let i = 0; i < particleCount / 2; i++) {
+        particles.spawnParticles(
+          Math.random() * window.innerWidth,
+          Math.random() * window.innerHeight,
+          1
+        );
+      }
+
+      // Cleanup
+      window.addEventListener('beforeunload', () => {
+        particles.destroy();
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initParticles);
+  } else {
+    initParticles();
+  }
+</script>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    #particle-canvas {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+// Chapter 4: THE INTELLIGENCE - "Constellation of Intelligence"
+// AI tools as stars/planets in space
+
+const aiTools = [
+  {
+    id: 'claude',
+    name: 'Claude Sonnet 3.5',
+    category: 'development',
+    role: 'Architecture & Code Generation',
+    usage: 'Daily',
+    example: 'Generates full API endpoints with tests in minutes',
+    size: 'large'
+  },
+  {
+    id: 'copilot',
+    name: 'GitHub Copilot',
+    category: 'development',
+    role: 'Pair Programming',
+    usage: 'Continuous',
+    example: 'Autocomplete on steroids, suggests optimizations',
+    size: 'large'
+  },
+  {
+    id: 'midjourney',
+    name: 'Midjourney v6',
+    category: 'design',
+    role: 'Concept Exploration',
+    usage: 'Weekly',
+    example: 'Explores 100 logo variations in an afternoon',
+    size: 'medium'
+  },
+  {
+    id: 'gpt4',
+    name: 'GPT-4',
+    category: 'development',
+    role: 'Code & Content Generation',
+    usage: 'Daily',
+    example: 'Writes documentation, tests, and boilerplate',
+    size: 'large'
+  },
+  {
+    id: 'dalle',
+    name: 'DALL-E 3',
+    category: 'design',
+    role: 'Custom Illustrations',
+    usage: 'Project-specific',
+    example: 'On-brand illustrations in any style',
+    size: 'medium'
+  },
+  {
+    id: 'runway',
+    name: 'Runway ML',
+    category: 'design',
+    role: 'Video & Motion',
+    usage: 'Project-specific',
+    example: 'AI-powered video editing cuts time 80%',
+    size: 'small'
+  }
+];
+---
+
+<section
+  id="ai-stack"
+  class="section min-h-screen relative overflow-hidden"
+  aria-label="AI Stack - The Intelligence"
+>
+  <!-- Constellation Canvas -->
+  <div id="constellation-canvas" class="absolute inset-0 z-0" aria-hidden="true"></div>
+
+  <div class="container relative z-10">
+    <h2 class="text-5xl font-bold text-center mb-8 text-gradient">
+      Meet Our AI Collaborators
+    </h2>
+    <p class="text-xl text-text-secondary text-center mb-24 max-w-2xl mx-auto">
+      These aren't just tools. They're team members with specific strengths.
+    </p>
+
+    <!-- AI Tools Grid (fallback for non-canvas) -->
+    <div class="ai-tools-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {aiTools.map((tool) => (
+        <article
+          class="ai-tool-card glass p-6 rounded-lg group hover:border-primary transition-all duration-300"
+          data-tool-id={tool.id}
+          data-category={tool.category}
+        >
+          <!-- Tool Icon -->
+          <div class={`w-16 h-16 mb-4 rounded-full bg-gradient-to-br ${
+            tool.category === 'development' ? 'from-primary to-accent' : 'from-accent to-primary'
+          } flex items-center justify-center text-2xl`}>
+            {tool.category === 'development' ? '⚡' : '🎨'}
+          </div>
+
+          <!-- Tool Info -->
+          <h3 class="text-xl font-semibold mb-2">{tool.name}</h3>
+          <p class="text-sm text-primary mb-3">{tool.role}</p>
+          <p class="text-sm text-text-tertiary mb-4">{tool.example}</p>
+
+          <!-- Usage Badge -->
+          <div class="flex items-center gap-2">
+            <span class={`text-xs px-3 py-1 rounded-full ${
+              tool.usage === 'Daily' || tool.usage === 'Continuous'
+                ? 'bg-success/20 text-success'
+                : 'bg-primary/20 text-primary'
+            }`}>
+              {tool.usage}
+            </span>
+          </div>
+
+          <!-- Expand Button -->
+          <button
+            class="mt-4 text-sm text-text-secondary hover:text-primary transition-colors opacity-0 group-hover:opacity-100"
+            aria-label={`Learn more about ${tool.name}`}
+          >
+            Learn More →
+          </button>
+        </article>
+      ))}
+    </div>
+
+    <!-- Category Legend -->
+    <div class="flex justify-center gap-8 mt-16">
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-primary"></div>
+        <span class="text-sm text-text-secondary">Development AI</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-accent"></div>
+        <span class="text-sm text-text-secondary">Design AI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initConstellation } from '../../scripts/ai/constellation.ts';
+  document.addEventListener('DOMContentLoaded', () => {
+    initConstellation();
+  });
+</script>
+
+<style>
+  .ai-tool-card {
+    border: 1px solid transparent;
+  }
+
+  .ai-tool-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px var(--color-primary-glow);
+  }
+</style>

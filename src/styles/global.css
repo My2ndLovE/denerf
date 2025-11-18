@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties - Neural Noir Design System */
+:root {
+  /* Colors */
+  --color-void: #0a0a0a;
+  --color-surface: #1a1a1a;
+  --color-elevated: #2a2a2a;
+
+  --color-primary: #00f5ff;
+  --color-primary-glow: #00f5ff80;
+  --color-primary-dim: #00f5ff40;
+
+  --color-accent: #bf40ff;
+  --color-accent-glow: #bf40ff80;
+  --color-accent-dim: #bf40ff40;
+
+  --color-success: #00ff88;
+  --color-warning: #ffaa00;
+  --color-error: #ff0055;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0a0;
+  --color-text-tertiary: #606060;
+
+  /* Typography */
+  --font-display: 'Inter Variable', 'SF Pro Display', system-ui;
+  --font-body: 'Inter Variable', system-ui;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --space-48: 12rem;
+
+  /* Timing */
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* Improve text rendering */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+}
+
+/* Component Layer */
+@layer components {
+  /* Text Gradient Effect */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow Effect */
+  .glow {
+    filter: drop-shadow(0 0 10px var(--color-primary-glow));
+  }
+
+  .glow-accent {
+    filter: drop-shadow(0 0 10px var(--color-accent-glow));
+  }
+
+  /* Glass Morphism */
+  .glass {
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Neural Network Grid Background */
+  .neural-grid {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        var(--color-elevated) 50px,
+        var(--color-elevated) 51px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        var(--color-elevated) 50px,
+        var(--color-elevated) 51px
+      );
+  }
+
+  /* Section Container */
+  .section {
+    padding: var(--space-32) var(--space-8);
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: var(--space-16) var(--space-4);
+    }
+  }
+
+  /* Container */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-8);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 var(--space-4);
+    }
+  }
+}
+
+/* Utilities */
+@layer utilities {
+  /* Animation utilities */
+  .animate-smooth {
+    transition: all var(--duration-base) var(--easing-smooth);
+  }
+
+  .animate-bounce-ease {
+    transition: all var(--duration-base) var(--easing-bounce);
+  }
+
+  /* Hidden but accessible */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* Reduced Motion Support - Critical for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Hide decorative animations */
+  .particle-system,
+  .fluid-background,
+  .neural-animation {
+    display: none;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #00ffff;
+    --color-accent: #ff00ff;
+    --color-text-primary: #ffffff;
+    --color-void: #000000;
+  }
+}
+
+/* Dark mode (always on, but structure for potential light mode) */
+@media (prefers-color-scheme: dark) {
+  /* Already dark by default */
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

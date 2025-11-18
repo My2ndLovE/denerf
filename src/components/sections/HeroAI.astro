@@ -1,0 +1,78 @@
+---
+// Chapter 1: THE AWAKENING - "Neural Genesis"
+// Neural network materializes from center, company name forms from connections
+---
+
+<section
+  id="hero"
+  class="section min-h-screen flex items-center justify-center relative"
+  aria-label="Hero - The Awakening"
+>
+  <div class="container relative z-10">
+    <!-- 3D Neural Network Canvas (Three.js) -->
+    <div
+      id="neural-network-canvas"
+      class="absolute inset-0 z-0"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Hero Content -->
+    <div class="text-center relative z-10">
+      <!-- Company Name (forms from neural connections) -->
+      <h1 class="text-hero font-bold text-gradient mb-8 opacity-0" id="hero-title">
+        DeNeRF
+      </h1>
+
+      <!-- Tagline -->
+      <p class="text-2xl text-text-secondary max-w-3xl mx-auto mb-12 opacity-0" id="hero-tagline">
+        Building Tomorrow With AI Today
+      </p>
+
+      <!-- Subheading -->
+      <p class="text-lg text-text-tertiary max-w-2xl mx-auto mb-16 opacity-0" id="hero-subtitle">
+        Full-stack development accelerated by Claude, GPT-4, and custom AI models
+      </p>
+
+      <!-- Scroll Indicator -->
+      <div class="flex flex-col items-center gap-4 opacity-0" id="scroll-indicator">
+        <span class="text-sm text-text-secondary">Explore the Future</span>
+        <svg
+          class="w-6 h-6 text-primary animate-bounce"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Import and initialize neural network visualization
+  import { initHeroNeuralNetwork } from '../../scripts/ai/neural-viz.ts';
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    initHeroNeuralNetwork();
+  });
+</script>
+
+<style>
+  #hero {
+    background: radial-gradient(circle at 50% 50%, var(--color-surface) 0%, var(--color-void) 100%);
+  }
+
+  /* Responsive typography */
+  @media (max-width: 768px) {
+    #hero h1 {
+      font-size: 3.5rem;
+    }
+
+    #hero p {
+      font-size: 1.25rem;
+    }
+  }
+</style>

@@ -1,0 +1,187 @@
+---
+// Chapter 3: THE PROOF - "Adaptive Grid Intelligence"
+// Portfolio grid that reorganizes and predicts clicks
+
+const projects = [
+  {
+    id: 1,
+    name: 'AI Analytics Dashboard',
+    image: '/projects/analytics.jpg',
+    aiInvolvement: 'Claude generated data visualization logic',
+    techStack: ['Next.js', 'Claude', 'D3.js', 'PostgreSQL'],
+    metric: 'Completed in 2 weeks vs estimated 6 weeks',
+    aiLevel: 'ai-assisted'
+  },
+  {
+    id: 2,
+    name: 'E-commerce Platform',
+    image: '/projects/ecommerce.jpg',
+    aiInvolvement: 'GPT-4 for product descriptions, Claude for backend',
+    techStack: ['React', 'GPT-4', 'Node.js', 'Stripe'],
+    metric: '1000+ products launched in 1 week',
+    aiLevel: 'ai-assisted'
+  },
+  {
+    id: 3,
+    name: 'Marketing Website',
+    image: '/projects/marketing.jpg',
+    aiInvolvement: 'Midjourney for all imagery, AI copywriting',
+    techStack: ['Astro', 'Midjourney', 'Tailwind', 'GSAP'],
+    metric: '50 design variations explored',
+    aiLevel: 'ai-generated'
+  },
+  {
+    id: 4,
+    name: 'Mobile App',
+    image: '/projects/mobile.jpg',
+    aiInvolvement: 'Claude for React Native components',
+    techStack: ['React Native', 'Claude', 'Expo', 'Firebase'],
+    metric: '70% faster development cycle',
+    aiLevel: 'ai-assisted'
+  },
+  {
+    id: 5,
+    name: 'SaaS Application',
+    image: '/projects/saas.jpg',
+    aiInvolvement: 'Full-stack AI augmentation',
+    techStack: ['Next.js', 'Claude', 'GPT-4', 'Vercel'],
+    metric: 'MVP to production in 4 weeks',
+    aiLevel: 'ai-optimized'
+  },
+  {
+    id: 6,
+    name: 'Brand Identity System',
+    image: '/projects/brand.jpg',
+    aiInvolvement: 'Midjourney for logo exploration, AI design system',
+    techStack: ['Figma', 'Midjourney', 'Claude', 'Tailwind'],
+    metric: '100+ logo variations in 1 day',
+    aiLevel: 'ai-generated'
+  }
+];
+---
+
+<section
+  id="portfolio"
+  class="section min-h-screen relative"
+  aria-label="Portfolio - The Proof"
+>
+  <div class="container">
+    <h2 class="text-5xl font-bold text-center mb-8 text-gradient">
+      What AI Enables
+    </h2>
+    <p class="text-xl text-text-secondary text-center mb-16 max-w-2xl mx-auto">
+      Real projects. Real impact. Real innovation.
+    </p>
+
+    <!-- Filter Controls -->
+    <div class="flex justify-center gap-4 mb-16 flex-wrap">
+      <button class="filter-btn active" data-filter="all">
+        All Projects
+      </button>
+      <button class="filter-btn" data-filter="ai-generated">
+        AI-Generated
+      </button>
+      <button class="filter-btn" data-filter="ai-assisted">
+        AI-Assisted
+      </button>
+      <button class="filter-btn" data-filter="ai-optimized">
+        AI-Optimized
+      </button>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project) => (
+        <article
+          class="project-card glass rounded-lg overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-105"
+          data-ai-level={project.aiLevel}
+          data-project-id={project.id}
+        >
+          <!-- Project Image -->
+          <div class="relative h-64 bg-elevated overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
+            <span class="absolute inset-0 flex items-center justify-center text-6xl opacity-20">
+              🚀
+            </span>
+          </div>
+
+          <!-- Project Info -->
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-3">{project.name}</h3>
+
+            <p class="text-sm text-primary mb-4">
+              {project.aiInvolvement}
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.techStack.map((tech) => (
+                <span class="text-xs px-2 py-1 rounded bg-elevated text-text-secondary">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <p class="text-sm text-text-tertiary mb-4">
+              📊 {project.metric}
+            </p>
+
+            <button class="text-sm text-primary hover:text-accent transition-colors">
+              View Details →
+            </button>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .filter-btn {
+    @apply px-6 py-2 rounded-full bg-elevated text-text-secondary transition-all duration-300;
+  }
+
+  .filter-btn.active {
+    @apply bg-primary text-void;
+  }
+
+  .filter-btn:hover:not(.active) {
+    @apply bg-surface text-text-primary;
+  }
+
+  .project-card {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .project-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  // Filter functionality
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter projects
+      projectCards.forEach(card => {
+        const aiLevel = card.getAttribute('data-ai-level');
+        if (filter === 'all' || aiLevel === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

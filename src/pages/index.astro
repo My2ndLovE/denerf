@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroAI from '../components/sections/HeroAI.astro';
+import ProcessVisualization from '../components/sections/ProcessVisualization.astro';
+import PortfolioGrid from '../components/sections/PortfolioGrid.astro';
+import AIStackShowcase from '../components/sections/AIStackShowcase.astro';
+import FutureInvitation from '../components/sections/FutureInvitation.astro';
+---
+
+<BaseLayout>
+  <main class="relative overflow-hidden">
+    <!-- Neural Background (will be implemented with Canvas/WebGL) -->
+    <div id="neural-background" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Content Sections -->
+    <div class="relative z-10">
+      <!-- Chapter 1: THE AWAKENING -->
+      <HeroAI />
+
+      <!-- Chapter 2: THE COLLABORATION -->
+      <ProcessVisualization />
+
+      <!-- Chapter 3: THE PROOF -->
+      <PortfolioGrid />
+
+      <!-- Chapter 4: THE INTELLIGENCE -->
+      <AIStackShowcase />
+
+      <!-- Chapter 5: THE INVITATION -->
+      <FutureInvitation />
+    </div>
+  </main>
+
+  <!-- Scripts for interactive elements -->
+  <script>
+    // Initialize neural background
+    import('../scripts/ai/neural-viz.ts').then((module) => {
+      module.initNeuralBackground();
+    });
+
+    // Initialize custom cursor
+    import('../scripts/animations/cursor.ts').then((module) => {
+      module.initSmartCursor();
+    });
+
+    // Initialize scroll animations
+    import('../scripts/animations/scroll-magic.ts').then((module) => {
+      module.initScrollAnimations();
+    });
+  </script>
+</BaseLayout>

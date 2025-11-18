@@ -544,6 +544,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.liquidCursor = new LiquidCursor();
 
     // Console message
-    console.log('%c🌊 Denerf - Liquid Canvas Theme', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
+    console.log('%cDenerf - Liquid Canvas Theme', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
     console.log('%cBuilt with AI-powered creativity', 'color: #ffd23f; font-size: 14px;');
 });

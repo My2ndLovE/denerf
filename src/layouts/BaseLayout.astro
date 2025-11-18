@@ -1,0 +1,148 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Denerf Agency - Performance-First Web Development',
+  description = 'Award-winning web development agency creating high-performance, beautifully crafted digital experiences with modern technologies.',
+  image = '/og-image.jpg',
+  canonical = Astro.url.href,
+} = Astro.props;
+
+const siteUrl = 'https://denerf-agency.com';
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${image}`} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={`${siteUrl}${image}`} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Denerf Agency",
+      "description": description,
+      "url": siteUrl,
+      "logo": `${siteUrl}/logo.svg`,
+      "sameAs": [
+        "https://github.com/denerf",
+        "https://twitter.com/denerf"
+      ]
+    })} />
+
+    <!-- View Transitions -->
+    <ViewTransitions />
+  </head>
+  <body class="antialiased">
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="custom-cursor hidden md:block"></div>
+
+    <!-- Main Content -->
+    <slot />
+
+    <!-- Smooth Scroll Script (Lenis) -->
+    <script>
+      import Lenis from 'lenis';
+
+      // Initialize Lenis smooth scroll
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true,
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+
+      // Expose lenis to window for GSAP integration
+      (window as any).lenis = lenis;
+    </script>
+
+    <!-- Custom Cursor Script -->
+    <script>
+      // Custom cursor that follows mouse
+      const cursor = document.getElementById('custom-cursor');
+
+      if (cursor) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        // Smooth cursor movement
+        function animateCursor() {
+          const dx = mouseX - cursorX;
+          const dy = mouseY - cursorY;
+
+          cursorX += dx * 0.1;
+          cursorY += dy * 0.1;
+
+          cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+          requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Expand cursor on hover over interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
+
+        interactiveElements.forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            cursor.classList.add('expand');
+          });
+
+          el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('expand');
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

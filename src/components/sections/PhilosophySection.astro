@@ -1,0 +1,245 @@
+---
+// Philosophy section with horizontal scroll and pinning
+---
+
+<section id="philosophy" class="relative bg-space-600 section-padding overflow-hidden">
+  <div class="container-custom">
+    <!-- Section Header -->
+    <div class="max-w-3xl mb-96">
+      <h2 class="text-4xl md:text-5xl font-bold mb-24" data-animate="slide-up">
+        Our <span class="gradient-text">Philosophy</span>
+      </h2>
+      <p class="text-xl text-neutral-light/70 leading-relaxed" data-animate="fade-in" data-delay="0.2">
+        We believe that performance is a feature, not an afterthought. Every pixel, every
+        interaction, every millisecond matters.
+      </p>
+    </div>
+
+    <!-- Horizontal Scroll Container -->
+    <div class="horizontal-scroll-wrapper" id="horizontal-section">
+      <div class="horizontal-scroll-container flex gap-32">
+        <!-- Principle 1 -->
+        <div class="principle-card flex-shrink-0 w-full md:w-[450px]">
+          <div class="glass p-32 rounded-3xl h-full flex flex-col justify-between min-h-[400px]">
+            <div>
+              <div class="w-64 h-64 mb-24 flex items-center justify-center bg-electric-500/10 rounded-2xl">
+                <svg
+                  class="w-32 h-32 text-electric-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-16 text-electric-500">Performance-First</h3>
+              <p class="text-neutral-light/80 leading-relaxed">
+                We optimize for speed from day one. < 1s load times aren't a goal—they're a
+                requirement. Your users deserve instant experiences.
+              </p>
+            </div>
+            <div class="mt-24 pt-24 border-t border-neutral-light/10">
+              <span class="text-sm text-neutral-light/50 uppercase tracking-wider">Principle 01</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Principle 2 -->
+        <div class="principle-card flex-shrink-0 w-full md:w-[450px]">
+          <div class="glass p-32 rounded-3xl h-full flex flex-col justify-between min-h-[400px]">
+            <div>
+              <div class="w-64 h-64 mb-24 flex items-center justify-center bg-neon-500/10 rounded-2xl">
+                <svg
+                  class="w-32 h-32 text-neon-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-16 text-neon-500">Design with Intent</h3>
+              <p class="text-neutral-light/80 leading-relaxed">
+                Every design choice has a purpose. We craft interfaces that guide users naturally,
+                making complex interactions feel effortless.
+              </p>
+            </div>
+            <div class="mt-24 pt-24 border-t border-neutral-light/10">
+              <span class="text-sm text-neutral-light/50 uppercase tracking-wider">Principle 02</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Principle 3 -->
+        <div class="principle-card flex-shrink-0 w-full md:w-[450px]">
+          <div class="glass p-32 rounded-3xl h-full flex flex-col justify-between min-h-[400px]">
+            <div>
+              <div class="w-64 h-64 mb-24 flex items-center justify-center bg-electric-500/10 rounded-2xl">
+                <svg
+                  class="w-32 h-32 text-electric-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-16 text-electric-500">Code as Craft</h3>
+              <p class="text-neutral-light/80 leading-relaxed">
+                Clean, maintainable code isn't optional. We write code that future developers
+                (including ourselves) will thank us for.
+              </p>
+            </div>
+            <div class="mt-24 pt-24 border-t border-neutral-light/10">
+              <span class="text-sm text-neutral-light/50 uppercase tracking-wider">Principle 03</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Principle 4 -->
+        <div class="principle-card flex-shrink-0 w-full md:w-[450px]">
+          <div class="glass p-32 rounded-3xl h-full flex flex-col justify-between min-h-[400px]">
+            <div>
+              <div class="w-64 h-64 mb-24 flex items-center justify-center bg-neon-500/10 rounded-2xl">
+                <svg
+                  class="w-32 h-32 text-neon-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-16 text-neon-500">Innovation Meets Pragmatism</h3>
+              <p class="text-neutral-light/80 leading-relaxed">
+                We use cutting-edge tech when it solves real problems, not just because it's trendy.
+                Your project gets the right tools, not the shiniest.
+              </p>
+            </div>
+            <div class="mt-24 pt-24 border-t border-neutral-light/10">
+              <span class="text-sm text-neutral-light/50 uppercase tracking-wider">Principle 04</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initPhilosophyAnimations() {
+    // Horizontal scroll effect
+    const horizontalSection = document.querySelector('#horizontal-section');
+    const scrollContainer = document.querySelector('.horizontal-scroll-container');
+
+    if (horizontalSection && scrollContainer) {
+      const scrollWidth = scrollContainer.scrollWidth - window.innerWidth;
+
+      // Only apply horizontal scroll on desktop
+      if (window.innerWidth >= 768) {
+        gsap.to(scrollContainer, {
+          x: -scrollWidth,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#philosophy',
+            pin: true,
+            scrub: 1,
+            end: () => `+=${scrollWidth}`,
+            invalidateOnRefresh: true,
+          },
+        });
+      }
+    }
+
+    // Animate principle cards
+    const cards = document.querySelectorAll('.principle-card');
+    cards.forEach((card, index) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        delay: index * 0.1,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+        },
+      });
+    });
+
+    // Slide up animations
+    const slideUpElements = document.querySelectorAll('[data-animate="slide-up"]');
+    slideUpElements.forEach((element) => {
+      gsap.from(element, {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+        },
+      });
+    });
+
+    // Fade in animations
+    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
+    fadeInElements.forEach((element) => {
+      const delay = parseFloat(element.getAttribute('data-delay') || '0');
+      gsap.from(element, {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: delay,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+        },
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initPhilosophyAnimations);
+
+  // Refresh on resize
+  window.addEventListener('resize', () => {
+    ScrollTrigger.refresh();
+  });
+</script>
+
+<style>
+  /* Mobile: vertical scroll */
+  @media (max-width: 767px) {
+    .horizontal-scroll-container {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .principle-card {
+      width: 100% !important;
+    }
+  }
+</style>

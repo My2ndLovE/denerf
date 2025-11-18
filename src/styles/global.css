@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Inter Variable font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@layer base {
+  /* CSS Variables for easy theming */
+  :root {
+    --color-space: #0A0E27;
+    --color-electric: #00D9FF;
+    --color-neon: #39FF14;
+    --color-neutral-light: #F8F9FA;
+    --color-neutral-dark: #1A1D29;
+  }
+
+  /* Base styles */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-space-500 text-neutral-light font-sans;
+    overscroll-behavior: none;
+  }
+
+  /* Smooth scroll with Lenis */
+  html.lenis {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-electric-500 text-space-500;
+  }
+}
+
+@layer components {
+  /* Glass morphism utility */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-electric-500 to-neon-500 bg-clip-text text-transparent;
+  }
+
+  /* Magnetic button effect (enhanced by JS) */
+  .magnetic {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Custom cursor styles */
+  .custom-cursor {
+    width: 8px;
+    height: 8px;
+    background: var(--color-electric);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .custom-cursor.expand {
+    transform: scale(4);
+    background: rgba(0, 217, 255, 0.3);
+  }
+
+  /* Section padding */
+  .section-padding {
+    @apply py-96 md:py-128;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-16 md:px-24 lg:px-32;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Text reveal animation helper */
+  .split-text {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .split-text span {
+    display: inline-block;
+  }
+}
+
+/* Blob background animation */
+@keyframes blob {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+.blob {
+  animation: blob 7s ease-in-out infinite;
+  filter: blur(40px);
+}

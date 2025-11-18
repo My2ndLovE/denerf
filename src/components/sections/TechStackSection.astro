@@ -1,0 +1,246 @@
+---
+// Tech Stack section with animated constellation of technologies
+const technologies = [
+  { name: 'Astro', category: 'Framework', color: 'electric' },
+  { name: 'React', category: 'Library', color: 'electric' },
+  { name: 'Next.js', category: 'Framework', color: 'electric' },
+  { name: 'TypeScript', category: 'Language', color: 'neon' },
+  { name: 'Tailwind', category: 'Styling', color: 'electric' },
+  { name: 'GSAP', category: 'Animation', color: 'neon' },
+  { name: 'Three.js', category: '3D', color: 'neon' },
+  { name: 'Node.js', category: 'Runtime', color: 'electric' },
+  { name: 'PostgreSQL', category: 'Database', color: 'neon' },
+  { name: 'Docker', category: 'DevOps', color: 'electric' },
+  { name: 'Vercel', category: 'Hosting', color: 'neon' },
+  { name: 'Figma', category: 'Design', color: 'electric' },
+];
+---
+
+<section id="tech-stack" class="relative section-padding bg-space-600 overflow-hidden">
+  <div class="container-custom">
+    <!-- Section Header -->
+    <div class="max-w-3xl mb-96">
+      <h2 class="text-4xl md:text-5xl font-bold mb-24" data-animate="slide-up">
+        Our <span class="gradient-text">Tech Stack</span>
+      </h2>
+      <p class="text-xl text-neutral-light/70 leading-relaxed" data-animate="fade-in" data-delay="0.2">
+        We use the best tools for the job. Our stack is curated for performance, developer
+        experience, and future-proofing.
+      </p>
+    </div>
+
+    <!-- Tech Grid with Animation -->
+    <div class="relative">
+      <!-- Canvas for constellation lines -->
+      <canvas
+        id="tech-constellation"
+        class="absolute inset-0 pointer-events-none z-0"
+        style="mix-blend-mode: screen;"
+      >
+      </canvas>
+
+      <!-- Tech Items -->
+      <div class="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 md:gap-24">
+        {
+          technologies.map((tech, index) => (
+            <div
+              class="tech-item glass p-24 rounded-2xl text-center hover:scale-105 transition-all duration-300 cursor-pointer group"
+              data-tech-index={index}
+              data-category={tech.category}
+            >
+              <div
+                class={`w-16 h-16 mx-auto mb-16 rounded-full ${tech.color === 'electric' ? 'bg-electric-500/20 group-hover:bg-electric-500/40' : 'bg-neon-500/20 group-hover:bg-neon-500/40'} transition-all duration-300`}
+              />
+              <h3
+                class={`font-bold text-lg mb-4 ${tech.color === 'electric' ? 'text-electric-500' : 'text-neon-500'}`}
+              >
+                {tech.name}
+              </h3>
+              <p class="text-xs text-neutral-light/50 uppercase tracking-wider">{tech.category}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="mt-96 grid grid-cols-1 md:grid-cols-3 gap-32">
+      <!-- Stat 1 -->
+      <div class="text-center" data-counter>
+        <div class="text-5xl md:text-6xl font-bold gradient-text mb-8" data-target="100">0</div>
+        <p class="text-neutral-light/70">Projects Delivered</p>
+      </div>
+      <!-- Stat 2 -->
+      <div class="text-center" data-counter>
+        <div class="text-5xl md:text-6xl font-bold gradient-text mb-8" data-target="98">0</div>
+        <p class="text-neutral-light/70">Average Lighthouse Score</p>
+      </div>
+      <!-- Stat 3 -->
+      <div class="text-center" data-counter>
+        <div class="text-5xl md:text-6xl font-bold gradient-text mb-8" data-target="50">0</div>
+        <p class="text-neutral-light/70">Happy Clients</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initTechStackAnimations() {
+    // Stagger animation for tech items
+    const techItems = document.querySelectorAll('.tech-item');
+
+    gsap.from(techItems, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.6,
+      stagger: 0.05,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: '.tech-item',
+        start: 'top 80%',
+      },
+    });
+
+    // Draw constellation lines on canvas
+    const canvas = document.getElementById('tech-constellation') as HTMLCanvasElement;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Set canvas size
+      function resizeCanvas() {
+        const parent = canvas.parentElement;
+        if (parent) {
+          canvas.width = parent.offsetWidth;
+          canvas.height = parent.offsetHeight;
+        }
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Get positions of tech items
+      function drawConstellation() {
+        if (!ctx) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const items = Array.from(techItems);
+        const positions = items.map((item) => {
+          const rect = item.getBoundingClientRect();
+          const parentRect = canvas.getBoundingClientRect();
+          return {
+            x: rect.left - parentRect.left + rect.width / 2,
+            y: rect.top - parentRect.top + rect.height / 2,
+          };
+        });
+
+        // Draw lines between nearby items
+        ctx.strokeStyle = 'rgba(0, 217, 255, 0.15)';
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i < positions.length; i++) {
+          for (let j = i + 1; j < positions.length; j++) {
+            const dx = positions[j].x - positions[i].x;
+            const dy = positions[j].y - positions[i].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Only draw lines between nearby items
+            if (distance < 200) {
+              ctx.beginPath();
+              ctx.moveTo(positions[i].x, positions[i].y);
+              ctx.lineTo(positions[j].x, positions[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw dots at tech positions
+        positions.forEach((pos) => {
+          ctx.fillStyle = 'rgba(0, 217, 255, 0.3)';
+          ctx.beginPath();
+          ctx.arc(pos.x, pos.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      // Animate constellation on scroll
+      ScrollTrigger.create({
+        trigger: '#tech-stack',
+        start: 'top 80%',
+        onEnter: () => {
+          setTimeout(drawConstellation, 600); // After items animate in
+        },
+      });
+
+      // Redraw on resize
+      window.addEventListener('resize', () => {
+        setTimeout(drawConstellation, 100);
+      });
+    }
+
+    // Number counter animation
+    const counters = document.querySelectorAll('[data-counter]');
+
+    counters.forEach((counter) => {
+      const target = parseInt(
+        counter.querySelector('[data-target]')?.getAttribute('data-target') || '0'
+      );
+      const element = counter.querySelector('[data-target]');
+
+      if (element) {
+        ScrollTrigger.create({
+          trigger: counter,
+          start: 'top 80%',
+          onEnter: () => {
+            gsap.to(element, {
+              innerHTML: target,
+              duration: 2,
+              snap: { innerHTML: 1 },
+              ease: 'power2.out',
+            });
+          },
+        });
+      }
+    });
+
+    // Slide up animations
+    const slideUpElements = document.querySelectorAll('[data-animate="slide-up"]');
+    slideUpElements.forEach((element) => {
+      gsap.from(element, {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+        },
+      });
+    });
+
+    // Fade in animations
+    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
+    fadeInElements.forEach((element) => {
+      const delay = parseFloat(element.getAttribute('data-delay') || '0');
+      gsap.from(element, {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: delay,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+        },
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTechStackAnimations);
+</script>

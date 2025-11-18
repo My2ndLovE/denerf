@@ -1,0 +1,246 @@
+---
+// Portfolio section with masonry grid and hover previews
+const projects = [
+  {
+    title: 'E-Commerce Revolution',
+    category: 'Web App',
+    description: 'High-performance e-commerce platform with real-time inventory and AR product previews.',
+    tags: ['Next.js', 'Stripe', 'Three.js'],
+    color: 'electric',
+  },
+  {
+    title: 'AI Analytics Dashboard',
+    category: 'SaaS Platform',
+    description: 'Real-time analytics dashboard processing 1M+ events per second with beautiful data viz.',
+    tags: ['React', 'D3.js', 'WebSocket'],
+    color: 'neon',
+  },
+  {
+    title: 'Creative Studio Portfolio',
+    category: 'Website',
+    description: 'Award-winning portfolio site with immersive scroll animations and WebGL effects.',
+    tags: ['Astro', 'GSAP', 'WebGL'],
+    color: 'electric',
+  },
+  {
+    title: 'FinTech Mobile App',
+    category: 'Mobile App',
+    description: 'Cross-platform mobile banking app with biometric auth and instant transactions.',
+    tags: ['React Native', 'Node.js', 'PostgreSQL'],
+    color: 'neon',
+  },
+  {
+    title: 'Social Media Platform',
+    category: 'Web App',
+    description: 'Real-time social platform supporting 100k concurrent users with video streaming.',
+    tags: ['Next.js', 'Redis', 'AWS'],
+    color: 'electric',
+  },
+  {
+    title: 'Design System',
+    category: 'Component Library',
+    description: 'Comprehensive design system with 200+ components, full accessibility, and dark mode.',
+    tags: ['React', 'Storybook', 'Tailwind'],
+    color: 'neon',
+  },
+];
+---
+
+<section id="portfolio" class="relative section-padding bg-space-500">
+  <div class="container-custom">
+    <!-- Section Header -->
+    <div class="max-w-3xl mb-96">
+      <h2 class="text-4xl md:text-5xl font-bold mb-24" data-animate="slide-up">
+        Featured <span class="gradient-text">Work</span>
+      </h2>
+      <p class="text-xl text-neutral-light/70 leading-relaxed" data-animate="fade-in" data-delay="0.2">
+        A selection of projects that showcase our expertise in performance, design, and technical
+        execution.
+      </p>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
+      {
+        projects.map((project, index) => (
+          <div
+            class="portfolio-item group relative rounded-3xl overflow-hidden cursor-pointer"
+            data-portfolio-index={index}
+          >
+            {/* Card Container */}
+            <div class="glass p-32 h-full min-h-[400px] flex flex-col justify-between transition-all duration-500 group-hover:scale-[1.02]">
+              {/* Content */}
+              <div>
+                {/* Category Badge */}
+                <div class="mb-16">
+                  <span
+                    class={`inline-block text-xs px-12 py-4 rounded-full ${project.color === 'electric' ? 'bg-electric-500/10 text-electric-500' : 'bg-neon-500/10 text-neon-500'}`}
+                  >
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3
+                  class={`text-2xl font-bold mb-16 transition-colors ${project.color === 'electric' ? 'group-hover:text-electric-500' : 'group-hover:text-neon-500'}`}
+                >
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p class="text-neutral-light/70 leading-relaxed mb-24">{project.description}</p>
+              </div>
+
+              {/* Tags */}
+              <div class="flex flex-wrap gap-8">
+                {project.tags.map((tag) => (
+                  <span class="text-xs px-12 py-4 bg-neutral-light/5 text-neutral-light/60 rounded-full border border-neutral-light/10">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Hover Overlay */}
+              <div
+                class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${project.color === 'electric' ? 'bg-gradient-to-br from-electric-500/10 to-transparent' : 'bg-gradient-to-br from-neon-500/10 to-transparent'}`}
+              />
+
+              {/* Corner Accent */}
+              <div
+                class={`absolute top-0 right-0 w-24 h-24 ${project.color === 'electric' ? 'bg-electric-500/20' : 'bg-neon-500/20'} rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+              />
+            </div>
+
+            {/* Animated Border */}
+            <div
+              class={`absolute inset-0 rounded-3xl border-2 ${project.color === 'electric' ? 'border-electric-500/0 group-hover:border-electric-500/50' : 'border-neon-500/0 group-hover:border-neon-500/50'} transition-all duration-500 pointer-events-none`}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- View All CTA -->
+    <div class="mt-64 text-center" data-animate="fade-in">
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-8 text-electric-500 hover:text-electric-400 transition-colors font-semibold group"
+      >
+        <span>View All Projects</span>
+        <svg
+          class="w-16 h-16 group-hover:translate-x-4 transition-transform"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initPortfolioAnimations() {
+    // Stagger animation for portfolio items
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    gsap.from(portfolioItems, {
+      opacity: 0,
+      y: 60,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.portfolio-grid',
+        start: 'top 70%',
+      },
+    });
+
+    // Parallax effect on hover
+    portfolioItems.forEach((item) => {
+      const itemElement = item as HTMLElement;
+
+      itemElement.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = itemElement.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const moveX = ((x - centerX) / centerX) * 10;
+        const moveY = ((y - centerY) / centerY) * 10;
+
+        // Move the card slightly
+        gsap.to(itemElement.querySelector('.glass'), {
+          x: moveX,
+          y: moveY,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      });
+
+      itemElement.addEventListener('mouseleave', () => {
+        gsap.to(itemElement.querySelector('.glass'), {
+          x: 0,
+          y: 0,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      });
+    });
+
+    // Slide up animations
+    const slideUpElements = document.querySelectorAll('[data-animate="slide-up"]');
+    slideUpElements.forEach((element) => {
+      gsap.from(element, {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+        },
+      });
+    });
+
+    // Fade in animations
+    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
+    fadeInElements.forEach((element) => {
+      const delay = parseFloat(element.getAttribute('data-delay') || '0');
+      gsap.from(element, {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: delay,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+        },
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initPortfolioAnimations);
+</script>
+
+<style>
+  /* Masonry-like layout adjustments */
+  .portfolio-grid {
+    grid-auto-rows: minmax(400px, auto);
+  }
+
+  /* Smooth transitions */
+  .portfolio-item {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>

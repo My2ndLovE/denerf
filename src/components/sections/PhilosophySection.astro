@@ -1,0 +1,368 @@
+---
+/**
+ * Philosophy Section - "How We Build"
+ *
+ * Interactive principles with SVG mask reveals
+ * Shows real work behind the text
+ */
+
+const principles = [
+  {
+    id: 'prototype',
+    title: 'Prototype in 48 Hours',
+    description: 'Validate ideas before heavy investment. Rapid prototyping saves time and budget.',
+    image: '/images/prototype.jpg', // Placeholder
+    tags: ['Figma', 'Rapid Iteration', 'User Testing'],
+  },
+  {
+    id: 'performance',
+    title: 'Performance is a Feature',
+    description: 'Every millisecond impacts user experience. We optimize relentlessly for speed.',
+    image: '/images/performance.jpg', // Placeholder
+    tags: ['Lighthouse 100', 'Core Web Vitals', 'CDN'],
+  },
+  {
+    id: 'accessible',
+    title: 'Accessible to Everyone',
+    description: 'Inclusive design reaches more users. WCAG compliance is non-negotiable.',
+    image: '/images/accessibility.jpg', // Placeholder
+    tags: ['WCAG AA', 'Screen Readers', 'Keyboard Navigation'],
+  },
+  {
+    id: 'user-first',
+    title: 'Technology Serves the User',
+    description: 'We choose the stack based on needs, not trends. User experience drives decisions.',
+    image: '/images/user-first.jpg', // Placeholder
+    tags: ['User Research', 'Journey Mapping', 'Iterative Design'],
+  },
+];
+---
+
+<section id="philosophy" class="philosophy-section section bg-surface">
+  <div class="container">
+    <h2 class="section-title animate-on-scroll">How We Build</h2>
+    <p class="section-subtitle text-center text-text-muted max-w-2xl mx-auto mb-16 animate-on-scroll">
+      Our approach isn't about buzzwords—it's about proven principles that deliver results.
+    </p>
+
+    <!-- Horizontal Scroll Container (Desktop) -->
+    <div class="principles-scroll-container" id="principles-container">
+      <div class="principles-wrapper">
+        {principles.map((principle, index) => (
+          <article
+            class="principle-card animate-on-scroll"
+            data-principle={principle.id}
+            style={`--index: ${index}`}
+          >
+            <div class="card-inner">
+              {/* Image with mask reveal effect */}
+              <div class="principle-image">
+                <div class="image-placeholder" data-image={principle.image}>
+                  {/* Placeholder gradient until image loads */}
+                  <div class="placeholder-gradient"></div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div class="principle-content">
+                <h3 class="principle-title">{principle.title}</h3>
+                <p class="principle-description">{principle.description}</p>
+
+                {/* Tags */}
+                <div class="principle-tags">
+                  {principle.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+
+                {/* Expand Button */}
+                <button class="expand-btn" aria-label={`Learn more about ${principle.title}`}>
+                  <span>Learn More</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* Scroll Progress Indicator */}
+      <div class="scroll-progress-dots">
+        {principles.map((_, index) => (
+          <button
+            class="progress-dot"
+            data-index={index}
+            aria-label={`Scroll to principle ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .philosophy-section {
+    overflow-x: hidden;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+
+  /* Horizontal Scroll Container */
+  .principles-scroll-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .principles-wrapper {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 2rem 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .principles-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+  /* Principle Card */
+  .principle-card {
+    flex: 0 0 calc(90% - 1rem);
+    scroll-snap-align: center;
+    max-width: 600px;
+  }
+
+  @media (min-width: 768px) {
+    .principle-card {
+      flex: 0 0 calc(50% - 1rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .principle-card {
+      flex: 0 0 calc(33.333% - 1.33rem);
+    }
+  }
+
+  .card-inner {
+    background: var(--color-surface-elevated);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .card-inner:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Image Area */
+  .principle-image {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .placeholder-gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, rgba(191, 64, 191, 0.1) 100%);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+  }
+
+  /* Content Area */
+  .principle-content {
+    padding: 2rem;
+  }
+
+  .principle-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .principle-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Tags */
+  .principle-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 245, 255, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Expand Button */
+  .expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .expand-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-base);
+  }
+
+  .expand-btn svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .expand-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Scroll Progress Dots */
+  .scroll-progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .progress-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.3);
+  }
+
+  .progress-dot:hover {
+    background: var(--color-primary);
+    opacity: 0.7;
+  }
+
+  /* Mobile Optimization */
+  @media (max-width: 768px) {
+    .principle-card {
+      flex: 0 0 calc(100% - 2rem);
+    }
+
+    .principle-title {
+      font-size: 1.25rem;
+    }
+
+    .principle-content {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Horizontal Scroll Snap and Progress
+  function initPhilosophyScroll() {
+    const container = document.querySelector('.principles-wrapper');
+    const dots = document.querySelectorAll('.progress-dot');
+
+    if (!container || !dots.length) return;
+
+    // Update active dot based on scroll position
+    const updateActiveDot = () => {
+      const cards = container.querySelectorAll('.principle-card');
+      const containerRect = container.getBoundingClientRect();
+      const centerX = containerRect.left + containerRect.width / 2;
+
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const distance = Math.abs(centerX - cardCenterX);
+
+        if (distance < cardRect.width / 2) {
+          dots.forEach(dot => dot.classList.remove('active'));
+          dots[index]?.classList.add('active');
+        }
+      });
+    };
+
+    // Dot click handlers
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const cards = container.querySelectorAll('.principle-card');
+        const targetCard = cards[index];
+        if (targetCard) {
+          targetCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+    });
+
+    // Listen to scroll
+    container.addEventListener('scroll', updateActiveDot);
+    updateActiveDot(); // Initial call
+
+    // Expand button handlers (placeholder)
+    const expandButtons = document.querySelectorAll('.expand-btn');
+    expandButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // TODO: Implement modal or expanded view
+        console.log('Expand button clicked - implement modal');
+      });
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPhilosophyScroll);
+  } else {
+    initPhilosophyScroll();
+  }
+</script>

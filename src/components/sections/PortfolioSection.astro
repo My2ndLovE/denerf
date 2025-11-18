@@ -1,0 +1,388 @@
+---
+/**
+ * Portfolio Section - "Selected Work"
+ *
+ * Cinematic slider with filtering capabilities
+ * Showcases projects with technologies and case studies
+ */
+
+const projects = [
+  {
+    id: 'ecommerce-dashboard',
+    name: 'E-commerce Dashboard',
+    description: 'Real-time analytics platform for online retailers',
+    image: '/images/projects/ecommerce.jpg', // Placeholder
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Node.js'],
+    category: ['web-app', 'react'],
+    metrics: { users: '50K+', performance: '98/100', uptime: '99.9%' },
+  },
+  {
+    id: 'healthcare-portal',
+    name: 'Healthcare Patient Portal',
+    description: 'HIPAA-compliant telehealth platform',
+    image: '/images/projects/healthcare.jpg',
+    tags: ['Astro', 'Vue', 'Supabase', 'Stripe'],
+    category: ['web-app', 'astro'],
+    metrics: { users: '25K+', performance: '100/100', uptime: '99.99%' },
+  },
+  {
+    id: 'ai-content-platform',
+    name: 'AI Content Generator',
+    description: 'GPT-powered content creation tool for marketers',
+    image: '/images/projects/ai-platform.jpg',
+    tags: ['Next.js', 'OpenAI', 'Vercel', 'Prisma'],
+    category: ['web-app', 'ai'],
+    metrics: { users: '100K+', performance: '95/100', uptime: '99.8%' },
+  },
+  {
+    id: 'mobile-banking',
+    name: 'Mobile Banking App',
+    description: 'Secure financial management on-the-go',
+    image: '/images/projects/banking.jpg',
+    tags: ['React Native', 'Node.js', 'MongoDB', 'AWS'],
+    category: ['mobile', 'react'],
+    metrics: { users: '200K+', performance: '96/100', uptime: '99.95%' },
+  },
+  {
+    id: 'saas-analytics',
+    name: 'SaaS Analytics Dashboard',
+    description: 'Beautiful data visualization for SaaS metrics',
+    image: '/images/projects/analytics.jpg',
+    tags: ['Svelte', 'D3.js', 'FastAPI', 'PostgreSQL'],
+    category: ['web-app', 'svelte'],
+    metrics: { users: '75K+', performance: '99/100', uptime: '99.9%' },
+  },
+  {
+    id: 'educational-platform',
+    name: 'Interactive Learning Platform',
+    description: 'Gamified education with progress tracking',
+    image: '/images/projects/education.jpg',
+    tags: ['Astro', 'MDX', 'Cloudflare', 'SQLite'],
+    category: ['web-app', 'astro'],
+    metrics: { users: '150K+', performance: '100/100', uptime: '99.99%' },
+  },
+];
+
+const filters = [
+  { id: 'all', label: 'All Projects' },
+  { id: 'web-app', label: 'Web Apps' },
+  { id: 'mobile', label: 'Mobile' },
+  { id: 'ai', label: 'AI/ML' },
+  { id: 'astro', label: 'Astro' },
+  { id: 'react', label: 'React' },
+];
+---
+
+<section id="work" class="portfolio-section section">
+  <div class="container">
+    <h2 class="section-title animate-on-scroll">Selected Work</h2>
+    <p class="section-subtitle text-center text-text-muted max-w-2xl mx-auto mb-12 animate-on-scroll">
+      Real projects. Real results. From startups to enterprises.
+    </p>
+
+    {/* Filter Bar */}
+    <div class="filter-bar animate-on-scroll">
+      {filters.map((filter) => (
+        <button
+          class={`filter-btn ${filter.id === 'all' ? 'active' : ''}`}
+          data-filter={filter.id}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+
+    {/* Projects Grid */}
+    <div class="projects-grid">
+      {projects.map((project, index) => (
+        <article
+          class="project-card animate-on-scroll"
+          data-categories={project.category.join(' ')}
+          style={`--delay: ${index * 0.1}s`}
+        >
+          <div class="project-image">
+            <div class="image-placeholder" style="background: linear-gradient(135deg, rgba(0, 245, 255, 0.2) 0%, rgba(191, 64, 191, 0.2) 100%);">
+              {/* Placeholder - real images would be loaded here */}
+            </div>
+            <div class="project-overlay">
+              <button class="view-project-btn" aria-label={`View ${project.name} case study`}>
+                View Case Study
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="project-content">
+            <h3 class="project-name">{project.name}</h3>
+            <p class="project-description">{project.description}</p>
+
+            {/* Metrics */}
+            <div class="project-metrics">
+              <div class="metric">
+                <span class="metric-value">{project.metrics.users}</span>
+                <span class="metric-label">Users</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">{project.metrics.performance}</span>
+                <span class="metric-label">Lighthouse</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">{project.metrics.uptime}</span>
+                <span class="metric-label">Uptime</span>
+              </div>
+            </div>
+
+            {/* Tech Tags */}
+            <div class="project-tags">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio-section {
+    background: var(--color-base);
+  }
+
+  /* Filter Bar */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .filter-btn.active {
+    background: var(--color-primary);
+    color: var(--color-base);
+    border-color: var(--color-primary);
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Project Card */
+  .project-card {
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 1;
+  }
+
+  .project-card.hidden {
+    display: none;
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Project Image */
+  .project-image {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 14, 39, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-card:hover .project-overlay {
+    opacity: 1;
+  }
+
+  .view-project-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: var(--color-base);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .view-project-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .view-project-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  /* Project Content */
+  .project-content {
+    padding: 1.5rem;
+  }
+
+  .project-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-description {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Metrics */
+  .project-metrics {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .metric-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tech Tags */
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 245, 255, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(0, 245, 255, 0.2);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  // Portfolio Filtering
+  function initPortfolioFilter() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter projects
+        projectCards.forEach(card => {
+          const categories = card.getAttribute('data-categories');
+
+          if (filter === 'all' || categories?.includes(filter)) {
+            card.classList.remove('hidden');
+            card.style.display = 'block';
+          } else {
+            card.classList.add('hidden');
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // View project button handlers
+    const viewButtons = document.querySelectorAll('.view-project-btn');
+    viewButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // TODO: Implement modal or navigation to case study
+        console.log('View project clicked - implement case study modal');
+      });
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolioFilter);
+  } else {
+    initPortfolioFilter();
+  }
+</script>

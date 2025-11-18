@@ -1,0 +1,331 @@
+---
+/**
+ * Hero Section - "The Code Reveal"
+ *
+ * Innovation: Starts as source code, transforms into visual design
+ * Demonstrates: "From code to experience"
+ */
+---
+
+<section id="hero" class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Elements -->
+  <div class="hero-bg absolute inset-0 z-0">
+    <div class="mesh-gradient"></div>
+  </div>
+
+  <!-- Code Layer (Initial State) -->
+  <div id="code-layer" class="code-layer absolute inset-0 z-10 flex items-center justify-center p-8">
+    <div class="code-container max-w-4xl w-full">
+      <pre class="code-block"><code class="language-astro" id="hero-code"><!-- Hero code will be populated via JS --></code></pre>
+    </div>
+  </div>
+
+  <!-- Visual Layer (Final State) -->
+  <div id="visual-layer" class="visual-layer absolute inset-0 z-20 flex items-center justify-center opacity-0">
+    <div class="container text-center">
+      <h1 class="hero-title mb-6">
+        <span class="line line-1">We Build Digital Experiences</span>
+        <span class="line line-2">That Compile Into Success</span>
+      </h1>
+
+      <p class="hero-subtitle text-xl md:text-2xl text-text-muted mb-12">
+        <span class="code-accent">Code</span>
+        <span class="arrow">→</span>
+        <span class="design-accent">Design</span>
+        <span class="arrow">→</span>
+        <span class="impact-accent">Impact</span>
+      </p>
+
+      <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#work" class="btn-primary group">
+          <span>Explore Our Work</span>
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
+        <a href="#contact" class="btn-secondary">
+          Start Your Project
+        </a>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator mt-16">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
+        <p class="text-sm text-text-muted mt-3">Scroll to explore</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    background: var(--color-base);
+  }
+
+  /* Mesh Gradient Background */
+  .mesh-gradient {
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(191, 64, 191, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 20%, rgba(0, 245, 255, 0.05) 0%, transparent 50%);
+    animation: mesh-move 20s ease-in-out infinite;
+  }
+
+  @keyframes mesh-move {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.8; }
+  }
+
+  /* Code Layer Styling */
+  .code-layer {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow: auto;
+  }
+
+  .code-block {
+    background: rgba(26, 29, 46, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Code Syntax Highlighting (Manual) */
+  .code-block :global(.keyword) { color: #bf40bf; }
+  .code-block :global(.string) { color: #00f5ff; }
+  .code-block :global(.tag) { color: #ff6b6b; }
+  .code-block :global(.attr) { color: #ffd93d; }
+  .code-block :global(.comment) { color: #8b92b0; font-style: italic; }
+
+  /* Visual Layer Typography */
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .line {
+    display: block;
+    background: linear-gradient(135deg, #ffffff 0%, #00f5ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-weight: 500;
+  }
+
+  .code-accent { color: #bf40bf; font-weight: 600; }
+  .design-accent { color: #00f5ff; font-weight: 600; }
+  .impact-accent { color: #ffffff; font-weight: 600; }
+  .arrow { color: #8b92b0; margin: 0 0.5rem; }
+
+  /* Buttons */
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-base);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+  }
+
+  .btn-primary .arrow-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover .arrow-icon {
+    transform: translateY(3px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0, 245, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Scroll Indicator */
+  .scroll-indicator {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .scroll-indicator:hover {
+    opacity: 1;
+  }
+
+  .scroll-mouse {
+    width: 24px;
+    height: 40px;
+    border: 2px solid var(--color-primary);
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .scroll-wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scroll-wheel {
+    0%, 100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(8px);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .code-block {
+      font-size: 0.75rem;
+      padding: 1rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .mesh-gradient,
+    .scroll-wheel {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Code Reveal Animation
+  const codeToShow = `---
+// Hero Component - Denerf Landing
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<section class="hero">
+  <h1>{title}</h1>
+  <p>{subtitle}</p>
+  <button>Explore Work</button>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>`;
+
+  // Initialize on page load
+  function initCodeReveal() {
+    const codeElement = document.getElementById('hero-code');
+    const codeLayer = document.getElementById('code-layer');
+    const visualLayer = document.getElementById('visual-layer');
+
+    if (!codeElement || !codeLayer || !visualLayer) return;
+
+    // Set initial code content
+    codeElement.textContent = codeToShow;
+
+    // Trigger animation after brief delay or on scroll
+    const triggerReveal = () => {
+      // Fade out code layer
+      codeLayer.style.transition = 'opacity 1.5s ease-out, transform 1.5s ease-out';
+      codeLayer.style.opacity = '0';
+      codeLayer.style.transform = 'scale(0.95)';
+
+      // Fade in visual layer
+      setTimeout(() => {
+        visualLayer.style.transition = 'opacity 1.5s ease-in, transform 1.5s ease-in';
+        visualLayer.style.opacity = '1';
+        visualLayer.style.transform = 'scale(1)';
+      }, 500);
+
+      // Remove code layer from DOM after animation
+      setTimeout(() => {
+        codeLayer.style.display = 'none';
+      }, 2000);
+    };
+
+    // Auto-trigger after 2 seconds OR on first scroll
+    const autoTrigger = setTimeout(triggerReveal, 2000);
+
+    const scrollTrigger = () => {
+      clearTimeout(autoTrigger);
+      triggerReveal();
+      window.removeEventListener('scroll', scrollTrigger);
+    };
+
+    window.addEventListener('scroll', scrollTrigger, { once: true });
+
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      clearTimeout(autoTrigger);
+      codeLayer.style.display = 'none';
+      visualLayer.style.opacity = '1';
+    }
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCodeReveal);
+  } else {
+    initCodeReveal();
+  }
+</script>

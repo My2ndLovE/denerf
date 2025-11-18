@@ -1,0 +1,112 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Denerf - Digital Experiences That Compile Into Success',
+  description = 'We build performant, accessible web applications with cutting-edge technologies. From prototype to production in 48 hours.',
+  image = '/og-image.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Preload Critical Assets -->
+    <link rel="preload" as="style" href="/src/styles/global.css" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0e27" />
+  </head>
+  <body>
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Scroll Progress Script -->
+    <script>
+      // Scroll Progress Indicator
+      const scrollProgress = document.getElementById('scroll-progress');
+      if (scrollProgress) {
+        window.addEventListener('scroll', () => {
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight - windowHeight;
+          const scrolled = window.scrollY;
+          const progress = (scrolled / documentHeight) * 100;
+          scrollProgress.style.transform = `scaleX(${progress / 100})`;
+        });
+      }
+
+      // Animate on Scroll Observer
+      const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px',
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      animateOnScrollElements.forEach((el) => observer.observe(el));
+
+      // Respect prefers-reduced-motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        animateOnScrollElements.forEach((el) => el.classList.add('visible'));
+      }
+    </script>
+  </body>
+</html>

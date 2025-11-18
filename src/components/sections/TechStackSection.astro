@@ -1,0 +1,426 @@
+---
+/**
+ * Tech Stack Section - "Our Toolkit"
+ *
+ * Constellation map visualization
+ * Interactive tech ecosystem
+ */
+
+const techCategories = [
+  {
+    id: 'frontend',
+    name: 'Frontend',
+    color: '#00f5ff',
+    position: { x: 20, y: 30 },
+    technologies: [
+      { name: 'React', proficiency: 95, icon: '⚛️' },
+      { name: 'Vue', proficiency: 90, icon: '🖖' },
+      { name: 'Svelte', proficiency: 85, icon: '🔥' },
+      { name: 'Astro', proficiency: 98, icon: '🚀' },
+    ],
+  },
+  {
+    id: 'backend',
+    name: 'Backend',
+    color: '#bf40bf',
+    position: { x: 80, y: 30 },
+    technologies: [
+      { name: 'Node.js', proficiency: 95, icon: '🟢' },
+      { name: 'Python', proficiency: 90, icon: '🐍' },
+      { name: 'Go', proficiency: 80, icon: '🔵' },
+    ],
+  },
+  {
+    id: 'database',
+    name: 'Databases',
+    color: '#ffbe0b',
+    position: { x: 20, y: 70 },
+    technologies: [
+      { name: 'PostgreSQL', proficiency: 95, icon: '🐘' },
+      { name: 'MongoDB', proficiency: 90, icon: '🍃' },
+      { name: 'Redis', proficiency: 85, icon: '⚡' },
+    ],
+  },
+  {
+    id: 'cloud',
+    name: 'Cloud & DevOps',
+    color: '#10b981',
+    position: { x: 80, y: 70 },
+    technologies: [
+      { name: 'AWS', proficiency: 90, icon: '☁️' },
+      { name: 'Vercel', proficiency: 95, icon: '▲' },
+      { name: 'Cloudflare', proficiency: 92, icon: '🔶' },
+      { name: 'Docker', proficiency: 88, icon: '🐳' },
+    ],
+  },
+  {
+    id: 'mobile',
+    name: 'Mobile',
+    color: '#f59e0b',
+    position: { x: 35, y: 50 },
+    technologies: [
+      { name: 'React Native', proficiency: 90, icon: '📱' },
+      { name: 'Flutter', proficiency: 80, icon: '🦋' },
+    ],
+  },
+  {
+    id: 'ai',
+    name: 'AI/ML',
+    color: '#ef4444',
+    position: { x: 65, y: 50 },
+    technologies: [
+      { name: 'OpenAI', proficiency: 95, icon: '🤖' },
+      { name: 'TensorFlow', proficiency: 75, icon: '🧠' },
+      { name: 'Hugging Face', proficiency: 85, icon: '🤗' },
+    ],
+  },
+];
+---
+
+<section id="tech" class="tech-stack-section section bg-surface">
+  <div class="container">
+    <h2 class="section-title animate-on-scroll">Our Toolkit</h2>
+    <p class="section-subtitle text-center text-text-muted max-w-2xl mx-auto mb-16 animate-on-scroll">
+      We master the tools that matter, choosing the right technology for each challenge.
+    </p>
+
+    {/* Constellation Visualization */}
+    <div class="constellation-container" id="constellation">
+      <svg class="constellation-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        {/* Connection Lines (SVG) */}
+        <g class="connections" id="connection-lines">
+          {/* Lines will be drawn dynamically */}
+        </g>
+
+        {/* Category Nodes */}
+        {techCategories.map((category) => (
+          <g
+            class="category-node"
+            data-category={category.id}
+            transform={`translate(${category.position.x}, ${category.position.y})`}
+          >
+            <circle
+              cx="0"
+              cy="0"
+              r="2"
+              fill={category.color}
+              class="node-circle"
+              data-color={category.color}
+            />
+            <text
+              x="0"
+              y="-3"
+              text-anchor="middle"
+              class="node-label"
+              fill={category.color}
+            >
+              {category.name}
+            </text>
+          </g>
+        ))}
+      </svg>
+
+      {/* Technology Detail Cards (HTML) */}
+      <div class="tech-cards" id="tech-cards">
+        {techCategories.map((category) => (
+          <div
+            class="tech-card"
+            data-category={category.id}
+            style={`border-color: ${category.color}`}
+          >
+            <h3 class="tech-card-title" style={`color: ${category.color}`}>
+              {category.name}
+            </h3>
+            <ul class="tech-list">
+              {category.technologies.map((tech) => (
+                <li class="tech-item">
+                  <span class="tech-icon">{tech.icon}</span>
+                  <span class="tech-name">{tech.name}</span>
+                  <div class="proficiency-bar">
+                    <div
+                      class="proficiency-fill"
+                      style={`width: ${tech.proficiency}%; background-color: ${category.color}`}
+                    ></div>
+                  </div>
+                  <span class="tech-proficiency">{tech.proficiency}%</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-stack-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Constellation Container */
+  .constellation-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 600px;
+  }
+
+  .constellation-svg {
+    width: 100%;
+    height: 600px;
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.3));
+  }
+
+  /* Category Nodes */
+  .category-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .category-node:hover .node-circle {
+    r: 3;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+
+  .node-circle {
+    transition: all 0.3s ease;
+    animation: pulse-node 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-node {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.2);
+    }
+  }
+
+  .node-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+
+  /* Connection Lines */
+  .connections line {
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 0.2;
+    transition: all 0.3s ease;
+  }
+
+  .connections line.active {
+    stroke: var(--color-primary);
+    stroke-width: 0.4;
+  }
+
+  /* Tech Cards */
+  .tech-cards {
+    display: none; /* Hidden by default, shown on category hover/click */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    z-index: 10;
+  }
+
+  .tech-cards.visible {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .tech-card {
+    background: var(--color-surface-elevated);
+    border: 2px solid;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    display: none;
+  }
+
+  .tech-card.active {
+    display: block;
+  }
+
+  .tech-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  /* Tech List */
+  .tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tech-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .tech-item:last-child {
+    border-bottom: none;
+  }
+
+  .tech-icon {
+    font-size: 1.5rem;
+  }
+
+  .tech-name {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .proficiency-bar {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .proficiency-fill {
+    height: 100%;
+    transition: width 0.6s ease-out;
+  }
+
+  .tech-proficiency {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    width: 50px;
+    text-align: right;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .constellation-svg {
+      height: 400px;
+    }
+
+    .constellation-container {
+      min-height: 400px;
+    }
+
+    .tech-card {
+      padding: 1.5rem;
+    }
+
+    .proficiency-bar {
+      width: 60px;
+    }
+
+    .node-label {
+      font-size: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .node-circle {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Tech Stack Constellation Interactions
+  function initTechConstellation() {
+    const svg = document.querySelector('.constellation-svg');
+    const categoryNodes = document.querySelectorAll('.category-node');
+    const techCards = document.getElementById('tech-cards');
+    const cardElements = document.querySelectorAll('.tech-card');
+
+    if (!svg || !techCards) return;
+
+    // Draw connection lines between categories
+    function drawConnections() {
+      const connectionsGroup = document.getElementById('connection-lines');
+      if (!connectionsGroup) return;
+
+      const categories = Array.from(categoryNodes);
+
+      // Connect each category to nearby categories
+      categories.forEach((node1, i) => {
+        categories.slice(i + 1).forEach(node2 => {
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          const pos1 = {
+            x: parseFloat(node1.getAttribute('transform')?.match(/translate\(([^,]+)/)?.[1] || 0),
+            y: parseFloat(node1.getAttribute('transform')?.match(/,\s*([^)]+)/)?.[1] || 0),
+          };
+          const pos2 = {
+            x: parseFloat(node2.getAttribute('transform')?.match(/translate\(([^,]+)/)?.[1] || 0),
+            y: parseFloat(node2.getAttribute('transform')?.match(/,\s*([^)]+)/)?.[1] || 0),
+          };
+
+          line.setAttribute('x1', pos1.x.toString());
+          line.setAttribute('y1', pos1.y.toString());
+          line.setAttribute('x2', pos2.x.toString());
+          line.setAttribute('y2', pos2.y.toString());
+          connectionsGroup.appendChild(line);
+        });
+      });
+    }
+
+    drawConnections();
+
+    // Category hover/click handlers
+    categoryNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const categoryId = node.getAttribute('data-category');
+
+        // Show tech cards container
+        techCards.classList.add('visible');
+
+        // Show specific card
+        cardElements.forEach(card => {
+          card.classList.remove('active');
+          if (card.getAttribute('data-category') === categoryId) {
+            card.classList.add('active');
+          }
+        });
+      });
+    });
+
+    // Close tech cards when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.category-node') && !e.target.closest('.tech-card')) {
+        techCards.classList.remove('visible');
+        cardElements.forEach(card => card.classList.remove('active'));
+      }
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTechConstellation);
+  } else {
+    initTechConstellation();
+  }
+</script>

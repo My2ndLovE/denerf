@@ -1,0 +1,624 @@
+---
+/**
+ * CTA Section - "Start Your Project"
+ *
+ * Multi-path interaction: Quick question, Full project, Explore resources
+ * Makes contact feel like an opportunity, not a chore
+ */
+
+const ctaPaths = [
+  {
+    id: 'quick',
+    icon: '💬',
+    title: 'Quick Question',
+    description: 'Have a question? Get a response within 24 hours.',
+    time: '2 min',
+    action: 'Ask Away',
+  },
+  {
+    id: 'project',
+    icon: '🚀',
+    title: "Let's Build",
+    description: 'Ready to start your project? Tell us about your vision.',
+    time: '15 min',
+    action: 'Start Project',
+  },
+  {
+    id: 'resources',
+    icon: '📚',
+    title: 'Explore Resources',
+    description: 'Browse our blog, case studies, and open-source projects.',
+    time: 'Browse',
+    action: 'Explore',
+  },
+];
+---
+
+<section id="contact" class="cta-section section">
+  <div class="container">
+    {/* Headline */}
+    <div class="cta-header text-center mb-16 animate-on-scroll">
+      <h2 class="section-title mb-6">Ready to Build Something Great?</h2>
+      <p class="text-xl text-text-muted max-w-2xl mx-auto">
+        Whether you have a clear vision or just an idea, we're here to help bring it to life.
+      </p>
+    </div>
+
+    {/* Multi-Path Cards */}
+    <div class="cta-paths grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {ctaPaths.map((path, index) => (
+        <div
+          class="cta-path-card animate-on-scroll"
+          data-path={path.id}
+          style={`--delay: ${index * 0.1}s`}
+        >
+          <div class="card-inner">
+            <div class="path-icon text-6xl mb-4">{path.icon}</div>
+            <h3 class="path-title text-2xl font-bold mb-3">{path.title}</h3>
+            <p class="path-description text-text-muted mb-4">{path.description}</p>
+            <div class="path-time text-sm text-primary font-semibold mb-6">
+              ⏱️ {path.time}
+            </div>
+            <button class="path-button" data-action={path.id}>
+              {path.action}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Trust Indicators */}
+    <div class="trust-indicators text-center animate-on-scroll">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+        <div class="trust-item">
+          <div class="trust-icon">✓</div>
+          <p class="trust-text">Free 30-min consultation</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
+          <p class="trust-text">24-hour response time</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <p class="trust-text">100% confidential</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🎯</div>
+          <p class="trust-text">No obligation</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Contact Form Modal (Hidden by default) */}
+    <div id="contact-modal" class="contact-modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="modal-body">
+          <h3 class="modal-title" id="modal-title">Get in Touch</h3>
+          <p class="modal-subtitle" id="modal-subtitle">We'll get back to you within 24 hours.</p>
+
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="john@example.com"
+              />
+            </div>
+
+            <div class="form-group" id="project-type-group">
+              <label for="project-type">Project Type</label>
+              <select id="project-type" name="project-type">
+                <option value="">Select...</option>
+                <option value="web-app">Web Application</option>
+                <option value="mobile">Mobile App</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="ai-ml">AI/ML Project</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                placeholder="Tell us about your project or question..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">
+              <span class="button-text">Send Message</span>
+              <span class="button-loading">Sending...</span>
+              <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </form>
+
+          {/* Success Message */}
+          <div id="success-message" class="success-message">
+            <div class="success-icon">✓</div>
+            <h4>Message Sent!</h4>
+            <p>We'll get back to you within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    background: var(--color-surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background decoration */
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 245, 255, 0.05) 0%, transparent 70%);
+    animation: rotate 30s linear infinite;
+  }
+
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* CTA Path Cards */
+  .cta-paths {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-path-card {
+    transition: transform 0.3s ease;
+  }
+
+  .card-inner {
+    background: var(--color-surface-elevated);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .cta-path-card:hover .card-inner {
+    transform: translateY(-12px);
+    border-color: var(--color-primary);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .path-icon {
+    line-height: 1;
+  }
+
+  .path-title {
+    color: var(--color-accent);
+  }
+
+  .path-description {
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .path-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: var(--color-base);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .path-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+  }
+
+  .path-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .path-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Trust Indicators */
+  .trust-indicators {
+    position: relative;
+    z-index: 1;
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .trust-icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 245, 255, 0.1);
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  .trust-text {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  /* Contact Modal */
+  .contact-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .contact-modal.active {
+    display: flex;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 14, 39, 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-content {
+    position: relative;
+    background: var(--color-surface-elevated);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: modalSlideIn 0.3s ease-out;
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .modal-close:hover {
+    color: var(--color-primary);
+  }
+
+  .modal-close svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.875rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    color: var(--color-text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+  }
+
+  .submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: var(--color-base);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+  }
+
+  .submit-button.loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .submit-button.loading .button-text,
+  .submit-button .button-loading {
+    display: none;
+  }
+
+  .submit-button.loading .button-loading {
+    display: inline;
+  }
+
+  .button-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .submit-button:hover .button-icon {
+    transform: translateX(4px);
+  }
+
+  /* Success Message */
+  .success-message {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .success-message.visible {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .success-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: var(--color-base);
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 700;
+    animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .success-message h4 {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-message p {
+    color: var(--color-text-muted);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .modal-content {
+      padding: 2rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+    }
+
+    .trust-indicators .grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-section::before {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // CTA Section Interactions
+  function initCTA() {
+    const pathButtons = document.querySelectorAll('.path-button');
+    const modal = document.getElementById('contact-modal');
+    const modalClose = document.querySelector('.modal-close');
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const successMessage = document.getElementById('success-message');
+    const projectTypeGroup = document.getElementById('project-type-group');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubtitle = document.getElementById('modal-subtitle');
+
+    // Open modal with appropriate content
+    pathButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const action = button.getAttribute('data-action');
+
+        if (action === 'resources') {
+          // Navigate to resources (placeholder)
+          console.log('Navigate to resources page');
+          return;
+        }
+
+        // Open modal
+        modal?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Customize modal based on action
+        if (action === 'quick') {
+          if (modalTitle) modalTitle.textContent = 'Ask a Quick Question';
+          if (modalSubtitle) modalSubtitle.textContent = "We'll respond within 24 hours.";
+          if (projectTypeGroup) projectTypeGroup.style.display = 'none';
+        } else if (action === 'project') {
+          if (modalTitle) modalTitle.textContent = "Let's Build Your Project";
+          if (modalSubtitle) modalSubtitle.textContent = "Tell us about your vision.";
+          if (projectTypeGroup) projectTypeGroup.style.display = 'flex';
+        }
+
+        // Reset form
+        contactForm?.reset();
+        successMessage?.classList.remove('visible');
+        contactForm?.style.setProperty('display', 'flex');
+      });
+    });
+
+    // Close modal
+    const closeModal = () => {
+      modal?.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    modalClose?.addEventListener('click', closeModal);
+    modalOverlay?.addEventListener('click', closeModal);
+
+    // Handle form submission
+    contactForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = contactForm.querySelector('.submit-button');
+      submitButton?.classList.add('loading');
+
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Show success message
+      contactForm.style.display = 'none';
+      successMessage?.classList.add('visible');
+      submitButton?.classList.remove('loading');
+
+      // Auto-close after 3 seconds
+      setTimeout(closeModal, 3000);
+    });
+
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCTA);
+  } else {
+    initCTA();
+  }
+</script>

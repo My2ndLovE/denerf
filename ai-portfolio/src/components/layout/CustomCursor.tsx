@@ -11,22 +11,27 @@ export default function CustomCursor() {
   const cursorX = useSpring(0, { stiffness: 500, damping: 28 })
   const cursorY = useSpring(0, { stiffness: 500, damping: 28 })
 
+  // Separate effect for mobile detection
   useEffect(() => {
-    // Check if mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
     checkMobile()
     window.addEventListener('resize', checkMobile)
 
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Main cursor effect
+  useEffect(() => {
     if (isMobile) {
       // Restore default cursor on mobile
       document.body.style.cursor = 'auto'
       return
-    } else {
-      // Hide cursor on desktop (CSS handles this)
-      document.body.style.cursor = 'none'
     }
+
+    // Hide cursor on desktop
+    document.body.style.cursor = 'none'
 
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX)
@@ -69,7 +74,6 @@ export default function CustomCursor() {
 
     return () => {
       window.removeEventListener('mousemove', moveCursor)
-      window.removeEventListener('resize', checkMobile)
       document.body.style.cursor = 'auto'
       observer.disconnect()
       interactiveElements.forEach((el) => {

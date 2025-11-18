@@ -19,29 +19,45 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState('home')
 
   useEffect(() => {
+    let rafId: number | null = null
+    let ticking = false
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      if (!ticking) {
+        rafId = requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50)
 
-      // Detect active section
-      const sections = NAV_ITEMS.map((item) => item.href.substring(1))
-      const scrollPosition = window.scrollY + 100
+          // Detect active section
+          const sections = NAV_ITEMS.map((item) => item.href.substring(1))
+          const scrollPosition = window.scrollY + 100
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const offsetTop = element.offsetTop
-          const offsetHeight = element.offsetHeight
+          for (const section of sections) {
+            const element = document.getElementById(section)
+            if (element) {
+              const offsetTop = element.offsetTop
+              const offsetHeight = element.offsetHeight
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveSection(section)
+                break
+              }
+            }
           }
-        }
+
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Initial call
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   const handleNavClick = (href: string) => {

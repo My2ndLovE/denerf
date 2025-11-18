@@ -11,34 +11,96 @@ export default function Contact() {
     email: '',
     message: '',
   })
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
+  const validateForm = () => {
+    const newErrors = {
+      name: '',
+      email: '',
+      message: '',
+    }
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required'
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters'
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email'
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required'
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters'
+    }
+
+    setErrors(newErrors)
+    return !newErrors.name && !newErrors.email && !newErrors.message
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!validateForm()) {
+      return
+    }
+
     setIsSubmitting(true)
+    setSubmitStatus('idle')
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      // Simulate form submission
+      // TODO: Replace with actual API call
+      await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    setSubmitStatus('success')
-    setIsSubmitting(false)
+      setSubmitStatus('success')
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' })
-      setSubmitStatus('idle')
-    }, 3000)
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setFormData({ name: '', email: '', message: '' })
+        setErrors({ name: '', email: '', message: '' })
+        setSubmitStatus('idle')
+      }, 3000)
+    } catch (error) {
+      setSubmitStatus('error')
+      setTimeout(() => {
+        setSubmitStatus('idle')
+      }, 3000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }))
+    // Clear error when user starts typing
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: '',
+      }))
+    }
   }
 
   const socialLinks = [
@@ -93,9 +155,16 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-cyber-cyan/20 bg-cyber-dark/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition-all focus:border-cyber-cyan focus:outline-none focus:ring-2 focus:ring-cyber-cyan/50"
+                  className={`w-full rounded-lg border bg-cyber-dark/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 ${
+                    errors.name
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50'
+                      : 'border-cyber-cyan/20 focus:border-cyber-cyan focus:ring-cyber-cyan/50'
+                  }`}
                   placeholder="John Doe"
                 />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                )}
               </div>
 
               {/* Email Input */}
@@ -113,9 +182,16 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-cyber-cyan/20 bg-cyber-dark/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition-all focus:border-cyber-cyan focus:outline-none focus:ring-2 focus:ring-cyber-cyan/50"
+                  className={`w-full rounded-lg border bg-cyber-dark/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 ${
+                    errors.email
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50'
+                      : 'border-cyber-cyan/20 focus:border-cyber-cyan focus:ring-cyber-cyan/50'
+                  }`}
                   placeholder="john@example.com"
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                )}
               </div>
 
               {/* Message Textarea */}
@@ -133,9 +209,16 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full rounded-lg border border-cyber-cyan/20 bg-cyber-dark/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition-all focus:border-cyber-cyan focus:outline-none focus:ring-2 focus:ring-cyber-cyan/50 resize-none"
+                  className={`w-full resize-none rounded-lg border bg-cyber-dark/50 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 ${
+                    errors.message
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50'
+                      : 'border-cyber-cyan/20 focus:border-cyber-cyan focus:ring-cyber-cyan/50'
+                  }`}
                   placeholder="Tell me about your project..."
                 />
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-400">{errors.message}</p>
+                )}
               </div>
 
               {/* Submit Button */}
@@ -180,6 +263,15 @@ export default function Contact() {
                   className="text-center text-sm text-green-400"
                 >
                   Thanks for reaching out! I'll get back to you soon.
+                </motion.p>
+              )}
+              {submitStatus === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-sm text-red-400"
+                >
+                  Oops! Something went wrong. Please try again later.
                 </motion.p>
               )}
             </form>

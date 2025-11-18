@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import CustomCursor from '@/components/layout/CustomCursor'
 import SmoothScroll from '@/components/layout/SmoothScroll'
@@ -14,6 +14,27 @@ export const metadata: Metadata = {
     description: SITE_CONFIG.description,
     type: 'website',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0f' },
+    { media: '(prefers-color-scheme: light)', color: '#0a0a0f' },
+  ],
 }
 
 export default function RootLayout({

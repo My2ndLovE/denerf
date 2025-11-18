@@ -130,12 +130,18 @@ class Hero3D {
       this.targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
     });
 
-    // Window resize
+    // Window resize with debounce
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-      this.camera.aspect = window.innerWidth / window.innerHeight;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (this.camera && this.renderer) {
+          this.camera.aspect = window.innerWidth / window.innerHeight;
+          this.camera.updateProjectionMatrix();
+          this.renderer.setSize(window.innerWidth, window.innerHeight);
+          this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        }
+      }, 150);
     });
   }
 

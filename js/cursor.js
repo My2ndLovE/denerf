@@ -55,15 +55,19 @@ class CustomCursor {
       });
     });
 
-    // Handle window resize
+    // Handle window resize with debounce
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        document.body.style.cursor = 'none';
-        this.cursor.style.display = 'block';
-      } else {
-        document.body.style.cursor = 'auto';
-        this.cursor.style.display = 'none';
-      }
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (window.innerWidth > 768) {
+          document.body.style.cursor = 'none';
+          if (this.cursor) this.cursor.style.display = 'block';
+        } else {
+          document.body.style.cursor = 'auto';
+          if (this.cursor) this.cursor.style.display = 'none';
+        }
+      }, 150);
     });
   }
 

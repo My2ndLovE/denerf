@@ -106,6 +106,17 @@ class PortfolioSite {
   initMobileMenu() {
     if (!this.navToggle || !this.navMenu) return;
 
+    const closeMobileMenu = () => {
+      this.navMenu.classList.remove('active');
+      this.navToggle.classList.remove('active');
+      this.navToggle.setAttribute('aria-expanded', 'false');
+
+      const spans = this.navToggle.querySelectorAll('span');
+      spans[0].style.transform = 'none';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = 'none';
+    };
+
     this.navToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       const isActive = this.navToggle.classList.toggle('active');
@@ -130,14 +141,15 @@ class PortfolioSite {
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (this.navToggle.classList.contains('active') && !this.nav.contains(e.target)) {
-        this.navMenu.classList.remove('active');
-        this.navToggle.classList.remove('active');
-        this.navToggle.setAttribute('aria-expanded', 'false');
+        closeMobileMenu();
+      }
+    });
 
-        const spans = this.navToggle.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+    // Close menu on ESC key (accessibility)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.navToggle.classList.contains('active')) {
+        closeMobileMenu();
+        this.navToggle.focus();
       }
     });
   }
@@ -146,6 +158,24 @@ class PortfolioSite {
     const form = document.querySelector('.contact-form');
 
     if (form) {
+      // Add input validation feedback
+      const inputs = form.querySelectorAll('input, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => {
+          if (input.hasAttribute('required') && !input.value.trim()) {
+            input.style.borderColor = 'rgba(255, 0, 0, 0.5)';
+          } else {
+            input.style.borderColor = '';
+          }
+        });
+
+        input.addEventListener('input', () => {
+          if (input.style.borderColor) {
+            input.style.borderColor = '';
+          }
+        });
+      });
+
       form.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -153,19 +183,31 @@ class PortfolioSite {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
 
+        // Validate
+        let isValid = true;
+        inputs.forEach(input => {
+          if (input.hasAttribute('required') && !input.value.trim()) {
+            input.style.borderColor = 'rgba(255, 0, 0, 0.5)';
+            isValid = false;
+          }
+        });
+
+        if (!isValid) return;
+
         // Simulate form submission
         console.log('Form submitted:', data);
 
-        // Show success message (you can customize this)
+        // Show success message
         const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.querySelector('.btn-text').textContent;
+        const btnText = submitBtn.querySelector('.btn-text');
+        const originalText = btnText.textContent;
 
-        submitBtn.querySelector('.btn-text').textContent = 'Message Sent!';
+        btnText.textContent = 'Message Sent!';
         submitBtn.disabled = true;
 
         // Reset after 3 seconds
         setTimeout(() => {
-          submitBtn.querySelector('.btn-text').textContent = originalText;
+          btnText.textContent = originalText;
           submitBtn.disabled = false;
           form.reset();
         }, 3000);
@@ -268,6 +310,10 @@ window.addEventListener('load', () => {
     // Small delay for smooth transition
     setTimeout(() => {
       loadingScreen.classList.add('hidden');
+      // Remove from DOM after transition completes
+      setTimeout(() => {
+        loadingScreen.remove();
+      }, 500);
     }, 500);
   }
   console.log('🎨 Portfolio loaded successfully!');

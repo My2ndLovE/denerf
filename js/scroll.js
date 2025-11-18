@@ -163,13 +163,19 @@ class ScrollAnimations {
           end: 'bottom 20%',
           toggleActions: 'play none none reverse',
           onEnter: () => stat.classList.add('counting'),
-          onLeaveBack: () => stat.classList.remove('counting')
+          onLeaveBack: () => {
+            stat.classList.remove('counting');
+            // Reset to 0 without the "+"
+            stat.innerText = '0';
+          }
         },
         value: target,
         duration: 2,
         ease: 'power2.out',
         onUpdate: function() {
-          stat.innerText = Math.ceil(counter.value) + '+';
+          const currentValue = Math.ceil(counter.value);
+          // Only show "+" if value is greater than 0
+          stat.innerText = currentValue > 0 ? currentValue + '+' : '0';
         }
       });
     });
@@ -209,34 +215,37 @@ class ScrollAnimations {
       });
 
       // Add hover tilt effect
-      item.addEventListener('mousemove', (e) => {
-        const rect = item.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+      const imageInner = item.querySelector('.work-image-inner');
+      if (imageInner) {
+        item.addEventListener('mousemove', (e) => {
+          const rect = item.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
 
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
 
-        gsap.to(item.querySelector('.work-image-inner'), {
-          rotateX: rotateX,
-          rotateY: rotateY,
-          duration: 0.5,
-          ease: 'power2.out',
-          transformPerspective: 1000
+          gsap.to(imageInner, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            duration: 0.5,
+            ease: 'power2.out',
+            transformPerspective: 1000
+          });
         });
-      });
 
-      item.addEventListener('mouseleave', () => {
-        gsap.to(item.querySelector('.work-image-inner'), {
-          rotateX: 0,
-          rotateY: 0,
-          duration: 0.5,
-          ease: 'power2.out'
+        item.addEventListener('mouseleave', () => {
+          gsap.to(imageInner, {
+            rotateX: 0,
+            rotateY: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
         });
-      });
+      }
     });
   }
 

@@ -3,25 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Developer | Web Design & Development</title>
-    <meta name="description" content="Freelance web developer creating extraordinary digital experiences with cutting-edge design and technology.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Primary Meta Tags -->
+    <title>Creative Developer | Web Design & Development Portfolio</title>
+    <meta name="title" content="Creative Developer | Web Design & Development Portfolio">
+    <meta name="description" content="Freelance web developer creating extraordinary digital experiences with cutting-edge design and technology. Specializing in React, Vue, and modern web development.">
+    <meta name="keywords" content="web developer, freelance developer, web design, UI/UX, React, Vue, portfolio">
+    <meta name="author" content="DevStudio">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:title" content="Creative Developer | Web Design & Development Portfolio">
+    <meta property="og:description" content="Freelance web developer creating extraordinary digital experiences with cutting-edge design and technology.">
+    <meta property="og:image" content="https://yourwebsite.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourwebsite.com/">
+    <meta property="twitter:title" content="Creative Developer | Web Design & Development Portfolio">
+    <meta property="twitter:description" content="Freelance web developer creating extraordinary digital experiences with cutting-edge design and technology.">
+    <meta property="twitter:image" content="https://yourwebsite.com/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0e27">
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
     <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
 
     <!-- Animated Background -->
-    <div class="background-animation">
-        <canvas id="particleCanvas"></canvas>
+    <div class="background-animation" aria-hidden="true" role="presentation">
+        <canvas id="particleCanvas" aria-label="Animated particle background"></canvas>
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
         <div class="gradient-orb orb-3"></div>
     </div>
 
     <!-- Floating 3D Elements -->
-    <div class="floating-elements">
+    <div class="floating-elements" aria-hidden="true" role="presentation">
         <div class="float-item code-block" data-speed="2">{ }</div>
         <div class="float-item code-block" data-speed="3">&lt;/&gt;</div>
         <div class="float-item code-block" data-speed="1.5">( )</div>
@@ -31,63 +65,65 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-content">
-            <div class="logo">
-                <span class="logo-bracket">&lt;</span>
+            <a href="#home" class="logo" aria-label="DevStudio - Home">
+                <span class="logo-bracket" aria-hidden="true">&lt;</span>
                 <span class="logo-text">DevStudio</span>
-                <span class="logo-bracket">/&gt;</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Home</a></li>
+                <span class="logo-bracket" aria-hidden="true">/&gt;</span>
+            </a>
+            <ul class="nav-links" id="nav-menu">
+                <li><a href="#home" class="nav-link active" aria-current="page">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-subtitle" data-aos="fade-up">
-                    <span class="glitch-text">Freelance Web Developer</span>
-                </div>
-                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
-                    <span class="title-line">Crafting Digital</span>
-                    <span class="title-line gradient-text">Experiences</span>
-                    <span class="title-line">That Inspire</span>
-                </h1>
-                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
-                    Transforming ideas into immersive web experiences with cutting-edge technology and creative design
-                </p>
-                <div class="hero-cta" data-aos="fade-up" data-aos-delay="300">
-                    <a href="#projects" class="btn btn-primary">
-                        <span>View My Work</span>
-                        <div class="btn-glow"></div>
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <span>Let's Talk</span>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual" data-aos="fade-left" data-aos-delay="400">
-                <div class="code-window">
-                    <div class="window-header">
-                        <div class="window-dots">
-                            <span></span><span></span><span></span>
-                        </div>
-                        <div class="window-title">app.js</div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-subtitle" data-aos="fade-up">
+                        <span class="glitch-text">Freelance Web Developer</span>
                     </div>
-                    <div class="window-content">
-                        <pre><code><span class="code-keyword">const</span> <span class="code-function">createMagic</span> = <span class="code-bracket">()</span> <span class="code-operator">=&gt;</span> <span class="code-bracket">{</span>
+                    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                        <span class="title-line">Crafting Digital</span>
+                        <span class="title-line gradient-text">Experiences</span>
+                        <span class="title-line">That Inspire</span>
+                    </h1>
+                    <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                        Transforming ideas into immersive web experiences with cutting-edge technology and creative design
+                    </p>
+                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="300">
+                        <a href="#projects" class="btn btn-primary">
+                            <span>View My Work</span>
+                            <div class="btn-glow" aria-hidden="true"></div>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span>Let's Talk</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual" data-aos="fade-left" data-aos-delay="400">
+                    <div class="code-window" role="img" aria-label="Code example demonstrating clean architecture">
+                        <div class="window-header">
+                            <div class="window-dots" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="window-title">app.js</div>
+                        </div>
+                        <div class="window-content">
+                            <pre><code id="code-content"><span class="code-keyword">const</span> <span class="code-function">createMagic</span> = <span class="code-bracket">()</span> <span class="code-operator">=&gt;</span> <span class="code-bracket">{</span>
   <span class="code-keyword">return</span> <span class="code-bracket">{</span>
     <span class="code-property">design</span>: <span class="code-string">'stunning'</span>,
     <span class="code-property">code</span>: <span class="code-string">'clean'</span>,
@@ -95,365 +131,403 @@
     <span class="code-property">innovation</span>: <span class="code-number">Infinity</span>
   <span class="code-bracket">}</span>;
 <span class="code-bracket">}</span>;</code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
+            <div class="scroll-indicator" aria-hidden="true">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <p>Scroll to explore</p>
             </div>
-            <p>Scroll to explore</p>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-number">01</span>
-                <h2 class="section-title">About Me</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-text" data-aos="fade-right">
-                    <p class="lead">
-                        I'm a passionate freelance web developer specializing in creating
-                        <span class="highlight">extraordinary digital experiences</span> that blend
-                        aesthetic design with powerful functionality.
-                    </p>
-                    <p>
-                        With a keen eye for detail and a love for innovation, I transform
-                        complex ideas into elegant solutions. My approach combines modern
-                        technologies, creative thinking, and user-centered design principles
-                        to deliver results that exceed expectations.
-                    </p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="50">0</div>
-                            <div class="stat-label">Projects Completed</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="40">0</div>
-                            <div class="stat-label">Happy Clients</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="5">0</div>
-                            <div class="stat-label">Years Experience</div>
-                        </div>
-                    </div>
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-number" aria-hidden="true">01</span>
+                    <h2 class="section-title">About Me</h2>
+                    <div class="section-line" aria-hidden="true"></div>
                 </div>
-                <div class="about-skills" data-aos="fade-left">
-                    <h3>Technical Arsenal</h3>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <div class="skill-icon">⚛️</div>
-                            <h4>Frontend</h4>
-                            <div class="skill-tags">
-                                <span>React</span>
-                                <span>Vue</span>
-                                <span>TypeScript</span>
-                                <span>Next.js</span>
+                <div class="about-content">
+                    <div class="about-text" data-aos="fade-right">
+                        <p class="lead">
+                            I'm a passionate freelance web developer specializing in creating
+                            <span class="highlight">extraordinary digital experiences</span> that blend
+                            aesthetic design with powerful functionality.
+                        </p>
+                        <p>
+                            With a keen eye for detail and a love for innovation, I transform
+                            complex ideas into elegant solutions. My approach combines modern
+                            technologies, creative thinking, and user-centered design principles
+                            to deliver results that exceed expectations.
+                        </p>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="50" aria-label="50 plus">0</div>
+                                <div class="stat-label">Projects Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="40" aria-label="40 plus">0</div>
+                                <div class="stat-label">Happy Clients</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="5" aria-label="5 plus">0</div>
+                                <div class="stat-label">Years Experience</div>
                             </div>
                         </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">⚙️</div>
-                            <h4>Backend</h4>
-                            <div class="skill-tags">
+                    </div>
+                    <div class="about-skills" data-aos="fade-left">
+                        <h3>Technical Arsenal</h3>
+                        <div class="skills-grid">
+                            <div class="skill-card">
+                                <div class="skill-icon" aria-hidden="true">⚛️</div>
+                                <h4>Frontend</h4>
+                                <div class="skill-tags">
+                                    <span>React</span>
+                                    <span>Vue</span>
+                                    <span>TypeScript</span>
+                                    <span>Next.js</span>
+                                </div>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon" aria-hidden="true">⚙️</div>
+                                <h4>Backend</h4>
+                                <div class="skill-tags">
+                                    <span>Node.js</span>
+                                    <span>Python</span>
+                                    <span>PostgreSQL</span>
+                                    <span>MongoDB</span>
+                                </div>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon" aria-hidden="true">🎨</div>
+                                <h4>Design</h4>
+                                <div class="skill-tags">
+                                    <span>UI/UX</span>
+                                    <span>Figma</span>
+                                    <span>3D Graphics</span>
+                                    <span>Animation</span>
+                                </div>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-icon" aria-hidden="true">🚀</div>
+                                <h4>Tools</h4>
+                                <div class="skill-tags">
+                                    <span>Git</span>
+                                    <span>Docker</span>
+                                    <span>AWS</span>
+                                    <span>CI/CD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-number" aria-hidden="true">02</span>
+                    <h2 class="section-title">Services</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </div>
+                <div class="services-grid">
+                    <article class="service-card glass" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-label="Web Development Icon">
+                                <title>Web Development</title>
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications built with modern frameworks and best practices. Fast, secure, and scalable solutions.</p>
+                        <ul class="service-features">
+                            <li>Responsive Design</li>
+                            <li>Performance Optimization</li>
+                            <li>SEO Friendly</li>
+                            <li>Progressive Web Apps</li>
+                        </ul>
+                    </article>
+                    <article class="service-card glass" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-label="UI/UX Design Icon">
+                                <title>UI/UX Design</title>
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg>
+                        </div>
+                        <h3>UI/UX Design</h3>
+                        <p>Beautiful, intuitive interfaces that users love. From wireframes to high-fidelity prototypes and design systems.</p>
+                        <ul class="service-features">
+                            <li>User Research</li>
+                            <li>Interactive Prototypes</li>
+                            <li>Design Systems</li>
+                            <li>Accessibility First</li>
+                        </ul>
+                    </article>
+                    <article class="service-card glass" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-label="Performance Tuning Icon">
+                                <title>Performance Tuning</title>
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <h3>Performance Tuning</h3>
+                        <p>Optimize your existing applications for speed and efficiency. Lighthouse scores above 90 guaranteed.</p>
+                        <ul class="service-features">
+                            <li>Speed Optimization</li>
+                            <li>Code Refactoring</li>
+                            <li>Bundle Size Reduction</li>
+                            <li>Monitoring & Analytics</li>
+                        </ul>
+                    </article>
+                    <article class="service-card glass" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-label="Consulting Icon">
+                                <title>Consulting</title>
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h3>Consulting</h3>
+                        <p>Strategic guidance on technology choices, architecture, and best practices to ensure project success.</p>
+                        <ul class="service-features">
+                            <li>Tech Stack Selection</li>
+                            <li>Code Reviews</li>
+                            <li>Architecture Design</li>
+                            <li>Team Training</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-number" aria-hidden="true">03</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <div class="section-line" aria-hidden="true"></div>
+                </div>
+                <div class="projects-grid">
+                    <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View E-Commerce Platform live demo">View Live</a>
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View E-Commerce Platform source code">Source Code</a>
+                                </div>
+                            </div>
+                            <div class="project-placeholder">
+                                <div class="placeholder-icon" aria-hidden="true">🚀</div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span>React</span>
                                 <span>Node.js</span>
-                                <span>Python</span>
-                                <span>PostgreSQL</span>
                                 <span>MongoDB</span>
                             </div>
+                            <h3>E-Commerce Platform</h3>
+                            <p>Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard.</p>
                         </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">🎨</div>
-                            <h4>Design</h4>
-                            <div class="skill-tags">
-                                <span>UI/UX</span>
-                                <span>Figma</span>
-                                <span>3D Graphics</span>
-                                <span>Animation</span>
+                    </article>
+                    <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View Social Media Dashboard live demo">View Live</a>
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View Social Media Dashboard source code">Source Code</a>
+                                </div>
+                            </div>
+                            <div class="project-placeholder">
+                                <div class="placeholder-icon" aria-hidden="true">📱</div>
                             </div>
                         </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">🚀</div>
-                            <h4>Tools</h4>
-                            <div class="skill-tags">
-                                <span>Git</span>
-                                <span>Docker</span>
-                                <span>AWS</span>
-                                <span>CI/CD</span>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span>Vue.js</span>
+                                <span>Firebase</span>
+                                <span>PWA</span>
+                            </div>
+                            <h3>Social Media Dashboard</h3>
+                            <p>Analytics dashboard for social media managers with real-time data visualization and reporting.</p>
+                        </div>
+                    </article>
+                    <article class="project-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View 3D Portfolio Site live demo">View Live</a>
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View 3D Portfolio Site source code">Source Code</a>
+                                </div>
+                            </div>
+                            <div class="project-placeholder">
+                                <div class="placeholder-icon" aria-hidden="true">🎨</div>
                             </div>
                         </div>
-                    </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span>Three.js</span>
+                                <span>WebGL</span>
+                                <span>GSAP</span>
+                            </div>
+                            <h3>3D Portfolio Site</h3>
+                            <p>Immersive 3D portfolio website with interactive animations and physics-based interactions.</p>
+                        </div>
+                    </article>
+                    <article class="project-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="project-image">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View SaaS Landing Page live demo">View Live</a>
+                                    <a href="javascript:void(0)" class="project-link" role="button" aria-label="View SaaS Landing Page source code">Source Code</a>
+                                </div>
+                            </div>
+                            <div class="project-placeholder">
+                                <div class="placeholder-icon" aria-hidden="true">⚡</div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span>Next.js</span>
+                                <span>TypeScript</span>
+                                <span>Tailwind</span>
+                            </div>
+                            <h3>SaaS Landing Page</h3>
+                            <p>High-converting landing page for SaaS product with A/B testing and conversion tracking.</p>
+                        </div>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-number">02</span>
-                <h2 class="section-title">Services</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="services-grid">
-                <div class="service-card glass" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>Custom websites and web applications built with modern frameworks and best practices. Fast, secure, and scalable solutions.</p>
-                    <ul class="service-features">
-                        <li>Responsive Design</li>
-                        <li>Performance Optimization</li>
-                        <li>SEO Friendly</li>
-                        <li>Progressive Web Apps</li>
-                    </ul>
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-number" aria-hidden="true">04</span>
+                    <h2 class="section-title">Let's Create Together</h2>
+                    <div class="section-line" aria-hidden="true"></div>
                 </div>
-                <div class="service-card glass" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2"/>
-                            <path d="M8 21h8M12 17v4"/>
-                        </svg>
-                    </div>
-                    <h3>UI/UX Design</h3>
-                    <p>Beautiful, intuitive interfaces that users love. From wireframes to high-fidelity prototypes and design systems.</p>
-                    <ul class="service-features">
-                        <li>User Research</li>
-                        <li>Interactive Prototypes</li>
-                        <li>Design Systems</li>
-                        <li>Accessibility First</li>
-                    </ul>
-                </div>
-                <div class="service-card glass" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
-                    <h3>Performance Tuning</h3>
-                    <p>Optimize your existing applications for speed and efficiency. Lighthouse scores above 90 guaranteed.</p>
-                    <ul class="service-features">
-                        <li>Speed Optimization</li>
-                        <li>Code Refactoring</li>
-                        <li>Bundle Size Reduction</li>
-                        <li>Monitoring & Analytics</li>
-                    </ul>
-                </div>
-                <div class="service-card glass" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
-                    </div>
-                    <h3>Consulting</h3>
-                    <p>Strategic guidance on technology choices, architecture, and best practices to ensure project success.</p>
-                    <ul class="service-features">
-                        <li>Tech Stack Selection</li>
-                        <li>Code Reviews</li>
-                        <li>Architecture Design</li>
-                        <li>Team Training</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-number">03</span>
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Live</a>
-                                <a href="#" class="project-link">Source Code</a>
+                <div class="contact-content">
+                    <div class="contact-info" data-aos="fade-right">
+                        <h3>Get In Touch</h3>
+                        <p>Have a project in mind? Let's discuss how we can bring your vision to life with exceptional design and development.</p>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="method-icon" aria-hidden="true">📧</div>
+                                <div>
+                                    <h4>Email</h4>
+                                    <a href="mailto:hello@developer.com">hello@developer.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="method-icon" aria-hidden="true">💼</div>
+                                <div>
+                                    <h4>LinkedIn</h4>
+                                    <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">/in/yourprofile</a>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="method-icon" aria-hidden="true">🐙</div>
+                                <div>
+                                    <h4>GitHub</h4>
+                                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">@yourusername</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="project-placeholder">
-                            <div class="placeholder-icon">🚀</div>
-                        </div>
                     </div>
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>MongoDB</span>
+                    <form class="contact-form glass" data-aos="fade-left" novalidate>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                required
+                                autocomplete="name"
+                                minlength="2"
+                                maxlength="50"
+                                aria-required="true">
+                            <label for="name">Your Name</label>
+                            <span class="form-error" role="alert"></span>
                         </div>
-                        <h3>E-Commerce Platform</h3>
-                        <p>Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard.</p>
-                    </div>
-                </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Live</a>
-                                <a href="#" class="project-link">Source Code</a>
-                            </div>
+                        <div class="form-group">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                                autocomplete="email"
+                                aria-required="true">
+                            <label for="email">Your Email</label>
+                            <span class="form-error" role="alert"></span>
                         </div>
-                        <div class="project-placeholder">
-                            <div class="placeholder-icon">📱</div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                required
+                                minlength="5"
+                                maxlength="100"
+                                aria-required="true">
+                            <label for="subject">Subject</label>
+                            <span class="form-error" role="alert"></span>
                         </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span>Vue.js</span>
-                            <span>Firebase</span>
-                            <span>PWA</span>
+                        <div class="form-group">
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                required
+                                minlength="10"
+                                maxlength="1000"
+                                aria-required="true"></textarea>
+                            <label for="message">Your Message</label>
+                            <span class="form-error" role="alert"></span>
                         </div>
-                        <h3>Social Media Dashboard</h3>
-                        <p>Analytics dashboard for social media managers with real-time data visualization and reporting.</p>
-                    </div>
-                </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Live</a>
-                                <a href="#" class="project-link">Source Code</a>
-                            </div>
-                        </div>
-                        <div class="project-placeholder">
-                            <div class="placeholder-icon">🎨</div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span>Three.js</span>
-                            <span>WebGL</span>
-                            <span>GSAP</span>
-                        </div>
-                        <h3>3D Portfolio Site</h3>
-                        <p>Immersive 3D portfolio website with interactive animations and physics-based interactions.</p>
-                    </div>
-                </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link">View Live</a>
-                                <a href="#" class="project-link">Source Code</a>
-                            </div>
-                        </div>
-                        <div class="project-placeholder">
-                            <div class="placeholder-icon">⚡</div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span>Next.js</span>
-                            <span>TypeScript</span>
-                            <span>Tailwind</span>
-                        </div>
-                        <h3>SaaS Landing Page</h3>
-                        <p>High-converting landing page for SaaS product with A/B testing and conversion tracking.</p>
-                    </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Send Message</span>
+                            <div class="btn-glow" aria-hidden="true"></div>
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-number">04</span>
-                <h2 class="section-title">Let's Create Together</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Get In Touch</h3>
-                    <p>Have a project in mind? Let's discuss how we can bring your vision to life with exceptional design and development.</p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="method-icon">📧</div>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:hello@developer.com">hello@developer.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="method-icon">💼</div>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <a href="#">/in/yourprofile</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="method-icon">🐙</div>
-                            <div>
-                                <h4>GitHub</h4>
-                                <a href="#">@yourusername</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form glass" data-aos="fade-left">
-                    <div class="form-group">
-                        <input type="text" id="name" required>
-                        <label for="name">Your Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" required>
-                        <label for="email">Your Email</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" required>
-                        <label for="subject">Subject</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" rows="5" required></textarea>
-                        <label for="message">Your Message</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <span>Send Message</span>
-                        <div class="btn-glow"></div>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-bracket" aria-hidden="true">&lt;</span>
                     <span class="logo-text">DevStudio</span>
-                    <span class="logo-bracket">/&gt;</span>
+                    <span class="logo-bracket" aria-hidden="true">/&gt;</span>
                 </div>
                 <p class="footer-text">Crafting digital experiences that inspire and engage.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link">GitHub</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">Dribbble</a>
-                </div>
-                <p class="copyright">© 2025 DevStudio. All rights reserved.</p>
+                <nav class="social-links" aria-label="Social media links">
+                    <a href="https://github.com/yourusername" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+                    <a href="https://linkedin.com/in/yourprofile" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="https://twitter.com/yourusername" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">Twitter</a>
+                    <a href="https://dribbble.com/yourusername" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">Dribbble</a>
+                </nav>
+                <p class="copyright">© <span id="current-year">2025</span> DevStudio. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Script with defer for better performance -->
+    <script src="script.js" defer></script>
 </body>
 </html>

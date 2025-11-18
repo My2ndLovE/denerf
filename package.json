@@ -1,0 +1,30 @@
+{
+  "name": "denerf-creative-agency",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Performance-first, award-worthy landing page for a creative development agency",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^5.0.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "three": "^0.170.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

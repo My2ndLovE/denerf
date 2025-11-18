@@ -1,0 +1,464 @@
+---
+// Services Section with Magnetic Bento Grid
+const services = [
+  {
+    id: 1,
+    title: "Web Development",
+    description: "Lightning-fast, responsive websites built with modern frameworks. Performance isn't optional.",
+    icon: "web",
+    size: "large",
+    tech: ["Astro", "React", "Next.js", "TypeScript"]
+  },
+  {
+    id: 2,
+    title: "UI/UX Design",
+    description: "Interfaces that users love. Every interaction thoughtfully crafted.",
+    icon: "design",
+    size: "medium",
+    tech: ["Figma", "Design Systems", "Prototyping"]
+  },
+  {
+    id: 3,
+    title: "Animation",
+    description: "Bring your brand to life with smooth, purposeful motion design.",
+    icon: "animation",
+    size: "medium",
+    tech: ["GSAP", "Three.js", "Lottie"]
+  },
+  {
+    id: 4,
+    title: "Performance Optimization",
+    description: "Make your site blazing fast. Core Web Vitals are our obsession.",
+    icon: "performance",
+    size: "small",
+    tech: ["Lighthouse", "Bundle Analysis", "CDN"]
+  },
+  {
+    id: 5,
+    title: "E-commerce",
+    description: "Convert visitors into customers with optimized shopping experiences.",
+    icon: "ecommerce",
+    size: "medium",
+    tech: ["Shopify", "Stripe", "Custom Carts"]
+  },
+  {
+    id: 6,
+    title: "SEO & Analytics",
+    description: "Get found. Get data. Make informed decisions.",
+    icon: "seo",
+    size: "small",
+    tech: ["SEO", "Analytics", "A/B Testing"]
+  }
+];
+---
+
+<section id="services" class="services-section section relative">
+  <div class="container">
+    <!-- Section Label -->
+    <div class="section-label mb-16">
+      <span class="font-mono text-sm tracking-widest text-brand-cyan">[ 02 ]</span>
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mt-4 mb-6">
+        What We Do
+      </h2>
+      <p class="text-xl text-white/60 max-w-2xl">
+        End-to-end digital experiences that perform, delight, and convert.
+      </p>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid">
+      {services.map((service) => (
+        <div
+          class={`service-card magnetic-card ${service.size}`}
+          data-service-id={service.id}
+          data-tilt
+        >
+          <div class="card-content">
+            <!-- Service Icon -->
+            <div class="service-icon-container">
+              <div class="service-icon" data-icon={service.icon}>
+                {service.icon === 'web' && (
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="20" width="80" height="60" stroke="currentColor" stroke-width="3" rx="4"/>
+                    <line x1="10" y1="35" x2="90" y2="35" stroke="currentColor" stroke-width="3"/>
+                    <circle cx="20" cy="27" r="2" fill="currentColor"/>
+                    <circle cx="30" cy="27" r="2" fill="currentColor"/>
+                    <circle cx="40" cy="27" r="2" fill="currentColor"/>
+                  </svg>
+                )}
+                {service.icon === 'design' && (
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="15" stroke="currentColor" stroke-width="3"/>
+                    <rect x="55" y="15" width="30" height="30" stroke="currentColor" stroke-width="3"/>
+                    <path d="M30 55 L30 85 L50 70 L70 85 L70 55" stroke="currentColor" stroke-width="3"/>
+                  </svg>
+                )}
+                {service.icon === 'animation' && (
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 50 Q35 20 50 50 T80 50" stroke="currentColor" stroke-width="3" fill="none" class="animate-pulse"/>
+                    <circle cx="20" cy="50" r="4" fill="currentColor" class="text-brand-cyan"/>
+                    <circle cx="50" cy="50" r="4" fill="currentColor" class="text-brand-purple"/>
+                    <circle cx="80" cy="50" r="4" fill="currentColor" class="text-brand-yellow"/>
+                  </svg>
+                )}
+                {service.icon === 'performance' && (
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 20 L80 80 L20 80 Z" stroke="currentColor" stroke-width="3" fill="none"/>
+                    <path d="M50 40 L50 70" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="30" r="3" fill="currentColor" class="text-brand-cyan"/>
+                  </svg>
+                )}
+                {service.icon === 'ecommerce' && (
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 30 L30 30 L40 70 L80 70" stroke="currentColor" stroke-width="3" stroke-linejoin="round" fill="none"/>
+                    <circle cx="45" cy="80" r="4" fill="currentColor"/>
+                    <circle cx="75" cy="80" r="4" fill="currentColor"/>
+                    <path d="M30 30 L35 50 L75 50 L80 30" stroke="currentColor" stroke-width="3" fill="none"/>
+                  </svg>
+                )}
+                {service.icon === 'seo' && (
+                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="20" stroke="currentColor" stroke-width="3"/>
+                    <path d="M55 55 L75 75" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="35" y1="35" x2="45" y2="45" stroke="currentColor" stroke-width="3"/>
+                  </svg>
+                )}
+              </div>
+            </div>
+
+            <!-- Service Info -->
+            <div class="service-info">
+              <h3 class="service-title">{service.title}</h3>
+              <p class="service-description">{service.description}</p>
+
+              <!-- Tech Stack Pills -->
+              <div class="tech-pills">
+                {service.tech.map((tech) => (
+                  <span class="tech-pill">{tech}</span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Hover Effect Overlay -->
+            <div class="card-overlay"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="services-cta text-center mt-16">
+      <p class="text-lg text-white/60 mb-6">Have something specific in mind?</p>
+      <a href="#contact" class="btn-outline magnetic">
+        Let's Talk About Your Project
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    background: var(--color-brand-black);
+    padding: clamp(6rem, 15vw, 12rem) 0;
+  }
+
+  /* Bento Grid Layout */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  /* Grid Sizes */
+  .service-card.large {
+    grid-column: span 8;
+    min-height: 400px;
+  }
+
+  .service-card.medium {
+    grid-column: span 6;
+    min-height: 350px;
+  }
+
+  .service-card.small {
+    grid-column: span 4;
+    min-height: 300px;
+  }
+
+  /* Responsive Grid */
+  @media (max-width: 1024px) {
+    .service-card.large,
+    .service-card.medium {
+      grid-column: span 6;
+    }
+
+    .service-card.small {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .service-card {
+      grid-column: span 12 !important;
+      min-height: 300px !important;
+    }
+  }
+
+  /* Card Styles */
+  .service-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--duration-base) var(--ease-out);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-brand-cyan);
+    transform: translateY(-5px);
+  }
+
+  .card-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Service Icon */
+  .service-icon-container {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 240, 255, 0.1);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-base) var(--ease-out);
+  }
+
+  .service-card:hover .service-icon-container {
+    background: rgba(0, 240, 255, 0.2);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .service-icon {
+    width: 50px;
+    height: 50px;
+    color: var(--color-brand-cyan);
+  }
+
+  /* Service Info */
+  .service-info {
+    flex: 1;
+  }
+
+  .service-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-brand-white);
+  }
+
+  .service-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Tech Pills */
+  .tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tech-pill {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: rgba(107, 47, 246, 0.2);
+    border: 1px solid rgba(107, 47, 246, 0.3);
+    border-radius: var(--radius-full);
+    color: var(--color-brand-purple);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .service-card:hover .tech-pill {
+    background: rgba(107, 47, 246, 0.3);
+    border-color: var(--color-brand-purple);
+    transform: translateY(-2px);
+  }
+
+  /* Card Overlay Effect */
+  .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .service-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  /* CTA Button */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-white);
+    background: transparent;
+    transition: all var(--duration-base) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--color-brand-cyan);
+    transition: left var(--duration-base) var(--ease-out);
+    z-index: -1;
+  }
+
+  .btn-outline:hover {
+    color: var(--color-brand-black);
+    border-color: var(--color-brand-cyan);
+  }
+
+  .btn-outline:hover::before {
+    left: 0;
+  }
+
+  .btn-arrow {
+    display: inline-block;
+    transition: transform var(--duration-base) var(--ease-bounce);
+  }
+
+  .btn-outline:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    const cards = document.querySelectorAll('.service-card');
+
+    // Stagger animation on scroll
+    gsap.from(cards, {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.bento-grid',
+        start: 'top 70%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // 3D Tilt Effect on Hover
+    cards.forEach((card) => {
+      const cardElement = card as HTMLElement;
+      const overlay = card.querySelector('.card-overlay') as HTMLElement;
+
+      cardElement.addEventListener('mousemove', (e) => {
+        const rect = cardElement.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        gsap.to(cardElement, {
+          rotationX: rotateX,
+          rotationY: rotateY,
+          duration: 0.3,
+          ease: 'power2.out',
+          transformPerspective: 1000
+        });
+
+        // Update overlay position
+        if (overlay) {
+          const mouseXPercent = (x / rect.width) * 100;
+          const mouseYPercent = (y / rect.height) * 100;
+          overlay.style.setProperty('--mouse-x', `${mouseXPercent}%`);
+          overlay.style.setProperty('--mouse-y', `${mouseYPercent}%`);
+        }
+      });
+
+      cardElement.addEventListener('mouseleave', () => {
+        gsap.to(cardElement, {
+          rotationX: 0,
+          rotationY: 0,
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      });
+    });
+
+    // Magnetic effect for CTA button
+    const magneticButton = document.querySelector('.services-cta .magnetic') as HTMLElement;
+    if (magneticButton) {
+      magneticButton.addEventListener('mousemove', (e) => {
+        const rect = magneticButton.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(magneticButton, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+
+      magneticButton.addEventListener('mouseleave', () => {
+        gsap.to(magneticButton, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1, 0.3)'
+        });
+      });
+    }
+  });
+</script>

@@ -1,0 +1,383 @@
+---
+// Tech Stack Section with Interactive Constellation
+const techStack = {
+  frontend: [
+    { name: "Astro", icon: "⚡", connections: ["React", "TypeScript"] },
+    { name: "React", icon: "⚛️", connections: ["Next.js", "TypeScript"] },
+    { name: "Next.js", icon: "▲", connections: ["TypeScript", "Tailwind"] },
+    { name: "TypeScript", icon: "TS", connections: ["Node.js"] },
+    { name: "Tailwind", icon: "🎨", connections: ["Astro"] }
+  ],
+  backend: [
+    { name: "Node.js", icon: "🟢", connections: ["PostgreSQL", "TypeScript"] },
+    { name: "PostgreSQL", icon: "🐘", connections: ["Prisma"] },
+    { name: "Prisma", icon: "💎", connections: ["Node.js"] }
+  ],
+  tools: [
+    { name: "Git", icon: "📦", connections: [] },
+    { name: "Docker", icon: "🐳", connections: [] },
+    { name: "Figma", icon: "🎯", connections: [] }
+  ]
+};
+---
+
+<section id="tech-stack" class="tech-stack-section section relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="tech-bg-pattern"></div>
+
+  <div class="container">
+    <!-- Section Label -->
+    <div class="section-label mb-16 text-center">
+      <span class="font-mono text-sm tracking-widest text-brand-cyan">[ 03 ]</span>
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mt-4 mb-6">
+        Our Tech Stack
+      </h2>
+      <p class="text-xl text-white/60 max-w-2xl mx-auto">
+        Modern, battle-tested technologies that scale.
+      </p>
+    </div>
+
+    <!-- Tech Categories -->
+    <div class="tech-categories mb-12">
+      <button class="tech-category-btn active" data-category="all">All</button>
+      <button class="tech-category-btn" data-category="frontend">Frontend</button>
+      <button class="tech-category-btn" data-category="backend">Backend</button>
+      <button class="tech-category-btn" data-category="tools">Tools</button>
+    </div>
+
+    <!-- Tech Grid -->
+    <div class="tech-grid">
+      <!-- Frontend -->
+      {techStack.frontend.map((tech, index) => (
+        <div class="tech-card" data-category="frontend" data-tech={tech.name} style={`--delay: ${index * 0.1}s`}>
+          <div class="tech-icon">{tech.icon}</div>
+          <h3 class="tech-name">{tech.name}</h3>
+          <div class="tech-category-label">Frontend</div>
+        </div>
+      ))}
+
+      <!-- Backend -->
+      {techStack.backend.map((tech, index) => (
+        <div class="tech-card" data-category="backend" data-tech={tech.name} style={`--delay: ${(index + 5) * 0.1}s`}>
+          <div class="tech-icon">{tech.icon}</div>
+          <h3 class="tech-name">{tech.name}</h3>
+          <div class="tech-category-label">Backend</div>
+        </div>
+      ))}
+
+      <!-- Tools -->
+      {techStack.tools.map((tech, index) => (
+        <div class="tech-card" data-category="tools" data-tech={tech.name} style={`--delay: ${(index + 8) * 0.1}s`}>
+          <div class="tech-icon">{tech.icon}</div>
+          <h3 class="tech-name">{tech.name}</h3>
+          <div class="tech-category-label">Tools</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Skills Bar -->
+    <div class="skills-section mt-20">
+      <h3 class="text-3xl font-display font-bold mb-8 text-center">Expertise Levels</h3>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-label">Web Performance</span>
+            <span class="skill-percent">98%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-percent="98"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-label">Frontend Development</span>
+            <span class="skill-percent">95%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-percent="95"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-label">Animation & Motion</span>
+            <span class="skill-percent">92%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-percent="92"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-label">Backend Architecture</span>
+            <span class="skill-percent">88%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-percent="88"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-stack-section {
+    background: linear-gradient(180deg, var(--color-brand-black) 0%, #0a0a0a 100%);
+    padding: clamp(6rem, 15vw, 12rem) 0;
+    position: relative;
+  }
+
+  .tech-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* Tech Categories Filter */
+  .tech-categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-category-btn {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all var(--duration-base) var(--ease-out);
+  }
+
+  .tech-category-btn:hover,
+  .tech-category-btn.active {
+    background: var(--color-brand-cyan);
+    border-color: var(--color-brand-cyan);
+    color: var(--color-brand-black);
+    transform: translateY(-2px);
+  }
+
+  /* Tech Grid */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .tech-card {
+    position: relative;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all var(--duration-base) var(--ease-out);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tech-card:hover {
+    border-color: var(--color-brand-cyan);
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2);
+  }
+
+  .tech-card.hidden {
+    display: none;
+  }
+
+  .tech-icon {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .tech-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-brand-white);
+    text-align: center;
+  }
+
+  .tech-category-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Skills Section */
+  .skills-section {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .skill-item {
+    width: 100%;
+  }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-label {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-brand-white);
+  }
+
+  .skill-percent {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--color-brand-cyan);
+  }
+
+  .skill-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-brand-cyan), var(--color-brand-purple));
+    border-radius: var(--radius-full);
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+    position: relative;
+  }
+
+  .skill-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    filter: blur(10px);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .tech-grid {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    .tech-card {
+      padding: 1.5rem;
+    }
+
+    .tech-icon {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    // Category filtering
+    const categoryButtons = document.querySelectorAll('.tech-category-btn');
+    const techCards = document.querySelectorAll('.tech-card');
+
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+
+        // Update active button
+        categoryButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter cards
+        techCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          if (category === 'all' || cardCategory === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Animate skill bars on scroll
+    const skillFills = document.querySelectorAll('.skill-fill');
+
+    skillFills.forEach(fill => {
+      const percent = fill.getAttribute('data-percent');
+
+      ScrollTrigger.create({
+        trigger: '.skills-section',
+        start: 'top 70%',
+        onEnter: () => {
+          gsap.to(fill, {
+            width: `${percent}%`,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
+      });
+    });
+
+    // Parallax effect on tech cards
+    techCards.forEach((card, index) => {
+      gsap.to(card, {
+        y: -20 * (index % 3),
+        scrollTrigger: {
+          trigger: '.tech-grid',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+    });
+  });
+</script>

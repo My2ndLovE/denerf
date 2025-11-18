@@ -1,0 +1,426 @@
+---
+// Philosophy Section with Horizontal Scroll
+---
+
+<section id="philosophy" class="philosophy-section section relative overflow-hidden">
+  <div class="container">
+    <!-- Section Label -->
+    <div class="section-label mb-12">
+      <span class="font-mono text-sm tracking-widest text-brand-cyan">[ 01 ]</span>
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mt-4 mb-6">
+        Our Philosophy
+      </h2>
+      <p class="text-xl text-white/60 max-w-2xl">
+        Three principles that guide every pixel, every line of code, every decision.
+      </p>
+    </div>
+  </div>
+
+  <!-- Horizontal Scroll Container -->
+  <div class="horizontal-scroll-wrapper" data-scroll-section>
+    <div class="horizontal-scroll-container">
+      <!-- Principle 1 -->
+      <div class="principle-card" data-principle="1">
+        <div class="principle-number">01</div>
+        <div class="principle-content">
+          <h3 class="principle-title">Performance <br/>is a Feature</h3>
+          <p class="principle-description">
+            Fast sites aren't just nice to have—they're essential. Every millisecond matters.
+            We obsess over Core Web Vitals, optimize every asset, and ensure your users
+            experience lightning-fast interactions.
+          </p>
+          <div class="principle-metrics">
+            <div class="metric">
+              <span class="metric-value">&lt;1s</span>
+              <span class="metric-label">Load Time</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">95+</span>
+              <span class="metric-label">Lighthouse</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">60fps</span>
+              <span class="metric-label">Animations</span>
+            </div>
+          </div>
+        </div>
+        <div class="principle-icon">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 L90 50 L50 90 L10 50 Z" stroke="currentColor" stroke-width="2" fill="none" class="animate-pulse-slow"/>
+            <circle cx="50" cy="50" r="15" fill="currentColor" class="text-brand-cyan opacity-50"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Principle 2 -->
+      <div class="principle-card" data-principle="2">
+        <div class="principle-number">02</div>
+        <div class="principle-content">
+          <h3 class="principle-title">Craft Over <br/>Convention</h3>
+          <p class="principle-description">
+            We don't do cookie-cutter. Every project gets custom-tailored solutions,
+            thoughtful interactions, and attention to detail that makes users think
+            "someone really cared about this."
+          </p>
+          <div class="principle-list">
+            <div class="list-item">
+              <span class="list-icon">✓</span>
+              <span>Custom animations, not templates</span>
+            </div>
+            <div class="list-item">
+              <span class="list-icon">✓</span>
+              <span>Micro-interactions that delight</span>
+            </div>
+            <div class="list-item">
+              <span class="list-icon">✓</span>
+              <span>Pixel-perfect implementation</span>
+            </div>
+          </div>
+        </div>
+        <div class="principle-icon">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 50 L40 30 L60 50 L80 20" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="40" cy="30" r="5" fill="currentColor" class="text-brand-purple"/>
+            <circle cx="60" cy="50" r="5" fill="currentColor" class="text-brand-cyan"/>
+            <circle cx="80" cy="20" r="5" fill="currentColor" class="text-brand-yellow"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Principle 3 -->
+      <div class="principle-card" data-principle="3">
+        <div class="principle-number">03</div>
+        <div class="principle-content">
+          <h3 class="principle-title">Code That <br/>Speaks</h3>
+          <p class="principle-description">
+            Clean, maintainable, documented code isn't just for us—it's for your team.
+            We write code that developers love to work with, using modern patterns
+            and best practices that stand the test of time.
+          </p>
+          <div class="code-preview">
+            <code class="code-block">
+<span class="code-comment">// Clear, intentional, maintainable</span>
+<span class="code-keyword">const</span> <span class="code-function">buildExperience</span> = () => {
+  <span class="code-keyword">return</span> {
+    <span class="code-property">quality</span>: <span class="code-string">'exceptional'</span>,
+    <span class="code-property">performance</span>: <span class="code-string">'blazing'</span>,
+    <span class="code-property">craft</span>: <span class="code-string">'unmatched'</span>
+  };
+};
+            </code>
+          </div>
+        </div>
+        <div class="principle-icon">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="60" height="60" stroke="currentColor" stroke-width="2" rx="4"/>
+            <line x1="30" y1="35" x2="50" y2="35" stroke="currentColor" stroke-width="2"/>
+            <line x1="30" y1="50" x2="70" y2="50" stroke="currentColor" stroke-width="2"/>
+            <line x1="30" y1="65" x2="60" y2="65" stroke="currentColor" stroke-width="2"/>
+            <circle cx="75" cy="35" r="3" fill="currentColor" class="text-brand-cyan"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Indicator -->
+  <div class="scroll-progress">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <p class="progress-text font-mono text-xs">Drag to explore</p>
+  </div>
+</section>
+
+<style>
+  .philosophy-section {
+    background: var(--color-brand-black);
+    padding: clamp(6rem, 15vw, 12rem) 0;
+  }
+
+  .section-label {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Horizontal Scroll */
+  .horizontal-scroll-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4rem 0;
+  }
+
+  .horizontal-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .horizontal-scroll-container {
+    display: flex;
+    gap: 3rem;
+    padding: 0 var(--space-lg);
+    width: max-content;
+  }
+
+  /* Principle Cards */
+  .principle-card {
+    position: relative;
+    width: min(85vw, 500px);
+    min-height: 600px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all var(--duration-slow) var(--ease-out);
+  }
+
+  .principle-card:hover {
+    border-color: var(--color-brand-cyan);
+    transform: translateY(-10px);
+  }
+
+  .principle-number {
+    font-family: var(--font-display);
+    font-size: 8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.05);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .principle-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .principle-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--color-brand-white);
+  }
+
+  .principle-description {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+  }
+
+  /* Metrics */
+  .principle-metrics {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-brand-cyan);
+  }
+
+  .metric-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* List Items */
+  .principle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .list-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .list-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--color-brand-purple);
+    color: var(--color-brand-white);
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Code Preview */
+  .code-preview {
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    overflow-x: auto;
+  }
+
+  .code-block {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-brand-white);
+    white-space: pre;
+    display: block;
+  }
+
+  .code-comment { color: #6A9955; }
+  .code-keyword { color: var(--color-brand-purple); }
+  .code-function { color: var(--color-brand-cyan); }
+  .code-property { color: #9CDCFE; }
+  .code-string { color: var(--color-brand-yellow); }
+
+  /* Principle Icon */
+  .principle-icon {
+    width: 100px;
+    height: 100px;
+    color: var(--color-brand-cyan);
+    opacity: 0.3;
+    align-self: flex-end;
+  }
+
+  /* Scroll Progress */
+  .scroll-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding: 0 var(--space-lg);
+  }
+
+  .progress-bar {
+    width: 100%;
+    max-width: 300px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--color-brand-cyan);
+    width: 0%;
+    transition: width 0.1s ease-out;
+  }
+
+  .progress-text {
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .principle-card {
+      min-height: 500px;
+      padding: 2rem;
+    }
+
+    .principle-number {
+      font-size: 5rem;
+    }
+
+    .principle-metrics {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    const wrapper = document.querySelector('.horizontal-scroll-wrapper') as HTMLElement;
+    const container = document.querySelector('.horizontal-scroll-container') as HTMLElement;
+    const progressFill = document.querySelector('.progress-fill') as HTMLElement;
+    const cards = document.querySelectorAll('.principle-card');
+
+    if (!wrapper || !container || !progressFill) return;
+
+    // Update progress bar on scroll
+    wrapper.addEventListener('scroll', () => {
+      const scrollPercentage = (wrapper.scrollLeft / (container.scrollWidth - wrapper.clientWidth)) * 100;
+      progressFill.style.width = `${scrollPercentage}%`;
+    });
+
+    // Parallax effect on cards
+    cards.forEach((card, index) => {
+      const icon = card.querySelector('.principle-icon');
+      const number = card.querySelector('.principle-number');
+
+      if (icon) {
+        gsap.to(icon, {
+          x: () => wrapper.scrollLeft * 0.1 * (index + 1),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      }
+
+      if (number) {
+        gsap.to(number, {
+          x: () => -wrapper.scrollLeft * 0.05 * (index + 1),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      }
+    });
+
+    // Fade in cards on scroll into view
+    gsap.utils.toArray('.principle-card').forEach((card: any, i) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        delay: i * 0.2,
+        scrollTrigger: {
+          trigger: '.philosophy-section',
+          start: 'top 70%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+  });
+</script>

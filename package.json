@@ -1,0 +1,26 @@
+{
+  "name": "creative-landing-pages",
+  "version": "1.0.0",
+  "description": "6 Ultra-Creative Landing Page Concepts",
+  "private": true,
+  "scripts": {
+    "install-all": "npm run install-1 && npm run install-2 && npm run install-3 && npm run install-4 && npm run install-5 && npm run install-6",
+    "install-1": "cd concept-1-digital-forge && npm install",
+    "install-2": "cd concept-2-neural-network && npm install",
+    "install-3": "cd concept-3-code-matrix && npm install",
+    "install-4": "cd concept-4-builders-playground && npm install",
+    "install-5": "cd concept-5-liquid-interface && npm install",
+    "install-6": "cd concept-6-terminal-reimagined && npm install"
+  },
+  "keywords": [
+    "nextjs",
+    "threejs",
+    "react-three-fiber",
+    "landing-page",
+    "3d",
+    "creative",
+    "portfolio"
+  ],
+  "author": "",
+  "license": "MIT"
+}

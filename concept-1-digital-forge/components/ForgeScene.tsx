@@ -1,11 +1,10 @@
 'use client'
 
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, ContactShadows, Float, MeshDistortMaterial, Sparkles } from '@react-three/drei'
+import { OrbitControls, Environment, ContactShadows, Float, Sparkles } from '@react-three/drei'
 import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing'
 import { useRef, useState } from 'react'
 import * as THREE from 'three'
-import { motion } from 'framer-motion-3d'
 
 function Anvil() {
   const meshRef = useRef<THREE.Mesh>(null)
@@ -91,39 +90,41 @@ function Anvil() {
 function Hammer() {
   const meshRef = useRef<THREE.Group>(null)
   const [striking, setStriking] = useState(false)
+  const strikeTime = useRef(0)
+  const originalY = useRef(3)
 
   useFrame((state) => {
-    if (meshRef.current && !striking) {
-      // Floating motion
-      meshRef.current.position.y = 3 + Math.sin(state.clock.elapsedTime) * 0.3
-      meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
+    if (meshRef.current) {
+      if (!striking) {
+        // Floating motion
+        meshRef.current.position.y = 3 + Math.sin(state.clock.elapsedTime) * 0.3
+        meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
+        originalY.current = meshRef.current.position.y
+      } else {
+        // Smooth strike animation using requestAnimationFrame
+        const elapsed = state.clock.elapsedTime - strikeTime.current
+        const duration = 0.5 // 0.5 seconds for full strike
+
+        if (elapsed < duration / 2) {
+          // Down phase
+          const progress = (elapsed / (duration / 2))
+          meshRef.current.position.y = THREE.MathUtils.lerp(originalY.current, 0.5, progress)
+        } else if (elapsed < duration) {
+          // Up phase
+          const progress = ((elapsed - duration / 2) / (duration / 2))
+          meshRef.current.position.y = THREE.MathUtils.lerp(0.5, originalY.current, progress)
+        } else {
+          // Animation complete
+          setStriking(false)
+        }
+      }
     }
   })
 
   const handleClick = () => {
-    if (meshRef.current && !striking) {
+    if (!striking) {
       setStriking(true)
-      // Strike animation
-      const originalY = meshRef.current.position.y
-      const strikeY = 0.5
-
-      // Animate down
-      const downInterval = setInterval(() => {
-        if (meshRef.current && meshRef.current.position.y > strikeY) {
-          meshRef.current.position.y -= 0.3
-        } else {
-          clearInterval(downInterval)
-          // Animate back up
-          const upInterval = setInterval(() => {
-            if (meshRef.current && meshRef.current.position.y < originalY) {
-              meshRef.current.position.y += 0.3
-            } else {
-              clearInterval(upInterval)
-              setStriking(false)
-            }
-          }, 16)
-        }
-      }, 16)
+      strikeTime.current = 0
     }
   }
 

@@ -3,7 +3,7 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
-import { OrbitControls, Text3D, Center } from '@react-three/drei'
+import { OrbitControls, Text } from '@react-three/drei'
 import { EffectComposer, Bloom, Glitch } from '@react-three/postprocessing'
 
 function CodeCube() {
@@ -46,16 +46,17 @@ function FloatingCode() {
         const angle = (i / codeSymbols.length) * Math.PI * 2
         const radius = 4
         return (
-          <Text3D
+          <Text
             key={i}
-            font="/fonts/helvetiker_regular.typeface.json"
-            size={0.3}
-            height={0.1}
+            fontSize={0.4}
             position={[
               Math.cos(angle) * radius,
               Math.sin(i) * 2,
               Math.sin(angle) * radius,
             ]}
+            color="#00FF41"
+            anchorX="center"
+            anchorY="middle"
           >
             {symbol}
             <meshStandardMaterial
@@ -63,7 +64,7 @@ function FloatingCode() {
               emissive="#39FF14"
               emissiveIntensity={1}
             />
-          </Text3D>
+          </Text>
         )
       })}
     </group>

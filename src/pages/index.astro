@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero';
+import Services from '../components/Services';
+import Portfolio from '../components/Portfolio';
+import TechStack from '../components/TechStack';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
+import CustomCursor from '../components/CustomCursor';
+---
+
+<BaseLayout
+  title="Quantum Labs | Award-Winning Software Development"
+  description="We craft extraordinary digital experiences that push the boundaries of what's possible. Custom software development with cutting-edge technology."
+>
+  <!-- Custom Cursor (desktop only) -->
+  <CustomCursor client:load />
+
+  <!-- Navigation -->
+  <Navigation client:load />
+
+  <!-- Hero Section -->
+  <Hero client:load />
+
+  <!-- Services Section -->
+  <Services client:load />
+
+  <!-- Portfolio Section -->
+  <Portfolio client:load />
+
+  <!-- Tech Stack Section -->
+  <TechStack client:load />
+
+  <!-- Contact Section -->
+  <Contact client:load />
+
+  <!-- Footer -->
+  <Footer client:load />
+</BaseLayout>

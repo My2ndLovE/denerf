@@ -87,88 +87,31 @@ import MagneticButton from '../ui/MagneticButton.astro';
 </section>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { splitTextAnimation, fadeInAnimation, parallaxEffect, cleanupScrollTriggers } from '@utils/animations';
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Split text animation
-  function splitText() {
-    const elements = document.querySelectorAll('[data-split-text]');
-
-    elements.forEach((element) => {
-      const text = element.textContent || '';
-      const words = text.trim().split(' ');
-
-      element.innerHTML = words
-        .map((word) => `<span class="split-text inline-block">${word}</span>`)
-        .join(' ');
-
-      const spans = element.querySelectorAll('.split-text');
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-
-      gsap.from(spans, {
-        y: 100,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.05,
-        delay: delay,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
+  function initHeroAnimations() {
+    // Split text animations
+    splitTextAnimation('[data-split-text]', {
+      y: 100,
+      duration: 0.8,
+      stagger: 0.05,
     });
+
+    // Fade in animations
+    fadeInAnimation('[data-animate="fade-in"]', {
+      y: 30,
+      duration: 1,
+    });
+
+    // Parallax effect on blobs
+    parallaxEffect('.blob', '#hero');
   }
 
-  // Fade in animations
-  function fadeInAnimations() {
-    const elements = document.querySelectorAll('[data-animate="fade-in"]');
+  // Initialize animations on page load
+  document.addEventListener('astro:page-load', initHeroAnimations);
 
-    elements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-
-      gsap.from(element, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
-  }
-
-  // Parallax effect on blobs
-  function parallaxBlobs() {
-    const blobs = document.querySelectorAll('.blob');
-
-    blobs.forEach((blob) => {
-      const speed = parseFloat(blob.getAttribute('data-speed') || '0.5');
-
-      gsap.to(blob, {
-        y: () => window.innerHeight * speed,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
-    });
-  }
-
-  // Initialize animations
-  document.addEventListener('astro:page-load', () => {
-    splitText();
-    fadeInAnimations();
-    parallaxBlobs();
-  });
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupScrollTriggers);
 </script>
 
 <style>

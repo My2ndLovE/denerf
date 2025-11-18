@@ -59,16 +59,21 @@ export default {
         '6xl': ['4.768rem', { lineHeight: '1' }],
       },
       spacing: {
-        // Consistent 4px base scale
-        '4': '0.25rem',   // 4px
-        '8': '0.5rem',    // 8px
-        '16': '1rem',     // 16px
-        '24': '1.5rem',   // 24px
-        '32': '2rem',     // 32px
-        '48': '3rem',     // 48px
-        '64': '4rem',     // 64px
-        '96': '6rem',     // 96px
-        '128': '8rem',    // 128px
+        // Extended 4px base scale (adds to default Tailwind spacing)
+        // Note: Using explicit px values to avoid conflicts with Tailwind defaults
+        '18': '1.125rem',  // 18px
+        '22': '1.375rem',  // 22px
+        '26': '1.625rem',  // 26px
+        '30': '1.875rem',  // 30px
+        '34': '2.125rem',  // 34px
+        '38': '2.375rem',  // 38px
+        '42': '2.625rem',  // 42px
+        '46': '2.875rem',  // 46px
+        '50': '3.125rem',  // 50px
+        '54': '3.375rem',  // 54px
+        '58': '3.625rem',  // 58px
+        '62': '3.875rem',  // 62px
+        '128': '8rem',     // 128px
       },
       animation: {
         'blob': 'blob 7s infinite',
@@ -121,7 +126,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [],
 }

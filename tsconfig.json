@@ -10,7 +10,9 @@
       "@layouts/*": ["src/layouts/*"],
       "@styles/*": ["src/styles/*"],
       "@assets/*": ["src/assets/*"],
-      "@scripts/*": ["src/scripts/*"]
+      "@scripts/*": ["src/scripts/*"],
+      "@utils/*": ["src/utils/*"]
     }
-  }
+  },
+  "include": ["src/**/*", "src/types/**/*"]
 }

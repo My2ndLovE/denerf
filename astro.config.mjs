@@ -13,16 +13,16 @@ export default defineConfig({
   ],
   vite: {
     ssr: {
-      noExternal: ['gsap', 'motion'],
+      noExternal: ['gsap', 'lenis'],
     },
-  },
-  // Enable View Transitions
-  experimental: {
-    viewTransitions: true,
+    build: {
+      cssMinify: 'lightningcss',
+    },
   },
   // Performance optimizations
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
   },
+  // View Transitions are built-in in Astro 3+, no experimental flag needed
 });

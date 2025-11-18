@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 
 export interface Props {
@@ -19,7 +20,7 @@ const siteUrl = 'https://denerf-agency.com';
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -80,44 +81,87 @@ const siteUrl = 'https://denerf-agency.com';
     <script>
       import Lenis from 'lenis';
 
-      // Initialize Lenis smooth scroll
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        smoothWheel: true,
-      });
+      let lenis: Lenis | null = null;
+      let rafId: number | null = null;
 
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+      function initLenis() {
+        // Clean up existing instance
+        if (lenis) {
+          lenis.destroy();
+          lenis = null;
+        }
+
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+
+        // Initialize Lenis smooth scroll
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical' as const,
+          smoothWheel: true,
+        });
+
+        function raf(time: number) {
+          lenis?.raf(time);
+          rafId = requestAnimationFrame(raf);
+        }
+
+        rafId = requestAnimationFrame(raf);
+
+        // Expose lenis to window for GSAP integration
+        window.lenis = lenis;
       }
 
-      requestAnimationFrame(raf);
+      // Initialize on page load
+      document.addEventListener('astro:page-load', initLenis);
 
-      // Expose lenis to window for GSAP integration
-      (window as any).lenis = lenis;
+      // Cleanup on before swap
+      document.addEventListener('astro:before-swap', () => {
+        if (lenis) {
+          lenis.destroy();
+          lenis = null;
+        }
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      });
     </script>
 
     <!-- Custom Cursor Script -->
     <script>
-      // Custom cursor that follows mouse
-      const cursor = document.getElementById('custom-cursor');
+      let cursor: HTMLElement | null = null;
+      let mouseX = 0;
+      let mouseY = 0;
+      let cursorX = 0;
+      let cursorY = 0;
+      let cursorRafId: number | null = null;
+      let mouseMoveHandler: ((e: MouseEvent) => void) | null = null;
+      let interactiveElements: Element[] = [];
 
-      if (cursor) {
-        let mouseX = 0;
-        let mouseY = 0;
-        let cursorX = 0;
-        let cursorY = 0;
+      function initCursor() {
+        cursor = document.getElementById('custom-cursor');
+        if (!cursor) return;
+
+        // Remove old event listener if exists
+        if (mouseMoveHandler) {
+          document.removeEventListener('mousemove', mouseMoveHandler);
+        }
 
         // Track mouse position
-        document.addEventListener('mousemove', (e) => {
+        mouseMoveHandler = (e: MouseEvent) => {
           mouseX = e.clientX;
           mouseY = e.clientY;
-        });
+        };
+        document.addEventListener('mousemove', mouseMoveHandler);
 
         // Smooth cursor movement
         function animateCursor() {
+          if (!cursor) return;
+
           const dx = mouseX - cursorX;
           const dy = mouseY - cursorY;
 
@@ -125,24 +169,62 @@ const siteUrl = 'https://denerf-agency.com';
           cursorY += dy * 0.1;
 
           cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-          requestAnimationFrame(animateCursor);
+          cursorRafId = requestAnimationFrame(animateCursor);
         }
 
-        animateCursor();
+        if (cursorRafId) {
+          cancelAnimationFrame(cursorRafId);
+        }
+        cursorRafId = requestAnimationFrame(animateCursor);
+
+        // Cleanup old interactive elements
+        interactiveElements.forEach((el) => {
+          el.removeEventListener('mouseenter', handleMouseEnter);
+          el.removeEventListener('mouseleave', handleMouseLeave);
+        });
 
         // Expand cursor on hover over interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
+        interactiveElements = Array.from(
+          document.querySelectorAll('a, button, [role="button"], [data-magnetic]')
+        );
 
         interactiveElements.forEach((el) => {
-          el.addEventListener('mouseenter', () => {
-            cursor.classList.add('expand');
-          });
-
-          el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('expand');
-          });
+          el.addEventListener('mouseenter', handleMouseEnter);
+          el.addEventListener('mouseleave', handleMouseLeave);
         });
       }
+
+      function handleMouseEnter() {
+        cursor?.classList.add('expand');
+      }
+
+      function handleMouseLeave() {
+        cursor?.classList.remove('expand');
+      }
+
+      function cleanupCursor() {
+        if (cursorRafId) {
+          cancelAnimationFrame(cursorRafId);
+          cursorRafId = null;
+        }
+
+        if (mouseMoveHandler) {
+          document.removeEventListener('mousemove', mouseMoveHandler);
+          mouseMoveHandler = null;
+        }
+
+        interactiveElements.forEach((el) => {
+          el.removeEventListener('mouseenter', handleMouseEnter);
+          el.removeEventListener('mouseleave', handleMouseLeave);
+        });
+        interactiveElements = [];
+      }
+
+      // Initialize on page load
+      document.addEventListener('astro:page-load', initCursor);
+
+      // Cleanup before swap
+      document.addEventListener('astro:before-swap', cleanupCursor);
     </script>
   </body>
 </html>

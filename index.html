@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>softwave dev | Riding the Wave of Innovation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Animated Background -->
+    <div class="wave-background">
+        <svg class="wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path class="wave-path wave-1" fill="url(#gradient1)" fill-opacity="0.3" d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,133.3C672,117,768,107,864,122.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path class="wave-path wave-2" fill="url(#gradient2)" fill-opacity="0.3" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,165.3C960,149,1056,139,1152,149.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path class="wave-path wave-3" fill="url(#gradient3)" fill-opacity="0.3" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,154.7C672,149,768,171,864,181.3C960,192,1056,192,1152,176C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <defs>
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+
+    <!-- Particle System -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-effect">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text gradient-text">softwave</span>
+                <span class="logo-dot"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#tech" class="nav-link">Tech</a></li>
+                <li><a href="#contact" class="nav-link cta-button">Let's Talk</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge glass-effect reveal-up">
+                <span class="badge-pulse"></span>
+                <span>Available for Projects</span>
+            </div>
+            <h1 class="hero-title reveal-up">
+                We Don't Build Websites<br>
+                <span class="gradient-text animated-gradient">We Craft Digital Experiences</span>
+            </h1>
+            <p class="hero-subtitle reveal-up">
+                Riding the wave of innovation, we transform ideas into immersive digital realities that inspire, engage, and convert.
+            </p>
+            <div class="hero-cta reveal-up">
+                <button class="primary-button ripple-effect">
+                    <span>Start Your Journey</span>
+                    <svg class="button-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="secondary-button glass-effect">
+                    <span>View Our Work</span>
+                </button>
+            </div>
+            <div class="hero-stats reveal-up">
+                <div class="stat-item glass-effect">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-item glass-effect">
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat-item glass-effect">
+                    <div class="stat-number" data-target="12">0</div>
+                    <div class="stat-label">Awards Won</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card glass-effect card-3d">
+                <div class="card-glow"></div>
+                <div class="code-preview">
+                    <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">innovation</span> = <span class="code-string">'∞'</span>;</div>
+                    <div class="code-line"><span class="code-keyword">function</span> <span class="code-function">createMagic</span>() {</div>
+                    <div class="code-line">  <span class="code-return">return</span> <span class="code-string">'softwave'</span>;</div>
+                    <div class="code-line">}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="section-header reveal-up">
+            <h2 class="section-title">
+                What We <span class="gradient-text">Create</span>
+            </h2>
+            <p class="section-subtitle">
+                From concept to launch, we deliver excellence at every wave
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card glass-effect card-3d reveal-up">
+                <div class="card-glow"></div>
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#iconGradient1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="url(#iconGradient1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="url(#iconGradient1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Web Development</h3>
+                <p class="service-description">
+                    Cutting-edge web applications built with modern frameworks and best practices. Scalable, performant, and stunning.
+                </p>
+                <ul class="service-features">
+                    <li>React, Vue, Next.js</li>
+                    <li>Progressive Web Apps</li>
+                    <li>API Integration</li>
+                </ul>
+            </div>
+
+            <div class="service-card glass-effect card-3d reveal-up">
+                <div class="card-glow"></div>
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="7" height="7" stroke="url(#iconGradient2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="14" y="3" width="7" height="7" stroke="url(#iconGradient2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="14" y="14" width="7" height="7" stroke="url(#iconGradient2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="3" y="14" width="7" height="7" stroke="url(#iconGradient2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">UI/UX Design</h3>
+                <p class="service-description">
+                    Interfaces that don't just look good—they feel right. Every pixel crafted with intention and purpose.
+                </p>
+                <ul class="service-features">
+                    <li>User Research & Testing</li>
+                    <li>Interactive Prototypes</li>
+                    <li>Design Systems</li>
+                </ul>
+            </div>
+
+            <div class="service-card glass-effect card-3d reveal-up">
+                <div class="card-glow"></div>
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="7.5 4.21 12 6.81 16.5 4.21" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="7.5 19.79 7.5 14.6 3 12" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="21 12 16.5 14.6 16.5 19.79" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12" stroke="url(#iconGradient3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">3D & Animation</h3>
+                <p class="service-description">
+                    Bring your brand to life with immersive 3D experiences and buttery-smooth animations that captivate.
+                </p>
+                <ul class="service-features">
+                    <li>WebGL & Three.js</li>
+                    <li>Motion Graphics</li>
+                    <li>Interactive 3D</li>
+                </ul>
+            </div>
+
+            <div class="service-card glass-effect card-3d reveal-up">
+                <div class="card-glow"></div>
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="url(#iconGradient4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Performance</h3>
+                <p class="service-description">
+                    Lightning-fast load times, seamless interactions. We obsess over every millisecond.
+                </p>
+                <ul class="service-features">
+                    <li>Core Web Vitals</li>
+                    <li>SEO Optimization</li>
+                    <li>Speed Audits</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SVG Gradients for Icons -->
+        <svg width="0" height="0">
+            <defs>
+                <linearGradient id="iconGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#7c3aed" />
+                    <stop offset="100%" style="stop-color:#06b6d4" />
+                </linearGradient>
+                <linearGradient id="iconGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#ec4899" />
+                    <stop offset="100%" style="stop-color:#7c3aed" />
+                </linearGradient>
+                <linearGradient id="iconGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#06b6d4" />
+                    <stop offset="100%" style="stop-color:#3b82f6" />
+                </linearGradient>
+                <linearGradient id="iconGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#f59e0b" />
+                    <stop offset="100%" style="stop-color:#ec4899" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </section>
+
+    <!-- Work Showcase -->
+    <section id="work" class="work">
+        <div class="section-header reveal-up">
+            <h2 class="section-title">
+                Featured <span class="gradient-text">Work</span>
+            </h2>
+            <p class="section-subtitle">
+                Every project is a wave of creativity
+            </p>
+        </div>
+        <div class="work-bento">
+            <div class="work-item work-large glass-effect card-3d reveal-up">
+                <div class="work-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                <div class="work-content">
+                    <h3>E-Commerce Revolution</h3>
+                    <p>Next-gen shopping experience with AI recommendations</p>
+                    <div class="work-tags">
+                        <span>React</span>
+                        <span>AI/ML</span>
+                        <span>WebGL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item work-medium glass-effect card-3d reveal-up">
+                <div class="work-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                <div class="work-content">
+                    <h3>FinTech Dashboard</h3>
+                    <p>Real-time analytics platform</p>
+                    <div class="work-tags">
+                        <span>Vue.js</span>
+                        <span>D3.js</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item work-medium glass-effect card-3d reveal-up">
+                <div class="work-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                <div class="work-content">
+                    <h3>Healthcare Portal</h3>
+                    <p>Patient-centered care system</p>
+                    <div class="work-tags">
+                        <span>Next.js</span>
+                        <span>WebRTC</span>
+                    </div>
+                </div>
+            </div>
+            <div class="work-item work-small glass-effect card-3d reveal-up">
+                <div class="work-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                <div class="work-content">
+                    <h3>Gaming Hub</h3>
+                    <p>3D interactive platform</p>
+                </div>
+            </div>
+            <div class="work-item work-small glass-effect card-3d reveal-up">
+                <div class="work-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                <div class="work-content">
+                    <h3>Creative Studio</h3>
+                    <p>Portfolio showcase</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech" class="tech">
+        <div class="section-header reveal-up">
+            <h2 class="section-title">
+                Powered By <span class="gradient-text">Innovation</span>
+            </h2>
+            <p class="section-subtitle">
+                We surf the latest technologies to deliver cutting-edge solutions
+            </p>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-category reveal-up">
+                <h3 class="tech-category-title">Frontend</h3>
+                <div class="tech-items">
+                    <div class="tech-item glass-effect">React</div>
+                    <div class="tech-item glass-effect">Vue.js</div>
+                    <div class="tech-item glass-effect">Next.js</div>
+                    <div class="tech-item glass-effect">TypeScript</div>
+                    <div class="tech-item glass-effect">Three.js</div>
+                </div>
+            </div>
+            <div class="tech-category reveal-up">
+                <h3 class="tech-category-title">Backend</h3>
+                <div class="tech-items">
+                    <div class="tech-item glass-effect">Node.js</div>
+                    <div class="tech-item glass-effect">Python</div>
+                    <div class="tech-item glass-effect">GraphQL</div>
+                    <div class="tech-item glass-effect">PostgreSQL</div>
+                    <div class="tech-item glass-effect">Redis</div>
+                </div>
+            </div>
+            <div class="tech-category reveal-up">
+                <h3 class="tech-category-title">Cloud & DevOps</h3>
+                <div class="tech-items">
+                    <div class="tech-item glass-effect">AWS</div>
+                    <div class="tech-item glass-effect">Docker</div>
+                    <div class="tech-item glass-effect">Kubernetes</div>
+                    <div class="tech-item glass-effect">CI/CD</div>
+                    <div class="tech-item glass-effect">Vercel</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta">
+        <div class="cta-content glass-effect reveal-up">
+            <div class="card-glow"></div>
+            <h2 class="cta-title">
+                Ready to Ride the <span class="gradient-text animated-gradient">Wave?</span>
+            </h2>
+            <p class="cta-subtitle">
+                Let's create something extraordinary together. Your vision, our expertise.
+            </p>
+            <div class="cta-buttons">
+                <button class="primary-button ripple-effect large-button">
+                    <span>Start Your Project</span>
+                    <svg class="button-arrow" width="24" height="24" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="cta-contact">
+                <a href="mailto:hello@softwavedev.com" class="contact-link">hello@softwavedev.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-text gradient-text">softwave</span>
+                    <span class="logo-dot"></span>
+                </div>
+                <p class="footer-tagline">Riding the wave of innovation</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <a href="#services">Web Development</a>
+                    <a href="#services">UI/UX Design</a>
+                    <a href="#services">3D & Animation</a>
+                    <a href="#services">Performance</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="#work">Our Work</a>
+                    <a href="#tech">Technology</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">Dribbble</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 softwave dev. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

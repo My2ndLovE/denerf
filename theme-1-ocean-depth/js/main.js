@@ -1,5 +1,5 @@
 // MAIN CONTROLLER - Theme 1: Ocean Depth
-// Optimized with mobile support and performance fixes
+// Fixed: Completely rewritten to prevent freeze bug
 
 class OceanDepthController {
     constructor() {
@@ -8,7 +8,7 @@ class OceanDepthController {
         this.isTablet = window.innerWidth < 1024;
         this.scrollTriggers = [];
         this.animations = [];
-        this.rafId = null;
+        this.destroyed = false;
 
         this.init();
     }
@@ -32,22 +32,21 @@ class OceanDepthController {
         this.setupForm();
         this.setupNavigation();
 
-        // Start animation loop safely
-        this.startAnimationLoop();
-
         console.log('Ocean Depth Theme - Initialized');
     }
 
     setupResponsive() {
         let resizeTimer;
-        window.addEventListener('resize', () => {
+        this.resizeHandler = () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
+                if (this.destroyed) return;
                 this.isMobile = window.innerWidth < 768;
                 this.isTablet = window.innerWidth < 1024;
-                this.refreshScrollTrigger();
+                ScrollTrigger.refresh();
             }, 250);
-        });
+        };
+        window.addEventListener('resize', this.resizeHandler);
     }
 
     setupScrollAnimations() {
@@ -62,6 +61,7 @@ class OceanDepthController {
                 start: 'top top',
                 end: 'bottom bottom',
                 onUpdate: (self) => {
+                    if (this.destroyed) return;
                     const progress = self.progress * 100;
                     progressBar.style.width = `${progress}%`;
                 }
@@ -75,15 +75,21 @@ class OceanDepthController {
                 trigger: section,
                 start: 'top 60%',
                 end: 'bottom 40%',
-                onEnter: () => this.onSectionEnter(index),
-                onEnterBack: () => this.onSectionEnter(index)
+                onEnter: () => {
+                    if (this.destroyed) return;
+                    this.onSectionEnter(index);
+                },
+                onEnterBack: () => {
+                    if (this.destroyed) return;
+                    this.onSectionEnter(index);
+                }
             });
             this.scrollTriggers.push(st);
 
             // Reveal animations for elements
             const reveals = section.querySelectorAll('[data-reveal]');
             reveals.forEach((el, i) => {
-                const revealAnim = gsap.from(el, {
+                const anim = gsap.from(el, {
                     scrollTrigger: {
                         trigger: el,
                         start: 'top 85%',
@@ -96,7 +102,7 @@ class OceanDepthController {
                     delay: i * 0.1,
                     ease: 'power3.out'
                 });
-                this.animations.push(revealAnim);
+                this.animations.push(anim);
             });
         });
 
@@ -110,6 +116,7 @@ class OceanDepthController {
                 trigger: el,
                 start: 'top 80%',
                 onEnter: () => {
+                    if (this.destroyed) return;
                     gsap.to(el, {
                         textContent: target,
                         duration: 2,
@@ -127,6 +134,7 @@ class OceanDepthController {
     }
 
     onSectionEnter(index) {
+        if (this.destroyed) return;
         this.currentSection = index;
 
         // Update navigation dots
@@ -160,6 +168,7 @@ class OceanDepthController {
             const hoverCards = document.querySelectorAll('[data-particle-hover]');
             hoverCards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
+                    if (this.destroyed) return;
                     const rect = card.getBoundingClientRect();
                     const x = ((e.clientX - rect.left) / rect.width) * 100;
                     const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -176,6 +185,7 @@ class OceanDepthController {
             const tiltCards = document.querySelectorAll('[data-tilt]');
             tiltCards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
+                    if (this.destroyed) return;
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
@@ -188,16 +198,19 @@ class OceanDepthController {
                         rotateX: rotateX,
                         rotateY: rotateY,
                         duration: 0.3,
-                        ease: 'power2.out'
+                        ease: 'power2.out',
+                        overwrite: true
                     });
                 });
 
                 card.addEventListener('mouseleave', () => {
+                    if (this.destroyed) return;
                     gsap.to(card, {
                         rotateX: 0,
                         rotateY: 0,
                         duration: 0.5,
-                        ease: 'elastic.out(1, 0.5)'
+                        ease: 'elastic.out(1, 0.5)',
+                        overwrite: true
                     });
                 });
             });
@@ -207,6 +220,7 @@ class OceanDepthController {
         const buttons = document.querySelectorAll('.btn-primary');
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
+                if (this.destroyed) return;
                 // Ripple effect
                 const ripple = document.createElement('span');
                 const rect = btn.getBoundingClientRect();
@@ -256,10 +270,16 @@ class OceanDepthController {
         const prevBtn = document.querySelector('[data-portfolio-prev]');
 
         if (nextBtn) {
-            nextBtn.addEventListener('click', () => this.nextProject());
+            nextBtn.addEventListener('click', () => {
+                if (this.destroyed) return;
+                this.nextProject();
+            });
         }
         if (prevBtn) {
-            prevBtn.addEventListener('click', () => this.prevProject());
+            prevBtn.addEventListener('click', () => {
+                if (this.destroyed) return;
+                this.prevProject();
+            });
         }
 
         this.updateProjectCounter();
@@ -281,6 +301,7 @@ class OceanDepthController {
     }
 
     updateProject() {
+        if (this.destroyed) return;
         const slides = document.querySelectorAll('.project-slide');
 
         slides.forEach((slide, index) => {
@@ -288,7 +309,7 @@ class OceanDepthController {
                 slide.classList.add('active');
                 gsap.fromTo(slide,
                     { x: 100, opacity: 0 },
-                    { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+                    { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out', overwrite: true }
                 );
             } else {
                 slide.classList.remove('active');
@@ -317,6 +338,7 @@ class OceanDepthController {
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (this.destroyed) return;
 
             const btn = form.querySelector('.btn-primary');
             const btnText = btn ? btn.querySelector('span') : null;
@@ -338,6 +360,7 @@ class OceanDepthController {
 
                 // Reset form after delay
                 setTimeout(() => {
+                    if (this.destroyed) return;
                     form.reset();
                     btnText.textContent = originalText;
                     btn.disabled = false;
@@ -354,18 +377,22 @@ class OceanDepthController {
         const inputs = form.querySelectorAll('input, textarea');
         inputs.forEach(input => {
             input.addEventListener('focus', () => {
+                if (this.destroyed) return;
                 gsap.to(input, {
                     scale: 1.02,
                     duration: 0.3,
-                    ease: 'power2.out'
+                    ease: 'power2.out',
+                    overwrite: true
                 });
             });
 
             input.addEventListener('blur', () => {
+                if (this.destroyed) return;
                 gsap.to(input, {
                     scale: 1,
                     duration: 0.3,
-                    ease: 'power2.out'
+                    ease: 'power2.out',
+                    overwrite: true
                 });
             });
         });
@@ -377,6 +404,7 @@ class OceanDepthController {
 
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
+                if (this.destroyed) return;
                 if (sections[index]) {
                     sections[index].scrollIntoView({
                         behavior: 'smooth',
@@ -387,40 +415,35 @@ class OceanDepthController {
         });
     }
 
-    startAnimationLoop() {
-        // Optimize animation loop
-        let lastTime = 0;
-        const fps = this.isMobile ? 30 : 60;
-        const interval = 1000 / fps;
-
-        const loop = (currentTime) => {
-            this.rafId = requestAnimationFrame(loop);
-
-            const deltaTime = currentTime - lastTime;
-
-            if (deltaTime >= interval) {
-                lastTime = currentTime - (deltaTime % interval);
-
-                // Update animations if needed
-                // This is where you can add custom animation updates
-            }
-        };
-
-        this.rafId = requestAnimationFrame(loop);
-    }
-
-    refreshScrollTrigger() {
-        ScrollTrigger.refresh();
-    }
-
     destroy() {
-        // Cleanup
-        if (this.rafId) {
-            cancelAnimationFrame(this.rafId);
-        }
+        console.log('Destroying Ocean Depth controller');
+        this.destroyed = true;
 
-        this.scrollTriggers.forEach(st => st.kill());
-        this.animations.forEach(anim => anim.kill());
+        // Kill all ScrollTriggers
+        this.scrollTriggers.forEach(st => {
+            try {
+                st.kill();
+            } catch (e) {
+                console.warn('Error killing ScrollTrigger:', e);
+            }
+        });
+
+        // Kill all animations (including their scrollTriggers)
+        this.animations.forEach(anim => {
+            try {
+                if (anim.scrollTrigger) {
+                    anim.scrollTrigger.kill();
+                }
+                anim.kill();
+            } catch (e) {
+                console.warn('Error killing animation:', e);
+            }
+        });
+
+        // Remove event listeners
+        if (this.resizeHandler) {
+            window.removeEventListener('resize', this.resizeHandler);
+        }
 
         this.scrollTriggers = [];
         this.animations = [];
@@ -438,7 +461,7 @@ if (document.readyState === 'loading') {
 
 // Cleanup on page unload
 window.addEventListener('beforeunload', () => {
-    if (window.oceanDepth) {
+    if (window.oceanDepth && window.oceanDepth.destroy) {
         window.oceanDepth.destroy();
     }
 });

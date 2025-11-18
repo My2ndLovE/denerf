@@ -21,7 +21,11 @@ export default function TerminalHero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden p-6">
+    <section
+      id="hero"
+      aria-label="Hero section - Terminal Reimagined holographic development"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden p-6"
+    >
       <div className="container mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -77,16 +81,38 @@ export default function TerminalHero() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <motion.button
-                  className="px-6 py-3 bg-term-green text-term-bg rounded font-bold border-2 border-term-green hover:bg-term-green/80 transition"
+                  aria-label="Execute and explore our holographic terminal interface"
+                  className="px-6 py-3 bg-term-green text-term-bg rounded font-bold border-2 border-term-green hover:bg-term-green/80 transition focus:outline-none focus:ring-4 focus:ring-term-green/50"
                   whileHover={{ scale: 1.05, boxShadow: '0 0 20px #0DBC79' }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    document.getElementById('commands')?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      document.getElementById('commands')?.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }}
+                  tabIndex={0}
                 >
                   {'>'} ./execute
                 </motion.button>
                 <motion.button
-                  className="px-6 py-3 border-2 border-term-cyan text-term-cyan rounded font-bold hover:bg-term-cyan/10 transition"
+                  aria-label="Read the manual and learn about terminal features"
+                  className="px-6 py-3 border-2 border-term-cyan text-term-cyan rounded font-bold hover:bg-term-cyan/10 transition focus:outline-none focus:ring-4 focus:ring-term-cyan/50"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    document.getElementById('processes')?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      document.getElementById('processes')?.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }}
+                  tabIndex={0}
                 >
                   {'>'} man terminal
                 </motion.button>

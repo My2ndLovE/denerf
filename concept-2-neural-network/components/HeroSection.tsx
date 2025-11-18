@@ -46,6 +46,7 @@ export default function HeroSection({ setCurrentSection }: HeroSectionProps) {
   return (
     <section
       id="hero"
+      aria-label="Hero section - Neural Nexus AI-Powered Development"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* Animated Grid */}
@@ -98,12 +99,20 @@ export default function HeroSection({ setCurrentSection }: HeroSectionProps) {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
           <motion.button
-            className="px-8 py-4 bg-gradient-to-r from-neural-primary to-neural-secondary rounded-lg font-cyber font-bold text-xl shadow-2xl shadow-neural-primary/50 border border-neural-primary/50"
+            aria-label="Explore our AI-powered intelligent solutions and capabilities"
+            className="px-8 py-4 bg-gradient-to-r from-neural-primary to-neural-secondary rounded-lg font-cyber font-bold text-xl shadow-2xl shadow-neural-primary/50 border border-neural-primary/50 focus:outline-none focus:ring-4 focus:ring-neural-primary/50"
             whileHover={{ scale: 1.1, y: -5, boxShadow: '0 0 40px rgba(0,240,255,0.8)' }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             <span className="flex items-center space-x-2">
               <span>Explore Intelligence</span>
@@ -112,12 +121,20 @@ export default function HeroSection({ setCurrentSection }: HeroSectionProps) {
           </motion.button>
 
           <motion.button
-            className="px-8 py-4 border-2 border-neural-secondary rounded-lg font-cyber font-bold text-xl hover:bg-neural-secondary/10 transition-all"
+            aria-label="Connect with our AI team and start your intelligent automation journey"
+            className="px-8 py-4 border-2 border-neural-secondary rounded-lg font-cyber font-bold text-xl hover:bg-neural-secondary/10 transition-all focus:outline-none focus:ring-4 focus:ring-neural-secondary/50"
             whileHover={{ scale: 1.1, y: -5 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             <span className="flex items-center space-x-2">
               <span>Connect with AI</span>

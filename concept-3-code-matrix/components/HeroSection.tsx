@@ -24,7 +24,11 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="hero"
+      aria-label="Hero section - Code Matrix digital reality programming"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
       <div className="container mx-auto px-6 z-10 text-center">
         <motion.div
           initial={{ scale: 0 }}
@@ -62,17 +66,39 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <motion.button
-            className="px-8 py-4 bg-matrix-green text-matrix-dark rounded font-cyber font-bold text-xl shadow-lg shadow-matrix-green/50 border-2 border-matrix-green"
+            aria-label="Enter the matrix and explore our digital reality solutions"
+            className="px-8 py-4 bg-matrix-green text-matrix-dark rounded font-cyber font-bold text-xl shadow-lg shadow-matrix-green/50 border-2 border-matrix-green focus:outline-none focus:ring-4 focus:ring-matrix-green/50"
             whileHover={{ scale: 1.1, boxShadow: '0 0 30px #00FF41' }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('reality')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('reality')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             {'>'} ENTER THE MATRIX
           </motion.button>
 
           <motion.button
-            className="px-8 py-4 border-2 border-matrix-green rounded font-cyber font-bold text-xl hover:bg-matrix-green/10 transition-all"
+            aria-label="Decode reality and understand our programming philosophy"
+            className="px-8 py-4 border-2 border-matrix-green rounded font-cyber font-bold text-xl hover:bg-matrix-green/10 transition-all focus:outline-none focus:ring-4 focus:ring-matrix-green/50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('code')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('code')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             {'>'} DECODE_REALITY
           </motion.button>

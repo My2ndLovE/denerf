@@ -4,7 +4,11 @@ import { motion } from 'framer-motion'
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="hero"
+      aria-label="Hero section - Builder's Playground creative digital construction"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-build-sky via-blue-200 to-build-sky opacity-50" />
 
       <div className="container mx-auto px-6 z-10 text-center">
@@ -43,17 +47,39 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <motion.button
-            className="px-8 py-4 bg-build-yellow text-gray-800 rounded-xl font-build font-bold text-xl shadow-2xl border-4 border-build-orange"
+            aria-label="Start building your digital dream project with us"
+            className="px-8 py-4 bg-build-yellow text-gray-800 rounded-xl font-build font-bold text-xl shadow-2xl border-4 border-build-orange focus:outline-none focus:ring-4 focus:ring-build-orange/50"
             whileHover={{ scale: 1.1, rotate: 2 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             🏗️ Start Building
           </motion.button>
 
           <motion.button
-            className="px-8 py-4 border-4 border-build-brick rounded-xl font-build font-bold text-xl hover:bg-build-brick/10"
+            aria-label="Meet our creative development crew and learn about our tools"
+            className="px-8 py-4 border-4 border-build-brick rounded-xl font-build font-bold text-xl hover:bg-build-brick/10 focus:outline-none focus:ring-4 focus:ring-build-brick/50"
             whileHover={{ scale: 1.1, rotate: -2 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             👷 Meet the Crew
           </motion.button>

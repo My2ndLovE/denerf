@@ -34,6 +34,7 @@ export default function HeroSection({ setCurrentSection }: HeroSectionProps) {
   return (
     <section
       id="hero"
+      aria-label="Hero section"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Animated Background Grid */}
@@ -69,23 +70,37 @@ export default function HeroSection({ setCurrentSection }: HeroSectionProps) {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <motion.button
-            className="px-8 py-4 bg-gradient-to-r from-forge-fire to-forge-ember rounded-lg font-forge font-bold text-xl shadow-2xl shadow-forge-fire/50 hover:shadow-forge-fire/80 transition-all"
+            aria-label="View our portfolio of completed projects"
+            className="px-8 py-4 bg-gradient-to-r from-forge-fire to-forge-ember rounded-lg font-forge font-bold text-xl shadow-2xl shadow-forge-fire/50 hover:shadow-forge-fire/80 transition-all focus:outline-none focus:ring-4 focus:ring-forge-fire/50"
             whileHover={{ scale: 1.1, y: -5 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             View Our Work 🔥
           </motion.button>
 
           <motion.button
-            className="px-8 py-4 border-2 border-forge-ember rounded-lg font-forge font-bold text-xl hover:bg-forge-ember/10 transition-all"
+            aria-label="Start a new project with us"
+            className="px-8 py-4 border-2 border-forge-ember rounded-lg font-forge font-bold text-xl hover:bg-forge-ember/10 transition-all focus:outline-none focus:ring-4 focus:ring-forge-ember/50"
             whileHover={{ scale: 1.1, y: -5 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             Start a Project ⚙️
           </motion.button>

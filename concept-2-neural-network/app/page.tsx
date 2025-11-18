@@ -11,10 +11,19 @@ import CapabilitiesSection from '@/components/CapabilitiesSection'
 import IntelligenceSection from '@/components/IntelligenceSection'
 import ContactSection from '@/components/ContactSection'
 import ElectricTrail from '@/components/ElectricTrail'
+import ErrorBoundary from '@/components/ErrorBoundary'
+import WebGLDetector from '@/components/WebGLDetector'
 
 const NeuralBackground = dynamic(() => import('@/components/NeuralBackground'), {
   ssr: false,
-  loading: () => <div className="fixed inset-0 bg-neural-bg" />,
+  loading: () => (
+    <div className="flex items-center justify-center fixed inset-0 bg-neural-bg">
+      <div className="text-center">
+        <div className="text-6xl mb-4 animate-pulse">🧠</div>
+        <p className="text-neural-primary font-cyber">Initializing neural network...</p>
+      </div>
+    </div>
+  ),
 })
 
 export default function Home() {
@@ -23,37 +32,58 @@ export default function Home() {
 
   useEffect(() => {
     setLoaded(true)
+
+    // Enable smooth scrolling
+    document.documentElement.style.scrollBehavior = 'smooth'
+
+    return () => {
+      document.documentElement.style.scrollBehavior = ''
+    }
   }, [])
 
   return (
-    <main className="relative min-h-screen bg-neural-bg">
-      <NeuralBackground />
-      <ElectricTrail />
+    <WebGLDetector>
+      <ErrorBoundary>
+        <main className="relative min-h-screen bg-neural-bg">
+          <NeuralBackground />
+          <ElectricTrail />
 
-      <AnimatePresence>
-        {loaded && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
-          >
-            <Navigation currentSection={currentSection} />
+          <AnimatePresence mode="wait">
+            {loaded && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5 }}
+              >
+                <Navigation currentSection={currentSection} />
 
-            <div className="relative z-10">
-              <HeroSection setCurrentSection={setCurrentSection} />
+                <div className="relative z-10">
+                  <HeroSection setCurrentSection={setCurrentSection} />
 
-              <Suspense fallback={<div className="h-screen" />}>
-                <NetworkScene />
-              </Suspense>
+                  <ErrorBoundary fallback={
+                    <div className="h-screen flex items-center justify-center">
+                      <p className="text-neural-primary font-cyber">Neural network visualization unavailable</p>
+                    </div>
+                  }>
+                    <Suspense fallback={
+                      <div className="h-screen flex items-center justify-center">
+                        <div className="text-6xl animate-pulse">🧠</div>
+                      </div>
+                    }>
+                      <NetworkScene />
+                    </Suspense>
+                  </ErrorBoundary>
 
-              <SolutionsSection setCurrentSection={setCurrentSection} />
-              <CapabilitiesSection setCurrentSection={setCurrentSection} />
-              <IntelligenceSection setCurrentSection={setCurrentSection} />
-              <ContactSection setCurrentSection={setCurrentSection} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </main>
+                  <SolutionsSection setCurrentSection={setCurrentSection} />
+                  <CapabilitiesSection setCurrentSection={setCurrentSection} />
+                  <IntelligenceSection setCurrentSection={setCurrentSection} />
+                  <ContactSection setCurrentSection={setCurrentSection} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </main>
+      </ErrorBoundary>
+    </WebGLDetector>
   )
 }

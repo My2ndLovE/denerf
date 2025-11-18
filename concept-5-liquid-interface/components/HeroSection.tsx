@@ -4,7 +4,11 @@ import { motion } from 'framer-motion'
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="hero"
+      aria-label="Hero section - Liquid Interface fluid digital experiences"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-liquid-purple rounded-full blob-morph opacity-60 blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-liquid-pink rounded-full blob-morph opacity-50 blur-3xl" style={{ animationDelay: '2s' }} />
@@ -47,17 +51,39 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <motion.button
-            className="px-8 py-4 gradient-shift rounded-full font-liquid font-bold text-xl shadow-2xl text-white"
+            aria-label="Dive into our fluid interface and discover organic design"
+            className="px-8 py-4 gradient-shift rounded-full font-liquid font-bold text-xl shadow-2xl text-white focus:outline-none focus:ring-4 focus:ring-liquid-purple/50"
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('flow')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('flow')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             💧 Dive In
           </motion.button>
 
           <motion.button
-            className="px-8 py-4 border-2 border-liquid-purple rounded-full font-liquid font-bold text-xl hover:bg-liquid-purple/20 backdrop-blur"
+            aria-label="Explore the flow of our adaptive design philosophy"
+            className="px-8 py-4 border-2 border-liquid-purple rounded-full font-liquid font-bold text-xl hover:bg-liquid-purple/20 backdrop-blur focus:outline-none focus:ring-4 focus:ring-liquid-purple/50"
             whileHover={{ scale: 1.1, rotate: -5 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            tabIndex={0}
           >
             🌊 Explore Flow
           </motion.button>

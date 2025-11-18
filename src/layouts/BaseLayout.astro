@@ -1,10 +1,21 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  canonicalURL?: string;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  image = '/og-image.jpg',
+  canonicalURL = Astro.url.toString()
+} = Astro.props;
+
+const siteURL = Astro.site?.toString() || 'https://denerf.dev';
 ---
 
 <!doctype html>
@@ -17,131 +28,232 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO Meta Tags -->
-    <meta name="keywords" content="software development, web development, mobile apps, AI, cloud solutions" />
+    <meta name="keywords" content="software development, web development, mobile apps, AI, cloud solutions, devops, consulting" />
     <meta name="author" content="Denerf" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL(image, siteURL).toString()} />
+    <meta property="og:site_name" content="Denerf" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, siteURL).toString()} />
 
     <title>{title}</title>
 
-    <!-- Preload critical fonts -->
+    <!-- Preload & Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
-    <link rel="stylesheet" href="/src/styles/global.css" />
+    <!-- Performance hints -->
+    <meta name="theme-color" content="#0A0E27" />
   </head>
   <body class="overflow-x-hidden">
-    <!-- Custom Cursor -->
-    <div id="custom-cursor" class="fixed w-6 h-6 pointer-events-none z-50 mix-blend-difference">
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-6 focus:py-3 focus:bg-primary-accent focus:text-primary-bg focus:font-bold focus:rounded"
+    >
+      Skip to main content
+    </a>
+
+    <!-- Custom Cursor (Desktop only) -->
+    <div id="custom-cursor" class="fixed w-6 h-6 pointer-events-none z-50 mix-blend-difference hidden" aria-hidden="true">
       <div class="w-full h-full rounded-full border-2 border-primary-accent transition-transform duration-150"></div>
     </div>
-    <div id="cursor-trail" class="fixed w-2 h-2 pointer-events-none z-40">
+    <div id="cursor-trail" class="fixed w-2 h-2 pointer-events-none z-40 hidden" aria-hidden="true">
       <div class="w-full h-full rounded-full bg-primary-accent/50"></div>
     </div>
 
     <!-- Main Content -->
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
 
-    <!-- GSAP ScrollTrigger -->
+    <!-- Scripts -->
     <script>
       import gsap from 'gsap';
       import ScrollTrigger from 'gsap/ScrollTrigger';
+      import { ANIMATION, PERF } from '../lib/constants';
+      import { supportsHover, prefersReducedMotion, querySelector, querySelectorAll } from '../lib/utils';
 
-      gsap.registerPlugin(ScrollTrigger);
+      // Only initialize if scripts haven't run (prevents duplicates on navigation)
+      if (!window.__DENERF_INITIALIZED__) {
+        window.__DENERF_INITIALIZED__ = true;
 
-      // Custom cursor effect
-      const cursor = document.getElementById('custom-cursor');
-      const cursorTrail = document.getElementById('cursor-trail');
-      let mouseX = 0;
-      let mouseY = 0;
-      let cursorX = 0;
-      let cursorY = 0;
-      let trailX = 0;
-      let trailY = 0;
+        gsap.registerPlugin(ScrollTrigger);
 
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
+        // Custom cursor effect (desktop only)
+        if (supportsHover() && !prefersReducedMotion()) {
+          const cursor = querySelector<HTMLElement>('#custom-cursor');
+          const cursorTrail = querySelector<HTMLElement>('#cursor-trail');
 
-      // Smooth cursor follow
-      function animateCursor() {
-        // Main cursor follows closely
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
+          if (cursor && cursorTrail) {
+            // Show cursor elements
+            cursor.classList.remove('hidden');
+            cursorTrail.classList.remove('hidden');
 
-        // Trail follows with delay
-        trailX += (mouseX - trailX) * 0.1;
-        trailY += (mouseY - trailY) * 0.1;
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            let trailX = 0;
+            let trailY = 0;
+            let rafId: number | null = null;
 
-        if (cursor) {
-          cursor.style.transform = `translate(${cursorX - 12}px, ${cursorY - 12}px)`;
+            const handleMouseMove = (e: MouseEvent) => {
+              mouseX = e.clientX;
+              mouseY = e.clientY;
+            };
+
+            // Smooth cursor follow with RAF
+            function animateCursor() {
+              // Use lerp for smooth following
+              cursorX += (mouseX - cursorX) * ANIMATION.CURSOR_SPEED;
+              cursorY += (mouseY - cursorY) * ANIMATION.CURSOR_SPEED;
+
+              trailX += (mouseX - trailX) * ANIMATION.TRAIL_SPEED;
+              trailY += (mouseY - trailY) * ANIMATION.TRAIL_SPEED;
+
+              cursor.style.transform = `translate(${cursorX - 12}px, ${cursorY - 12}px)`;
+              cursorTrail.style.transform = `translate(${trailX - 4}px, ${trailY - 4}px)`;
+
+              rafId = requestAnimationFrame(animateCursor);
+            }
+
+            // Start animation
+            document.addEventListener('mousemove', handleMouseMove, { passive: true });
+            rafId = requestAnimationFrame(animateCursor);
+
+            // Cursor interactions with clickable elements
+            const clickables = querySelectorAll('a, button, [role="button"]');
+            const cursorInner = cursor.querySelector('div');
+
+            clickables.forEach((el) => {
+              el.addEventListener('mouseenter', () => {
+                cursorInner?.classList.add('scale-150', 'bg-primary-accent/20');
+              });
+              el.addEventListener('mouseleave', () => {
+                cursorInner?.classList.remove('scale-150', 'bg-primary-accent/20');
+              });
+            });
+
+            // Hide cursor when leaving window
+            const handleMouseLeave = () => {
+              cursor.style.opacity = '0';
+              cursorTrail.style.opacity = '0';
+            };
+
+            const handleMouseEnter = () => {
+              cursor.style.opacity = '1';
+              cursorTrail.style.opacity = '1';
+            };
+
+            document.addEventListener('mouseleave', handleMouseLeave);
+            document.addEventListener('mouseenter', handleMouseEnter);
+
+            // Cleanup function
+            window.addEventListener('beforeunload', () => {
+              if (rafId !== null) {
+                cancelAnimationFrame(rafId);
+              }
+              document.removeEventListener('mousemove', handleMouseMove);
+              document.removeEventListener('mouseleave', handleMouseLeave);
+              document.removeEventListener('mouseenter', handleMouseEnter);
+            });
+          }
         }
 
-        if (cursorTrail) {
-          cursorTrail.style.transform = `translate(${trailX - 4}px, ${trailY - 4}px)`;
-        }
+        // Smooth scroll reveal animations (only if motion allowed)
+        if (!prefersReducedMotion()) {
+          const reveals = querySelectorAll('.reveal');
 
-        requestAnimationFrame(animateCursor);
+          reveals.forEach((element) => {
+            gsap.from(element, {
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 80%',
+                end: 'top 20%',
+                toggleActions: 'play none none reverse',
+              },
+              y: 100,
+              opacity: 0,
+              duration: 1,
+              ease: 'power3.out',
+            });
+          });
+
+          // Parallax effect for floating elements
+          const parallaxElements = querySelectorAll('.parallax');
+
+          parallaxElements.forEach((element) => {
+            gsap.to(element, {
+              scrollTrigger: {
+                trigger: element,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+              y: -100,
+              ease: 'none',
+            });
+          });
+        }
       }
 
-      animateCursor();
-
-      // Cursor interactions with clickable elements
-      const clickables = document.querySelectorAll('a, button, [role="button"]');
-      clickables.forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-          cursor?.querySelector('div')?.classList.add('scale-150', 'bg-primary-accent/20');
-        });
-        el.addEventListener('mouseleave', () => {
-          cursor?.querySelector('div')?.classList.remove('scale-150', 'bg-primary-accent/20');
-        });
-      });
-
-      // Hide cursor when leaving window
-      document.addEventListener('mouseleave', () => {
-        if (cursor) cursor.style.opacity = '0';
-        if (cursorTrail) cursorTrail.style.opacity = '0';
-      });
-
-      document.addEventListener('mouseenter', () => {
-        if (cursor) cursor.style.opacity = '1';
-        if (cursorTrail) cursorTrail.style.opacity = '1';
-      });
-
-      // Smooth scroll reveal animations
-      gsap.utils.toArray('.reveal').forEach((element: any) => {
-        gsap.from(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 100,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-        });
-      });
-
-      // Parallax effect for floating elements
-      gsap.utils.toArray('.parallax').forEach((element: any) => {
-        gsap.to(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-          y: -100,
-          ease: 'none',
-        });
-      });
+      // Add TypeScript global declaration
+      declare global {
+        interface Window {
+          __DENERF_INITIALIZED__?: boolean;
+        }
+      }
     </script>
+
+    <style>
+      /* Screen reader only class */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      .focus\:not-sr-only:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: inherit;
+        margin: inherit;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+      }
+
+      /* Focus visible styles for accessibility */
+      *:focus-visible {
+        outline: 2px solid #00FF88;
+        outline-offset: 2px;
+      }
+
+      /* Hide scrollbar on Firefox for cleaner look, but keep functionality */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 255, 136, 0.5) #0A0E27;
+      }
+    </style>
   </body>
 </html>

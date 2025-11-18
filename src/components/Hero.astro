@@ -2,14 +2,17 @@
 // Hero Component - Terminal-style with 3D grid background
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg"
+  aria-label="Hero section"
+>
   <!-- Animated 3D Grid Background -->
-  <div class="absolute inset-0 perspective-grid">
+  <div class="absolute inset-0 perspective-grid" aria-hidden="true">
     <div id="grid-3d" class="w-full h-full"></div>
   </div>
 
   <!-- Floating Geometric Shapes -->
-  <div class="absolute inset-0 pointer-events-none">
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
     <div class="parallax absolute top-20 left-[10%] w-20 h-20 border-2 border-primary-accent/30 rotate-45 animate-float"></div>
     <div class="parallax absolute top-40 right-[15%] w-16 h-16 border-2 border-primary-magenta/30 rotate-12 animate-float" style="animation-delay: 1s;"></div>
     <div class="parallax absolute bottom-32 left-[20%] w-24 h-24 border-2 border-primary-accent/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
@@ -21,15 +24,15 @@
     <!-- Terminal Prompt -->
     <div class="mb-8 reveal">
       <p class="font-mono text-primary-accent text-sm sm:text-base mb-2">
-        <span class="typing-animation" id="terminal-line"></span>
-        <span class="inline-block w-2 h-5 bg-primary-accent ml-1 animate-pulse"></span>
+        <span id="terminal-line" aria-live="polite" aria-atomic="true"></span>
+        <span class="inline-block w-2 h-5 bg-primary-accent ml-1 animate-pulse" aria-hidden="true"></span>
       </p>
     </div>
 
     <!-- Main Headline -->
     <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-6 reveal">
       <span class="block text-white leading-tight">We Build</span>
-      <span class="block neon-glow text-primary-accent leading-tight" data-text="The Future">
+      <span class="block neon-glow text-primary-accent leading-tight">
         The Future
       </span>
     </h1>
@@ -45,27 +48,27 @@
     <div class="flex flex-col sm:flex-row gap-6 justify-center items-center reveal">
       <a
         href="#contact"
-        class="group relative px-8 py-4 bg-transparent border-2 border-primary-accent text-primary-accent font-semibold text-lg overflow-hidden transition-all duration-300 hover:text-primary-bg"
+        class="group relative px-8 py-4 bg-transparent border-2 border-primary-accent text-primary-accent font-semibold text-lg overflow-hidden transition-all duration-300 hover:text-primary-bg focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2 focus:ring-offset-primary-bg"
       >
         <span class="relative z-10 terminal-text">Start Your Project</span>
-        <div class="absolute inset-0 bg-primary-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-        <div class="absolute inset-0 neon-border opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="absolute inset-0 bg-primary-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" aria-hidden="true"></div>
+        <div class="absolute inset-0 neon-border opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></div>
       </a>
 
       <a
         href="#work"
-        class="group px-8 py-4 border-2 border-primary-text/30 text-primary-text font-semibold text-lg hover:border-primary-magenta hover:text-primary-magenta transition-all duration-300"
+        class="group px-8 py-4 border-2 border-primary-text/30 text-primary-text font-semibold text-lg hover:border-primary-magenta hover:text-primary-magenta transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-magenta focus:ring-offset-2 focus:ring-offset-primary-bg"
       >
         View Our Work
-        <span class="inline-block ml-2 transition-transform group-hover:translate-x-2">→</span>
+        <span class="inline-block ml-2 transition-transform group-hover:translate-x-2" aria-hidden="true">→</span>
       </a>
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 reveal">
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 reveal" aria-label="Scroll down">
       <div class="flex flex-col items-center gap-2 text-primary-accent/70 animate-bounce">
         <span class="font-mono text-xs">scroll</span>
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
       </div>
@@ -75,21 +78,21 @@
   <!-- Stats Bar -->
   <div class="absolute bottom-0 left-0 right-0 bg-primary-panel/50 backdrop-blur-sm border-t border-primary-accent/20">
     <div class="max-w-7xl mx-auto px-6 py-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" id="stats-section">
         <div class="reveal">
-          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="150">0</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="150" aria-label="150 plus projects delivered">0</div>
           <div class="text-sm text-primary-text/60 font-mono">Projects Delivered</div>
         </div>
         <div class="reveal">
-          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="50">0</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="50" aria-label="50 plus happy clients">0</div>
           <div class="text-sm text-primary-text/60 font-mono">Happy Clients</div>
         </div>
         <div class="reveal">
-          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="12">0</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="12" aria-label="12 plus years experience">0</div>
           <div class="text-sm text-primary-text/60 font-mono">Years Experience</div>
         </div>
         <div class="reveal">
-          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="99">0</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary-accent mb-1" data-count="99" aria-label="99 percent success rate">0</div>
           <div class="text-sm text-primary-text/60 font-mono">% Success Rate</div>
         </div>
       </div>
@@ -98,27 +101,47 @@
 </section>
 
 <script>
+  import { ANIMATION } from '../lib/constants';
+  import { querySelector, createObserver, prefersReducedMotion } from '../lib/utils';
+
   // Terminal typing animation
-  const terminalLine = document.getElementById('terminal-line');
+  const terminalLine = querySelector<HTMLElement>('#terminal-line');
   const text = 'initializing denerf_systems...';
   let i = 0;
+  let typewriterTimeout: ReturnType<typeof setTimeout> | null = null;
 
   function typeWriter() {
     if (i < text.length && terminalLine) {
       terminalLine.textContent += text.charAt(i);
       i++;
-      setTimeout(typeWriter, 100);
+      typewriterTimeout = setTimeout(typeWriter, ANIMATION.TYPING_DELAY);
     }
   }
 
-  // Start typing animation after a short delay
-  setTimeout(typeWriter, 500);
+  // Start typing animation after a short delay (only if reduced motion is off)
+  if (!prefersReducedMotion()) {
+    setTimeout(typeWriter, 500);
+  } else {
+    // Show full text immediately if reduced motion
+    if (terminalLine) {
+      terminalLine.textContent = text;
+    }
+  }
+
+  // Cleanup
+  window.addEventListener('beforeunload', () => {
+    if (typewriterTimeout) {
+      clearTimeout(typewriterTimeout);
+    }
+  });
 
   // Animated counter for stats
   function animateCounter(element: HTMLElement) {
-    const target = parseInt(element.getAttribute('data-count') || '0');
+    const target = parseInt(element.getAttribute('data-count') || '0', 10);
+    if (isNaN(target)) return;
+
     let current = 0;
-    const increment = target / 50;
+    const increment = target / ANIMATION.COUNTER_STEPS;
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
@@ -127,51 +150,80 @@
       } else {
         element.textContent = Math.floor(current).toString() + (target === 99 ? '' : '+');
       }
-    }, 30);
+    }, ANIMATION.COUNTER_SPEED);
+
+    return timer;
   }
 
-  // Trigger counter animation on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const counters = entry.target.querySelectorAll('[data-count]');
-        counters.forEach((counter) => animateCounter(counter as HTMLElement));
-        observer.unobserve(entry.target);
-      }
-    });
-  });
+  // Trigger counter animation on scroll (with proper cleanup)
+  const statsSection = querySelector('#stats-section');
+  if (statsSection) {
+    let hasAnimated = false;
 
-  const statsSection = document.querySelector('.grid.grid-cols-2');
-  if (statsSection) observer.observe(statsSection);
+    const observer = createObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          hasAnimated = true;
+          const counters = entry.target.querySelectorAll('[data-count]');
+          counters.forEach((counter) => {
+            if (counter instanceof HTMLElement) {
+              animateCounter(counter);
+            }
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    observer.observe(statsSection);
+  }
 
   // 3D Grid animation
-  const grid3d = document.getElementById('grid-3d');
+  const grid3d = querySelector('#grid-3d');
   if (grid3d) {
-    // Create animated grid lines
-    const gridHTML = `
-      <svg class="w-full h-full" style="transform: rotateX(60deg) rotateZ(0deg);">
-        <defs>
-          <linearGradient id="gridGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#00FF88;stop-opacity:0" />
-            <stop offset="50%" style="stop-color:#00FF88;stop-opacity:0.2" />
-            <stop offset="100%" style="stop-color:#00FF88;stop-opacity:0" />
-          </linearGradient>
-        </defs>
-        ${Array.from({ length: 20 }, (_, i) => {
-          const y = (i * 5);
-          return `<line x1="0%" y1="${y}%" x2="100%" y2="${y}%" stroke="url(#gridGradient)" stroke-width="1" />`;
-        }).join('')}
-        ${Array.from({ length: 20 }, (_, i) => {
-          const x = (i * 5);
-          return `<line x1="${x}%" y1="0%" x2="${x}%" y2="100%" stroke="url(#gridGradient)" stroke-width="1" />`;
-        }).join('')}
-      </svg>
-    `;
-    grid3d.innerHTML = gridHTML;
+    // Create animated grid lines (only if not reduced motion)
+    if (!prefersReducedMotion()) {
+      const gridHTML = `
+        <svg class="w-full h-full" style="transform: rotateX(60deg) rotateZ(0deg);" aria-hidden="true">
+          <defs>
+            <linearGradient id="gridGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#00FF88;stop-opacity:0" />
+              <stop offset="50%" style="stop-color:#00FF88;stop-opacity:0.2" />
+              <stop offset="100%" style="stop-color:#00FF88;stop-opacity:0" />
+            </linearGradient>
+          </defs>
+          ${Array.from({ length: 20 }, (_, i) => {
+            const y = i * 5;
+            return `<line x1="0%" y1="${y}%" x2="100%" y2="${y}%" stroke="url(#gridGradient)" stroke-width="1" />`;
+          }).join('')}
+          ${Array.from({ length: 20 }, (_, i) => {
+            const x = i * 5;
+            return `<line x1="${x}%" y1="0%" x2="${x}%" y2="100%" stroke="url(#gridGradient)" stroke-width="1" />`;
+          }).join('')}
+        </svg>
+      `;
+      grid3d.innerHTML = gridHTML;
+    }
   }
 </script>
 
 <style>
+  @media (prefers-reduced-motion: reduce) {
+    /* Simplify animations on reduced motion */
+    .parallax {
+      animation: none !important;
+    }
+
+    .animate-bounce {
+      animation: none !important;
+    }
+
+    .animate-pulse {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+  }
+
   @media (hover: none) and (pointer: coarse) {
     /* Simplify animations on mobile for performance */
     .parallax {

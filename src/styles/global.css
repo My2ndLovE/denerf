@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Google Fonts */
+/* Import Google Fonts with display=swap for better performance */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
@@ -10,18 +10,36 @@
     @apply border-primary-text/20;
   }
 
-  body {
-    @apply bg-primary-bg text-primary-text font-sans antialiased;
-    cursor: none; /* Hide default cursor for custom cursor */
-  }
-
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-primary-bg text-primary-text font-sans antialiased;
+  }
+
+  /* Hide default cursor only on hover-capable devices with custom cursor active */
+  @media (hover: hover) and (pointer: fine) {
+    body.custom-cursor-active {
+      cursor: none;
+    }
   }
 
   /* Selection styles */
   ::selection {
     @apply bg-primary-accent/30 text-primary-text;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 

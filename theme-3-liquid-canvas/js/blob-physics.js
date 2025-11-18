@@ -1,4 +1,4 @@
-// BLOB PHYSICS - Interactive blobs for cards and sections
+// BLOB PHYSICS - Optimized interactive blobs
 
 class BlobPhysics {
     constructor(element) {
@@ -8,42 +8,71 @@ class BlobPhysics {
         this.element.appendChild(this.canvas);
 
         this.points = [];
-        this.pointCount = 12;
-        this.baseRadius = 150;
         this.centerX = 0;
         this.centerY = 0;
         this.mouse = { x: 0, y: 0 };
         this.springs = [];
+        this.rafId = null;
+        this.lastTime = 0;
+
+        // Mobile optimization
+        this.isMobile = window.innerWidth < 768;
+        this.pointCount = this.isMobile ? 6 : 8; // Reduced from 12
+        this.baseRadius = 150;
+        this.fps = this.isMobile ? 24 : 60;
+        this.frameInterval = 1000 / this.fps;
 
         this.init();
     }
 
     init() {
         this.resize();
-        window.addEventListener('resize', () => this.resize());
 
-        // Mouse tracking
-        this.element.addEventListener('mousemove', (e) => {
-            const rect = this.element.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
-        });
+        this.resizeHandler = () => {
+            this.resize();
+            this.isMobile = window.innerWidth < 768;
+        };
 
-        this.element.addEventListener('mouseleave', () => {
-            this.mouse.x = this.centerX;
-            this.mouse.y = this.centerY;
-        });
+        window.addEventListener('resize', this.resizeHandler);
+
+        // Mouse tracking (desktop only)
+        if (!this.isMobile) {
+            this.mouseMoveHandler = (e) => {
+                const rect = this.element.getBoundingClientRect();
+                this.mouse.x = e.clientX - rect.left;
+                this.mouse.y = e.clientY - rect.top;
+            };
+
+            this.mouseLeaveHandler = () => {
+                this.mouse.x = this.centerX;
+                this.mouse.y = this.centerY;
+            };
+
+            this.element.addEventListener('mousemove', this.mouseMoveHandler);
+            this.element.addEventListener('mouseleave', this.mouseLeaveHandler);
+        }
 
         this.createPhysicsBlob();
         this.animate();
     }
 
     resize() {
-        this.canvas.width = this.element.clientWidth;
-        this.canvas.height = this.element.clientHeight;
-        this.centerX = this.canvas.width / 2;
-        this.centerY = this.canvas.height / 2;
-        this.baseRadius = Math.min(this.canvas.width, this.canvas.height) * 0.35;
+        const rect = this.element.getBoundingClientRect();
+
+        // Lower resolution on mobile
+        const scale = this.isMobile ? 0.7 : 1;
+        this.canvas.width = rect.width * scale;
+        this.canvas.height = rect.height * scale;
+
+        if (scale !== 1) {
+            this.ctx.scale(scale, scale);
+        }
+
+        this.width = rect.width;
+        this.height = rect.height;
+        this.centerX = this.width / 2;
+        this.centerY = this.height / 2;
+        this.baseRadius = Math.min(this.width, this.height) * 0.3;
 
         this.mouse.x = this.centerX;
         this.mouse.y = this.centerY;
@@ -67,7 +96,7 @@ class BlobPhysics {
                 baseX: x,
                 baseY: y,
                 mass: 1,
-                damping: 0.9
+                damping: 0.88
             });
         }
 
@@ -75,52 +104,60 @@ class BlobPhysics {
         this.springs = [];
         for (let i = 0; i < this.pointCount; i++) {
             const nextIndex = (i + 1) % this.pointCount;
+            const p1 = this.points[i];
+            const p2 = this.points[nextIndex];
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const restLength = Math.sqrt(dx * dx + dy * dy);
+
             this.springs.push({
                 p1: i,
                 p2: nextIndex,
-                restLength: this.calculateDistance(this.points[i], this.points[nextIndex]),
-                stiffness: 0.1
+                restLength: restLength,
+                stiffness: 0.08
             });
         }
     }
 
-    calculateDistance(p1, p2) {
-        const dx = p2.x - p1.x;
-        const dy = p2.y - p1.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
+    animate(currentTime = 0) {
+        this.rafId = requestAnimationFrame((time) => this.animate(time));
 
-    animate() {
-        requestAnimationFrame(() => this.animate());
+        // FPS throttling
+        const deltaTime = currentTime - this.lastTime;
+        if (deltaTime < this.frameInterval) return;
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.lastTime = currentTime - (deltaTime % this.frameInterval);
 
-        const time = Date.now() * 0.001;
+        this.ctx.clearRect(0, 0, this.width, this.height);
+
+        const time = currentTime * 0.001;
 
         // Apply forces
         for (let i = 0; i < this.points.length; i++) {
             const point = this.points[i];
 
-            // Mouse attraction/repulsion
-            const dx = this.mouse.x - point.x;
-            const dy = this.mouse.y - point.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            // Mouse repulsion (desktop only)
+            if (!this.isMobile) {
+                const dx = this.mouse.x - point.x;
+                const dy = this.mouse.y - point.y;
+                const distSq = dx * dx + dy * dy;
 
-            if (distance < 150) {
-                // Repulsion
-                const force = (150 - distance) / 150 * 0.5;
-                point.vx -= (dx / distance) * force;
-                point.vy -= (dy / distance) * force;
+                if (distSq < 22500) { // 150^2
+                    const distance = Math.sqrt(distSq);
+                    const force = (150 - distance) / 150 * 0.4;
+                    point.vx -= (dx / distance) * force;
+                    point.vy -= (dy / distance) * force;
+                }
             }
 
             // Spring back to base position
             const baseDx = point.baseX - point.x;
             const baseDy = point.baseY - point.y;
-            point.vx += baseDx * 0.02;
-            point.vy += baseDy * 0.02;
+            point.vx += baseDx * 0.015;
+            point.vy += baseDy * 0.015;
 
             // Organic wave motion
-            const waveForce = Math.sin(time * 2 + i * 0.5) * 0.3;
+            const waveForce = Math.sin(time * 1.5 + i * 0.5) * 0.25;
             point.vx += Math.cos(point.angle) * waveForce;
             point.vy += Math.sin(point.angle) * waveForce;
         }
@@ -132,10 +169,11 @@ class BlobPhysics {
 
             const dx = p2.x - p1.x;
             const dy = p2.y - p1.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distSq = dx * dx + dy * dy;
 
-            if (distance === 0) continue;
+            if (distSq === 0) continue;
 
+            const distance = Math.sqrt(distSq);
             const force = (distance - spring.restLength) * spring.stiffness;
             const fx = (dx / distance) * force;
             const fy = (dy / distance) * force;
@@ -154,19 +192,18 @@ class BlobPhysics {
             point.vy *= point.damping;
 
             // Update base position for rotation
-            point.angle += 0.01;
+            point.angle += 0.008;
             point.baseX = this.centerX + Math.cos(point.angle) * this.baseRadius;
             point.baseY = this.centerY + Math.sin(point.angle) * this.baseRadius;
         }
 
-        // Draw blob
+        // Draw blob (simplified)
         this.ctx.beginPath();
 
         for (let i = 0; i < this.points.length; i++) {
             const current = this.points[i];
             const next = this.points[(i + 1) % this.points.length];
 
-            // Control point between current and next
             const cpX = (current.x + next.x) / 2;
             const cpY = (current.y + next.y) / 2;
 
@@ -179,66 +216,85 @@ class BlobPhysics {
 
         this.ctx.closePath();
 
-        // Gradient fill
-        const gradient = this.ctx.createRadialGradient(
-            this.centerX, this.centerY, 0,
-            this.centerX, this.centerY, this.baseRadius
-        );
-        gradient.addColorStop(0, 'rgba(255, 107, 53, 0.3)');
-        gradient.addColorStop(0.5, 'rgba(255, 210, 63, 0.2)');
-        gradient.addColorStop(1, 'rgba(255, 140, 66, 0.1)');
-
-        this.ctx.fillStyle = gradient;
+        // Simplified fill (no gradient for performance)
+        this.ctx.fillStyle = 'rgba(255, 107, 53, 0.2)';
         this.ctx.fill();
 
-        // Stroke with glow
-        this.ctx.strokeStyle = 'rgba(255, 107, 53, 0.5)';
-        this.ctx.lineWidth = 3;
-        this.ctx.shadowBlur = 20;
-        this.ctx.shadowColor = 'rgba(255, 107, 53, 0.8)';
+        // Simplified stroke (no shadow blur)
+        this.ctx.strokeStyle = 'rgba(255, 107, 53, 0.4)';
+        this.ctx.lineWidth = 2;
         this.ctx.stroke();
-        this.ctx.shadowBlur = 0;
-
-        // Draw points (for debugging - remove in production)
-        // for (const point of this.points) {
-        //     this.ctx.beginPath();
-        //     this.ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
-        //     this.ctx.fillStyle = '#ff6b35';
-        //     this.ctx.fill();
-        // }
     }
 
     jolt() {
         // Add random impulse to all points
         for (const point of this.points) {
-            point.vx += (Math.random() - 0.5) * 10;
-            point.vy += (Math.random() - 0.5) * 10;
+            point.vx += (Math.random() - 0.5) * 6;
+            point.vy += (Math.random() - 0.5) * 6;
         }
+    }
+
+    destroy() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+        }
+
+        window.removeEventListener('resize', this.resizeHandler);
+
+        if (!this.isMobile) {
+            this.element.removeEventListener('mousemove', this.mouseMoveHandler);
+            this.element.removeEventListener('mouseleave', this.mouseLeaveHandler);
+        }
+
+        this.points = [];
+        this.springs = [];
     }
 }
 
 // Initialize blobs for about section and project visuals
 document.addEventListener('DOMContentLoaded', () => {
+    const isMobile = window.innerWidth < 768;
+    const blobs = [];
+
     // About section blob
     const aboutBlob = document.querySelector('[data-liquid-blob]');
     if (aboutBlob) {
-        window.aboutBlob = new BlobPhysics(aboutBlob);
+        const blob = new BlobPhysics(aboutBlob);
+        window.aboutBlob = blob;
+        blobs.push(blob);
     }
 
-    // Project visual blobs
-    document.querySelectorAll('[data-project-blob]').forEach(el => {
-        new BlobPhysics(el);
+    // Project visual blobs (limit on mobile)
+    const projectBlobElements = document.querySelectorAll('[data-project-blob]');
+    const maxProjectBlobs = isMobile ? 2 : projectBlobElements.length;
+
+    projectBlobElements.forEach((el, index) => {
+        if (index < maxProjectBlobs) {
+            blobs.push(new BlobPhysics(el));
+        }
     });
 
-    // Service card hover blobs (smaller, simpler)
-    document.querySelectorAll('[data-liquid-card]').forEach(card => {
-        const blobContainer = card.querySelector('.service-hover-blob');
-        if (blobContainer) {
-            const miniBlob = new BlobPhysics(blobContainer);
+    // Service card hover blobs (disabled on mobile for performance)
+    if (!isMobile) {
+        document.querySelectorAll('[data-liquid-card]').forEach(card => {
+            const blobContainer = card.querySelector('.service-hover-blob');
+            if (blobContainer) {
+                const miniBlob = new BlobPhysics(blobContainer);
+                blobs.push(miniBlob);
 
-            card.addEventListener('mouseenter', () => {
-                miniBlob.jolt();
-            });
-        }
+                card.addEventListener('mouseenter', () => {
+                    miniBlob.jolt();
+                });
+            }
+        });
+    }
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        blobs.forEach(blob => {
+            if (blob.destroy) {
+                blob.destroy();
+            }
+        });
     });
 });

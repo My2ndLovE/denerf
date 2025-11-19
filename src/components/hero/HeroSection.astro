@@ -1,15 +1,23 @@
 ---
-// Hero Section with Kinetic Typography and Morphing Blob
+// Hero Section with Kinetic Typography and Morphing Blob - PRODUCTION READY
 ---
 
-<section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+<section
+  class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden"
+  aria-label="Hero section"
+>
   <!-- Morphing Blob Background -->
-  <div class="hero-blob-container absolute inset-0 z-0">
-    <canvas id="hero-blob-canvas" class="w-full h-full"></canvas>
+  <div class="hero-blob-container absolute inset-0 z-0" aria-hidden="true">
+    <canvas
+      id="hero-blob-canvas"
+      class="w-full h-full"
+      role="img"
+      aria-label="Animated background decoration"
+    ></canvas>
   </div>
 
   <!-- Gradient overlays for depth -->
-  <div class="absolute inset-0 z-0">
+  <div class="absolute inset-0 z-0" aria-hidden="true">
     <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-purple opacity-20 blur-[120px] rounded-full animate-pulse-slow"></div>
     <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-cyan opacity-20 blur-[120px] rounded-full animate-pulse-slow" style="animation-delay: 2s;"></div>
   </div>
@@ -19,10 +27,10 @@
     <div class="text-center">
       <!-- Main Headline with Split Text Animation -->
       <h1 class="hero-title mb-8">
-        <span class="hero-line block" data-text="WE BUILD">
+        <span class="hero-line block">
           <span class="hero-word inline-block">WE BUILD</span>
         </span>
-        <span class="hero-line block text-gradient" data-text="THE FUTURE">
+        <span class="hero-line block text-gradient">
           <span class="hero-word inline-block">THE FUTURE</span>
         </span>
       </h1>
@@ -35,14 +43,22 @@
 
       <!-- CTA Buttons -->
       <div class="hero-cta flex flex-col sm:flex-row gap-6 justify-center items-center opacity-0">
-        <a href="#contact" class="btn-primary group magnetic">
+        <a
+          href="#contact"
+          class="btn-primary group magnetic"
+          aria-label="Start a project with us"
+        >
           <span class="relative z-10">Start a Project</span>
-          <span class="btn-arrow">→</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
 
-        <a href="#work" class="btn-secondary group magnetic">
+        <a
+          href="#portfolio"
+          class="btn-secondary group magnetic"
+          aria-label="View our portfolio"
+        >
           <span class="relative z-10">View Our Work</span>
-          <span class="btn-arrow">↓</span>
+          <span class="btn-arrow" aria-hidden="true">↓</span>
         </a>
       </div>
     </div>
@@ -50,29 +66,33 @@
 
   <!-- Scroll Indicator -->
   <div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-    <div class="scroll-icon-container">
-      <svg class="scroll-icon" width="30" height="50" viewBox="0 0 30 50">
+    <button
+      class="scroll-icon-container"
+      aria-label="Scroll down to see more content"
+      type="button"
+    >
+      <svg class="scroll-icon" width="30" height="50" viewBox="0 0 30 50" aria-hidden="true">
         <rect x="1" y="1" width="28" height="48" rx="14" stroke="currentColor" stroke-width="2" fill="none" class="text-brand-white opacity-50"/>
         <circle cx="15" cy="12" r="4" fill="currentColor" class="text-brand-cyan scroll-dot">
           <animate attributeName="cy" from="12" to="38" dur="1.5s" repeatCount="indefinite" />
         </circle>
       </svg>
       <p class="text-xs font-mono mt-2 opacity-50 tracking-wider">SCROLL</p>
-    </div>
+    </button>
   </div>
 
   <!-- Custom Cursor Element -->
-  <div id="custom-cursor" class="custom-cursor"></div>
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true"></div>
 </section>
 
 <style>
   .hero-section {
     position: relative;
-    background: var(--color-brand-black);
+    background: var(--color-brand-black, #000000);
   }
 
   .hero-title {
-    font-family: var(--font-display);
+    font-family: var(--font-display, sans-serif);
     font-size: clamp(3rem, 15vw, 12rem);
     font-weight: 700;
     line-height: 0.9;
@@ -90,6 +110,7 @@
     display: inline-block;
     opacity: 0;
     transform: translateY(100%);
+    will-change: transform, opacity;
   }
 
   /* Button Styles */
@@ -98,20 +119,21 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1.25rem 2.5rem;
-    font-family: var(--font-display);
+    font-family: var(--font-display, sans-serif);
     font-size: 1.125rem;
     font-weight: 600;
     border-radius: 0;
     position: relative;
     overflow: hidden;
-    transition: all var(--duration-base) var(--ease-out);
-    cursor: none; /* Custom cursor will handle this */
+    transition: all var(--duration-base, 0.3s) var(--ease-out, ease-out);
+    cursor: none;
+    text-decoration: none;
   }
 
   .btn-primary {
-    background: var(--color-brand-cyan);
-    color: var(--color-brand-black);
-    border: 2px solid var(--color-brand-cyan);
+    background: var(--color-brand-cyan, #00F0FF);
+    color: var(--color-brand-black, #000000);
+    border: 2px solid var(--color-brand-cyan, #00F0FF);
   }
 
   .btn-primary::before {
@@ -121,19 +143,20 @@
     left: 0;
     width: 0;
     height: 100%;
-    background: var(--color-brand-purple);
-    transition: width var(--duration-base) var(--ease-out);
+    background: var(--color-brand-purple, #6B2FF6);
+    transition: width var(--duration-base, 0.3s) var(--ease-out, ease-out);
     z-index: 0;
   }
 
-  .btn-primary:hover::before {
+  .btn-primary:hover::before,
+  .btn-primary:focus::before {
     width: 100%;
   }
 
   .btn-secondary {
     background: transparent;
-    color: var(--color-brand-white);
-    border: 2px solid var(--color-brand-white);
+    color: var(--color-brand-white, #FFFFFF);
+    border: 2px solid var(--color-brand-white, #FFFFFF);
   }
 
   .btn-secondary::before {
@@ -143,29 +166,33 @@
     left: 0;
     width: 0;
     height: 100%;
-    background: var(--color-brand-white);
-    transition: width var(--duration-base) var(--ease-out);
+    background: var(--color-brand-white, #FFFFFF);
+    transition: width var(--duration-base, 0.3s) var(--ease-out, ease-out);
     z-index: 0;
   }
 
-  .btn-secondary:hover::before {
+  .btn-secondary:hover::before,
+  .btn-secondary:focus::before {
     width: 100%;
   }
 
-  .btn-secondary:hover {
-    color: var(--color-brand-black);
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    color: var(--color-brand-black, #000000);
   }
 
   .btn-arrow {
     display: inline-block;
-    transition: transform var(--duration-base) var(--ease-bounce);
+    transition: transform var(--duration-base, 0.3s) var(--ease-bounce, ease);
   }
 
-  .btn-primary:hover .btn-arrow {
+  .btn-primary:hover .btn-arrow,
+  .btn-primary:focus .btn-arrow {
     transform: translateX(4px);
   }
 
-  .btn-secondary:hover .btn-arrow {
+  .btn-secondary:hover .btn-arrow,
+  .btn-secondary:focus .btn-arrow {
     transform: translateY(4px);
   }
 
@@ -173,22 +200,23 @@
   .custom-cursor {
     width: 40px;
     height: 40px;
-    border: 2px solid var(--color-brand-cyan);
+    border: 2px solid var(--color-brand-cyan, #00F0FF);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: all var(--duration-fast) var(--ease-out);
+    transition: all var(--duration-fast, 0.15s) var(--ease-out, ease-out);
     opacity: 0;
     mix-blend-mode: difference;
+    will-change: transform, opacity;
   }
 
   .custom-cursor.active {
     transform: scale(1.5);
-    background: var(--color-brand-cyan);
+    background: var(--color-brand-cyan, #00F0FF);
   }
 
-  /* Scroll Indicator Animation */
+  /* Scroll Indicator */
   .scroll-indicator {
     animation: float 3s ease-in-out infinite;
   }
@@ -197,7 +225,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .scroll-icon-container:hover,
+  .scroll-icon-container:focus {
+    opacity: 0.8;
   }
 
   /* Responsive */
@@ -209,7 +245,7 @@
     }
   }
 
-  /* Hide custom cursor on touch devices */
+  /* Touch devices */
   @media (hover: none) {
     .custom-cursor {
       display: none;
@@ -219,16 +255,46 @@
       cursor: pointer;
     }
   }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-word {
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-tagline,
+    .hero-cta {
+      opacity: 1;
+    }
+
+    .scroll-indicator {
+      animation: none;
+    }
+
+    .custom-cursor {
+      display: none;
+    }
+  }
 </style>
 
 <script>
-  // Hero Animation Script
-  import { gsap } from 'gsap';
+  import { loadGsap } from '../../utils/animations';
+  import { prefersReducedMotion, isTouchDevice } from '../../utils/helpers';
+  import { ANIMATION } from '../../utils/constants';
 
-  // Animation setup after DOM is ready
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('astro:page-load', async () => {
+    // Skip animations if reduced motion
+    if (prefersReducedMotion()) return;
+
+    // Load GSAP
+    const gsapModule = await loadGsap();
+    if (!gsapModule) return;
+
+    const { gsap } = gsapModule;
+
     // Animate hero title words
-    gsap.to('.hero-word', {
+    const titleAnimation = gsap.to('.hero-word', {
       y: 0,
       opacity: 1,
       duration: 1,
@@ -238,7 +304,7 @@
     });
 
     // Animate tagline
-    gsap.to('.hero-tagline', {
+    const taglineAnimation = gsap.to('.hero-tagline', {
       opacity: 1,
       y: 0,
       duration: 0.8,
@@ -247,7 +313,7 @@
     });
 
     // Animate CTAs
-    gsap.to('.hero-cta', {
+    const ctaAnimation = gsap.to('.hero-cta', {
       opacity: 1,
       y: 0,
       duration: 0.8,
@@ -255,87 +321,173 @@
       delay: 1.4
     });
 
-    // Custom Cursor
-    const cursor = document.getElementById('custom-cursor');
-    const heroSection = document.querySelector('.hero-section');
+    // Cleanup
+    document.addEventListener('astro:before-preparation', () => {
+      titleAnimation?.kill();
+      taglineAnimation?.kill();
+      ctaAnimation?.kill();
+    });
 
-    if (cursor && heroSection && window.matchMedia('(hover: hover)').matches) {
-      let mouseX = 0;
-      let mouseY = 0;
-      let cursorX = 0;
-      let cursorY = 0;
-
-      // Show cursor when entering hero
-      heroSection.addEventListener('mouseenter', () => {
-        cursor.style.opacity = '1';
-      });
-
-      heroSection.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-      });
-
-      // Track mouse position
-      heroSection.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-
-      // Smooth cursor follow with lerp
-      function animateCursor() {
-        const dx = mouseX - cursorX;
-        const dy = mouseY - cursorY;
-
-        cursorX += dx * 0.1;
-        cursorY += dy * 0.1;
-
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-
-        requestAnimationFrame(animateCursor);
-      }
-
-      animateCursor();
-
-      // Cursor interactions with buttons
-      const buttons = heroSection.querySelectorAll('.magnetic');
-      buttons.forEach(btn => {
-        btn.addEventListener('mouseenter', () => {
-          cursor.classList.add('active');
-        });
-        btn.addEventListener('mouseleave', () => {
-          cursor.classList.remove('active');
-        });
-      });
+    // Custom Cursor (only on desktop with hover capability)
+    if (!isTouchDevice() && window.matchMedia('(hover: hover)').matches) {
+      setupCustomCursor();
     }
 
-    // Kinetic Typography - Text follows cursor slightly
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle && window.matchMedia('(hover: hover)').matches) {
-      heroSection.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const { innerWidth, innerHeight } = window;
+    // Kinetic Typography (only on desktop)
+    if (!isTouchDevice() && window.matchMedia('(hover: hover)').matches) {
+      setupKineticTypography(gsap);
+    }
 
-        const xPercent = (clientX / innerWidth - 0.5) * 20;
-        const yPercent = (clientY / innerHeight - 0.5) * 20;
-
-        gsap.to(heroTitle, {
-          x: xPercent,
-          y: yPercent,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
+    // Scroll indicator click
+    const scrollBtn = document.querySelector('.scroll-icon-container');
+    if (scrollBtn) {
+      scrollBtn.addEventListener('click', () => {
+        const nextSection = document.querySelector('#philosophy');
+        if (nextSection) {
+          nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     }
   });
+
+  function setupCustomCursor() {
+    const cursor = document.getElementById('custom-cursor');
+    const heroSection = document.querySelector('.hero-section');
+
+    if (!cursor || !heroSection) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let rafId: number | null = null;
+
+    const handleMouseEnter = () => {
+      cursor.style.opacity = '1';
+    };
+
+    const handleMouseLeave = () => {
+      cursor.style.opacity = '0';
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (!rafId) {
+        animateCursor();
+      }
+    };
+
+    function animateCursor() {
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+
+      cursorX += dx * ANIMATION.CURSOR_LERP;
+      cursorY += dy * ANIMATION.CURSOR_LERP;
+
+      if (cursor) {
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+      }
+
+      // Continue if still moving significantly
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        rafId = requestAnimationFrame(animateCursor);
+      } else {
+        rafId = null;
+      }
+    }
+
+    // Add event listeners
+    heroSection.addEventListener('mouseenter', handleMouseEnter);
+    heroSection.addEventListener('mouseleave', handleMouseLeave);
+    heroSection.addEventListener('mousemove', handleMouseMove);
+
+    // Cursor interactions with buttons
+    const buttons = heroSection.querySelectorAll('.magnetic');
+    const buttonHandlers: Map<Element, { enter: () => void; leave: () => void }> = new Map();
+
+    buttons.forEach(btn => {
+      const handlers = {
+        enter: () => cursor?.classList.add('active'),
+        leave: () => cursor?.classList.remove('active')
+      };
+
+      btn.addEventListener('mouseenter', handlers.enter);
+      btn.addEventListener('mouseleave', handlers.leave);
+      buttonHandlers.set(btn, handlers);
+    });
+
+    // Cleanup
+    document.addEventListener('astro:before-preparation', () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      heroSection.removeEventListener('mouseenter', handleMouseEnter);
+      heroSection.removeEventListener('mouseleave', handleMouseLeave);
+      heroSection.removeEventListener('mousemove', handleMouseMove);
+
+      buttonHandlers.forEach((handlers, btn) => {
+        btn.removeEventListener('mouseenter', handlers.enter);
+        btn.removeEventListener('mouseleave', handlers.leave);
+      });
+    });
+  }
+
+  function setupKineticTypography(gsap: any) {
+    const heroTitle = document.querySelector('.hero-title');
+    const heroSection = document.querySelector('.hero-section');
+
+    if (!heroTitle || !heroSection) return;
+
+    let titleAnimation: any = null;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+
+      const xPercent = (clientX / innerWidth - 0.5) * 20;
+      const yPercent = (clientY / innerHeight - 0.5) * 20;
+
+      titleAnimation = gsap.to(heroTitle, {
+        x: xPercent,
+        y: yPercent,
+        duration: 0.5,
+        ease: 'power2.out',
+        overwrite: true
+      });
+    };
+
+    heroSection.addEventListener('mousemove', handleMouseMove);
+
+    // Cleanup
+    document.addEventListener('astro:before-preparation', () => {
+      heroSection.removeEventListener('mousemove', handleMouseMove);
+      titleAnimation?.kill();
+    });
+  }
 </script>
 
 <script>
-  // Three.js Morphing Blob Background
-  import * as THREE from 'three';
+  import { loadThree } from '../../utils/animations';
+  import { prefersReducedMotion } from '../../utils/helpers';
 
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('astro:page-load', async () => {
+    // Skip if reduced motion
+    if (prefersReducedMotion()) return;
+
     const canvas = document.getElementById('hero-blob-canvas') as HTMLCanvasElement;
     if (!canvas) return;
+
+    // Load Three.js
+    const THREE = await loadThree();
+    if (!THREE) return;
+
+    let rafId: number | null = null;
+    let isVisible = true;
 
     // Scene setup
     const scene = new THREE.Scene();
@@ -350,7 +502,8 @@
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
-      antialias: true
+      antialias: window.devicePixelRatio < 2, // Antialias only on low DPI
+      powerPreference: 'high-performance'
     });
     renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -381,8 +534,9 @@
     // Animation
     let time = 0;
     function animate() {
-      requestAnimationFrame(animate);
+      if (!isVisible) return;
 
+      rafId = requestAnimationFrame(animate);
       time += 0.01;
 
       // Rotate blob
@@ -412,17 +566,39 @@
     animate();
 
     // Resize handler
+    let resizeTimeout: ReturnType<typeof setTimeout>;
     function handleResize() {
-      camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+      }, 100);
     }
 
     window.addEventListener('resize', handleResize);
 
+    // Visibility observer - pause rendering when not visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !rafId) {
+          animate();
+        }
+      });
+    }, { threshold: 0 });
+
+    observer.observe(canvas);
+
     // Cleanup on navigation
     document.addEventListener('astro:before-preparation', () => {
+      isVisible = false;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
       window.removeEventListener('resize', handleResize);
+      observer.disconnect();
       renderer.dispose();
       geometry.dispose();
       material.dispose();

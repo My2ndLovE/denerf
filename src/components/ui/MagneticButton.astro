@@ -32,14 +32,23 @@ const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} 
 </a>
 
 <script>
-  // Magnetic button effect
+  // Store event handlers for cleanup
+  const magneticHandlers = new Map<Element, { move: (e: MouseEvent) => void; leave: () => void }>();
+
   function initMagneticButtons() {
+    // Clean up old handlers
+    magneticHandlers.forEach((handlers, button) => {
+      button.removeEventListener('mousemove', handlers.move);
+      button.removeEventListener('mouseleave', handlers.leave);
+    });
+    magneticHandlers.clear();
+
     const buttons = document.querySelectorAll('[data-magnetic]');
 
     buttons.forEach((button) => {
       const btn = button as HTMLElement;
 
-      btn.addEventListener('mousemove', (e: MouseEvent) => {
+      const handleMove = (e: MouseEvent) => {
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -49,14 +58,31 @@ const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} 
         const moveY = (y / rect.height) * 20;
 
         btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      });
+      };
 
-      btn.addEventListener('mouseleave', () => {
+      const handleLeave = () => {
         btn.style.transform = 'translate(0px, 0px)';
-      });
+      };
+
+      btn.addEventListener('mousemove', handleMove);
+      btn.addEventListener('mouseleave', handleLeave);
+
+      // Store handlers for cleanup
+      magneticHandlers.set(btn, { move: handleMove, leave: handleLeave });
     });
+  }
+
+  function cleanupMagneticButtons() {
+    magneticHandlers.forEach((handlers, button) => {
+      button.removeEventListener('mousemove', handlers.move);
+      button.removeEventListener('mouseleave', handlers.leave);
+    });
+    magneticHandlers.clear();
   }
 
   // Initialize on page load and after view transitions
   document.addEventListener('astro:page-load', initMagneticButtons);
+
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupMagneticButtons);
 </script>

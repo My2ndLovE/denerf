@@ -132,6 +132,7 @@ const projects = [
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
         >
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"
           ></path>
@@ -143,31 +144,32 @@ const projects = [
 
 <script>
   import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { staggerAnimation, fadeInAnimation, cleanupScrollTriggers } from '@utils/animations';
 
-  gsap.registerPlugin(ScrollTrigger);
+  // Store event handlers for cleanup
+  const portfolioHandlers = new Map<Element, { move: (e: MouseEvent) => void; leave: () => void }>();
 
   function initPortfolioAnimations() {
-    // Stagger animation for portfolio items
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    // Clean up old handlers
+    portfolioHandlers.forEach((handlers, item) => {
+      item.removeEventListener('mousemove', handlers.move);
+      item.removeEventListener('mouseleave', handlers.leave);
+    });
+    portfolioHandlers.clear();
 
-    gsap.from(portfolioItems, {
-      opacity: 0,
+    // Stagger animation for portfolio items
+    staggerAnimation('.portfolio-item', {
       y: 60,
       duration: 0.8,
       stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.portfolio-grid',
-        start: 'top 70%',
-      },
     });
 
     // Parallax effect on hover
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
     portfolioItems.forEach((item) => {
       const itemElement = item as HTMLElement;
 
-      itemElement.addEventListener('mousemove', (e: MouseEvent) => {
+      const handleMove = (e: MouseEvent) => {
         const rect = itemElement.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -185,16 +187,22 @@ const projects = [
           duration: 0.3,
           ease: 'power2.out',
         });
-      });
+      };
 
-      itemElement.addEventListener('mouseleave', () => {
+      const handleLeave = () => {
         gsap.to(itemElement.querySelector('.glass'), {
           x: 0,
           y: 0,
           duration: 0.3,
           ease: 'power2.out',
         });
-      });
+      };
+
+      itemElement.addEventListener('mousemove', handleMove);
+      itemElement.addEventListener('mouseleave', handleLeave);
+
+      // Store handlers for cleanup
+      portfolioHandlers.set(itemElement, { move: handleMove, leave: handleLeave });
     });
 
     // Slide up animations
@@ -213,24 +221,26 @@ const projects = [
     });
 
     // Fade in animations
-    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
-    fadeInElements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-      gsap.from(element, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
+    fadeInAnimation('[data-animate="fade-in"]');
   }
 
+  function cleanupPortfolio() {
+    // Remove all portfolio event listeners
+    portfolioHandlers.forEach((handlers, item) => {
+      item.removeEventListener('mousemove', handlers.move);
+      item.removeEventListener('mouseleave', handlers.leave);
+    });
+    portfolioHandlers.clear();
+
+    // Clean up ScrollTriggers
+    cleanupScrollTriggers();
+  }
+
+  // Initialize on page load
   document.addEventListener('astro:page-load', initPortfolioAnimations);
+
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupPortfolio);
 </script>
 
 <style>

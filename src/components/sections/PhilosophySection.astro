@@ -28,6 +28,7 @@
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     stroke-linecap="round"
@@ -38,7 +39,7 @@
               </div>
               <h3 class="text-2xl font-bold mb-16 text-electric-500">Performance-First</h3>
               <p class="text-neutral-light/80 leading-relaxed">
-                We optimize for speed from day one. < 1s load times aren't a goal—they're a
+                We optimize for speed from day one. &lt; 1s load times aren't a goal—they're a
                 requirement. Your users deserve instant experiences.
               </p>
             </div>
@@ -58,6 +59,7 @@
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     stroke-linecap="round"
@@ -89,6 +91,7 @@
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     stroke-linecap="round"
@@ -119,6 +122,7 @@
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     stroke-linecap="round"
@@ -145,48 +149,24 @@
 </section>
 
 <script>
+  import {
+    horizontalScroll,
+    staggerAnimation,
+    fadeInAnimation,
+    cleanupScrollTriggers,
+    refreshOnResize,
+  } from '@utils/animations';
   import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
 
   function initPhilosophyAnimations() {
-    // Horizontal scroll effect
-    const horizontalSection = document.querySelector('#horizontal-section');
-    const scrollContainer = document.querySelector('.horizontal-scroll-container');
+    // Horizontal scroll effect (uses utility function)
+    horizontalScroll('.horizontal-scroll-container', '#philosophy');
 
-    if (horizontalSection && scrollContainer) {
-      const scrollWidth = scrollContainer.scrollWidth - window.innerWidth;
-
-      // Only apply horizontal scroll on desktop
-      if (window.innerWidth >= 768) {
-        gsap.to(scrollContainer, {
-          x: -scrollWidth,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#philosophy',
-            pin: true,
-            scrub: 1,
-            end: () => `+=${scrollWidth}`,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-    }
-
-    // Animate principle cards
-    const cards = document.querySelectorAll('.principle-card');
-    cards.forEach((card, index) => {
-      gsap.from(card, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        delay: index * 0.1,
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 80%',
-        },
-      });
+    // Stagger animation for cards
+    staggerAnimation('.principle-card', {
+      y: 50,
+      duration: 0.8,
+      stagger: 0.1,
     });
 
     // Slide up animations
@@ -204,30 +184,18 @@
       });
     });
 
-    // Fade in animations
-    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
-    fadeInElements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-      gsap.from(element, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
+    // Fade in animations (uses utility function)
+    fadeInAnimation('[data-animate="fade-in"]');
+
+    // Enable resize refresh
+    refreshOnResize();
   }
 
+  // Initialize on page load
   document.addEventListener('astro:page-load', initPhilosophyAnimations);
 
-  // Refresh on resize
-  window.addEventListener('resize', () => {
-    ScrollTrigger.refresh();
-  });
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupScrollTriggers);
 </script>
 
 <style>

@@ -27,7 +27,7 @@
             <div
               class="w-64 h-64 mb-24 bg-electric-500/10 rounded-2xl flex items-center justify-center group-hover:bg-electric-500/20 transition-all duration-300"
             >
-              <svg class="w-32 h-32 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-32 h-32 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -71,7 +71,7 @@
             <div
               class="w-64 h-64 mb-24 bg-neon-500/10 rounded-2xl flex items-center justify-center group-hover:bg-neon-500/20 transition-all duration-300"
             >
-              <svg class="w-32 h-32 text-neon-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-32 h-32 text-neon-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -107,7 +107,7 @@
             <div
               class="w-64 h-64 mb-24 bg-electric-500/10 rounded-2xl flex items-center justify-center group-hover:bg-electric-500/20 transition-all duration-300"
             >
-              <svg class="w-32 h-32 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-32 h-32 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -144,7 +144,7 @@
             <div
               class="w-64 h-64 mb-24 bg-neon-500/10 rounded-2xl flex items-center justify-center group-hover:bg-neon-500/20 transition-all duration-300"
             >
-              <svg class="w-32 h-32 text-neon-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-32 h-32 text-neon-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -178,19 +178,27 @@
 </section>
 
 <script>
+  import { staggerAnimation, fadeInAnimation, cleanupScrollTriggers } from '@utils/animations';
   import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-  gsap.registerPlugin(ScrollTrigger);
+  // Store event handlers for cleanup
+  const tiltHandlers = new Map<Element, { move: (e: MouseEvent) => void; leave: () => void }>();
 
   function initServicesAnimations() {
+    // Clean up old handlers
+    tiltHandlers.forEach((handlers, card) => {
+      card.removeEventListener('mousemove', handlers.move);
+      card.removeEventListener('mouseleave', handlers.leave);
+    });
+    tiltHandlers.clear();
+
     // 3D tilt effect on cards
     const cards = document.querySelectorAll('[data-tilt]');
 
     cards.forEach((card) => {
       const cardElement = card as HTMLElement;
 
-      cardElement.addEventListener('mousemove', (e: MouseEvent) => {
+      const handleMove = (e: MouseEvent) => {
         const rect = cardElement.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -202,25 +210,25 @@
         const rotateY = ((x - centerX) / centerX) * 5;
 
         cardElement.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
+      };
 
-      cardElement.addEventListener('mouseleave', () => {
+      const handleLeave = () => {
         cardElement.style.transform =
           'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      });
+      };
+
+      cardElement.addEventListener('mousemove', handleMove);
+      cardElement.addEventListener('mouseleave', handleLeave);
+
+      // Store handlers for cleanup
+      tiltHandlers.set(cardElement, { move: handleMove, leave: handleLeave });
     });
 
     // Stagger animation for cards
-    gsap.from('.service-card', {
-      opacity: 0,
+    staggerAnimation('.service-card', {
       y: 50,
       duration: 0.8,
       stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.bento-grid',
-        start: 'top 70%',
-      },
     });
 
     // Slide up animations
@@ -239,24 +247,26 @@
     });
 
     // Fade in animations
-    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
-    fadeInElements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-      gsap.from(element, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
+    fadeInAnimation('[data-animate="fade-in"]');
   }
 
+  function cleanupServices() {
+    // Remove all tilt event listeners
+    tiltHandlers.forEach((handlers, card) => {
+      card.removeEventListener('mousemove', handlers.move);
+      card.removeEventListener('mouseleave', handlers.leave);
+    });
+    tiltHandlers.clear();
+
+    // Clean up ScrollTriggers
+    cleanupScrollTriggers();
+  }
+
+  // Initialize on page load
   document.addEventListener('astro:page-load', initServicesAnimations);
+
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupServices);
 </script>
 
 <style>

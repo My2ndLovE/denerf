@@ -36,6 +36,7 @@ const technologies = [
         id="tech-constellation"
         class="absolute inset-0 pointer-events-none z-0"
         style="mix-blend-mode: screen;"
+        aria-hidden="true"
       >
       </canvas>
 
@@ -87,23 +88,26 @@ const technologies = [
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { staggerAnimation, fadeInAnimation, cleanupScrollTriggers } from '@utils/animations';
 
   gsap.registerPlugin(ScrollTrigger);
 
-  function initTechStackAnimations() {
-    // Stagger animation for tech items
-    const techItems = document.querySelectorAll('.tech-item');
+  // Store resize handler for cleanup
+  let resizeHandler: (() => void) | null = null;
+  let resizeTimeout: ReturnType<typeof setTimeout>;
 
-    gsap.from(techItems, {
-      opacity: 0,
+  function initTechStackAnimations() {
+    // Clean up old resize handler
+    if (resizeHandler) {
+      window.removeEventListener('resize', resizeHandler);
+      resizeHandler = null;
+    }
+
+    // Stagger animation for tech items
+    staggerAnimation('.tech-item', {
       scale: 0.8,
       duration: 0.6,
       stagger: 0.05,
-      ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: '.tech-item',
-        start: 'top 80%',
-      },
     });
 
     // Draw constellation lines on canvas
@@ -111,6 +115,8 @@ const technologies = [
     if (canvas) {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
+
+      const techItems = document.querySelectorAll('.tech-item');
 
       // Set canvas size
       function resizeCanvas() {
@@ -120,9 +126,6 @@ const technologies = [
           canvas.height = parent.offsetHeight;
         }
       }
-
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
 
       // Get positions of tech items
       function drawConstellation() {
@@ -169,6 +172,19 @@ const technologies = [
         });
       }
 
+      resizeCanvas();
+
+      // Debounced resize handler
+      resizeHandler = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          resizeCanvas();
+          drawConstellation();
+        }, 250);
+      };
+
+      window.addEventListener('resize', resizeHandler);
+
       // Animate constellation on scroll
       ScrollTrigger.create({
         trigger: '#tech-stack',
@@ -176,11 +192,6 @@ const technologies = [
         onEnter: () => {
           setTimeout(drawConstellation, 600); // After items animate in
         },
-      });
-
-      // Redraw on resize
-      window.addEventListener('resize', () => {
-        setTimeout(drawConstellation, 100);
       });
     }
 
@@ -225,22 +236,35 @@ const technologies = [
     });
 
     // Fade in animations
-    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
-    fadeInElements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-      gsap.from(element, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
+    fadeInAnimation('[data-animate="fade-in"]');
   }
 
+  function cleanupTechStack() {
+    // Remove resize handler
+    if (resizeHandler) {
+      window.removeEventListener('resize', resizeHandler);
+      resizeHandler = null;
+    }
+
+    // Clear timeout
+    clearTimeout(resizeTimeout);
+
+    // Clean up ScrollTriggers
+    cleanupScrollTriggers();
+
+    // Clear canvas
+    const canvas = document.getElementById('tech-constellation') as HTMLCanvasElement;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+  }
+
+  // Initialize on page load
   document.addEventListener('astro:page-load', initTechStackAnimations);
+
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupTechStack);
 </script>

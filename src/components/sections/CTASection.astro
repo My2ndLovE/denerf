@@ -1,257 +1,230 @@
 ---
+// Final CTA section with contact form and info
 import MagneticButton from '../ui/MagneticButton.astro';
 ---
 
-<section id="contact" class="relative section-padding bg-space-600 overflow-hidden">
-  <!-- Animated Background Gradient -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="blob absolute -top-48 -left-48 w-96 h-96 bg-electric-500/20 rounded-full"></div>
-    <div
-      class="blob absolute -bottom-48 -right-48 w-128 h-128 bg-neon-500/15 rounded-full"
-      style="animation-delay: -3s;"
-    >
-    </div>
-  </div>
-
-  <div class="container-custom relative z-10">
-    <!-- Split Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-64 items-center">
-      <!-- Left: Compelling Copy -->
-      <div class="cta-content">
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-24 leading-tight" data-animate="slide-up">
+<section id="contact" class="relative section-padding bg-space-500 overflow-hidden">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-64">
+      <!-- Left Column: CTA Content -->
+      <div class="flex flex-col justify-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-24" data-animate="slide-up">
           Ready to Build Something
-          <span class="gradient-text block mt-8">Extraordinary?</span>
+          <span class="gradient-text">Exceptional?</span>
         </h2>
-
-        <p class="text-xl text-neutral-light/70 mb-32 leading-relaxed" data-animate="fade-in" data-delay="0.2">
-          Let's create a digital experience that doesn't just meet expectations—it shatters them.
-          Fast, beautiful, and built to convert.
+        <p class="text-xl text-neutral-light/70 leading-relaxed mb-48" data-animate="fade-in" data-delay="0.2">
+          Let's discuss your project and create a digital experience that sets you apart from the
+          competition. We're ready when you are.
         </p>
 
-        <!-- Value Props -->
-        <div class="space-y-16 mb-48" data-animate="fade-in" data-delay="0.3">
-          <div class="flex items-start gap-16">
-            <div class="w-24 h-24 flex-shrink-0 bg-electric-500/10 rounded-lg flex items-center justify-center">
-              <svg class="w-16 h-16 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Contact Info -->
+        <div class="space-y-24 mb-48" data-animate="fade-in" data-delay="0.3">
+          <!-- Email -->
+          <div class="flex items-center gap-16">
+            <div class="w-48 h-48 flex items-center justify-center bg-electric-500/10 rounded-2xl">
+              <svg
+                class="w-24 h-24 text-electric-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M5 13l4 4L19 7"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg mb-4">100 Lighthouse Scores</h3>
-              <p class="text-neutral-light/60">We don't ship until it's perfect.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-16">
-            <div class="w-24 h-24 flex-shrink-0 bg-neon-500/10 rounded-lg flex items-center justify-center">
-              <svg class="w-16 h-16 text-neon-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg mb-4">2-Week Turnaround</h3>
-              <p class="text-neutral-light/60">From kickoff to launch, fast.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-16">
-            <div class="w-24 h-24 flex-shrink-0 bg-electric-500/10 rounded-lg flex items-center justify-center">
-              <svg class="w-16 h-16 text-electric-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                 ></path>
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-lg mb-4">Fixed Pricing</h3>
-              <p class="text-neutral-light/60">No surprises, ever.</p>
+              <p class="text-sm text-neutral-light/50 mb-4">Email Us</p>
+              <a href="mailto:hello@denerf.agency" class="text-lg text-electric-500 hover:text-electric-400 transition-colors">
+                hello@denerf.agency
+              </a>
             </div>
           </div>
-        </div>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-16" data-animate="fade-in" data-delay="0.4">
-          <MagneticButton href="mailto:hello@denerf.com" variant="primary" size="large">
-            Start Your Project
-          </MagneticButton>
-          <MagneticButton href="#portfolio" variant="outline" size="large">
-            See Case Studies
-          </MagneticButton>
-        </div>
-      </div>
-
-      <!-- Right: Interactive Contact Form -->
-      <div class="cta-form" data-animate="scale-in" data-delay="0.2">
-        <div class="glass p-32 md:p-48 rounded-3xl">
-          <h3 class="text-2xl font-bold mb-24">Quick Start Form</h3>
-
-          <form class="space-y-24" id="contact-form">
-            <!-- Name Field -->
-            <div class="form-group">
-              <label for="name" class="block text-sm font-medium mb-8 text-neutral-light/80">
-                What's your name?
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                class="w-full px-16 py-12 bg-space-500/50 border border-neutral-light/10 rounded-xl focus:border-electric-500 focus:outline-none focus:ring-2 focus:ring-electric-500/20 transition-all text-neutral-light placeholder-neutral-light/40"
-                placeholder="John Doe"
-              />
-            </div>
-
-            <!-- Email Field -->
-            <div class="form-group">
-              <label for="email" class="block text-sm font-medium mb-8 text-neutral-light/80">
-                Your email address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                class="w-full px-16 py-12 bg-space-500/50 border border-neutral-light/10 rounded-xl focus:border-electric-500 focus:outline-none focus:ring-2 focus:ring-electric-500/20 transition-all text-neutral-light placeholder-neutral-light/40"
-                placeholder="john@example.com"
-              />
-            </div>
-
-            <!-- Project Type -->
-            <div class="form-group">
-              <label for="project-type" class="block text-sm font-medium mb-8 text-neutral-light/80">
-                What are you building?
-              </label>
-              <select
-                id="project-type"
-                name="project-type"
-                required
-                class="w-full px-16 py-12 bg-space-500/50 border border-neutral-light/10 rounded-xl focus:border-electric-500 focus:outline-none focus:ring-2 focus:ring-electric-500/20 transition-all text-neutral-light"
+          <!-- Location -->
+          <div class="flex items-center gap-16">
+            <div class="w-48 h-48 flex items-center justify-center bg-neon-500/10 rounded-2xl">
+              <svg
+                class="w-24 h-24 text-neon-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
               >
-                <option value="">Select project type</option>
-                <option value="web-app">Web Application</option>
-                <option value="website">Marketing Website</option>
-                <option value="ecommerce">E-Commerce</option>
-                <option value="saas">SaaS Platform</option>
-                <option value="other">Something Else</option>
-              </select>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
             </div>
-
-            <!-- Message Field -->
-            <div class="form-group">
-              <label for="message" class="block text-sm font-medium mb-8 text-neutral-light/80">
-                Tell us about your project
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                required
-                class="w-full px-16 py-12 bg-space-500/50 border border-neutral-light/10 rounded-xl focus:border-electric-500 focus:outline-none focus:ring-2 focus:ring-electric-500/20 transition-all text-neutral-light placeholder-neutral-light/40 resize-none"
-                placeholder="I need a website that..."
-              ></textarea>
+            <div>
+              <p class="text-sm text-neutral-light/50 mb-4">Located In</p>
+              <p class="text-lg text-neutral-light">San Francisco, CA</p>
             </div>
-
-            <!-- Submit Button -->
-            <button
-              type="submit"
-              class="w-full px-32 py-16 bg-electric-500 text-space-500 font-semibold rounded-full hover:bg-electric-400 transition-all duration-300 hover:scale-105 shadow-lg shadow-electric-500/50"
-            >
-              Send Message
-            </button>
-          </form>
-
-          <!-- Success Message (Hidden by default) -->
-          <div id="success-message" class="hidden mt-24 p-16 bg-neon-500/10 border border-neon-500/30 rounded-xl">
-            <p class="text-neon-500 text-center">
-              Thanks! We'll get back to you within 24 hours.
-            </p>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="mt-128 pt-64 border-t border-neutral-light/10">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-32">
-        <!-- Logo/Brand -->
-        <div>
-          <h3 class="text-2xl font-bold gradient-text">Denerf</h3>
-          <p class="text-neutral-light/60 text-sm mt-4">Performance-First Development</p>
-        </div>
-
-        <!-- Links -->
-        <div class="flex gap-32 text-sm">
-          <a href="#hero" class="text-neutral-light/60 hover:text-electric-500 transition-colors">
-            Home
-          </a>
-          <a href="#philosophy" class="text-neutral-light/60 hover:text-electric-500 transition-colors">
-            Philosophy
-          </a>
-          <a href="#services" class="text-neutral-light/60 hover:text-electric-500 transition-colors">
-            Services
-          </a>
-          <a href="#portfolio" class="text-neutral-light/60 hover:text-electric-500 transition-colors">
-            Work
-          </a>
         </div>
 
         <!-- Social Links -->
-        <div class="flex gap-16">
+        <div class="flex gap-16" data-animate="fade-in" data-delay="0.4">
           <a
-            href="https://github.com/denerf"
+            href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-40 h-40 flex items-center justify-center bg-neutral-light/5 hover:bg-electric-500/20 rounded-full transition-all hover:scale-110"
-            aria-label="GitHub"
+            class="w-48 h-48 flex items-center justify-center glass rounded-2xl hover:bg-electric-500/10 transition-colors group"
+            aria-label="Twitter"
           >
-            <svg class="w-20 h-20 text-neutral-light/60" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-              ></path>
+            <svg class="w-20 h-20 text-neutral-light/60 group-hover:text-electric-500 transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
             </svg>
           </a>
           <a
-            href="https://twitter.com/denerf"
+            href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-40 h-40 flex items-center justify-center bg-neutral-light/5 hover:bg-electric-500/20 rounded-full transition-all hover:scale-110"
-            aria-label="Twitter"
+            class="w-48 h-48 flex items-center justify-center glass rounded-2xl hover:bg-electric-500/10 transition-colors group"
+            aria-label="GitHub"
           >
-            <svg class="w-20 h-20 text-neutral-light/60" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
-              ></path>
+            <svg class="w-20 h-20 text-neutral-light/60 group-hover:text-electric-500 transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-48 h-48 flex items-center justify-center glass rounded-2xl hover:bg-electric-500/10 transition-colors group"
+            aria-label="LinkedIn"
+          >
+            <svg class="w-20 h-20 text-neutral-light/60 group-hover:text-electric-500 transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
             </svg>
           </a>
         </div>
       </div>
 
-      <!-- Copyright -->
-      <div class="mt-32 text-center text-sm text-neutral-light/40">
-        <p>&copy; {new Date().getFullYear()} Denerf Agency. Built with Astro & GSAP.</p>
+      <!-- Right Column: Contact Form -->
+      <div class="glass p-32 md:p-48 rounded-3xl" data-animate="fade-in" data-delay="0.2">
+        <form id="contact-form" class="space-y-24">
+          <!-- Name -->
+          <div class="form-group">
+            <label for="name" class="block text-sm font-medium text-neutral-light/70 mb-8">
+              Your Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-16 py-12 bg-neutral-light/5 border border-neutral-light/10 rounded-xl text-neutral-light placeholder-neutral-light/40 focus:outline-none focus:border-electric-500/50 focus:bg-neutral-light/10 transition-all"
+              placeholder="John Doe"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="block text-sm font-medium text-neutral-light/70 mb-8">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-16 py-12 bg-neutral-light/5 border border-neutral-light/10 rounded-xl text-neutral-light placeholder-neutral-light/40 focus:outline-none focus:border-electric-500/50 focus:bg-neutral-light/10 transition-all"
+              placeholder="john@example.com"
+            />
+          </div>
+
+          <!-- Budget -->
+          <div class="form-group">
+            <label for="budget" class="block text-sm font-medium text-neutral-light/70 mb-8">
+              Project Budget
+            </label>
+            <select
+              id="budget"
+              name="budget"
+              required
+              class="w-full px-16 py-12 bg-neutral-light/5 border border-neutral-light/10 rounded-xl text-neutral-light focus:outline-none focus:border-electric-500/50 focus:bg-neutral-light/10 transition-all"
+            >
+              <option value="">Select a range</option>
+              <option value="10k-25k">$10k - $25k</option>
+              <option value="25k-50k">$25k - $50k</option>
+              <option value="50k-100k">$50k - $100k</option>
+              <option value="100k+">$100k+</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label for="message" class="block text-sm font-medium text-neutral-light/70 mb-8">
+              Project Details
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="5"
+              class="w-full px-16 py-12 bg-neutral-light/5 border border-neutral-light/10 rounded-xl text-neutral-light placeholder-neutral-light/40 focus:outline-none focus:border-electric-500/50 focus:bg-neutral-light/10 transition-all resize-none"
+              placeholder="Tell us about your project..."
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-8">
+            <button
+              type="submit"
+              class="w-full px-32 py-16 bg-electric-500 text-white font-semibold rounded-xl hover:bg-electric-400 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Send Message
+            </button>
+          </div>
+
+          <!-- Success/Error Messages -->
+          <div id="form-message" class="hidden"></div>
+        </form>
       </div>
-    </footer>
+    </div>
   </div>
+
+  <!-- Background Decoration -->
+  <div class="absolute top-20 right-10 w-96 h-96 bg-electric-500/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-20 left-10 w-128 h-128 bg-neon-500/5 rounded-full blur-3xl pointer-events-none"></div>
 </section>
 
 <script>
   import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { fadeInAnimation, cleanupScrollTriggers } from '@utils/animations';
 
-  gsap.registerPlugin(ScrollTrigger);
+  // Store form handlers for cleanup
+  let formSubmitHandler: ((e: Event) => void) | null = null;
+  const inputHandlers = new Map<Element, { focus: () => void; blur: () => void }>();
 
   function initCTAAnimations() {
+    // Clean up old handlers
+    const form = document.getElementById('contact-form');
+    if (form && formSubmitHandler) {
+      form.removeEventListener('submit', formSubmitHandler);
+      formSubmitHandler = null;
+    }
+
+    inputHandlers.forEach((handlers, input) => {
+      input.removeEventListener('focus', handlers.focus);
+      input.removeEventListener('blur', handlers.blur);
+    });
+    inputHandlers.clear();
+
     // Slide up animations
     const slideUpElements = document.querySelectorAll('[data-animate="slide-up"]');
     slideUpElements.forEach((element) => {
@@ -268,87 +241,102 @@ import MagneticButton from '../ui/MagneticButton.astro';
     });
 
     // Fade in animations
-    const fadeInElements = document.querySelectorAll('[data-animate="fade-in"]');
-    fadeInElements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-      gsap.from(element, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
+    fadeInAnimation('[data-animate="fade-in"]');
 
-    // Scale in animations
-    const scaleInElements = document.querySelectorAll('[data-animate="scale-in"]');
-    scaleInElements.forEach((element) => {
-      const delay = parseFloat(element.getAttribute('data-delay') || '0');
-      gsap.from(element, {
-        scale: 0.9,
-        opacity: 0,
-        duration: 1,
-        delay: delay,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-        },
-      });
-    });
-
-    // Form interaction animations
-    const form = document.getElementById('contact-form');
+    // Form submission handler
     if (form) {
-      form.addEventListener('submit', (e) => {
+      formSubmitHandler = (e: Event) => {
         e.preventDefault();
 
-        // Show success message
-        const successMessage = document.getElementById('success-message');
-        if (successMessage) {
-          gsap.to(form, {
-            opacity: 0,
-            y: -20,
-            duration: 0.3,
-            onComplete: () => {
-              form.style.display = 'none';
-              successMessage.classList.remove('hidden');
-              gsap.from(successMessage, {
-                opacity: 0,
-                y: 20,
-                duration: 0.5,
-                ease: 'power2.out',
-              });
-            },
-          });
-        }
-      });
+        const messageDiv = document.getElementById('form-message');
+        if (!messageDiv) return;
 
-      // Animate form inputs on focus
-      const inputs = form.querySelectorAll('input, textarea, select');
-      inputs.forEach((input) => {
-        input.addEventListener('focus', () => {
-          gsap.to(input, {
-            scale: 1.02,
-            duration: 0.2,
-            ease: 'power2.out',
-          });
-        });
+        // Simulate form submission (replace with actual API call)
+        messageDiv.classList.remove('hidden');
+        messageDiv.className = 'p-16 bg-electric-500/10 border border-electric-500/30 rounded-xl text-electric-500 text-sm';
+        messageDiv.textContent = 'Thank you! We\'ll get back to you within 24 hours.';
 
-        input.addEventListener('blur', () => {
-          gsap.to(input, {
-            scale: 1,
-            duration: 0.2,
-            ease: 'power2.out',
-          });
-        });
-      });
+        // Reset form
+        (form as HTMLFormElement).reset();
+
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          messageDiv.classList.add('hidden');
+        }, 5000);
+      };
+
+      form.addEventListener('submit', formSubmitHandler);
     }
+
+    // Enhanced input focus effects
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach((input) => {
+      const formGroup = input.closest('.form-group');
+      if (!formGroup) return;
+
+      const handleFocus = () => {
+        gsap.to(formGroup, {
+          scale: 1.02,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      const handleBlur = () => {
+        gsap.to(formGroup, {
+          scale: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      input.addEventListener('focus', handleFocus);
+      input.addEventListener('blur', handleBlur);
+
+      // Store handlers for cleanup
+      inputHandlers.set(input, { focus: handleFocus, blur: handleBlur });
+    });
   }
 
+  function cleanupCTA() {
+    // Remove form submit handler
+    const form = document.getElementById('contact-form');
+    if (form && formSubmitHandler) {
+      form.removeEventListener('submit', formSubmitHandler);
+      formSubmitHandler = null;
+    }
+
+    // Remove all input handlers
+    inputHandlers.forEach((handlers, input) => {
+      input.removeEventListener('focus', handlers.focus);
+      input.removeEventListener('blur', handlers.blur);
+    });
+    inputHandlers.clear();
+
+    // Clean up ScrollTriggers
+    cleanupScrollTriggers();
+  }
+
+  // Initialize on page load
   document.addEventListener('astro:page-load', initCTAAnimations);
+
+  // Cleanup before navigation
+  document.addEventListener('astro:before-swap', cleanupCTA);
 </script>
+
+<style>
+  /* Custom select dropdown styling */
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(248, 249, 250, 0.4)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5em 1.5em;
+    padding-right: 3rem;
+  }
+
+  /* Form group transitions */
+  .form-group {
+    transform-origin: center;
+  }
+</style>

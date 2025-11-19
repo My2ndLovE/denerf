@@ -14,9 +14,7 @@ const CONFIG = {
     },
     animations: {
         statsThreshold: 0.5,
-        aosTh
-
-reshold: 0.1,
+        aosThreshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
     },
     throttle: {
@@ -222,12 +220,12 @@ function initCustomCursor() {
         addTrackedListener(el, 'mouseenter', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.3)';
-        });
+        }, { passive: true });
 
         addTrackedListener(el, 'mouseleave', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(1)';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
+        }, { passive: true });
     });
 }
 
@@ -331,7 +329,7 @@ function initParticleCanvas() {
 
     // Debounced resize handler
     const handleResize = debounce(resizeCanvas, CONFIG.throttle.resize);
-    addTrackedListener(window, 'resize', handleResize);
+    addTrackedListener(window, 'resize', handleResize, { passive: true });
 }
 
 // ========================================
@@ -729,7 +727,7 @@ function initCodeTyping() {
     let charIndex = 0;
     let isTyping = false;
 
-    addTrackedListener(window, 'load', () => {
+    function startTypingAnimation() {
         trackTimeout(setTimeout(() => {
             codeWindow.textContent = '';
             isTyping = true;
@@ -778,7 +776,14 @@ function initCodeTyping() {
 
             typeCode();
         }, 500));
-    });
+    }
+
+    // Check if page is already loaded, otherwise wait for load event
+    if (document.readyState === 'complete') {
+        startTypingAnimation();
+    } else {
+        addTrackedListener(window, 'load', startTypingAnimation);
+    }
 }
 
 // ========================================
@@ -803,11 +808,11 @@ function initCardAnimations() {
             const rotateY = (centerX - x) / 10;
 
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-        });
+        }, { passive: true });
 
         addTrackedListener(card, 'mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
+        }, { passive: true });
     });
 
     // Service cards animation
@@ -819,13 +824,13 @@ function initCardAnimations() {
             if (icon) {
                 icon.style.transform = 'scale(1.1) rotate(5deg)';
             }
-        });
+        }, { passive: true });
 
         addTrackedListener(card, 'mouseleave', () => {
             if (icon) {
                 icon.style.transform = 'scale(1) rotate(0deg)';
             }
-        });
+        }, { passive: true });
     });
 
     // Skill cards hover effect
@@ -839,13 +844,13 @@ function initCardAnimations() {
                     tag.style.transform = 'translateY(-5px)';
                 }, index * 50));
             });
-        });
+        }, { passive: true });
 
         addTrackedListener(card, 'mouseleave', () => {
             tags.forEach(tag => {
                 tag.style.transform = 'translateY(0)';
             });
-        });
+        }, { passive: true });
     });
 }
 
@@ -865,7 +870,7 @@ function initEasterEgg() {
             activateEasterEgg();
             konamiCode = [];
         }
-    });
+    }, { passive: true });
 
     function activateEasterEgg() {
         if (document.getElementById('easter-egg-active')) return;

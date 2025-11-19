@@ -1192,16 +1192,21 @@ img {
 
 /* Skip to Main Content Link for Accessibility */
 .skip-to-content {
-    position: absolute;
+    position: fixed;
     top: -40px;
     left: 0;
     background: var(--color-cyan);
     color: var(--color-dark);
-    padding: 8px 16px;
+    padding: 12px 24px;
     text-decoration: none;
-    z-index: 100;
+    font-weight: 700;
+    z-index: 10002;
+    border-radius: 0 0 8px 0;
+    transition: top 0.3s ease;
 }
 
 .skip-to-content:focus {
     top: 0;
+    outline: 3px solid var(--color-white);
+    outline-offset: 2px;
 }

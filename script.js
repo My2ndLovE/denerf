@@ -64,6 +64,7 @@
         gradientIntervals: [],
         isTabVisible: true,
         observers: [],
+        cursorAnimator: null, // Store cursor animation function
     };
 
     // ============ Page Visibility API ============
@@ -77,9 +78,9 @@
                 cancelAnimationFrame(state.cursorAnimationFrame);
                 state.cursorAnimationFrame = null;
             }
-        } else if (!isTouchDevice() && !state.cursorAnimationFrame) {
-            // Resume cursor animation
-            initCursorAnimation();
+        } else if (!isTouchDevice() && !state.cursorAnimationFrame && state.cursorAnimator) {
+            // Resume cursor animation using stored function
+            state.cursorAnimationFrame = requestAnimationFrame(state.cursorAnimator);
         }
     }
 
@@ -137,13 +138,13 @@
             state.cursorAnimationFrame = requestAnimationFrame(animateCursor);
         }
 
-        function initCursorAnimation() {
-            if (!state.cursorAnimationFrame) {
-                state.cursorAnimationFrame = requestAnimationFrame(animateCursor);
-            }
-        }
+        // Store the animator in state for resume capability
+        state.cursorAnimator = animateCursor;
 
-        initCursorAnimation();
+        // Start animation
+        if (!state.cursorAnimationFrame) {
+            state.cursorAnimationFrame = requestAnimationFrame(animateCursor);
+        }
 
         // Cursor effects on interactive elements
         const interactiveElements = document.querySelectorAll('a, button, .card-3d');
@@ -618,12 +619,8 @@
         }
     }
 
-    // ============ Console Message (Dev mode only) ============
+    // ============ Console Message ============
     function initConsoleMessage() {
-        if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'production') {
-            return;
-        }
-
         try {
             console.log('%c🌊 Welcome to softwave dev!', 'font-size: 20px; font-weight: bold; color: #7c3aed;');
             console.log('%cRiding the wave of innovation since 2025', 'font-size: 14px; color: #06b6d4;');

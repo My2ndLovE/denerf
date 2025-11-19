@@ -52,10 +52,10 @@ const services = [
 ];
 ---
 
-<section id="services" class="relative py-32 px-6 sm:px-8 lg:px-12 overflow-hidden">
+<section id="services" class="relative py-32 px-6 sm:px-8 lg:px-12 overflow-hidden" aria-label="Services section">
   <!-- Background Elements -->
-  <div class="absolute top-0 right-0 w-96 h-96 bg-primary-accent/5 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-magenta/5 rounded-full blur-3xl"></div>
+  <div class="absolute top-0 right-0 w-96 h-96 bg-primary-accent/5 rounded-full blur-3xl" aria-hidden="true"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-magenta/5 rounded-full blur-3xl" aria-hidden="true"></div>
 
   <div class="max-w-7xl mx-auto">
     <!-- Section Header -->
@@ -71,22 +71,25 @@ const services = [
     </div>
 
     <!-- Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]" role="list">
       {services.map((service, index) => (
-        <div
-          class={`service-card group relative ${service.size} p-8 border-2 border-primary-text/10 bg-gradient-to-br ${service.gradient} backdrop-blur-sm overflow-hidden reveal cursor-pointer transition-all duration-300 hover:border-primary-accent/50 hover:shadow-2xl hover:shadow-primary-accent/10`}
+        <article
+          class={`service-card group relative ${service.size} p-8 border-2 border-primary-text/10 bg-gradient-to-br ${service.gradient} backdrop-blur-sm overflow-hidden reveal cursor-pointer transition-all duration-300 hover:border-primary-accent/50 hover:shadow-2xl hover:shadow-primary-accent/10 focus-within:border-primary-accent/50 focus-within:ring-2 focus-within:ring-primary-accent focus-within:ring-offset-2 focus-within:ring-offset-primary-bg`}
           data-index={index}
           style={`animation-delay: ${index * 0.1}s;`}
+          role="listitem"
+          tabindex="0"
+          aria-label={`${service.title}: ${service.description}`}
         >
           <!-- Card Background Pattern -->
-          <div class="absolute inset-0 opacity-5">
+          <div class="absolute inset-0 opacity-5" aria-hidden="true">
             <div class="w-full h-full" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, currentColor 10px, currentColor 20px);"></div>
           </div>
 
           <!-- Content -->
           <div class="relative z-10 h-full flex flex-col">
             <!-- Icon -->
-            <div class="text-6xl mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+            <div class="text-6xl mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" role="img" aria-label={`${service.title} icon`}>
               {service.icon}
             </div>
 
@@ -101,20 +104,18 @@ const services = [
             </p>
 
             <!-- Code Snippet (reveals on hover) -->
-            <div class="code-reveal opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-              <pre class="font-mono text-xs text-primary-accent/80 bg-primary-bg/50 p-3 rounded border border-primary-accent/30 overflow-hidden">
-                <code>{service.code}</code>
-              </pre>
+            <div class="code-reveal opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transform translate-y-4 group-hover:translate-y-0 group-focus-within:translate-y-0 transition-all duration-300">
+              <pre class="font-mono text-xs text-primary-accent/80 bg-primary-bg/50 p-3 rounded border border-primary-accent/30 overflow-hidden"><code>{service.code}</code></pre>
             </div>
 
             <!-- Hover Glow Effect -->
-            <div class="absolute inset-0 bg-gradient-to-br from-primary-accent/0 to-primary-accent/0 group-hover:from-primary-accent/10 group-hover:to-transparent transition-all duration-300 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-accent/0 to-primary-accent/0 group-hover:from-primary-accent/10 group-hover:to-transparent transition-all duration-300 pointer-events-none" aria-hidden="true"></div>
           </div>
 
           <!-- Corner Accent -->
-          <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-primary-accent/20 group-hover:border-primary-accent transition-colors"></div>
-          <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-primary-magenta/20 group-hover:border-primary-magenta transition-colors"></div>
-        </div>
+          <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-primary-accent/20 group-hover:border-primary-accent transition-colors" aria-hidden="true"></div>
+          <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-primary-magenta/20 group-hover:border-primary-magenta transition-colors" aria-hidden="true"></div>
+        </article>
       ))}
     </div>
 
@@ -126,82 +127,132 @@ const services = [
 
       <div class="relative">
         <!-- Timeline Line -->
-        <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-accent via-primary-magenta to-primary-accent hidden md:block"></div>
+        <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-accent via-primary-magenta to-primary-accent hidden md:block" aria-hidden="true"></div>
 
         <!-- Timeline Steps -->
-        <div class="space-y-16">
+        <ol class="space-y-16">
           {[
             { step: '01', title: 'Discovery', desc: 'We dive deep into your vision and requirements' },
             { step: '02', title: 'Design', desc: 'Crafting intuitive, beautiful user experiences' },
             { step: '03', title: 'Develop', desc: 'Building with best practices and cutting-edge tech' },
             { step: '04', title: 'Deploy', desc: 'Seamless launch with ongoing support' },
           ].map((item, index) => (
-            <div class={`relative grid md:grid-cols-2 gap-8 items-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+            <li class={`relative grid md:grid-cols-2 gap-8 items-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
               <div class={`${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:col-start-2 md:pl-12'} reveal`}>
-                <div class="inline-block font-mono text-6xl font-bold text-primary-accent/20 mb-2">{item.step}</div>
+                <div class="inline-block font-mono text-6xl font-bold text-primary-accent/20 mb-2" aria-hidden="true">{item.step}</div>
                 <h4 class="text-3xl font-bold text-white mb-3">{item.title}</h4>
                 <p class="text-primary-text/70 text-lg">{item.desc}</p>
               </div>
 
               <!-- Timeline Dot -->
-              <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-primary-accent border-4 border-primary-bg hidden md:block"></div>
-            </div>
+              <div class="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-primary-accent border-4 border-primary-bg hidden md:block" aria-hidden="true"></div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  // Physics-based card interactions
-  const cards = document.querySelectorAll('.service-card');
+  import { querySelectorAll, supportsHover, prefersReducedMotion, createObserver } from '../lib/utils';
 
-  cards.forEach((card) => {
-    let bounds: DOMRect;
+  // Physics-based card interactions (only on desktop without reduced motion)
+  if (supportsHover() && !prefersReducedMotion()) {
+    const cards = querySelectorAll<HTMLElement>('.service-card');
+    const cleanupFunctions: Array<() => void> = [];
 
-    card.addEventListener('mouseenter', () => {
-      bounds = card.getBoundingClientRect();
-    });
+    // Only observe cards to enable physics when they're in view
+    const observer = createObserver((entries) => {
+      entries.forEach((entry) => {
+        const card = entry.target as HTMLElement;
 
-    card.addEventListener('mousemove', (e: Event) => {
-      const mouseEvent = e as MouseEvent;
-      const mouseX = mouseEvent.clientX;
-      const mouseY = mouseEvent.clientY;
+        if (entry.isIntersecting) {
+          enablePhysics(card);
+        } else {
+          disablePhysics(card);
+        }
+      });
+    }, { rootMargin: '100px' });
 
-      if (bounds) {
-        const leftX = mouseX - bounds.left;
-        const topY = mouseY - bounds.top;
-        const center = {
-          x: leftX - bounds.width / 2,
-          y: topY - bounds.height / 2,
-        };
-        const distance = Math.sqrt(center.x ** 2 + center.y ** 2);
+    cards.forEach((card) => observer.observe(card));
 
-        const cardElement = card as HTMLElement;
-        cardElement.style.transform = `
+    function enablePhysics(card: HTMLElement) {
+      let bounds: DOMRect | null = null;
+
+      const handleMouseEnter = () => {
+        bounds = card.getBoundingClientRect();
+      };
+
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!bounds) return;
+
+        const leftX = e.clientX - bounds.left;
+        const topY = e.clientY - bounds.top;
+        const centerX = leftX - bounds.width / 2;
+        const centerY = topY - bounds.height / 2;
+
+        card.style.transform = `
           perspective(1000px)
-          rotateX(${center.y / 10}deg)
-          rotateY(${-center.x / 10}deg)
+          rotateX(${centerY / 10}deg)
+          rotateY(${-centerX / 10}deg)
           translateZ(10px)
         `;
-      }
-    });
+      };
 
-    card.addEventListener('mouseleave', () => {
-      const cardElement = card as HTMLElement;
-      cardElement.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      const handleMouseLeave = () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+        bounds = null;
+      };
+
+      card.addEventListener('mouseenter', handleMouseEnter);
+      card.addEventListener('mousemove', handleMouseMove);
+      card.addEventListener('mouseleave', handleMouseLeave);
+
+      // Store cleanup function
+      const cleanup = () => {
+        card.removeEventListener('mouseenter', handleMouseEnter);
+        card.removeEventListener('mousemove', handleMouseMove);
+        card.removeEventListener('mouseleave', handleMouseLeave);
+      };
+
+      cleanupFunctions.push(cleanup);
+    }
+
+    function disablePhysics(card: HTMLElement) {
+      card.style.transform = '';
+    }
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      cleanupFunctions.forEach((fn) => fn());
+      observer.disconnect();
     });
-  });
+  }
 </script>
 
 <style>
   .service-card {
     transform-style: preserve-3d;
-    transition: transform 0.2s ease-out;
+    transition: transform 0.2s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .code-reveal {
     transform-style: preserve-3d;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .service-card {
+      transform: none !important;
+    }
+
+    .group-hover\:scale-110 {
+      transform: none !important;
+    }
+
+    .group-hover\:rotate-6 {
+      transform: none !important;
+    }
   }
 </style>

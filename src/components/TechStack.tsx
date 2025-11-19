@@ -73,23 +73,29 @@ function TechMolecule({
     const x = strand === 'left' ? -radius : radius;
     const z = Math.sin((angle * Math.PI) / 180) * 100;
 
-    gsap.set(moleculeRef.current, {
-      x,
-      y: height,
-      z,
-      rotateY: angle,
-    });
+    // FIX: Use gsap.context for automatic ScrollTrigger cleanup
+    const ctx = gsap.context(() => {
+      gsap.set(moleculeRef.current, {
+        x,
+        y: height,
+        z,
+        rotateY: angle,
+      });
 
-    // Continuous rotation animation
-    gsap.to(moleculeRef.current, {
-      rotateY: `+=${360}`,
-      scrollTrigger: {
-        trigger: moleculeRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 2,
-      },
-    });
+      // Continuous rotation animation
+      gsap.to(moleculeRef.current, {
+        rotateY: `+=${360}`,
+        scrollTrigger: {
+          trigger: moleculeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 2,
+        },
+      });
+    }, moleculeRef);
+
+    // FIX: CRITICAL - Revert context on unmount to kill all ScrollTriggers
+    return () => ctx.revert();
   }, [position, strand]);
 
   return (
@@ -140,16 +146,22 @@ export default function TechStack() {
   useEffect(() => {
     if (!helixRef.current) return;
 
-    // Helix container rotation on scroll
-    gsap.to(helixRef.current, {
-      rotateY: 360,
-      scrollTrigger: {
-        trigger: helixRef.current,
-        start: 'top center',
-        end: 'bottom center',
-        scrub: 1,
-      },
-    });
+    // FIX: Use gsap.context for automatic ScrollTrigger cleanup
+    const ctx = gsap.context(() => {
+      // Helix container rotation on scroll
+      gsap.to(helixRef.current, {
+        rotateY: 360,
+        scrollTrigger: {
+          trigger: helixRef.current,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+        },
+      });
+    }, helixRef);
+
+    // FIX: CRITICAL - Revert context on unmount to kill all ScrollTriggers
+    return () => ctx.revert();
   }, []);
 
   // Split technologies into two strands

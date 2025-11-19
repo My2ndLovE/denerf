@@ -28,6 +28,10 @@ export default function Contact() {
   useEffect(() => {
     if (!blobRef.current) return;
 
+    // FIX: Check prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     // Morphing blob animation
     const tl = gsap.timeline({ repeat: -1, yoyo: true });
 
@@ -46,23 +50,69 @@ export default function Contact() {
         duration: 4,
         ease: 'sine.inOut',
       });
+
+    // FIX: CRITICAL - Kill timeline on unmount to prevent memory leak
+    return () => {
+      tl.kill();
+    };
   }, []);
+
+  // FIX: Handle timeout cleanup to prevent race condition
+  useEffect(() => {
+    if (!isSubmitting) return;
+
+    const timeout1 = setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeout1);
+    };
+  }, [isSubmitting]);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    const timeout2 = setTimeout(() => {
+      setIsSuccess(false);
+      setFormState({ name: '', email: '', message: '' });
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout2);
+    };
+  }, [isSuccess]);
+
+  // FIX: Add form validation
+  const validateForm = (): boolean => {
+    // Validate name (letters, spaces, hyphens, apostrophes only)
+    if (!/^[a-zA-Z\s'-]+$/.test(formState.name.trim())) {
+      return false;
+    }
+
+    // Validate email format
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email.trim())) {
+      return false;
+    }
+
+    // Validate message length
+    if (formState.message.trim().length < 10) {
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // FIX: Validate inputs before submission
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
-
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-
-      // Reset form after success animation
-      setTimeout(() => {
-        setIsSuccess(false);
-        setFormState({ name: '', email: '', message: '' });
-      }, 3000);
-    }, 2000);
   };
 
   return (

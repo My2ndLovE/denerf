@@ -90,26 +90,32 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   useEffect(() => {
     if (!cardRef.current) return;
 
-    // Stacked card reveal animation on scroll
-    gsap.fromTo(
-      cardRef.current,
-      {
-        y: 100 + index * 20,
-        opacity: 0,
-        rotateX: -15,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        rotateX: 0,
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 1,
+    // FIX: Use gsap.context for automatic ScrollTrigger cleanup
+    const ctx = gsap.context(() => {
+      // Stacked card reveal animation on scroll
+      gsap.fromTo(
+        cardRef.current,
+        {
+          y: 100 + index * 20,
+          opacity: 0,
+          rotateX: -15,
         },
-      }
-    );
+        {
+          y: 0,
+          opacity: 1,
+          rotateX: 0,
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1,
+          },
+        }
+      );
+    }, cardRef);
+
+    // FIX: CRITICAL - Revert context on unmount to kill all ScrollTriggers
+    return () => ctx.revert();
   }, [index]);
 
   const getSizeClasses = () => {

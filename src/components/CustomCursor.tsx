@@ -1,25 +1,44 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 /**
  * Custom cursor with physics-based motion and magnetic interaction
+ *
+ * PRODUCTION-READY FIXES APPLIED:
+ * - Fixed dependency array (MotionValues are stable, shouldn't be in deps)
+ * - Added device detection (only show on desktop with mouse)
+ * - Added proper event listener cleanup
+ * - Added passive event listeners for performance
+ * - Added SSR safety checks
+ *
  * Features:
  * - Smooth spring physics following mouse movement
  * - Magnetic effect on interactive elements
  * - Scale animation on hover
- * - Glow effect with gradient border
+ * - Only renders on desktop devices with fine pointer
  */
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   // Spring physics for smooth, organic motion
   const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
+  // FIX: Check if device has fine pointer (mouse) - SSR safe
   useEffect(() => {
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    const isWideScreen = window.innerWidth >= 768;
+    setIsDesktop(hasFinePointer && isWideScreen);
+  }, []);
+
+  // FIX: Removed cursorX and cursorY from deps - MotionValues are stable references!
+  useEffect(() => {
+    if (!isDesktop) return;
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -28,18 +47,14 @@ export default function CustomCursor() {
     // Magnetic effect on interactive elements
     const handleMagneticEffect = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
-        target.tagName === 'A' ||
-        target.tagName === 'BUTTON' ||
-        target.closest('a') ||
-        target.closest('button')
-      ) {
-        const elem = target.closest('a, button') as HTMLElement;
+      const interactive = target.closest('a, button');
+
+      if (interactive) {
+        const elem = interactive as HTMLElement;
         const rect = elem.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
 
-        // Calculate distance and apply magnetic pull
         const distanceX = e.clientX - centerX;
         const distanceY = e.clientY - centerY;
         const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
@@ -49,7 +64,6 @@ export default function CustomCursor() {
           cursorX.set(e.clientX + distanceX * pullStrength);
           cursorY.set(e.clientY + distanceY * pullStrength);
 
-          // Scale up cursor on interactive elements
           if (cursorRef.current) {
             cursorRef.current.style.transform = 'scale(1.5)';
           }
@@ -61,17 +75,32 @@ export default function CustomCursor() {
       }
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mousemove', handleMagneticEffect);
+    // FIX: Added passive listeners for better performance
+    window.addEventListener('mousemove', moveCursor, { passive: true });
+    window.addEventListener('mousemove', handleMagneticEffect, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mousemove', handleMagneticEffect);
     };
-  }, [cursorX, cursorY]);
+  }, [isDesktop]); // FIX: Only isDesktop in deps, NOT MotionValues!
+
+  // Don't render on mobile/touch devices
+  if (!isDesktop) {
+    return null;
+  }
 
   return (
     <>
+      {/* Hide default cursor only on desktop */}
+      <style>{`
+        @media (pointer: fine) and (min-width: 768px) {
+          body {
+            cursor: none;
+          }
+        }
+      `}</style>
+
       {/* Main cursor */}
       <motion.div
         ref={cursorRef}

@@ -7,19 +7,18 @@ import * as THREE from 'three';
  * Animated particle field component using Three.js
  * Creates a dynamic 3D particle system that responds to mouse movement
  *
- * FIXES APPLIED:
- * - Changed useMemo to useEffect for event listener (was causing memory leak)
- * - Added proper cleanup for event listener
- * - Added responsive particle count based on device performance
- * - Added reduced motion support
- * - Memoized component to prevent unnecessary re-renders
- * - Added proper TypeScript types
- * - Added performance optimizations
+ * PRODUCTION-READY FIXES APPLIED:
+ * - Fixed useMemo → useEffect for event listeners
+ * - Fixed resize handler to respect prefers-reduced-motion
+ * - Added proper cleanup for all event listeners
+ * - Responsive particle count with accessibility support
+ * - Memoized component for performance
+ * - SSR-safe window checks
  *
  * Features:
- * - Responsive particle count (1000 mobile, 2000 desktop)
+ * - Responsive particle count (500-2000 based on device & preference)
  * - Physics-based rotation and movement
- * - Respects prefers-reduced-motion
+ * - Fully respects prefers-reduced-motion
  * - Optimized for performance with instanced rendering
  */
 
@@ -36,7 +35,6 @@ const Particles = memo(function Particles({ count = 2000 }: ParticlesProps) {
     const positions = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-      // Create particles in a sphere distribution
       const distance = Math.random() * 5 + 2;
       const theta = THREE.MathUtils.randFloatSpread(360);
       const phi = THREE.MathUtils.randFloatSpread(360);
@@ -50,7 +48,6 @@ const Particles = memo(function Particles({ count = 2000 }: ParticlesProps) {
   }, [count]);
 
   // FIX: Changed from useMemo to useEffect - useMemo should not have side effects
-  // FIX: Added proper cleanup to prevent memory leak
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       mousePos.current = {
@@ -61,7 +58,6 @@ const Particles = memo(function Particles({ count = 2000 }: ParticlesProps) {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // Cleanup function properly removes event listener
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
@@ -73,11 +69,9 @@ const Particles = memo(function Particles({ count = 2000 }: ParticlesProps) {
 
     const time = state.clock.getElapsedTime();
 
-    // Slow rotation based on mouse position
     points.current.rotation.x = time * 0.05 + mousePos.current.y * 0.1;
     points.current.rotation.y = time * 0.075 + mousePos.current.x * 0.1;
 
-    // Pulsing effect
     const scale = 1 + Math.sin(time * 0.5) * 0.1;
     points.current.scale.set(scale, scale, scale);
   });
@@ -99,48 +93,66 @@ const Particles = memo(function Particles({ count = 2000 }: ParticlesProps) {
 
 /**
  * ParticleField wrapper component
- * Renders the 3D canvas with particles as a background effect
- *
- * FIXES APPLIED:
- * - Added responsive particle count based on screen size
- * - Added prefers-reduced-motion support
- * - Added error boundary considerations
  */
 export default function ParticleField() {
-  // FIX: Responsive particle count based on device capabilities
   const [particleCount, setParticleCount] = useState(2000);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Reduce particles on mobile devices for better performance
-    const isMobile = window.innerWidth < 768;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // FIX: Respect reduced motion preference for accessibility
-    if (prefersReducedMotion) {
-      setParticleCount(500); // Minimal particles for reduced motion
-    } else {
-      setParticleCount(isMobile ? 1000 : 2000);
-    }
-
-    const handleResize = () => {
+    // FIX: Check both on mount and updates
+    const checkPreferences = () => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const isMobile = window.innerWidth < 768;
-      setParticleCount(isMobile ? 1000 : 2000);
+
+      setPrefersReducedMotion(reducedMotion);
+
+      // FIX: Respect reduced motion preference when setting count
+      if (reducedMotion) {
+        setParticleCount(500);
+      } else {
+        setParticleCount(isMobile ? 1000 : 2000);
+      }
+    };
+
+    checkPreferences();
+
+    // FIX: Resize handler now respects reduced motion
+    const handleResize = () => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isMobile = window.innerWidth < 768;
+
+      if (!reducedMotion) {
+        setParticleCount(isMobile ? 1000 : 2000);
+      }
+    };
+
+    // Listen for reduced motion changes
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const handleMotionChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setPrefersReducedMotion(e.matches);
+      if (e.matches) {
+        setParticleCount(500);
+      } else {
+        setParticleCount(window.innerWidth < 768 ? 1000 : 2000);
+      }
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
+    motionQuery.addEventListener('change', handleMotionChange);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      motionQuery.removeEventListener('change', handleMotionChange);
+    };
   }, []);
 
-  // Don't render if reduced motion is preferred
-  const prefersReducedMotion = typeof window !== 'undefined'
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    : false;
-
+  // Return static background if reduced motion
   if (prefersReducedMotion) {
-    // Return minimal static background instead
     return (
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-quantum-purple/5 to-transparent"
-           aria-hidden="true" />
+      <div
+        className="fixed inset-0 -z-10 bg-gradient-to-b from-quantum-purple/5 to-transparent"
+        aria-hidden="true"
+      />
     );
   }
 
@@ -151,14 +163,13 @@ export default function ParticleField() {
         gl={{
           antialias: true,
           alpha: true,
-          powerPreference: 'high-performance', // FIX: Request high performance GPU
+          powerPreference: 'high-performance',
         }}
-        dpr={[1, 2]} // FIX: Limit to 2x pixel ratio for performance
-        // FIX: Add performance monitoring in dev mode
+        dpr={[1, 2]}
         performance={{ min: 0.5 }}
       >
         <ambientLight intensity={0.5} />
-        <Particles count={particleCount || 2000} />
+        <Particles count={particleCount} />
       </Canvas>
     </div>
   );

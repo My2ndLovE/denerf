@@ -1,0 +1,5 @@
+# Cloudflare Pages Configuration
+# https://developers.cloudflare.com/pages/
+
+# Clean URLs - serve .html files without extension
+/*    /index.html   200

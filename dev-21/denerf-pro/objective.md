@@ -1,0 +1,9 @@
+- we focus to ship client need with minimum cost and time deliver mvp asap
+- we are not afraid to adapt new tech, instead we heavily utilize AI as our main development tool to keep our work on the right track
+- we are not just programmer, but the product manager that equip with progrmming knowledge by give the right direction for the AI as our assisttant tot execute the code creation.
+- we can adapt any new skills as per client needs
+- we are small yet effective team, no need to have a big team to deliver the work, 
+- Ai is our best assistant, use the right tool to deliver the right product
+- we do not limit by any technology, we can adapt any new technology as per client needs
+- we are not afraid to take on new challenges, we are always ready to take on new challenges
+- we work first, client pay later. becaue we trust our work and our capability

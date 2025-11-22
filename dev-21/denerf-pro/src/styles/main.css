@@ -1,0 +1,111 @@
+/* ===================================
+   GLOBAL STYLES & RESET
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: #050810;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ===================================
+   CANVAS BACKGROUND
+   =================================== */
+#canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.1));
+}
+
+/* ===================================
+   CUSTOM SCROLLBAR
+   =================================== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050810;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+/* ===================================
+   TEXT EFFECTS & ANIMATIONS
+   =================================== */
+.text-glow {
+    text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+}
+
+/* Reveal text starts hidden and animates in */
+.reveal-text {
+    opacity: 0;
+}
+
+/* Fallback: show content after 2s if animations don't load */
+body:not(.animations-loaded) .reveal-text {
+    animation: fallback-reveal 0.5s ease-out 2s forwards;
+}
+
+@keyframes fallback-reveal {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===================================
+   GLASS CARD EFFECT
+   =================================== */
+.glass-card {
+    background: rgba(9, 9, 11, 0.3);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+.pointer-events-auto {
+    pointer-events: auto;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}
+
+/* ===================================
+   Z-INDEX LAYERS
+   =================================== */
+section,
+nav,
+footer {
+    position: relative;
+    z-index: 10;
+}

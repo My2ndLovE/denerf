@@ -1,4 +1,4 @@
-# CodeForge Studios - Professional Portfolio
+# Denerf Studio - Professional Portfolio
 
 A premium, SEO-optimized portfolio website with code protection and modern build process.
 
@@ -106,4 +106,4 @@ Edit `src/styles/main.css` for global color scheme.
 
 ## 📄 License
 
-© 2024 CodeForge Studios. All Rights Reserved.
+© 2024 Denerf Studio. All Rights Reserved.

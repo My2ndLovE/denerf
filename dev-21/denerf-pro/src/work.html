@@ -29,11 +29,61 @@
 
 <body class="bg-[#050810]">
     <canvas id="canvas"></canvas>
+    <!-- Navigation with Mobile Menu -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference">
+        <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white reveal-text nav-item">
+            CodeForge<span class="text-cyan-400">_</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-8 text-sm font-medium text-zinc-300 font-mono">
+            <a href="/work" class="hover:text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+            <a href="/services" class="hover:text-cyan-400 transition-colors reveal-text nav-item">SERVICES</a>
+            <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
+            <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white reveal-text nav-item">
+            <i data-lucide="menu" width="24" height="24"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center px-6 py-6">
+                <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white">
+                    CodeForge<span class="text-cyan-400">_</span>
+                </a>
+                <button id="mobile-menu-close" class="text-white">
+                    <i data-lucide="x" width="32" height="32"></i>
+                </button>
+            </div>
+
+            <div
+                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-zinc-300 font-mono">
+                <a href="/" class="hover:text-cyan-400 transition-colors">HOME</a>
+                <a href="/work" class="text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+                <a href="/services" class="hover:text-cyan-400 transition-colors">SERVICES</a>
+                <a href="/about" class="hover:text-cyan-400 transition-colors">ABOUT</a>
+                <a href="/#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+            </div>
+
+            <div class="px-6 py-8 border-t border-zinc-800">
+                <div class="flex justify-center gap-6 text-sm font-mono text-zinc-400">
+                    <a href="#" class="hover:text-white">GITHUB</a>
+                    <a href="#" class="hover:text-white">LINKEDIN</a>
+                    <a href="#" class="hover:text-white">TWITTER</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="min-h-screen flex items-center justify-center px-6 md:px-8 py-32">
         <div class="max-w-7xl w-full pointer-events-auto">
             <div class="grid gap-10 lg:grid-cols-12 items-start">
-                <!-- Left copy -->
                 <div class="lg:col-span-5">
                     <div
                         class="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1.5 backdrop-blur reveal-text hero-item">
@@ -243,7 +293,10 @@
     <script type="module" src="./scripts/animations.js"></script>
     <script type="module">
         import { initAnimations } from './scripts/page-animations.js';
+        import { initMobileMenu } from './scripts/mobile-menu.js';
+
         initAnimations();
+        initMobileMenu();
         lucide.createIcons();
     </script>
 </body>

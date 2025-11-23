@@ -1,0 +1,54 @@
+<!-- Navigation with Mobile Menu -->
+<nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference">
+    <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white reveal-text nav-item">
+        CodeForge<span class="text-cyan-400">_</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex gap-8 text-sm font-medium text-zinc-300 font-mono">
+        <a href="/work" class="hover:text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+        <a href="/services" class="hover:text-cyan-400 transition-colors reveal-text nav-item">SERVICES</a>
+        <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
+        <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-btn" class="md:hidden text-white reveal-text nav-item">
+        <i data-lucide="menu" width="24" height="24"></i>
+    </button>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu"
+    class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
+    <div class="flex flex-col h-full">
+        <!-- Mobile Menu Header -->
+        <div class="flex justify-between items-center px-6 py-6">
+            <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white">
+                CodeForge<span class="text-cyan-400">_</span>
+            </a>
+            <button id="mobile-menu-close" class="text-white">
+                <i data-lucide="x" width="32" height="32"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Links -->
+        <div
+            class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-zinc-300 font-mono">
+            <a href="/" class="hover:text-cyan-400 transition-colors">HOME</a>
+            <a href="/work" class="hover:text-cyan-400 transition-colors">WORK</a>
+            <a href="/services" class="hover:text-cyan-400 transition-colors">SERVICES</a>
+            <a href="/about" class="hover:text-cyan-400 transition-colors">ABOUT</a>
+            <a href="/#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+        </div>
+
+        <!-- Mobile Menu Footer -->
+        <div class="px-6 py-8 border-t border-zinc-800">
+            <div class="flex justify-center gap-6 text-sm font-mono text-zinc-400">
+                <a href="#" class="hover:text-white">GITHUB</a>
+                <a href="#" class="hover:text-white">LINKEDIN</a>
+                <a href="#" class="hover:text-white">TWITTER</a>
+            </div>
+        </div>
+    </div>
+</div>

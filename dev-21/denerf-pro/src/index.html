@@ -37,34 +37,87 @@
 
 <body class="bg-[#050810]">
     <canvas id="canvas"></canvas>
+    <!-- Navigation with Mobile Menu -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference">
+        <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white reveal-text nav-item">
+            CodeForge<span class="text-cyan-400">_</span>
+        </a>
 
-    <div class="max-w-7xl w-full pointer-events-auto">
-        <div class="font-mono text-cyan-400 mb-6 text-sm md:text-base tracking-widest uppercase reveal-text hero-item">
-            // Architecting the Future
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-8 text-sm font-medium text-zinc-300 font-mono">
+            <a href="/work" class="hover:text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+            <a href="/services" class="hover:text-cyan-400 transition-colors reveal-text nav-item">SERVICES</a>
+            <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
+            <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
         </div>
-        <h1
-            class="text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] mb-8 text-white tracking-tight text-glow reveal-text hero-item">
-            Digital<br>
-            <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Alchemy</span>
-        </h1>
-        <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-zinc-400 font-light reveal-text hero-item">
-            We transform complex challenges into elegant, scalable software solutions. Where innovative code
-            meets human-centric design.
-        </p>
-        <div class="mt-12 reveal-text hero-item">
-            <button
-                class="group relative px-8 py-4 bg-transparent overflow-hidden rounded-none border border-zinc-700 hover:border-cyan-400 transition-colors duration-300">
-                <div
-                    class="absolute inset-0 w-0 bg-cyan-400/10 transition-all duration-[250ms] ease-out group-hover:w-full">
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white reveal-text nav-item">
+            <i data-lucide="menu" width="24" height="24"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center px-6 py-6">
+                <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white">
+                    CodeForge<span class="text-cyan-400">_</span>
+                </a>
+                <button id="mobile-menu-close" class="text-white">
+                    <i data-lucide="x" width="32" height="32"></i>
+                </button>
+            </div>
+
+            <div
+                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-zinc-300 font-mono">
+                <a href="/" class="hover:text-cyan-400 transition-colors">HOME</a>
+                <a href="/work" class="hover:text-cyan-400 transition-colors">WORK</a>
+                <a href="/services" class="hover:text-cyan-400 transition-colors">SERVICES</a>
+                <a href="/about" class="hover:text-cyan-400 transition-colors">ABOUT</a>
+                <a href="/#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+            </div>
+
+            <div class="px-6 py-8 border-t border-zinc-800">
+                <div class="flex justify-center gap-6 text-sm font-mono text-zinc-400">
+                    <a href="#" class="hover:text-white">GITHUB</a>
+                    <a href="#" class="hover:text-white">LINKEDIN</a>
+                    <a href="#" class="hover:text-white">TWITTER</a>
                 </div>
-                <span
-                    class="relative text-sm font-mono font-bold tracking-widest text-white group-hover:text-cyan-400 flex items-center gap-3">
-                    START PROJECT <span class="text-lg">→</span>
-                </span>
-            </button>
+            </div>
         </div>
     </div>
+
+    <section class="min-h-screen flex items-center justify-center px-6 md:px-8 py-32">
+        <div class="max-w-7xl w-full pointer-events-auto">
+            <div
+                class="font-mono text-cyan-400 mb-6 text-sm md:text-base tracking-widest uppercase reveal-text hero-item">
+                // Architecting the Future
+            </div>
+            <h1
+                class="text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] mb-8 text-white tracking-tight text-glow reveal-text hero-item">
+                Digital<br>
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Alchemy</span>
+            </h1>
+            <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-zinc-400 font-light reveal-text hero-item">
+                We transform complex challenges into elegant, scalable software solutions. Where innovative code
+                meets human-centric design.
+            </p>
+            <div class="mt-12 reveal-text hero-item">
+                <button
+                    class="group relative px-8 py-4 bg-transparent overflow-hidden rounded-none border border-zinc-700 hover:border-cyan-400 transition-colors duration-300">
+                    <div
+                        class="absolute inset-0 w-0 bg-cyan-400/10 transition-all duration-[250ms] ease-out group-hover:w-full">
+                    </div>
+                    <span
+                        class="relative text-sm font-mono font-bold tracking-widest text-white group-hover:text-cyan-400 flex items-center gap-3">
+                        START PROJECT <span class="text-lg">→</span>
+                    </span>
+                </button>
+            </div>
+        </div>
     </section>
 
     <!-- Services Section -->
@@ -180,7 +233,10 @@
     <script type="module" src="./scripts/animations.js"></script>
     <script type="module">
         import { initAnimations } from './scripts/page-animations.js';
+        import { initMobileMenu } from './scripts/mobile-menu.js';
+
         initAnimations();
+        initMobileMenu();
         lucide.createIcons();
     </script>
 </body>

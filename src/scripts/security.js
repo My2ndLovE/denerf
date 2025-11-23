@@ -13,7 +13,7 @@ function ctrlShiftKey(e, keyCode) {
 document.onkeydown = (e) => {
     // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
     if (
-        event.keyCode === 123 ||
+        e.keyCode === 123 ||
         ctrlShiftKey(e, 'I') ||
         ctrlShiftKey(e, 'J') ||
         ctrlShiftKey(e, 'C') ||

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Our Work - Denerf Studio | Rapid MVP Portfolio</title>
+    <meta name="description"
+        content="Explore our portfolio of MVPs shipped at lightning speed. From FinTech to HealthTech, we deliver AI-augmented solutions in record time.">
+    <meta name="keywords"
+        content="portfolio, MVP case studies, rapid development, AI projects, fintech, healthcare apps">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+
+<body class="bg-[#050810]">
+    <canvas id="canvas"></canvas>
+    <!-- Navigation with Mobile Menu -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference">
+        <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white reveal-text nav-item">
+            Denerf<span class="text-cyan-400">_</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-8 text-sm font-medium text-zinc-300 font-mono">
+            <a href="/work" class="text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+            <a href="/services" class="hover:text-cyan-400 transition-colors reveal-text nav-item">SERVICES</a>
+            <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
+            <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white reveal-text nav-item">
+            <i data-lucide="menu" width="24" height="24"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center px-6 py-6">
+                <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-white">
+                    Denerf<span class="text-cyan-400">_</span>
+                </a>
+                <button id="mobile-menu-close" class="text-white">
+                    <i data-lucide="x" width="32" height="32"></i>
+                </button>
+            </div>
+
+            <div
+                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-zinc-300 font-mono">
+                <a href="/" class="hover:text-cyan-400 transition-colors">HOME</a>
+                <a href="/work" class="text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+                <a href="/services" class="hover:text-cyan-400 transition-colors">SERVICES</a>
+                <a href="/about" class="hover:text-cyan-400 transition-colors">ABOUT</a>
+                <a href="/#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+            </div>
+
+            <div class="px-6 py-8 border-t border-zinc-800">
+                <div class="flex justify-center gap-6 text-sm font-mono text-zinc-400">
+                    <a href="#" class="hover:text-white">GITHUB</a>
+                    <a href="#" class="hover:text-white">LINKEDIN</a>
+                    <a href="#" class="hover:text-white">TWITTER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="min-h-screen flex items-center justify-center px-6 md:px-8 py-32">
+        <div class="max-w-7xl w-full pointer-events-auto">
+            <div class="grid gap-10 lg:grid-cols-12 items-start">
+                <div class="lg:col-span-5">
+                    <div
+                        class="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-3 py-1.5 backdrop-blur reveal-text hero-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-rocket text-cyan-400">
+                            <path
+                                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                            <path
+                                d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                        </svg>
+                        <span class="text-xs text-cyan-400 font-mono">RECENT DEPLOYMENTS</span>
+                    </div>
+
+                    <h2
+                        class="mt-5 text-4xl md:text-6xl text-white font-bold tracking-tight reveal-text hero-item text-glow">
+                        Results Delivered<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600">At Warp
+                            Speed</span>
+                    </h2>
+
+                    <p class="text-base md:text-lg text-zinc-400 mt-4 max-w-xl font-light reveal-text hero-item">
+                        See how we've helped clients launch their ideas fast using our AI-first approach. We don't just
+                        build software; we accelerate business growth.
+                    </p>
+
+                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-text hero-item">
+                        <div class="inline-flex items-center gap-2 text-sm text-zinc-300">
+                            <span
+                                class="flex border border-zinc-800 bg-zinc-900/50 rounded-md w-8 h-8 items-center justify-center">
+                                <i data-lucide="zap" class="text-cyan-400" width="20" height="20"></i>
+                            </span>
+                            <span class="font-mono text-xs">RAPID EXECUTION</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 text-sm text-zinc-300">
+                            <span
+                                class="flex border border-zinc-800 bg-zinc-900/50 rounded-md w-8 h-8 items-center justify-center">
+                                <i data-lucide="bot" class="text-purple-400" width="20" height="20"></i>
+                            </span>
+                            <span class="font-mono text-xs">AI-AUGMENTED</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 text-sm text-zinc-300">
+                            <span
+                                class="flex border border-zinc-800 bg-zinc-900/50 rounded-md w-8 h-8 items-center justify-center">
+                                <i data-lucide="target" class="text-green-400" width="20" height="20"></i>
+                            </span>
+                            <span class="font-mono text-xs">MVP FOCUSED</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 text-sm text-zinc-300">
+                            <span
+                                class="flex border border-zinc-800 bg-zinc-900/50 rounded-md w-8 h-8 items-center justify-center">
+                                <i data-lucide="shield-check" class="text-cyan-400" width="20" height="20"></i>
+                            </span>
+                            <span class="font-mono text-xs">TRUSTED</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-8 reveal-text hero-item">
+                        <div>
+                            <p class="text-5xl sm:text-6xl font-bold tracking-tight text-white">2w</p>
+                            <p class="text-xs text-zinc-500 mt-1 font-mono">AVG. MVP DELIVERY</p>
+                        </div>
+                        <div>
+                            <p class="text-5xl sm:text-6xl font-bold tracking-tight text-white">100%</p>
+                            <p class="text-xs text-zinc-500 mt-1 font-mono">ON TIME</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right preview board -->
+                <div class="lg:col-span-7 reveal-text hero-item">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <!-- Mobile Apps Column -->
+                        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/30 p-3">
+                            <div class="flex items-center justify-between px-2 py-1.5">
+                                <div class="inline-flex items-center gap-2">
+                                    <span class="inline-flex h-2 w-2 rounded-full bg-cyan-400"></span>
+                                    <p class="text-sm font-medium text-white font-mono">MOBILE APPS</p>
+                                    <span class="text-xs text-zinc-500 font-mono">12</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 space-y-3">
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-cyan-500/30 transition-colors">
+                                    <div class="flex items-start justify-between">
+                                        <p class="text-sm text-zinc-200 font-bold">FinTech Banking App</p>
+                                        <i data-lucide="star" class="text-cyan-400 fill-cyan-400/20" width="16"
+                                            height="16"></i>
+                                    </div>
+                                    <p class="text-xs text-zinc-500 mt-1">Built in 3 weeks. AI-generated security
+                                        protocols.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">iOS</span>
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">RAPID</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-cyan-500/30 transition-colors">
+                                    <p class="text-sm text-zinc-200 font-bold">Health & Wellness Tracker</p>
+                                    <p class="text-xs text-zinc-500 mt-1">MVP launched in 10 days. Scalable
+                                        architecture.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">HEALTHCARE</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-cyan-500/30 transition-colors">
+                                    <p class="text-sm text-zinc-200 font-bold">Social Media Platform UI</p>
+                                    <p class="text-xs text-zinc-500 mt-1">Rapid iteration. User-centric design.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">MOBILE
+                                            FIRST</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Web Projects Column -->
+                        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/30 p-3">
+                            <div class="flex items-center justify-between px-2 py-1.5">
+                                <div class="inline-flex items-center gap-2">
+                                    <span class="inline-flex h-2 w-2 rounded-full bg-purple-500"></span>
+                                    <p class="text-sm font-medium text-white font-mono">WEB PROJECTS</p>
+                                    <span class="text-xs text-zinc-500 font-mono">18</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 space-y-3">
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-purple-500/30 transition-colors">
+                                    <p class="text-sm text-zinc-200 font-bold">E-commerce Dashboard</p>
+                                    <p class="text-xs text-zinc-500 mt-1">Automated inventory. AI-driven insights.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">SAAS</span>
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">LIVE</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-purple-500/30 transition-colors">
+                                    <p class="text-sm text-zinc-200 font-bold">Agency Portfolio Site</p>
+                                    <p class="text-xs text-zinc-500 mt-1">High-performance. Built with Webflow.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">CREATIVE</span>
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">WEBFLOW</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-purple-500/30 transition-colors">
+                                    <p class="text-sm text-zinc-200 font-bold">Real Estate Platform</p>
+                                    <p class="text-xs text-zinc-500 mt-1">Fast search. Built with Go + React.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">PROPTECH</span>
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">B2B</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="rounded-xl bg-black/60 backdrop-blur p-3 border border-zinc-800 hover:border-purple-500/30 transition-colors">
+                                    <p class="text-sm text-zinc-200 font-bold">Learning Management System</p>
+                                    <p class="text-xs text-zinc-500 mt-1">Adaptive algorithms. AI content gen.</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span
+                                            class="text-[10px] px-2 py-1 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">EDTECH</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 border-t border-zinc-900 bg-[#050810] relative z-20 pointer-events-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
+            <div>
+                <div class="text-2xl font-bold tracking-tighter font-mono text-white mb-4 reveal-text scroll-item">
+                    Denerf<span class="text-cyan-400">_</span>
+                </div>
+                <p class="text-zinc-500 text-sm max-w-xs reveal-text scroll-item">
+                    Crafting digital experiences with code, passion, and precision.
+                </p>
+            </div>
+            <div class="flex gap-8 text-sm font-mono text-zinc-400">
+                <a href="#" class="hover:text-white reveal-text scroll-item">GITHUB</a>
+                <a href="#" class="hover:text-white reveal-text scroll-item">LINKEDIN</a>
+                <a href="#" class="hover:text-white reveal-text scroll-item">TWITTER</a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-20 text-zinc-700 text-xs font-mono reveal-text scroll-item">
+            &copy; 2024 DENERF STUDIO. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="./scripts/security.js"></script>
+    <script type="module" src="./scripts/animations.js"></script>
+    <script type="module">
+        import { initAnimations } from './scripts/page-animations.js';
+        import { initMobileMenu } from './scripts/mobile-menu.js';
+
+        initAnimations();
+        initMobileMenu();
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

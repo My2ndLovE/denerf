@@ -1,8 +1,57 @@
+:root {
+    /* Light Mode (Default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+
+    /* Theme Colors - Indigo & Rose */
+    --accent-primary: #4f46e5;
+    /* Indigo 600 */
+    --accent-secondary: #e11d48;
+    /* Rose 600 */
+    --accent-glow: rgba(79, 70, 229, 0.2);
+
+    /* UI Elements */
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(0, 0, 0, 0.1);
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --scrollbar-track: #f1f5f9;
+    --scrollbar-thumb: #cbd5e1;
+    --scrollbar-thumb-hover: #94a3b8;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode */
+    --bg-primary: #050810;
+    --bg-secondary: #0f172a;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+
+    /* Theme Colors - Cyan & Purple */
+    --accent-primary: #22d3ee;
+    /* Cyan 400 */
+    --accent-secondary: #a855f7;
+    /* Purple 500 */
+    --accent-glow: rgba(34, 211, 238, 0.2);
+
+    /* UI Elements */
+    --card-bg: rgba(9, 9, 11, 0.4);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --nav-bg: rgba(5, 8, 16, 0.8);
+    --scrollbar-track: #050810;
+    --scrollbar-thumb: #1e293b;
+    --scrollbar-thumb-hover: #334155;
+}
+
 body {
     font-family: 'Space Grotesk', sans-serif;
-    background: #050810;
-    color: #ffffff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .font-mono {
@@ -19,7 +68,8 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
-    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.1));
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+    pointer-events: none;
 }
 
 /* ===================================
@@ -30,23 +80,23 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #050810;
+    background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: var(--scrollbar-thumb);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: var(--scrollbar-thumb-hover);
 }
 
 /* ===================================
    TEXT EFFECTS & ANIMATIONS
    =================================== */
 .text-glow {
-    text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+    text-shadow: 0 0 20px var(--accent-glow);
 }
 
 /* Reveal text starts hidden and animates in */
@@ -69,15 +119,15 @@ body:not(.animations-loaded) .reveal-text {
    GLASS CARD EFFECT
    =================================== */
 .glass-card {
-    background: rgba(9, 9, 11, 0.3);
+    background: var(--card-bg);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
     transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-    border-color: rgba(34, 211, 238, 0.3);
-    box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px var(--accent-glow);
 }
 
 /* ===================================
@@ -99,4 +149,11 @@ nav,
 footer {
     position: relative;
     z-index: 10;
+}
+
+.nav-glass {
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }

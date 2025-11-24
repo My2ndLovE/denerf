@@ -128,7 +128,8 @@ const colors = {
 
 const shapes = [];
 const techShapes = ['box', 'database', 'node', 'grid'];
-const totalObjects = 100;
+const isMobile = window.innerWidth < 768;
+const totalObjects = isMobile ? 50 : 100; // Reduce on mobile for performance
 
 // Generate Objects
 for (let i = 0; i < totalObjects; i++) {
@@ -255,6 +256,28 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// Theme color update function
+function updateThemeColors() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const bgColor = isDark ? 0x050810 : 0xf8fafc;
+    const fogColor = isDark ? 0x050810 : 0xe2e8f0;
+
+    scene.fog.color.setHex(fogColor);
+    renderer.setClearColor(bgColor, 0);
+}
+
+// Watch for theme changes
+const observer = new MutationObserver(() => {
+    updateThemeColors();
+});
+observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+});
+
+// Initialize theme
+updateThemeColors();
 
 // Start Animation
 animate();

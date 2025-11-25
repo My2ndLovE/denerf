@@ -42,24 +42,25 @@
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-700 dark:text-zinc-300 font-mono">
-            <a href="/work" class="text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-800 dark:text-zinc-300 font-mono">
+            <a href="/work" class="hover:text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
             <a href="/services" class="hover:text-cyan-400 transition-colors reveal-text nav-item">SERVICES</a>
             <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
             <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
             <button onclick="toggleTheme()"
-                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4">
+                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4 p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
         </div>
 
-
         <!-- Mobile Controls -->
         <div class="md:hidden flex items-center gap-4">
-            <button onclick="toggleTheme()" class="theme-toggle-btn text-gray-900 dark:text-white nav-item">
+            <button onclick="toggleTheme()"
+                class="theme-toggle-btn text-gray-900 dark:text-white nav-item p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
-            <button id="mobile-menu-btn" class="text-gray-900 dark:text-white reveal-text nav-item">
+            <button id="mobile-menu-btn"
+                class="text-gray-900 dark:text-white reveal-text nav-item p-0 bg-transparent border-0">
                 <i data-lucide="menu" width="24" height="24"></i>
             </button>
         </div>
@@ -67,31 +68,31 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu"
-        class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
+        class="fixed inset-0 bg-white/98 dark:bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
         <div class="flex flex-col h-full">
-            <div class="flex justify-between items-center px-6 py-6">
+            <div class="flex justify-between items-center px-6 py-6 border-b border-gray-200 dark:border-zinc-800">
                 <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white">
-                    Denerf<span class="text-cyan-400">_</span>
+                    Denerf<span class="text-cyan-500 dark:text-cyan-400">_</span>
                 </a>
-                <button id="mobile-menu-close" class="text-gray-900 dark:text-white">
+                <button id="mobile-menu-close" class="text-gray-900 dark:text-white p-0 bg-transparent border-0">
                     <i data-lucide="x" width="32" height="32"></i>
                 </button>
             </div>
 
             <div
-                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-gray-700 dark:text-zinc-300 font-mono">
-                <a href="/" class="hover:text-cyan-400 transition-colors">HOME</a>
-                <a href="/work" class="text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
-                <a href="/services" class="hover:text-cyan-400 transition-colors">SERVICES</a>
-                <a href="/about" class="hover:text-cyan-400 transition-colors">ABOUT</a>
-                <a href="/#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-gray-800 dark:text-zinc-300 font-mono">
+                <a href="/" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">HOME</a>
+                <a href="/work" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">WORK</a>
+                <a href="/services" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">SERVICES</a>
+                <a href="/about" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">ABOUT</a>
+                <a href="/#contact" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">CONTACT</a>
             </div>
 
-            <div class="px-6 py-8 border-t border-zinc-800">
+            <div class="px-6 py-8 border-t border-gray-200 dark:border-zinc-800">
                 <div class="flex justify-center gap-6 text-sm font-mono text-gray-600 dark:text-zinc-400">
-                    <a href="#" class="hover:text-gray-900 dark:text-white">GITHUB</a>
-                    <a href="#" class="hover:text-gray-900 dark:text-white">LINKEDIN</a>
-                    <a href="#" class="hover:text-gray-900 dark:text-white">TWITTER</a>
+                    <a href="#" class="hover:text-cyan-600 dark:hover:text-white transition-colors">GITHUB</a>
+                    <a href="#" class="hover:text-cyan-600 dark:hover:text-white transition-colors">LINKEDIN</a>
+                    <a href="#" class="hover:text-cyan-600 dark:hover:text-white transition-colors">TWITTER</a>
                 </div>
             </div>
         </div>
@@ -308,27 +309,31 @@
 
     <!-- Footer -->
     <footer
-        class="py-20 px-6 border-t border-gray-200 dark:border-zinc-900 bg-white dark:bg-[#050810] relative z-20 pointer-events-auto">
+        class="py-20 px-6 border-t border-gray-200 dark:border-zinc-900 bg-gray-50 dark:bg-[#050810] relative z-20 pointer-events-auto">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
             <div>
                 <div
                     class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white mb-4 reveal-text scroll-item">
-                    Denerf<span class="text-cyan-400">_</span>
+                    Denerf<span class="text-cyan-500 dark:text-cyan-400">_</span>
                 </div>
-                <p class="text-gray-500 dark:text-zinc-500 text-sm max-w-xs reveal-text scroll-item">
+                <p class="text-gray-600 dark:text-zinc-500 text-sm max-w-xs reveal-text scroll-item">
                     Crafting digital experiences with code, passion, and precision.
                 </p>
             </div>
             <div class="flex gap-8 text-sm font-mono text-gray-600 dark:text-zinc-400">
-                <a href="#" class="hover:text-gray-900 dark:text-white reveal-text scroll-item">GITHUB</a>
-                <a href="#" class="hover:text-gray-900 dark:text-white reveal-text scroll-item">LINKEDIN</a>
-                <a href="#" class="hover:text-gray-900 dark:text-white reveal-text scroll-item">TWITTER</a>
+                <a href="#"
+                    class="hover:text-cyan-600 dark:hover:text-white transition-colors reveal-text scroll-item">GITHUB</a>
+                <a href="#"
+                    class="hover:text-cyan-600 dark:hover:text-white transition-colors reveal-text scroll-item">LINKEDIN</a>
+                <a href="#"
+                    class="hover:text-cyan-600 dark:hover:text-white transition-colors reveal-text scroll-item">TWITTER</a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-20 text-gray-300 dark:text-zinc-700 text-xs font-mono reveal-text scroll-item">
+        <div class="max-w-7xl mx-auto mt-20 text-gray-400 dark:text-zinc-700 text-xs font-mono reveal-text scroll-item">
             &copy; 2024 DENERF STUDIO. ALL RIGHTS RESERVED.
         </div>
     </footer>
+
     <!-- Scripts -->
     <script src="/scripts/theme.js"></script>
     <script type="module" src="./scripts/security.js"></script>

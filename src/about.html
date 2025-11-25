@@ -40,24 +40,25 @@
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-700 dark:text-zinc-300 font-mono">
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-800 dark:text-zinc-300 font-mono">
             <a href="/work" class="hover:text-cyan-400 transition-colors reveal-text nav-item">WORK</a>
             <a href="/services" class="hover:text-cyan-400 transition-colors reveal-text nav-item">SERVICES</a>
-            <a href="/about" class="text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
+            <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
             <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
             <button onclick="toggleTheme()"
-                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4">
+                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4 p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
         </div>
 
-
         <!-- Mobile Controls -->
         <div class="md:hidden flex items-center gap-4">
-            <button onclick="toggleTheme()" class="theme-toggle-btn text-gray-900 dark:text-white nav-item">
+            <button onclick="toggleTheme()"
+                class="theme-toggle-btn text-gray-900 dark:text-white nav-item p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
-            <button id="mobile-menu-btn" class="text-gray-900 dark:text-white reveal-text nav-item">
+            <button id="mobile-menu-btn"
+                class="text-gray-900 dark:text-white reveal-text nav-item p-0 bg-transparent border-0">
                 <i data-lucide="menu" width="24" height="24"></i>
             </button>
         </div>
@@ -65,31 +66,31 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu"
-        class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
+        class="fixed inset-0 bg-white/98 dark:bg-black/95 backdrop-blur-lg z-[100] translate-x-full transition-transform duration-300 md:hidden">
         <div class="flex flex-col h-full">
-            <div class="flex justify-between items-center px-6 py-6">
+            <div class="flex justify-between items-center px-6 py-6 border-b border-gray-200 dark:border-zinc-800">
                 <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white">
-                    Denerf<span class="text-cyan-400">_</span>
+                    Denerf<span class="text-cyan-500 dark:text-cyan-400">_</span>
                 </a>
-                <button id="mobile-menu-close" class="text-gray-900 dark:text-white">
+                <button id="mobile-menu-close" class="text-gray-900 dark:text-white p-0 bg-transparent border-0">
                     <i data-lucide="x" width="32" height="32"></i>
                 </button>
             </div>
 
             <div
-                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-gray-700 dark:text-zinc-300 font-mono">
-                <a href="/" class="hover:text-cyan-400 transition-colors">HOME</a>
-                <a href="/work" class="hover:text-cyan-400 transition-colors">WORK</a>
-                <a href="/services" class="hover:text-cyan-400 transition-colors">SERVICES</a>
-                <a href="/about" class="text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
-                <a href="/#contact" class="hover:text-cyan-400 transition-colors">CONTACT</a>
+                class="flex flex-col items-center justify-center flex-1 gap-8 text-2xl font-medium text-gray-800 dark:text-zinc-300 font-mono">
+                <a href="/" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">HOME</a>
+                <a href="/work" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">WORK</a>
+                <a href="/services" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">SERVICES</a>
+                <a href="/about" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">ABOUT</a>
+                <a href="/#contact" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">CONTACT</a>
             </div>
 
-            <div class="px-6 py-8 border-t border-zinc-800">
+            <div class="px-6 py-8 border-t border-gray-200 dark:border-zinc-800">
                 <div class="flex justify-center gap-6 text-sm font-mono text-gray-600 dark:text-zinc-400">
-                    <a href="#" class="hover:text-gray-900 dark:text-white">GITHUB</a>
-                    <a href="#" class="hover:text-gray-900 dark:text-white">LINKEDIN</a>
-                    <a href="#" class="hover:text-gray-900 dark:text-white">TWITTER</a>
+                    <a href="#" class="hover:text-cyan-600 dark:hover:text-white transition-colors">GITHUB</a>
+                    <a href="#" class="hover:text-cyan-600 dark:hover:text-white transition-colors">LINKEDIN</a>
+                    <a href="#" class="hover:text-cyan-600 dark:hover:text-white transition-colors">TWITTER</a>
                 </div>
             </div>
         </div>
@@ -124,47 +125,112 @@
                     </ul>
                 </div>
 
-                <!-- Visual Element (CSS-based Tech Artifact) -->
-                <div
-                    class="relative h-[400px] w-full flex items-center justify-center reveal-text hero-item hidden md:flex">
+                <!-- ENHANCED 3D ORBITAL SYSTEM -->
+                <!-- Replace lines 150-198 in index.html with this code -->
+
+                <!-- Orbital System -->
+                <div class="relative w-[400px] h-[400px]">
+                    <!-- Outer Orbit Ring (static) with 3D effect -->
                     <div
-                        class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-purple-500/10 rounded-full blur-3xl">
+                        class="absolute inset-0 border-2 border-gray-300/40 dark:border-zinc-800/60 rounded-full shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+                    </div>
+                    <div class="absolute inset-[2px] border border-gray-200/20 dark:border-zinc-700/30 rounded-full">
                     </div>
 
-                    <!-- Outer Ring -->
-                    <div
-                        class="absolute w-64 h-64 border border-cyan-500/30 rounded-full animate-[spin_10s_linear_infinite]">
-                    </div>
-                    <div
-                        class="absolute w-64 h-64 border-t-2 border-cyan-400 rounded-full animate-[spin_10s_linear_infinite]">
-                    </div>
-
-                    <!-- Middle Ring -->
-                    <div
-                        class="absolute w-48 h-48 border border-purple-500/30 rounded-full animate-[spin_15s_linear_infinite_reverse]">
-                    </div>
-                    <div
-                        class="absolute w-48 h-48 border-b-2 border-purple-400 rounded-full animate-[spin_15s_linear_infinite_reverse]">
-                    </div>
-
-                    <!-- Inner Ring -->
-                    <div
-                        class="absolute w-32 h-32 border border-gray-400 dark:border-zinc-700rounded-full animate-[spin_8s_linear_infinite]">
-                    </div>
-                    <div
-                        class="absolute w-32 h-32 border-l-2 border-white/50 rounded-full animate-[spin_8s_linear_infinite]">
+                    <!-- Outer Orbit Dot Container (rotates) -->
+                    <div class="absolute inset-0 animate-[spin_20s_linear_infinite]">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 group">
+                            <div
+                                class="relative w-12 h-12 bg-gradient-to-br from-cyan-400/30 to-cyan-600/30 dark:from-cyan-500/20 dark:to-cyan-700/20 backdrop-blur-md border border-cyan-400/50 dark:border-cyan-500/40 rounded-lg shadow-lg shadow-cyan-500/20 flex items-center justify-center transform hover:scale-110 transition-transform">
+                                <i data-lucide="code-2" class="text-cyan-600 dark:text-cyan-400 w-5 h-5"></i>
+                                <div class="absolute -inset-1 bg-cyan-500/20 rounded-lg blur-md -z-10"></div>
+                            </div>
+                            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                                <span
+                                    class="text-[10px] font-mono font-bold text-cyan-600/70 dark:text-cyan-400/50 bg-white/80 dark:bg-zinc-900/80 px-2 py-0.5 rounded border border-cyan-500/30">&lt;code/&gt;</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Core -->
+                    <!-- Middle Orbit Ring (static) with 3D effect -->
                     <div
-                        class="absolute w-16 h-16 bg-cyan-500/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(34,211,238,0.5)]">
-                        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        class="absolute inset-[50px] border-2 border-gray-400/40 dark:border-zinc-700/60 rounded-full shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+                    </div>
+                    <div class="absolute inset-[52px] border border-gray-300/20 dark:border-zinc-600/30 rounded-full">
                     </div>
 
-                    <!-- Floating Particles -->
-                    <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                    <!-- Middle Orbit Dot Container (rotates reverse) -->
+                    <div class="absolute inset-[50px] animate-[spin_15s_linear_infinite_reverse]">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 group">
+                            <div
+                                class="relative w-12 h-12 bg-gradient-to-br from-purple-400/30 to-purple-600/30 dark:from-purple-500/20 dark:to-purple-700/20 backdrop-blur-md border border-purple-400/50 dark:border-purple-500/40 rounded-lg shadow-lg shadow-purple-500/20 flex items-center justify-center transform hover:scale-110 transition-transform">
+                                <i data-lucide="bot" class="text-purple-600 dark:text-purple-400 w-5 h-5"></i>
+                                <div class="absolute -inset-1 bg-purple-500/20 rounded-lg blur-md -z-10"></div>
+                            </div>
+                            <div class="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                                <span
+                                    class="text-[10px] font-mono font-bold text-purple-600/70 dark:text-purple-400/50 bg-white/80 dark:bg-zinc-900/80 px-2 py-0.5 rounded border border-purple-500/30">AI.run()</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inner Orbit Ring (static) with 3D effect -->
                     <div
-                        class="absolute bottom-1/4 right-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-bounce delay-700">
+                        class="absolute inset-[100px] border-2 border-gray-500/40 dark:border-zinc-600/60 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+                    </div>
+                    <div class="absolute inset-[102px] border border-gray-400/20 dark:border-zinc-500/30 rounded-full">
+                    </div>
+
+                    <!-- Inner Orbit Dot Container (rotates) -->
+                    <div class="absolute inset-[100px] animate-[spin_10s_linear_infinite]">
+                        <div class="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 group">
+                            <div
+                                class="relative w-12 h-12 bg-gradient-to-br from-blue-400/30 to-blue-600/30 dark:from-blue-500/20 dark:to-blue-700/20 backdrop-blur-md border border-blue-400/50 dark:border-blue-500/40 rounded-lg shadow-lg shadow-blue-500/20 flex items-center justify-center transform hover:scale-110 transition-transform">
+                                <i data-lucide="sparkles" class="text-blue-600 dark:text-blue-400 w-5 h-5"></i>
+                                <div class="absolute -inset-1 bg-blue-500/20 rounded-lg blur-md -z-10"></div>
+                            </div>
+                            <div class="absolute -left-14 top-1/2 -translate-y-1/2 whitespace-nowrap">
+                                <span
+                                    class="text-[10px] font-mono font-bold text-blue-600/70 dark:text-blue-400/50 bg-white/80 dark:bg-zinc-900/80 px-2 py-0.5 rounded border border-blue-500/30">deploy()</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core with enhanced 3D effect -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div
+                            class="relative w-36 h-36 bg-gradient-to-br from-white/90 to-gray-100/90 dark:from-zinc-900/90 dark:to-zinc-800/90 backdrop-blur-xl border-2 border-cyan-400/40 dark:border-cyan-500/30 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.3),inset_0_2px_8px_rgba(255,255,255,0.1)] dark:shadow-[0_8px_32px_rgba(6,182,212,0.2),inset_0_2px_8px_rgba(255,255,255,0.05)]">
+                            <!-- Inner glow ring -->
+                            <div class="absolute inset-3 border border-cyan-500/20 rounded-full"></div>
+
+                            <i data-lucide="cpu"
+                                class="text-cyan-600 dark:text-cyan-400 w-14 h-14 animate-pulse drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"></i>
+
+                            <!-- Rotating Code Brackets -->
+                            <div class="absolute inset-0 animate-[spin_8s_linear_infinite]">
+                                <span
+                                    class="absolute -top-5 left-1/2 -translate-x-1/2 text-cyan-600/80 dark:text-cyan-500/60 font-mono text-sm font-bold drop-shadow-sm">&lt;/&gt;</span>
+                                <span
+                                    class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-purple-600/80 dark:text-purple-500/60 font-mono text-sm font-bold drop-shadow-sm">{
+                                    }</span>
+                            </div>
+
+                            <!-- Floating Code Keywords -->
+                            <div class="absolute inset-0 animate-[spin_12s_linear_infinite_reverse]">
+                                <span
+                                    class="absolute -left-8 top-1/2 -translate-y-1/2 text-blue-600/50 dark:text-blue-500/40 font-mono text-xs font-bold bg-white/60 dark:bg-zinc-900/60 px-1.5 py-0.5 rounded border border-blue-500/30">AI</span>
+                                <span
+                                    class="absolute -right-8 top-1/2 -translate-y-1/2 text-green-600/50 dark:text-green-500/40 font-mono text-xs font-bold bg-white/60 dark:bg-zinc-900/60 px-1.5 py-0.5 rounded border border-green-500/30">fn</span>
+                            </div>
+
+                            <!-- Binary data stream effect -->
+                            <div class="absolute inset-0 animate-[spin_20s_linear_infinite]">
+                                <span
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 text-[8px] font-mono text-gray-400/40 dark:text-zinc-600/40">01010</span>
+                                <span
+                                    class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-8 text-[8px] font-mono text-gray-400/40 dark:text-zinc-600/40">11001</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,24 +408,27 @@
 
     <!-- Footer -->
     <footer
-        class="py-20 px-6 border-t border-gray-200 dark:border-zinc-900 bg-white dark:bg-[#050810] relative z-20 pointer-events-auto">
+        class="py-20 px-6 border-t border-gray-200 dark:border-zinc-900 bg-gray-50 dark:bg-[#050810] relative z-20 pointer-events-auto">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
             <div>
                 <div
                     class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white mb-4 reveal-text scroll-item">
-                    Denerf<span class="text-cyan-400">_</span>
+                    Denerf<span class="text-cyan-500 dark:text-cyan-400">_</span>
                 </div>
-                <p class="text-gray-500 dark:text-zinc-500 text-sm max-w-xs reveal-text scroll-item">
+                <p class="text-gray-600 dark:text-zinc-500 text-sm max-w-xs reveal-text scroll-item">
                     Crafting digital experiences with code, passion, and precision.
                 </p>
             </div>
             <div class="flex gap-8 text-sm font-mono text-gray-600 dark:text-zinc-400">
-                <a href="#" class="hover:text-gray-900 dark:text-white reveal-text scroll-item">GITHUB</a>
-                <a href="#" class="hover:text-gray-900 dark:text-white reveal-text scroll-item">LINKEDIN</a>
-                <a href="#" class="hover:text-gray-900 dark:text-white reveal-text scroll-item">TWITTER</a>
+                <a href="#"
+                    class="hover:text-cyan-600 dark:hover:text-white transition-colors reveal-text scroll-item">GITHUB</a>
+                <a href="#"
+                    class="hover:text-cyan-600 dark:hover:text-white transition-colors reveal-text scroll-item">LINKEDIN</a>
+                <a href="#"
+                    class="hover:text-cyan-600 dark:hover:text-white transition-colors reveal-text scroll-item">TWITTER</a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-20 text-gray-300 dark:text-zinc-700 text-xs font-mono reveal-text scroll-item">
+        <div class="max-w-7xl mx-auto mt-20 text-gray-400 dark:text-zinc-700 text-xs font-mono reveal-text scroll-item">
             &copy; 2024 DENERF STUDIO. ALL RIGHTS RESERVED.
         </div>
     </footer>

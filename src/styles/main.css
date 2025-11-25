@@ -1,56 +1,93 @@
+/* ===================================
+   DENERF STUDIO - MAIN STYLESHEET
+   Theme: Swiss Minimal (Light) / Cyber Dark (Dark)
+   =================================== */
+
 :root {
-    /* Light Mode (Default) */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
+    /* -------------------------------
+       LIGHT THEME (SWISS STYLE)
+       ------------------------------- */
+    --bg-primary: #f4f4f5;
+    --bg-secondary: #e4e4e7;
 
-    /* Theme Colors - Indigo & Rose */
-    --accent-primary: #4f46e5;
-    /* Indigo 600 */
-    --accent-secondary: #e11d48;
-    /* Rose 600 */
-    --accent-glow: rgba(79, 70, 229, 0.2);
+    /* Typography */
+    --text-primary: #000000;
+    --text-secondary: #404040;
+    --text-tertiary: #525252;
+
+    /* Cards - ULTRA GLASSMORPHISM */
+    /* Strong gradient + Inset Shadow for Volume */
+    /* Reduced opacity for better transparency (0.6 -> 0.2) */
+    --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
+    --card-border: rgba(255, 255, 255, 0.8);
+    /* Solid white edge */
+    --card-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.15),
+        /* Drop shadow */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    /* Inner glow/thickness */
+
+    /* Card Hover */
+    --card-hover-bg: #ffffff;
+    --card-hover-border: #000000;
+    --card-hover-text: #000000;
+    --card-hover-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2), 0 10px 20px -6px rgba(0, 0, 0, 0.1);
+
+    /* Accents */
+    --accent-cyan: #06b6d4;
+    --accent-purple: #a855f7;
 
     /* UI Elements */
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --card-border: rgba(0, 0, 0, 0.1);
-    --nav-bg: rgba(255, 255, 255, 0.8);
-    --scrollbar-track: #f1f5f9;
-    --scrollbar-thumb: #cbd5e1;
-    --scrollbar-thumb-hover: #94a3b8;
+    --nav-bg: rgba(244, 244, 245, 0.8);
+    --nav-border: #e4e4e7;
+    --btn-border: #000000;
+    --btn-hover-bg: #000000;
+    --btn-hover-text: #ffffff;
 }
 
-[data-theme="dark"] {
-    /* Dark Mode */
+.dark {
+    /* -------------------------------
+       DARK THEME (CYBERPUNK)
+       ------------------------------- */
     --bg-primary: #050810;
-    --bg-secondary: #0f172a;
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #64748b;
+    --bg-secondary: rgba(255, 255, 255, 0.03);
 
-    /* Theme Colors - Cyan & Purple */
-    --accent-primary: #22d3ee;
-    /* Cyan 400 */
-    --accent-secondary: #a855f7;
-    /* Purple 500 */
-    --accent-glow: rgba(34, 211, 238, 0.2);
+    /* Typography */
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+
+    /* Cards - ULTRA GLASSMORPHISM (Dark) */
+    /* Very subtle gradient for dark mode transparency */
+    --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+    --card-border: rgba(255, 255, 255, 0.15);
+    --card-shadow:
+        0 8px 32px 0 rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+    /* Card Hover */
+    --card-hover-bg: #0f1219;
+    --card-hover-border: rgba(6, 182, 212, 0.8);
+    --card-hover-text: #ffffff;
+    --card-hover-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -6px rgba(0, 0, 0, 0.5);
 
     /* UI Elements */
-    --card-bg: rgba(9, 9, 11, 0.4);
-    --card-border: rgba(255, 255, 255, 0.1);
     --nav-bg: rgba(5, 8, 16, 0.8);
-    --scrollbar-track: #050810;
-    --scrollbar-thumb: #1e293b;
-    --scrollbar-thumb-hover: #334155;
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --btn-border: rgba(255, 255, 255, 0.2);
+    --btn-hover-bg: rgba(6, 182, 212, 0.1);
+    --btn-hover-text: #22d3ee;
 }
+
+/* ===================================
+   BASE STYLES
+   =================================== */
 
 body {
-    font-family: 'Space Grotesk', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -59,8 +96,107 @@ body {
 }
 
 /* ===================================
-   CANVAS BACKGROUND
+   UTILITY MAPPINGS
    =================================== */
+
+/* Text Colors */
+.text-white,
+.text-gray-900,
+.text-zinc-900 {
+    color: var(--text-primary) !important;
+}
+
+.text-zinc-400,
+.text-zinc-500,
+.text-zinc-600,
+.text-gray-500,
+.text-gray-600 {
+    color: var(--text-secondary) !important;
+}
+
+.text-zinc-300 {
+    color: var(--text-tertiary) !important;
+}
+
+/* Backgrounds */
+.border-zinc-900\/50 {
+    border-color: var(--card-border) !important;
+}
+
+/* ===================================
+   COMPONENT: GLASS CARD
+   =================================== */
+
+.glass-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--card-shadow) !important;
+    backdrop-filter: blur(40px) !important;
+    -webkit-backdrop-filter: blur(40px) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    background: var(--card-hover-bg) !important;
+    border-color: var(--card-hover-border) !important;
+    box-shadow: var(--card-hover-shadow) !important;
+    transform: translateY(-4px);
+}
+
+/* Card Hover Text Color Changes */
+.glass-card:hover h3,
+.glass-card:hover p,
+.glass-card:hover span,
+.glass-card:hover .text-zinc-500,
+.glass-card:hover .text-zinc-400 {
+    color: var(--card-hover-text) !important;
+    transition: color 0.2s ease;
+}
+
+/* Icons */
+.glass-card:hover i.text-zinc-500 {
+    color: var(--card-hover-text) !important;
+}
+
+/* ===================================
+   COMPONENT: NAVIGATION
+   =================================== */
+
+nav {
+    background-color: var(--nav-bg) !important;
+    border-bottom: 1px solid var(--nav-border);
+    backdrop-filter: blur(10px);
+}
+
+.nav-item {
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: var(--accent-cyan);
+}
+
+/* ===================================
+   COMPONENT: BUTTONS
+   =================================== */
+
+button {
+    border: 1px solid var(--btn-border);
+}
+
+button:hover {
+    background-color: var(--btn-hover-bg);
+}
+
+button:hover span {
+    color: var(--btn-hover-text) !important;
+}
+
+/* ===================================
+   CANVAS & ANIMATIONS
+   =================================== */
+
 #canvas {
     position: fixed;
     top: 0;
@@ -68,43 +204,21 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
-    filter: drop-shadow(0 0 10px var(--accent-glow));
     pointer-events: none;
 }
 
-/* ===================================
-   CUSTOM SCROLLBAR
-   =================================== */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
-}
-
-/* ===================================
-   TEXT EFFECTS & ANIMATIONS
-   =================================== */
 .text-glow {
-    text-shadow: 0 0 20px var(--accent-glow);
+    text-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
 }
 
-/* Reveal text starts hidden and animates in */
+html:not(.dark) .text-glow {
+    text-shadow: none;
+}
+
 .reveal-text {
     opacity: 0;
 }
 
-/* Fallback: show content after 2s if animations don't load */
 body:not(.animations-loaded) .reveal-text {
     animation: fallback-reveal 0.5s ease-out 2s forwards;
 }
@@ -116,44 +230,38 @@ body:not(.animations-loaded) .reveal-text {
 }
 
 /* ===================================
-   GLASS CARD EFFECT
+   SCROLLBAR
    =================================== */
-.glass-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--card-border);
-    transition: all 0.3s ease;
+
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-.glass-card:hover {
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 20px var(--accent-glow);
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
 }
 
 /* ===================================
-   UTILITY CLASSES
+   ACCESSIBILITY
    =================================== */
-.pointer-events-auto {
-    pointer-events: auto;
-}
 
-.pointer-events-none {
-    pointer-events: none;
-}
+@media (prefers-reduced-motion: reduce) {
 
-/* ===================================
-   Z-INDEX LAYERS
-   =================================== */
-section,
-nav,
-footer {
-    position: relative;
-    z-index: 10;
-}
-
-.nav-glass {
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--card-border);
-    transition: background 0.3s ease, border-color 0.3s ease;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

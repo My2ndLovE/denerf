@@ -17,8 +17,8 @@
 
     /* Cards - ULTRA GLASSMORPHISM */
     /* Strong gradient + Inset Shadow for Volume */
-    /* Reduced opacity for better transparency (0.6 -> 0.2) */
-    --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
+    /* Increased opacity for better readability (0.9 -> 0.7) */
+    --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
     --card-border: rgba(255, 255, 255, 0.8);
     /* Solid white edge */
     --card-shadow:
@@ -38,7 +38,7 @@
     --accent-purple: #a855f7;
 
     /* UI Elements */
-    --nav-bg: rgba(244, 244, 245, 0.8);
+    --nav-bg: rgba(244, 244, 245, 0.9);
     --nav-border: #e4e4e7;
     --btn-border: #000000;
     --btn-hover-bg: #000000;
@@ -58,8 +58,8 @@
     --text-tertiary: #64748b;
 
     /* Cards - ULTRA GLASSMORPHISM (Dark) */
-    /* Very subtle gradient for dark mode transparency */
-    --card-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+    /* More opaque dark gradient for better readability */
+    --card-bg: linear-gradient(145deg, rgba(20, 25, 40, 0.85) 0%, rgba(20, 25, 40, 0.7) 100%);
     --card-border: rgba(255, 255, 255, 0.15);
     --card-shadow:
         0 8px 32px 0 rgba(0, 0, 0, 0.5),
@@ -203,7 +203,7 @@ button:hover span {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: -1;
     pointer-events: none;
 }
 

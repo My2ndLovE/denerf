@@ -1,0 +1,186 @@
+/* ===================================
+   COLOR THEME SWITCHER UI
+   Floating theme selector for testing
+   =================================== */
+
+#color-theme-switcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+}
+
+.theme-switcher-container {
+    position: relative;
+}
+
+#theme-switcher-toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+#theme-switcher-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.theme-panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom right;
+}
+
+.dark .theme-panel {
+    background: rgba(20, 25, 40, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-panel.hidden {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+    pointer-events: none;
+}
+
+.theme-panel-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .theme-panel-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-panel-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 4px 0;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.dark .theme-panel-header h3 {
+    color: #fff;
+}
+
+.theme-panel-header p {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.dark .theme-panel-header p {
+    color: #999;
+}
+
+.theme-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+}
+
+.dark .theme-option {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.theme-option:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+    transform: translateX(4px);
+}
+
+.dark .theme-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-option.active-theme {
+    border-color: var(--primary-500);
+    background: rgba(var(--primary-rgb), 0.1);
+}
+
+.theme-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.dark .theme-preview {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Theme preview gradients */
+.theme-preview-amber {
+    background: linear-gradient(135deg, #f59e0b, #f97316, #dc2626);
+}
+
+.theme-preview-emerald {
+    background: linear-gradient(135deg, #10b981, #14b8a6, #06b6d4);
+}
+
+.theme-preview-crimson {
+    background: linear-gradient(135deg, #dc2626, #ec4899, #f97316);
+}
+
+.theme-preview-violet {
+    background: linear-gradient(135deg, #7c3aed, #d946ef, #06b6d4);
+}
+
+.theme-preview-current {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6, #a855f7);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+    #color-theme-switcher {
+        bottom: 80px;
+        right: 16px;
+    }
+
+    .theme-panel {
+        width: 280px;
+    }
+
+    #theme-switcher-toggle {
+        width: 48px;
+        height: 48px;
+    }
+}

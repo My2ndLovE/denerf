@@ -30,6 +30,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/color-themes.css">
+    <link rel="stylesheet" href="./styles/theme-switcher-ui.css">
 </head>
 
 <body class="bg-white dark:bg-[#050810] text-gray-900 dark:text-white">
@@ -41,7 +43,7 @@
     <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference">
         <a href="/"
             class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white reveal-text nav-item">
-            Denerf<span class="text-cyan-400">_</span>
+            Denerf<span class="text-primary-accent">_</span>
         </a>
 
         <!-- Desktop Menu -->
@@ -51,7 +53,7 @@
             <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
             <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
             <button onclick="toggleTheme()"
-                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4 p-0 bg-transparent border-0 p-0 bg-transparent border-0">
+                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4 p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
         </div>
@@ -59,11 +61,10 @@
         <!-- Mobile Controls -->
         <div class="md:hidden flex items-center gap-4">
             <button onclick="toggleTheme()"
-                class="theme-toggle-btn text-gray-900 dark:text-white nav-item p-0 bg-transparent border-0 p-0 bg-transparent border-0">
+                class="theme-toggle-btn text-gray-900 dark:text-white nav-item p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
-            <button id="mobile-menu-btn"
-                class="text-gray-900 dark:text-white reveal-text nav-item p-0 bg-transparent border-0">
+            <button id="mobile-menu-btn" class="text-gray-900 dark:text-white reveal-text nav-item">
                 <i data-lucide="menu" width="24" height="24"></i>
             </button>
         </div>
@@ -75,7 +76,7 @@
         <div class="flex flex-col h-full">
             <div class="flex justify-between items-center px-6 py-6 border-b border-gray-200 dark:border-zinc-800">
                 <a href="/" class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white">
-                    Denerf<span class="text-cyan-500 dark:text-cyan-400">_</span>
+                    Denerf<span class="text-primary-accent">_</span>
                 </a>
                 <button id="mobile-menu-close" class="text-gray-900 dark:text-white p-0 bg-transparent border-0">
                     <i data-lucide="x" width="32" height="32"></i>
@@ -113,8 +114,7 @@
                     <h2
                         class="mt-5 text-4xl md:text-6xl text-gray-900 dark:text-white font-bold tracking-tight reveal-text hero-item text-glow">
                         Ship MVPs<br>
-                        <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600">Lightning
+                        <span class="hero-gradient">Lightning
                             Fast</span>
                     </h2>
 
@@ -397,7 +397,7 @@
             <div>
                 <div
                     class="text-2xl font-bold tracking-tighter font-mono text-gray-900 dark:text-white mb-4 reveal-text scroll-item">
-                    Denerf<span class="text-cyan-500 dark:text-cyan-400">_</span>
+                    Denerf<span class="text-primary-accent">_</span>
                 </div>
                 <p class="text-gray-600 dark:text-zinc-500 text-sm max-w-xs reveal-text scroll-item">
                     Crafting digital experiences with code, passion, and precision.
@@ -421,6 +421,7 @@
     <script src="/scripts/theme.js"></script>
     <script type="module" src="./scripts/security.js"></script>
     <script type="module" src="./scripts/animations.js"></script>
+    <script src="./scripts/color-theme-switcher.js"></script>
     <script type="module">
         import { initAnimations } from './scripts/page-animations.js';
         import { initMobileMenu } from './scripts/mobile-menu.js';

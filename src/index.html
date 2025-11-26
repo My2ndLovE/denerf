@@ -56,14 +56,15 @@
             <a href="/about" class="hover:text-cyan-400 transition-colors reveal-text nav-item">ABOUT</a>
             <a href="/#contact" class="hover:text-cyan-400 transition-colors reveal-text nav-item">CONTACT</a>
             <button onclick="toggleTheme()"
-                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4">
+                class="theme-toggle-btn hover:text-cyan-400 transition-colors nav-item ml-4 p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
         </div>
 
         <!-- Mobile Controls -->
         <div class="md:hidden flex items-center gap-4">
-            <button onclick="toggleTheme()" class="theme-toggle-btn text-gray-900 dark:text-white nav-item">
+            <button onclick="toggleTheme()"
+                class="theme-toggle-btn text-gray-900 dark:text-white nav-item p-0 bg-transparent border-0">
                 <i data-lucide="moon" width="20" height="20"></i>
             </button>
             <button id="mobile-menu-btn" class="text-gray-900 dark:text-white reveal-text nav-item">
@@ -122,8 +123,11 @@
                     </h1>
                     <p
                         class="text-xl md:text-2xl leading-relaxed max-w-2xl text-zinc-400 font-light reveal-text hero-item">
-                        We transform ideas into MVPs in record time. By combining Product Management expertise with
-                        AI-augmented engineering, we ship faster and better.
+                        We ship MVPs in <span class="text-cyan-400 font-semibold">days, not months</span>.
+                        AI-augmented development means <span class="text-green-400 font-semibold">10x faster
+                            delivery</span>
+                        at <span class="text-green-400 font-semibold">50% lower cost</span>.
+                        Zero surprise fees, zero maintenance headaches.
                     </p>
                     <div class="mt-12 reveal-text hero-item">
                         <button
@@ -281,6 +285,34 @@
         </div>
     </section>
 
+    <!-- Value Metrics Section -->
+    <section class="py-16 px-6 border-y border-zinc-900/50 bg-zinc-900/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="reveal-text scroll-item">
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-400 mb-2">7 Days</div>
+                    <div class="text-sm text-zinc-500 font-mono">AVG MVP DELIVERY</div>
+                    <div class="text-xs text-zinc-600 mt-1">vs 3-6 months traditional</div>
+                </div>
+                <div class="reveal-text scroll-item">
+                    <div class="text-4xl md:text-5xl font-bold text-green-400 mb-2">50%</div>
+                    <div class="text-sm text-zinc-500 font-mono">LOWER COST</div>
+                    <div class="text-xs text-zinc-600 mt-1">AI efficiency savings</div>
+                </div>
+                <div class="reveal-text scroll-item">
+                    <div class="text-4xl md:text-5xl font-bold text-purple-400 mb-2">$0</div>
+                    <div class="text-sm text-zinc-500 font-mono">UPFRONT COST</div>
+                    <div class="text-xs text-zinc-600 mt-1">Work first, pay later</div>
+                </div>
+                <div class="reveal-text scroll-item">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">24/7</div>
+                    <div class="text-sm text-zinc-500 font-mono">AI ASSISTANCE</div>
+                    <div class="text-xs text-zinc-600 mt-1">Always optimizing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- MVP & AI Section -->
     <section class="min-h-screen flex items-center justify-center px-6 md:px-8 py-20">
         <div class="max-w-7xl w-full pointer-events-auto">
@@ -332,6 +364,18 @@
                             <h3 class="text-white font-bold font-mono text-lg">FOCUS ON CORE VALUE</h3>
                             <p class="text-zinc-400 text-sm mt-1">We strip away the fluff. We build what your users
                                 actually need right now.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="glass-card p-6 flex items-start gap-4 hover:bg-zinc-900/80 transition-all border-l-2 border-l-yellow-500">
+                        <div class="bg-yellow-500/10 p-3 rounded-lg">
+                            <i data-lucide="dollar-sign" class="text-yellow-400 w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold font-mono text-lg">MINIMUM COST</h3>
+                            <p class="text-zinc-400 text-sm mt-1">AI efficiency = lower costs. Pay only for value
+                                delivered, not hours wasted.</p>
                         </div>
                     </div>
                 </div>

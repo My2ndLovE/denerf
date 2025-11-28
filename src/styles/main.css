@@ -663,10 +663,267 @@ body:not(.animations-loaded) .reveal-text {
     color: var(--secondary-500);
 }
 
+POLISHED FLOATING CODE ANIMATIONS Add this to the end of your main.css file========================================*/
+
+/* Smooth floating animation with subtle rotation and opacity */
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(2deg);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+/* Fade in on page load for floating elements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-float {
+    animation: fadeInUp 0.6s ease-out forwards, float 4s ease-in-out infinite 0.6s;
+}
+
+/* Improved typing animation with better timing */
+@keyframes typing {
+
+    0%,
+    100% {
+        width: 0;
+    }
+
+    20%,
+    80% {
+        width: 100%;
+    }
+}
+
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid transparent;
+    animation: typing 4s steps(20) infinite;
+}
+
+/* Glowing particle effect with enhanced shadows */
+@keyframes particleGlow {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+        box-shadow: 0 0 5px currentColor;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+        box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+.animate-ping {
+    animation: particleGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Terminal pulse effect on hover */
+@keyframes terminalPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 20px 60px rgba(6, 182, 212, 0.3);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 25px 80px rgba(6, 182, 212, 0.5);
+    }
+}
+
+/* Apply pulse to terminal on hover */
+.glass-card:has(.typing-animation):hover {
+    animation: terminalPulse 2s ease-in-out infinite;
+}
+
+/* Smooth scale on hover for floating code blocks */
+.animate-float:hover {
+    animation-play-state: paused;
+    transform: translateY(-5px) scale(1.05) !important;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Add glow effect on hover for code blocks */
+.animate-float .glass-card:hover {
+    box-shadow: 0 12px 40px rgba(var(--glow-color), 0.4);
+}
+
+/* Color-specific glow variables */
+.border-l-cyan-500 {
+    --glow-color: 6, 182, 212;
+}
+
+.border-l-purple-500 {
+    --glow-color: 168, 85, 247;
+}
+
+.border-l-blue-500 {
+    --glow-color: 59, 130, 246;
+}
+
+.border-l-green-500 {
+    --glow-color: 34, 197, 94;
+}
+
+.border-l-pink-500 {
+    --glow-color: 236, 72, 153;
+}
+
+.border-l-orange-500 {
+    --glow-color: 249, 115, 22;
+}
+
+/* ===================================
+   HERO SECTION GRADIENTS
+   =================================== */
+
+.hero-gradient {
+    background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+.hero-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 50%, var(--primary-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+.hero-gradient-secondary {
+    background: linear-gradient(135deg, var(--secondary-500) 0%, var(--secondary-600) 50%, var(--secondary-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite 0.5s;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Theme Color Utilities */
+.text-primary-theme {
+    color: var(--primary-500);
+}
+
+.text-secondary-theme {
+    color: var(--secondary-500);
+}
+
 .text-primary-600 {
     color: var(--primary-600);
 }
 
 .text-secondary-600 {
     color: var(--secondary-600);
+}
+
+/* ===================================
+   NEW PORTFOLIO STYLES
+   =================================== */
+
+/* Infinite Marquee */
+.marquee-container {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* 3D Card Perspective */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.rotate-y-12 {
+    transform: rotateY(12deg) rotateX(5deg);
+}
+
+.rotate-y-n12 {
+    transform: rotateY(-12deg) rotateX(5deg);
+}
+
+/* Card Stacking Logic */
+.stack-card {
+    position: sticky;
+    top: 100px;
+    /* Base top value, will be overridden by inline styles or specific classes */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dark .stack-card {
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Hover lift effect for the 3D image */
+.group:hover .transform-3d-image {
+    transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }

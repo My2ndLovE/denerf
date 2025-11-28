@@ -202,24 +202,6 @@ button:hover span {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.text-glow {
-    text-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
-}
-
-html:not(.dark) .text-glow {
-    text-shadow: none;
-}
-
-.reveal-text {
-    opacity: 0;
-}
-
-body:not(.animations-loaded) .reveal-text {
     animation: fallback-reveal 0.5s ease-out 2s forwards;
 }
 
@@ -228,6 +210,224 @@ body:not(.animations-loaded) .reveal-text {
         opacity: 1;
     }
 }
+
+/* Prevent FOUC - Hide elements until animations load */
+.reveal-text {
+    opacity: 0;
+}
+
+/* Fallback animation if JS doesn't load */
+body:not(.animations-loaded) .reveal-text {
+    animation: fallback-reveal 0.5s ease-out 2s forwards;
+}
+
+
+/* ===================================
+   SCROLLBAR
+   =================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ========================================
+   POLISHED FLOATING CODE ANIMATIONS
+   Add this to the end of your main.css file
+   ======================================== */
+
+/* Smooth floating animation with subtle rotation and opacity */
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(2deg);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+/* Fade in on page load for floating elements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-float {
+    animation: fadeInUp 0.6s ease-out forwards, float 4s ease-in-out infinite 0.6s;
+}
+
+/* Improved typing animation with better timing */
+@keyframes typing {
+
+    0%,
+    100% {
+        width: 0;
+    }
+
+    20%,
+    80% {
+        width: 100%;
+    }
+}
+
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid transparent;
+    animation: typing 4s steps(20) infinite;
+}
+
+/* Glowing particle effect with enhanced shadows */
+@keyframes particleGlow {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+        box-shadow: 0 0 5px currentColor;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+        box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+.animate-ping {
+    animation: particleGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Terminal pulse effect on hover */
+@keyframes terminalPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 20px 60px rgba(6, 182, 212, 0.3);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 25px 80px rgba(6, 182, 212, 0.5);
+    }
+}
+
+/* Apply pulse to terminal on hover */
+.glass-card:has(.typing-animation):hover {
+    animation: terminalPulse 2s ease-in-out infinite;
+}
+
+/* Smooth scale on hover for floating code blocks */
+.animate-float:hover {
+    animation-play-state: paused;
+    transform: translateY(-5px) scale(1.05) !important;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Add glow effect on hover for code blocks */
+.animate-float .glass-card:hover {
+    box-shadow: 0 12px 40px rgba(var(--glow-color), 0.4);
+}
+
+/* Color-specific glow variables */
+.border-l-cyan-500 {
+    --glow-color: 6, 182, 212;
+}
+
+.border-l-purple-500 {
+    --glow-color: 168, 85, 247;
+}
+
+.border-l-blue-500 {
+    --glow-color: 59, 130, 246;
+}
+
+.border-l-green-500 {
+    --glow-color: 34, 197, 94;
+}
+
+button:hover span {
+    color: var(--btn-hover-text) !important;
+}
+
+/* ===================================
+   CANVAS & ANIMATIONS
+   =================================== */
+
+#canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    animation: fallback-reveal 0.5s ease-out 2s forwards;
+}
+
+@keyframes fallback-reveal {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Prevent FOUC - Hide elements until animations load */
+.reveal-text {
+    opacity: 0;
+}
+
+/* Fallback animation if JS doesn't load */
+body:not(.animations-loaded) .reveal-text {
+    animation: fallback-reveal 0.5s ease-out 2s forwards;
+}
+
 
 /* ===================================
    SCROLLBAR
@@ -409,4 +609,64 @@ body:not(.animations-loaded) .reveal-text {
 
 .border-l-orange-500 {
     --glow-color: 249, 115, 22;
+}
+
+/* ===================================
+   HERO SECTION GRADIENTS
+   =================================== */
+
+.hero-gradient {
+    background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+.hero-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 50%, var(--primary-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+.hero-gradient-secondary {
+    background: linear-gradient(135deg, var(--secondary-500) 0%, var(--secondary-600) 50%, var(--secondary-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite 0.5s;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Theme Color Utilities */
+.text-primary-theme {
+    color: var(--primary-500);
+}
+
+.text-secondary-theme {
+    color: var(--secondary-500);
+}
+
+.text-primary-600 {
+    color: var(--primary-600);
+}
+
+.text-secondary-600 {
+    color: var(--secondary-600);
 }

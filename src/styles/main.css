@@ -915,15 +915,28 @@ POLISHED FLOATING CODE ANIMATIONS Add this to the end of your main.css file=====
     top: 100px;
     /* Base top value, will be overridden by inline styles or specific classes */
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .dark .stack-card {
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    /* Shadow removed to prevent border effect */
 }
 
 /* Hover lift effect for the 3D image */
 .group:hover .transform-3d-image {
     transform: rotateY(0deg) rotateX(0deg) scale(1.05);
     transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ============================================
+   CANVAS BACKGROUND FIX
+   Ensures canvas stays behind all content
+   ============================================ */
+#canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
 }
